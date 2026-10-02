@@ -14,7 +14,10 @@
   }
 }
 
-@media (min-width: 769px) and (max-width: 1100px) and (pointer: coarse) {
+/* Touch tablets in landscape keep a persistent icon rail. Below 981px the
+   sidebar is off-canvas (see above), so the rail must not reserve a gutter
+   there: starting at 769px left an empty 76px strip on portrait tablets. */
+@media (min-width: 981px) and (max-width: 1100px) and (pointer: coarse) {
   .pdl-sidebar {
     width: 76px;
   }
@@ -28,8 +31,15 @@
     justify-content: center;
   }
 
+  /* Visually hidden, not display:none, so icon-only links keep a name. */
   .pdl-nav-item__label {
-    display: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
   }
 }
 

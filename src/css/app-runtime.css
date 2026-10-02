@@ -403,6 +403,21 @@
   }
 }
 
+/* Icon rail on touch tablets (see responsive.css): text-only parts of the
+   application sidebar do not fit in 76px and would overlap the content. */
+@media (min-width: 981px) and (max-width: 1100px) and (pointer: coarse) {
+  .pdl-app-sidebar__label,
+  .pdl-app-sidebar__brand-copy,
+  .pdl-app-sidebar__footer {
+    display: none;
+  }
+
+  .pdl-app-sidebar__brand {
+    justify-content: center;
+    padding-inline: 0;
+  }
+}
+
 
 /* Project workspace */
 .pdl-app-sidebar__context {

@@ -378,6 +378,11 @@
   display: flex;
   width: var(--pdl-sidebar-width);
   flex-direction: column;
+  /* A fixed full-height sidebar must scroll when its content is taller than
+     the viewport (short laptops, phones in landscape, long navigation). */
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   border-right: 1px solid color-mix(in srgb, var(--pdl-border-1) 72%, transparent);
   background: color-mix(in srgb, var(--pdl-black) 98%, transparent);
   backdrop-filter: blur(18px);
