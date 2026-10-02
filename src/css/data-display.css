@@ -152,6 +152,13 @@
     grid-template-columns: 1fr;
   }
 
+  /* A row whose side holds a small control (a switch, icon buttons)
+     keeps it beside the text instead of stacking it below. */
+  .pdl-list-item--inline {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--pdl-space-3);
+  }
+
   .pdl-kv {
     grid-template-columns: 1fr;
   }

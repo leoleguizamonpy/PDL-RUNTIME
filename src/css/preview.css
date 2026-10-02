@@ -4,7 +4,7 @@
 
 .pdl-preview-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 400px);
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
   gap: var(--pdl-rhythm-region);
   align-items: start;
 }
@@ -26,7 +26,7 @@
 
 .pdl-device-frame {
   width: 100%;
-  max-width: 380px;
+  max-width: 340px;
   margin-inline: auto;
   padding: var(--pdl-space-2);
   border: 1px solid var(--pdl-border-2);
