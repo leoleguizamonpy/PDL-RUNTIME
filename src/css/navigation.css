@@ -2,7 +2,7 @@
   position: relative;
   z-index: var(--pdl-z-topbar);
   display: flex;
-  min-height: 69px;
+  min-height: var(--pdl-topbar-height);
   align-items: center;
   border-bottom: 1px solid var(--pdl-border-1);
   background: color-mix(in srgb, var(--pdl-black) 97%, transparent);

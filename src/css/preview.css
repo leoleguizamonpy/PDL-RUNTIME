@@ -1,0 +1,62 @@
+/* Live-preview layouts: an editor next to a pinned preview, and a device
+   frame to show how a page looks on a phone. Product-neutral: any editor
+   with a live result (page builders, email or card designers) can use it. */
+
+.pdl-preview-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 400px);
+  gap: var(--pdl-rhythm-region);
+  align-items: start;
+}
+
+.pdl-preview-layout__main {
+  display: grid;
+  min-width: 0;
+  gap: var(--pdl-rhythm-content);
+}
+
+/* Stays in view below the topbar while the editor scrolls. */
+.pdl-preview-layout__aside {
+  position: sticky;
+  top: calc(var(--pdl-topbar-height) + var(--pdl-space-4));
+  display: grid;
+  min-width: 0;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-device-frame {
+  width: 100%;
+  max-width: 380px;
+  margin-inline: auto;
+  padding: var(--pdl-space-2);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: calc(var(--pdl-radius-surface) * 4);
+  background: var(--pdl-surface-2);
+}
+
+/* Scrolls on its own so a long page never pushes the frame off screen. A
+   data-pdl-theme on the screen previews another theme in place. */
+.pdl-device-frame__screen {
+  min-height: 420px;
+  max-height: calc(100vh - var(--pdl-topbar-height) - 9rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--pdl-space-6) var(--pdl-space-4);
+  border-radius: calc(var(--pdl-radius-surface) * 3);
+  background: var(--pdl-black);
+  color: var(--pdl-text-1);
+}
+
+@media (max-width: 768px) {
+  .pdl-preview-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pdl-preview-layout__aside {
+    position: static;
+  }
+
+  .pdl-device-frame__screen {
+    max-height: none;
+  }
+}

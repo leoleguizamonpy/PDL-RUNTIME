@@ -296,6 +296,26 @@
   line-height: var(--pdl-line-body);
 }
 
+/* Field validation: products mark the control with aria-invalid and the
+   message with data-state, so the state is never conveyed by color alone
+   (the message text carries it) and assistive tech reads it. */
+.pdl-input[aria-invalid="true"],
+.pdl-textarea[aria-invalid="true"],
+.pdl-select[aria-invalid="true"] {
+  border-color: color-mix(in srgb, var(--pdl-danger) 64%, var(--pdl-border-2));
+}
+
+.pdl-input[aria-invalid="true"]:focus,
+.pdl-textarea[aria-invalid="true"]:focus,
+.pdl-select[aria-invalid="true"]:focus {
+  border-color: var(--pdl-danger);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pdl-danger) 22%, transparent);
+}
+
+.pdl-helper[data-state="danger"] { color: var(--pdl-danger); }
+.pdl-helper[data-state="warning"] { color: var(--pdl-warning); }
+.pdl-helper[data-state="success"] { color: var(--pdl-success); }
+
 .pdl-status {
   display: inline-flex;
   width: fit-content;

@@ -1,0 +1,23 @@
+<!-- Editor with a pinned live preview. Below 769px the aside stacks under the
+     editor; products that prefer a tab can hide it and show it on demand. -->
+<div class="pdl-preview-layout">
+  <div class="pdl-preview-layout__main">
+    <section class="pdl-panel pdl-stack">
+      <label class="pdl-field">
+        <span class="pdl-label">Enlace</span>
+        <input class="pdl-input" type="url" value="https://" aria-invalid="true" aria-describedby="preview-link-help">
+        <span class="pdl-helper" id="preview-link-help" data-state="danger">Escribí un enlace completo, por ejemplo https://ejemplo.com.</span>
+      </label>
+    </section>
+  </div>
+  <aside class="pdl-preview-layout__aside" aria-label="Vista previa">
+    <div class="pdl-device-frame">
+      <div class="pdl-device-frame__screen" data-pdl-theme="positive">
+        <div class="pdl-stack">
+          <strong>Nombre visible</strong>
+          <a class="pdl-button pdl-button--outline" href="#">Primer botón</a>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>

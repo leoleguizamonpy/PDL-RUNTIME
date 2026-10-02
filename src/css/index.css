@@ -26,6 +26,7 @@
 @import "./overlay-advanced.css";
 @import "./temporal.css";
 @import "./workspace.css";
+@import "./preview.css";
 @import "./ai.css";
 @import "./conversation-choices.css";
 @import "./loading.css";
