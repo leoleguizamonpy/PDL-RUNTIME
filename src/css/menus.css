@@ -16,6 +16,11 @@
   background: var(--pdl-surface-1);
 }
 
+.pdl-menu[data-pdl-menu-align="start"] {
+  right: auto;
+  left: 0;
+}
+
 .pdl-menu[hidden] {
   display: none;
 }

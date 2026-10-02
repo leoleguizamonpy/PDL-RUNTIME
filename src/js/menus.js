@@ -1,6 +1,18 @@
 const MENU_ITEMS =
   "[role='menuitem'], [role='menuitemradio'], [role='menuitemcheckbox']";
 
+const VIEWPORT_MARGIN = 8;
+
+// Menus open toward the start of the page from their trigger's end edge. A
+// trigger near the left edge (a toolbar that wrapped on a phone) would push
+// the menu off screen, so it aligns to the trigger's start instead.
+function alignMenu(menu) {
+  delete menu.dataset.pdlMenuAlign;
+  if (menu.getBoundingClientRect().left < VIEWPORT_MARGIN) {
+    menu.dataset.pdlMenuAlign = "start";
+  }
+}
+
 function menuItems(menu) {
   const explicit = [...menu.querySelectorAll(MENU_ITEMS)];
   const items = explicit.length
@@ -36,6 +48,7 @@ export function initMenus(root = document) {
       trigger.setAttribute("aria-expanded", String(open));
       menu.hidden = !open;
       if (!open) return;
+      alignMenu(menu);
       const items = menuItems(menu);
       const target = focus === "last" ? items[items.length - 1] : items[0];
       (target ?? menu.querySelector("button, a, [tabindex]:not([tabindex='-1'])"))

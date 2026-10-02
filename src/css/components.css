@@ -37,6 +37,17 @@
   padding-inline: 1.35rem;
 }
 
+/* Buttons whose label is written by people (link pages, long calls to
+   action) grow to fit two or more lines instead of spilling out of the
+   fixed control height. Keeps the size's minimum height. */
+.pdl-button--wrap {
+  height: auto;
+  padding-block: .6rem;
+  line-height: var(--pdl-line-compact);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
 
 .pdl-button--primary {
   background: var(--pdl-text-1);
