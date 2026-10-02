@@ -108,6 +108,8 @@
   --pdl-section-pad-standard: var(--pdl-space-20);
   --pdl-section-pad-spacious: var(--pdl-space-24);
   --pdl-sidebar-width: 248px;
+  /* Space taken by .pdl-bottom-nav on phones (touch target + padding). */
+  --pdl-bottom-nav-height: 4.5rem;
 
   /* Canonical stacking scale */
   --pdl-z-content: 0;

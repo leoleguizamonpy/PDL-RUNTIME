@@ -193,4 +193,11 @@
   .pdl-notification-center {
     width: 100%;
   }
+
+  /* With the bottom navigation on screen, toasts sit above it instead of
+     covering it (rapid repeated actions would otherwise block navigation). */
+  body:has([data-pdl-navigation="bottom"] .pdl-bottom-nav) .pdl-toast-region,
+  body:has([data-pdl-navigation="bottom"] .pdl-bottom-nav) .pdl-toast-region[popover] {
+    bottom: calc(var(--pdl-space-2) + var(--pdl-bottom-nav-height) + env(safe-area-inset-bottom));
+  }
 }

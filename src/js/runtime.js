@@ -1,3 +1,15 @@
+// Matches the off-canvas range in responsive.css.
+const OFF_CANVAS_SIDEBAR = "(max-width: 980px)";
+
+const FOCUSABLE =
+  "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex='-1'])";
+
+function firstFocusable(container) {
+  return [...container.querySelectorAll(FOCUSABLE)].find(
+    element => element.getClientRects().length > 0 && !element.closest("[hidden]")
+  );
+}
+
 export function initSidebar(root = document) {
   const sidebar = root.querySelector("[data-pdl-sidebar]");
   if (!sidebar) return { open() {}, close() {}, toggle() {}, destroy() {} };
@@ -5,6 +17,16 @@ export function initSidebar(root = document) {
   const toggles = [...root.querySelectorAll("[data-pdl-sidebar-toggle]")];
   const closers = [...root.querySelectorAll("[data-pdl-sidebar-close]")];
   const backdrops = [...root.querySelectorAll("[data-pdl-sidebar-backdrop]")];
+  const offCanvas = window.matchMedia?.(OFF_CANVAS_SIDEBAR);
+  let returnFocus = null;
+
+  const isOpen = () => sidebar.classList.contains("is-open");
+
+  // While off-canvas and closed the sidebar is invisible: inert keeps its
+  // links out of the tab order and the accessibility tree.
+  const syncInert = () => {
+    sidebar.inert = Boolean(offCanvas?.matches) && !isOpen();
+  };
 
   const setOpen = open => {
     const value = Boolean(open);
@@ -15,25 +37,42 @@ export function initSidebar(root = document) {
     for (const backdrop of backdrops) {
       backdrop.hidden = !value;
     }
+    syncInert();
   };
 
-  const open = () => setOpen(true);
-  const close = () => setOpen(false);
-  const toggle = () => setOpen(!sidebar.classList.contains("is-open"));
+  const open = () => {
+    if (isOpen()) return;
+    returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setOpen(true);
+    // Move focus into the drawer so keyboard users start where they look.
+    if (offCanvas?.matches) firstFocusable(sidebar)?.focus({ preventScroll: true });
+  };
+
+  const close = () => {
+    if (!isOpen()) return;
+    const focusWasInside = sidebar.contains(document.activeElement);
+    setOpen(false);
+    if (focusWasInside && returnFocus?.isConnected) returnFocus.focus({ preventScroll: true });
+    returnFocus = null;
+  };
+
+  const toggle = () => (isOpen() ? close() : open());
 
   for (const control of toggles) control.addEventListener("click", toggle);
   for (const control of closers) control.addEventListener("click", close);
   for (const backdrop of backdrops) backdrop.addEventListener("click", close);
 
   const onKeydown = event => {
-    if (event.key === "Escape") close();
+    if (event.key === "Escape" && isOpen()) close();
   };
   const onOpen = () => open();
   const onClose = () => close();
+  const onViewportChange = () => syncInert();
 
   document.addEventListener("keydown", onKeydown);
   root.addEventListener?.("pdl:sidebar-open", onOpen);
   root.addEventListener?.("pdl:sidebar-close", onClose);
+  offCanvas?.addEventListener?.("change", onViewportChange);
 
   setOpen(false);
 
@@ -48,6 +87,8 @@ export function initSidebar(root = document) {
       document.removeEventListener("keydown", onKeydown);
       root.removeEventListener?.("pdl:sidebar-open", onOpen);
       root.removeEventListener?.("pdl:sidebar-close", onClose);
+      offCanvas?.removeEventListener?.("change", onViewportChange);
+      sidebar.inert = false;
     }
   };
 }
