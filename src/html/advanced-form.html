@@ -1,0 +1,34 @@
+<form class="pdl-stack" aria-label="Formulario avanzado">
+  <fieldset class="pdl-field">
+    <legend class="pdl-label">Modalidad</legend>
+    <div class="pdl-segmented" data-pdl-segmented>
+      <button class="pdl-segmented__item" type="button" aria-pressed="true" data-pdl-segment="standard">Standard</button>
+      <button class="pdl-segmented__item" type="button" aria-pressed="false" data-pdl-segment="premium">Premium</button>
+    </div>
+  </fieldset>
+
+  <label class="pdl-field">
+    <span class="pdl-label">Servicio</span>
+    <span class="pdl-combobox" data-pdl-combobox>
+      <input class="pdl-input" role="combobox" aria-expanded="false" aria-controls="service-options" autocomplete="off">
+      <span class="pdl-combobox__list" id="service-options" role="listbox" hidden>
+        <span class="pdl-combobox__option" role="option" data-value="Branding">Branding</span>
+        <span class="pdl-combobox__option" role="option" data-value="Web">Diseño web</span>
+        <span class="pdl-combobox__option" role="option" data-value="UI/UX">UI/UX</span>
+      </span>
+    </span>
+  </label>
+
+  <label class="pdl-field">
+    <span class="pdl-label">Prioridad</span>
+    <span class="pdl-range-row">
+      <input class="pdl-range" type="range" min="1" max="10" value="6" data-pdl-range="priority-value">
+      <output class="pdl-range-value" id="priority-value">6</output>
+    </span>
+  </label>
+
+  <div class="pdl-date-group">
+    <label class="pdl-field"><span class="pdl-label">Fecha</span><input class="pdl-input" type="date"></label>
+    <label class="pdl-field"><span class="pdl-label">Hora</span><input class="pdl-input" type="time"></label>
+  </div>
+</form>

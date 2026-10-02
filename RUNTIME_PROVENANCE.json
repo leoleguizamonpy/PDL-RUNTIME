@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "package": "@leoleguizamon/pdl",
+  "version": "1.4.0-alpha.32",
+  "sourceRepository": "leoleguizamonpy/PDL",
+  "sourceCommit": "c02920d8878ee060274fd5876903fb49eb8214ec",
+  "exportPolicy": "allowlist",
+  "included": [
+    "packages/pdl/src/**",
+    "schemas/product-ui.schema.json"
+  ],
+  "historyPolicy": "PDL-RUNTIME starts from a clean public history and does not mirror the private source repository."
+}

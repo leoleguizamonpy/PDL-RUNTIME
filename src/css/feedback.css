@@ -1,0 +1,57 @@
+.pdl-empty {
+  display: grid;
+  min-height: 180px;
+  place-content: center;
+  gap: var(--pdl-space-2);
+  padding: var(--pdl-space-8);
+  text-align: center;
+}
+
+.pdl-empty > strong {
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-lg);
+}
+
+.pdl-empty > p {
+  max-width: 54ch;
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-skeleton {
+  overflow: hidden;
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-2);
+}
+
+.pdl-skeleton::after {
+  content: "";
+  display: block;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--pdl-text-1) 6%, transparent), transparent);
+  animation: pdl-skeleton 1.4s linear infinite;
+}
+
+@keyframes pdl-skeleton {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+
+.pdl-toast {
+  width: min(420px, calc(100vw - 2rem));
+  padding: var(--pdl-space-4) var(--pdl-space-5);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdl-skeleton::after {
+    animation: none;
+    display: none;
+  }
+}

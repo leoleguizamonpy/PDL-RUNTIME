@@ -1,0 +1,112 @@
+.pdl-data-grid {
+  display: grid;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-data-grid__frame {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-data-grid table {
+  min-width: 720px;
+}
+
+.pdl-data-grid th[data-sticky="true"],
+.pdl-data-grid td[data-sticky="true"] {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--pdl-surface-1);
+  box-shadow: 1px 0 0 var(--pdl-border-1);
+}
+
+.pdl-data-grid thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: color-mix(in srgb, var(--pdl-surface-1) 96%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.pdl-data-grid tbody tr[data-selected="true"] {
+  background: var(--pdl-surface-2);
+}
+
+.pdl-data-grid tbody tr:focus-within {
+  outline: 1px solid var(--pdl-border-3);
+  outline-offset: -1px;
+}
+
+.pdl-grid-select {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--pdl-text-1);
+}
+
+.pdl-data-grid__bulk {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  min-height: 44px;
+  padding: var(--pdl-space-2) var(--pdl-space-3);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-2);
+}
+
+.pdl-data-grid[data-has-selection="true"] .pdl-data-grid__bulk {
+  display: flex;
+}
+
+.pdl-data-grid__count {
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.pdl-column-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--pdl-space-2);
+  min-height: 34px;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-data-grid [data-pdl-column][hidden] {
+  display: none;
+}
+
+.pdl-data-grid__resize {
+  position: absolute;
+  top: 0;
+  right: -4px;
+  bottom: 0;
+  width: 8px;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.pdl-data-grid th {
+  position: relative;
+}
+
+.pdl-data-grid__empty {
+  padding: var(--pdl-space-10) var(--pdl-space-4);
+  color: var(--pdl-text-muted);
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .pdl-data-grid__bulk {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

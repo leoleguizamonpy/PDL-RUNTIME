@@ -1,0 +1,158 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+@supports not (scrollbar-gutter: stable) {
+  html {
+    overflow-y: scroll;
+  }
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--pdl-black);
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-body);
+  font-size: 16px;
+  line-height: var(--pdl-line-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+ * Material grain: one static, non-animated texture layer over the whole
+ * viewport. Blended, not drawn on top, so it never competes with content
+ * for contrast. Opt out per-surface or globally with [data-pdl-texture="off"].
+ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  opacity: var(--pdl-noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: normal;
+  pointer-events: none;
+}
+
+html[data-pdl-texture="off"] body::before {
+  content: none;
+}
+
+@media (forced-colors: active) {
+  body::before {
+    content: none;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--pdl-text-1);
+  color: var(--pdl-black);
+}
+
+.pdl-wrap {
+  width: 100%;
+  max-width: var(--pdl-content-max);
+  margin-inline: auto;
+  padding-inline: var(--pdl-page-pad);
+}
+
+.pdl-page-title {
+  margin: 0;
+  color: var(--pdl-text-heading);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xl);
+  font-weight: 580;
+  line-height: var(--pdl-line-display);
+  letter-spacing: -.045em;
+}
+
+.pdl-eyebrow {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-caption);
+  font-weight: 560;
+  line-height: var(--pdl-line-heading);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+
+.pdl-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.pdl-skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: var(--pdl-space-3);
+  left: var(--pdl-space-3);
+  transform: translateY(-160%);
+  border: 1px solid var(--pdl-border-3);
+  border-radius: var(--pdl-radius-control);
+  padding: .65rem .85rem;
+  background: var(--pdl-surface-elevated);
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  text-decoration: none;
+  transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-skip-link:focus {
+  transform: translateY(0);
+}

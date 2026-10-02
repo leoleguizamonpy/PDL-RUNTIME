@@ -1,0 +1,25 @@
+<div class="pdl-table-toolbar">
+  <div class="pdl-search">
+    <input class="pdl-input" id="project-search" type="search" placeholder="Buscar" data-pdl-search-for="project-table">
+    <button class="pdl-search__clear" type="button" aria-label="Limpiar búsqueda" data-pdl-search-clear="project-search">×</button>
+  </div>
+</div>
+
+<div class="pdl-table-wrap">
+  <table class="pdl-table" id="project-table" data-pdl-table data-pdl-table-mode="stack">
+    <thead>
+      <tr>
+        <th><button class="pdl-table__sort" type="button" data-pdl-sort="name">Proyecto</button></th>
+        <th><button class="pdl-table__sort" type="button" data-pdl-sort="status">Estado</button></th>
+        <th>Progreso</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-status="active">
+        <td data-label="Proyecto">Proyecto Atlas</td>
+        <td data-label="Estado">Activo</td>
+        <td data-label="Progreso">72%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

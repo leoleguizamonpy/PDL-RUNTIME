@@ -1,0 +1,218 @@
+:root,
+[data-pdl-theme="negative"] {
+  color-scheme: dark;
+
+  --pdl-black: #090909;
+  --pdl-surface-1: #111111;
+  --pdl-surface-2: #171717;
+  --pdl-surface-3: #1f1f1f;
+  --pdl-surface-soft: #0d0d0d;
+  --pdl-surface-elevated: #141414;
+  --pdl-highlight: rgba(255, 255, 255, .035);
+  --pdl-focus-ring: rgba(185, 200, 230, .14);
+  --pdl-shadow-soft: 0 16px 48px rgba(0, 0, 0, .16);
+  --pdl-shadow-hover: 0 18px 56px rgba(0, 0, 0, .22);
+  --pdl-border-1: #242424;
+  --pdl-border-2: #2f2f2f;
+  --pdl-border-3: #3c3c3c;
+
+  --pdl-text-heading: #f9f7f2;
+  --pdl-text-1: #f2efe8;
+  --pdl-text-2: #c9c5bc;
+  --pdl-text-muted: #7e7a73;
+  --pdl-text-subtle: #52504c;
+
+  --pdl-success: #8fae98;
+  --pdl-warning: #c9a96c;
+  --pdl-danger: #c97878;
+  --pdl-focus: #b9c8e6;
+
+  /* One authored family carried through display and body, matching the
+     Leo Leguizamón personal-site signature (leoleguizamon.com) instead of a
+     generic geometric-sans default. Loaded by the product shell — see
+     design-system/foundations/TYPOGRAPHY.md — falls back gracefully if absent. */
+  --pdl-font-display: "Plus Jakarta Sans", "Montserrat", "Segoe UI", sans-serif;
+  --pdl-font-body: "Plus Jakarta Sans", "DM Sans", "Segoe UI", sans-serif;
+
+  --pdl-noise-opacity: .07;
+
+  --pdl-text-micro: .64rem;
+  --pdl-text-caption: .68rem;
+  --pdl-text-xs: .72rem;
+  --pdl-text-supporting: .74rem;
+  --pdl-text-sm: .84rem;
+  --pdl-text-md: .96rem;
+  --pdl-text-chat: .82rem;
+  --pdl-text-chat-meta: .64rem;
+  --pdl-text-lg: 1.08rem;
+  --pdl-text-xl: clamp(1.6rem, 3vw, 2.55rem);
+  --pdl-text-metric: clamp(1.7rem, 4vw, 2.8rem);
+
+  --pdl-line-display: 1.08;
+  --pdl-line-heading: 1.2;
+  --pdl-line-body: 1.6;
+  --pdl-line-relaxed: 1.75;
+  --pdl-line-compact: 1.35;
+  --pdl-line-data: 1.25;
+
+  --pdl-letter-editorial: .12em;
+  --pdl-letter-label: .08em;
+
+  --pdl-space-1: .25rem;
+  --pdl-space-2: .5rem;
+  --pdl-space-3: .75rem;
+  --pdl-space-4: 1rem;
+  --pdl-space-5: 1.25rem;
+  --pdl-space-6: 1.5rem;
+  --pdl-space-8: 2rem;
+  --pdl-space-10: 2.5rem;
+  --pdl-space-12: 3rem;
+  --pdl-space-14: 3.5rem;
+  --pdl-space-16: 4rem;
+  --pdl-space-20: 5rem;
+  --pdl-space-24: 6rem;
+
+  --pdl-radius-control: 4px;
+  --pdl-radius-surface: 8px;
+  --pdl-radius-pill: 999px;
+
+  --pdl-control-sm: 34px;
+  --pdl-control-md: 40px;
+  --pdl-control-lg: 46px;
+  --pdl-touch-target: 44px;
+
+  --pdl-width-page: 1100px;
+  --pdl-width-chat: 960px;
+  --pdl-width-prose: 760px;
+  --pdl-width-narrow: 640px;
+  --pdl-content-max: var(--pdl-width-page);
+
+  --pdl-page-pad: 2rem;
+
+  /* Canonical application grid */
+  --pdl-layout-columns: 12;
+  --pdl-layout-gutter: var(--pdl-space-6);
+  --pdl-layout-edge: var(--pdl-page-pad);
+  --pdl-layout-max: var(--pdl-width-page);
+  --pdl-layout-page-start: var(--pdl-rhythm-shell);
+  /* Semantic layout rhythm */
+  --pdl-rhythm-control: var(--pdl-space-2);
+  --pdl-rhythm-content: var(--pdl-space-4);
+  --pdl-rhythm-region: var(--pdl-space-6);
+  --pdl-rhythm-block: var(--pdl-space-10);
+  --pdl-rhythm-shell: var(--pdl-space-10);
+  --pdl-rhythm-section: var(--pdl-space-10);
+  --pdl-rhythm-page: var(--pdl-space-14);
+
+  --pdl-section-pad-compact: var(--pdl-rhythm-section);
+  --pdl-section-pad-standard: var(--pdl-space-20);
+  --pdl-section-pad-spacious: var(--pdl-space-24);
+  --pdl-sidebar-width: 248px;
+
+  /* Canonical stacking scale */
+  --pdl-z-content: 0;
+  --pdl-z-sticky: 40;
+  --pdl-z-topbar: 60;
+  --pdl-z-bottom-nav: 70;
+  --pdl-z-backdrop: 100;
+  --pdl-z-sidebar: 110;
+  --pdl-z-popover: 80;
+  --pdl-z-toast: 90;
+  --pdl-z-tooltip: 95;
+  --pdl-z-dialog: 300;
+  --pdl-z-cursor-ring: 900;
+  --pdl-z-cursor: 910;
+  --pdl-z-splash: 1000;
+
+  --pdl-motion-instant: 80ms;
+  --pdl-motion-fast: 120ms;
+  --pdl-motion-short: 180ms;
+  --pdl-motion-medium: 260ms;
+  --pdl-motion-long: 380ms;
+  --pdl-motion-expressive: 520ms;
+
+  --pdl-ease-standard: cubic-bezier(.2, 0, 0, 1);
+  --pdl-ease-enter: cubic-bezier(0, 0, 0, 1);
+  --pdl-ease-exit: cubic-bezier(.3, 0, 1, 1);
+
+  --pdl-cursor-dot: 8px;
+  --pdl-cursor-ring: 38px;
+  --pdl-cursor-ring-hover: 58px;
+}
+
+[data-pdl-theme="positive"] {
+  color-scheme: light;
+
+  --pdl-black: #f2efe8;
+  --pdl-surface-1: #e9e6df;
+  --pdl-surface-2: #dfdcd5;
+  --pdl-surface-3: #d2cec6;
+  --pdl-surface-soft: #f5f1e9;
+  --pdl-surface-elevated: #f8f5ee;
+  --pdl-highlight: rgba(9, 9, 9, .035);
+  --pdl-focus-ring: rgba(66, 90, 135, .14);
+  --pdl-shadow-soft: 0 14px 42px rgba(9, 9, 9, .08);
+  --pdl-shadow-hover: 0 18px 50px rgba(9, 9, 9, .11);
+  --pdl-border-1: #d7d3ca;
+  --pdl-border-2: #c6c1b7;
+  --pdl-border-3: #aaa49a;
+
+  --pdl-text-heading: #000000;
+  --pdl-text-1: #090909;
+  --pdl-text-2: #292826;
+  --pdl-text-muted: #68645e;
+  --pdl-text-subtle: #8b867f;
+  --pdl-focus: #425a87;
+
+  /* Status colors re-tuned for light surfaces (>= 4.5:1 on bg, surface-1/2, elevated) */
+  --pdl-success: #4b6854;
+  --pdl-warning: #775d2c;
+  --pdl-danger: #a34141;
+
+  --pdl-noise-opacity: .045;
+}
+
+[data-pdl-density="compact"] {
+  --pdl-control-md: 36px;
+  --pdl-page-pad: 1.5rem;
+}
+
+[data-pdl-density="comfortable"] {
+  --pdl-control-md: 44px;
+  --pdl-page-pad: 2.5rem;
+}
+
+@media (max-width: 980px) {
+  :root {
+    --pdl-page-pad: 1.5rem;
+    --pdl-section-pad-standard: var(--pdl-space-16);
+    --pdl-section-pad-spacious: var(--pdl-space-20);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --pdl-page-pad: 1.25rem;
+    --pdl-layout-gutter: var(--pdl-space-4);
+    --pdl-section-pad-compact: var(--pdl-space-8);
+    --pdl-section-pad-standard: var(--pdl-space-12);
+    --pdl-section-pad-spacious: var(--pdl-space-16);
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --pdl-page-pad: 1rem;
+  }
+}
+
+
+/* Responsive semantic rhythm */
+@media (max-width: 600px) {
+  :root {
+    --pdl-rhythm-block: var(--pdl-space-8);
+    --pdl-rhythm-shell: var(--pdl-space-8);
+    --pdl-rhythm-section: var(--pdl-space-8);
+    --pdl-rhythm-page: var(--pdl-space-10);
+  }
+}

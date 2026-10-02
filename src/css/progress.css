@@ -1,0 +1,141 @@
+.pdl-progress-group {
+  display: grid;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-progress-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pdl-space-4);
+}
+
+.pdl-progress-label {
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+  font-weight: 600;
+}
+
+.pdl-progress-value {
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.pdl-progress {
+  width: 100%;
+  height: 5px;
+  overflow: hidden;
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-border-1);
+}
+
+.pdl-progress--compact { height: 3px; }
+.pdl-progress--large { height: 8px; }
+
+.pdl-progress__bar {
+  width: var(--pdl-progress, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--pdl-text-2);
+  transition: width var(--pdl-motion-medium) var(--pdl-ease-standard);
+}
+
+.pdl-progress[data-state="success"] .pdl-progress__bar { background: var(--pdl-success); }
+.pdl-progress[data-state="warning"] .pdl-progress__bar { background: var(--pdl-warning); }
+.pdl-progress[data-state="danger"] .pdl-progress__bar { background: var(--pdl-danger); }
+
+.pdl-progress--indeterminate .pdl-progress__bar {
+  width: 35%;
+  animation: pdl-progress-indeterminate 1.1s var(--pdl-ease-standard) infinite;
+}
+
+.pdl-progress-ring {
+  --pdl-ring-size: 68px;
+  --pdl-ring-width: 5px;
+  display: grid;
+  width: var(--pdl-ring-size);
+  height: var(--pdl-ring-size);
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--pdl-surface-1) calc(50% - var(--pdl-ring-width)), transparent calc(50% - var(--pdl-ring-width) + 1px)),
+    conic-gradient(var(--pdl-text-2) var(--pdl-progress, 0%), var(--pdl-border-1) 0);
+}
+
+.pdl-progress-ring__value {
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.pdl-progress-steps {
+  display: grid;
+  grid-template-columns: repeat(var(--pdl-step-count, 4), minmax(0, 1fr));
+  gap: var(--pdl-space-2);
+}
+
+.pdl-progress-step {
+  height: 4px;
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-border-1);
+}
+
+.pdl-progress-step.is-complete,
+.pdl-progress-step[aria-current="step"] {
+  background: var(--pdl-text-2);
+}
+
+@keyframes pdl-progress-indeterminate {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(300%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdl-progress__bar { transition-duration: .001ms; }
+  .pdl-progress--indeterminate .pdl-progress__bar {
+    width: 65%;
+    animation: none;
+  }
+}
+
+
+/* Native progress primitive: products own value/max; PDL owns presentation. */
+progress.pdl-progress {
+  display: block;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+}
+
+progress.pdl-progress::-webkit-progress-bar {
+  border-radius: inherit;
+  background: var(--pdl-border-1);
+}
+
+progress.pdl-progress::-webkit-progress-value {
+  border-radius: inherit;
+  background: var(--pdl-text-2);
+  transition: width var(--pdl-motion-medium) var(--pdl-ease-standard);
+}
+
+progress.pdl-progress::-moz-progress-bar {
+  border-radius: inherit;
+  background: var(--pdl-text-2);
+  transition: width var(--pdl-motion-medium) var(--pdl-ease-standard);
+}
+
+progress.pdl-progress[data-state="success"]::-webkit-progress-value,
+progress.pdl-progress[data-state="success"]::-moz-progress-bar {
+  background: var(--pdl-success);
+}
+
+progress.pdl-progress[data-state="warning"]::-webkit-progress-value,
+progress.pdl-progress[data-state="warning"]::-moz-progress-bar {
+  background: var(--pdl-warning);
+}
+
+progress.pdl-progress[data-state="danger"]::-webkit-progress-value,
+progress.pdl-progress[data-state="danger"]::-moz-progress-bar {
+  background: var(--pdl-danger);
+}

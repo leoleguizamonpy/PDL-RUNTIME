@@ -1,0 +1,29 @@
+<section class="pdl-file-browser" data-pdl-file-browser>
+  <aside class="pdl-file-browser__sidebar" aria-label="Ubicaciones">
+    <button class="pdl-nav-item is-active" type="button">Todos</button>
+    <button class="pdl-nav-item" type="button">Imágenes</button>
+    <button class="pdl-nav-item" type="button">Documentos</button>
+  </aside>
+
+  <div class="pdl-file-browser__main">
+    <header class="pdl-file-browser__toolbar">
+      <div class="pdl-file-browser__crumbs">Proyecto / Archivos</div>
+      <div class="pdl-cluster">
+        <button class="pdl-button pdl-button--ghost" type="button" aria-pressed="true" data-pdl-file-view="grid">Grid</button>
+        <button class="pdl-button pdl-button--ghost" type="button" aria-pressed="false" data-pdl-file-view="list">Lista</button>
+      </div>
+    </header>
+
+    <div class="pdl-file-browser__content">
+      <div class="pdl-file-browser__grid">
+        <article class="pdl-file-card" data-pdl-file-card data-file-id="manual.pdf" data-selected="false">
+          <div class="pdl-file-card__preview">PDF</div>
+          <div>
+            <div class="pdl-file-card__name">Manual de marca.pdf</div>
+            <div class="pdl-file-card__meta">4.2 MB</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

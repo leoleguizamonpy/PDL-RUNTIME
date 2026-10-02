@@ -1,0 +1,149 @@
+.pdl-calendar {
+  display: grid;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-calendar__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  flex-wrap: wrap;
+}
+
+.pdl-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-calendar__weekday {
+  padding: var(--pdl-space-2) var(--pdl-space-3);
+  border-bottom: 1px solid var(--pdl-border-1);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: 650;
+  text-align: center;
+}
+
+.pdl-calendar__day {
+  min-height: 112px;
+  padding: var(--pdl-space-2);
+  border-right: 1px solid var(--pdl-border-1);
+  border-bottom: 1px solid var(--pdl-border-1);
+  background: transparent;
+}
+
+.pdl-calendar__day:nth-child(7n) { border-right: 0; }
+
+.pdl-calendar__date {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.pdl-calendar__event {
+  display: block;
+  margin-top: var(--pdl-space-1);
+  overflow: hidden;
+  border-left: 2px solid var(--pdl-text-muted);
+  border-radius: 2px;
+  padding: .35rem .45rem;
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-2);
+  font-size: .68rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-kanban {
+  display: grid;
+  grid-auto-columns: minmax(260px, 1fr);
+  grid-auto-flow: column;
+  gap: var(--pdl-space-4);
+  overflow-x: auto;
+  padding-bottom: var(--pdl-space-2);
+}
+
+.pdl-kanban__column {
+  display: grid;
+  align-content: start;
+  gap: var(--pdl-space-3);
+  min-height: 320px;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  padding: var(--pdl-space-3);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-kanban__head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--pdl-space-2);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+  font-weight: 650;
+}
+
+.pdl-kanban__card {
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-control);
+  padding: var(--pdl-space-3);
+  background: var(--pdl-black);
+  cursor: grab;
+}
+
+.pdl-kanban__card[aria-grabbed="true"] {
+  opacity: .72;
+}
+
+.pdl-gantt {
+  display: grid;
+  grid-template-columns: minmax(180px, .7fr) minmax(520px, 2fr);
+  overflow: auto;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-gantt__labels,
+.pdl-gantt__timeline {
+  display: grid;
+  grid-auto-rows: 44px;
+}
+
+.pdl-gantt__label,
+.pdl-gantt__row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--pdl-border-1);
+  padding-inline: var(--pdl-space-3);
+}
+
+.pdl-gantt__row {
+  position: relative;
+  background-image: linear-gradient(to right, var(--pdl-border-1) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
+}
+
+.pdl-gantt__bar {
+  position: absolute;
+  left: var(--pdl-gantt-start, 0%);
+  width: var(--pdl-gantt-width, 25%);
+  height: 18px;
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-text-2);
+}
+
+@media (max-width: 760px) {
+  .pdl-calendar__grid {
+    min-width: 720px;
+  }
+
+  .pdl-calendar {
+    overflow-x: auto;
+  }
+}

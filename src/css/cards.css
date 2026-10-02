@@ -1,0 +1,145 @@
+.pdl-card--blog,
+.pdl-card--service,
+.pdl-card--price,
+.pdl-card--project,
+.pdl-card--resource {
+  display: grid;
+  align-content: start;
+  gap: var(--pdl-space-4);
+}
+
+.pdl-card__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border-radius: calc(var(--pdl-radius-surface) - 4px);
+  background: var(--pdl-surface-2);
+}
+
+/*
+ * Branded placeholder: the LL monogram stands in for a missing image instead
+ * of an empty flat fill. Real media (img/video) is raised above it, so the
+ * mark disappears the moment a product supplies an actual asset.
+ */
+.pdl-card__media::before {
+  content: "";
+  position: absolute;
+  right: var(--pdl-space-4);
+  bottom: var(--pdl-space-4);
+  width: 15%;
+  max-width: 34px;
+  aspect-ratio: 1;
+  background-color: var(--pdl-text-subtle);
+  opacity: .32;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 682.13 682.13'%3E%3Cpolygon points='341.06 266.13 266.13 266.13 266.13 682.13 0 682.13 0 0 341.06 0 341.06 266.13' fill='%23fff'/%3E%3Cpolygon points='682.13 0 682.13 682.13 341.06 682.13 341.06 416 416 416 416 0 682.13 0' fill='%23fff'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 682.13 682.13'%3E%3Cpolygon points='341.06 266.13 266.13 266.13 266.13 682.13 0 682.13 0 0 341.06 0 341.06 266.13' fill='%23fff'/%3E%3Cpolygon points='682.13 0 682.13 682.13 341.06 682.13 341.06 416 416 416 416 0 682.13 0' fill='%23fff'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+}
+
+.pdl-card__media img,
+.pdl-card__media video {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pdl-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pdl-space-2);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-card__title {
+  margin: 0;
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: var(--pdl-line-heading);
+  letter-spacing: -.02em;
+}
+
+.pdl-card__copy {
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  font-weight: 380;
+  line-height: var(--pdl-line-body);
+}
+
+.pdl-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pdl-space-2);
+  margin-top: auto;
+  padding-top: var(--pdl-space-2);
+}
+
+.pdl-card--horizontal {
+  grid-template-columns: minmax(180px, .75fr) minmax(0, 1.25fr);
+  align-items: stretch;
+}
+
+.pdl-card--horizontal .pdl-card__media {
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+.pdl-card--featured {
+  grid-column: span 2;
+}
+
+.pdl-card--service {
+  min-height: 220px;
+}
+
+.pdl-card--price {
+  min-height: 100%;
+}
+
+.pdl-card--price[data-featured="true"] {
+  border-color: var(--pdl-border-3);
+  background: var(--pdl-surface-elevated);
+  box-shadow: inset 0 1px 0 var(--pdl-highlight);
+}
+
+.pdl-card__price {
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  font-weight: 600;
+  line-height: var(--pdl-line-data);
+  letter-spacing: -.04em;
+}
+
+.pdl-card__list {
+  display: grid;
+  gap: var(--pdl-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+}
+
+@media (max-width: 720px) {
+  .pdl-card--horizontal {
+    grid-template-columns: 1fr;
+  }
+
+  .pdl-card--horizontal .pdl-card__media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .pdl-card--featured {
+    grid-column: auto;
+  }
+}

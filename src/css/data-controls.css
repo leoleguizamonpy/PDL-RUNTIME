@@ -1,0 +1,123 @@
+.pdl-search {
+  position: relative;
+  display: flex;
+  min-width: min(100%, 260px);
+  align-items: center;
+}
+
+.pdl-search .pdl-input {
+  padding-right: 2.6rem;
+}
+
+.pdl-search__clear {
+  position: absolute;
+  right: .4rem;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 0;
+  border-radius: var(--pdl-radius-control);
+  background: transparent;
+  color: var(--pdl-text-subtle);
+  cursor: pointer;
+}
+
+.pdl-search__clear:hover {
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+}
+
+.pdl-filter-bar {
+  display: flex;
+  gap: var(--pdl-space-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pdl-filter-chip {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  gap: var(--pdl-space-2);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-pill);
+  padding: .35rem .75rem;
+  background: transparent;
+  color: var(--pdl-text-muted);
+  cursor: pointer;
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-filter-chip[aria-pressed="true"] {
+  border-color: var(--pdl-text-muted);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+}
+
+.pdl-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  flex-wrap: wrap;
+  padding-top: var(--pdl-space-4);
+}
+
+.pdl-pagination__meta {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-pagination__pages {
+  display: flex;
+  align-items: center;
+  gap: var(--pdl-space-1);
+}
+
+.pdl-page {
+  display: grid;
+  min-width: 36px;
+  min-height: 36px;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--pdl-radius-control);
+  background: transparent;
+  color: var(--pdl-text-muted);
+  cursor: pointer;
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-page:hover {
+  background: var(--pdl-surface-1);
+  color: var(--pdl-text-1);
+}
+
+.pdl-page[aria-current="page"] {
+  border-color: var(--pdl-border-2);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+}
+
+.pdl-page:disabled {
+  cursor: not-allowed;
+  opacity: .4;
+}
+
+
+.pdl-search > svg {
+  position: absolute;
+  left: .85rem;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--pdl-text-subtle);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.pdl-search > svg + .pdl-input {
+  padding-left: 2.55rem;
+}

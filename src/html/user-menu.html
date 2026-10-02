@@ -1,0 +1,27 @@
+<div class="pdl-menu-anchor">
+  <button
+    class="pdl-user-state"
+    type="button"
+    data-pdl-menu-trigger
+    aria-expanded="false"
+    aria-controls="account-menu"
+    data-state="authenticated">
+    <span class="pdl-avatar" aria-hidden="true">LL</span>
+    <span class="pdl-user-state__copy">
+      <span class="pdl-user-state__name">Usuario</span>
+      <span class="pdl-user-state__meta">Cuenta activa</span>
+    </span>
+    <span class="pdl-user-state__status" aria-hidden="true"></span>
+  </button>
+
+  <div class="pdl-menu" id="account-menu" role="menu" hidden data-pdl-mobile-sheet="true">
+    <div class="pdl-menu__group">
+      <span class="pdl-menu__label">Cuenta</span>
+      <button class="pdl-menu__item" role="menuitem" type="button">Perfil</button>
+      <button class="pdl-menu__item" role="menuitem" type="button">Configuración</button>
+    </div>
+    <div class="pdl-menu__group">
+      <button class="pdl-menu__item pdl-menu__item--danger" role="menuitem" type="button">Cerrar sesión</button>
+    </div>
+  </div>
+</div>

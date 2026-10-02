@@ -1,0 +1,51 @@
+<section class="pdl-form-flow" data-pdl-form-flow>
+  <aside class="pdl-form-flow__nav" aria-label="Secciones del formulario">
+    <div class="pdl-form-flow__nav-head">
+      <span class="pdl-eyebrow">Configuración</span>
+      <strong>Nuevo proyecto</strong>
+    </div>
+
+    <div class="pdl-form-flow__mobile-summary">
+      <span class="pdl-label">Paso actual</span>
+      <strong data-pdl-form-summary>Información general</strong>
+    </div>
+
+    <nav class="pdl-form-flow__steps">
+      <button class="pdl-form-step" type="button" data-pdl-form-step="general" aria-current="step">
+        <span class="pdl-form-step__index">1</span>
+        <span class="pdl-form-step__copy"><span class="pdl-form-step__title">Información general</span><span class="pdl-form-step__meta">Nombre y objetivo</span></span>
+      </button>
+      <button class="pdl-form-step" type="button" data-pdl-form-step="scope" data-state="complete">
+        <span class="pdl-form-step__index">2</span>
+        <span class="pdl-form-step__copy"><span class="pdl-form-step__title">Alcance</span><span class="pdl-form-step__meta">Servicios y entregables</span></span>
+      </button>
+      <button class="pdl-form-step" type="button" data-pdl-form-step="review" data-state="attention">
+        <span class="pdl-form-step__index">3</span>
+        <span class="pdl-form-step__copy"><span class="pdl-form-step__title">Revisión</span><span class="pdl-form-step__meta">Validación final</span></span>
+      </button>
+    </nav>
+  </aside>
+
+  <div class="pdl-form-flow__main">
+    <section class="pdl-form-flow__panel" data-pdl-form-panel="general">
+      <header class="pdl-form-flow__head"><span class="pdl-eyebrow">Paso 1</span><h3>Información general</h3><p class="pdl-helper">Datos base del proyecto.</p></header>
+      <label class="pdl-field"><span class="pdl-label">Nombre del proyecto</span><input class="pdl-input" placeholder="Nombre"></label>
+      <label class="pdl-field"><span class="pdl-label">Objetivo</span><textarea class="pdl-textarea" rows="4" placeholder="Qué querés lograr"></textarea></label>
+      <footer class="pdl-form-flow__footer"><span></span><button class="pdl-button pdl-button--primary" type="button" data-pdl-form-next>Continuar</button></footer>
+    </section>
+
+    <section class="pdl-form-flow__panel" data-pdl-form-panel="scope" hidden>
+      <header class="pdl-form-flow__head"><span class="pdl-eyebrow">Paso 2</span><h3>Alcance</h3><p class="pdl-helper">Definí qué incluye el trabajo.</p></header>
+      <label class="pdl-check"><input type="checkbox" checked> Estrategia</label>
+      <label class="pdl-check"><input type="checkbox" checked> Identidad visual</label>
+      <label class="pdl-check"><input type="checkbox"> Aplicaciones</label>
+      <footer class="pdl-form-flow__footer"><button class="pdl-button pdl-button--outline" type="button" data-pdl-form-prev>Volver</button><button class="pdl-button pdl-button--primary" type="button" data-pdl-form-next>Continuar</button></footer>
+    </section>
+
+    <section class="pdl-form-flow__panel" data-pdl-form-panel="review" hidden>
+      <header class="pdl-form-flow__head"><span class="pdl-eyebrow">Paso 3</span><h3>Revisión</h3><p class="pdl-helper">Confirmá la información antes de continuar.</p></header>
+      <div class="pdl-alert" data-state="warning"><strong class="pdl-alert__title">Falta una decisión</strong><p class="pdl-alert__copy">Seleccioná si las aplicaciones forman parte del alcance.</p></div>
+      <footer class="pdl-form-flow__footer"><button class="pdl-button pdl-button--outline" type="button" data-pdl-form-prev>Volver</button><button class="pdl-button pdl-button--primary" type="button">Crear proyecto</button></footer>
+    </section>
+  </div>
+</section>

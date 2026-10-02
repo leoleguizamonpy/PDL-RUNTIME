@@ -1,0 +1,30 @@
+<section class="pdl-chat" aria-label="Conversación">
+  <div class="pdl-chat__thread" role="log" aria-live="polite">
+    <article class="pdl-message">
+      <div class="pdl-message__meta">
+        <span class="pdl-message__author">PDL</span>
+        <time class="pdl-message__time">10:42</time>
+      </div>
+      <div class="pdl-message__bubble">Mensaje del sistema.</div>
+    </article>
+    <article class="pdl-message pdl-message--user">
+      <div class="pdl-message__meta">
+        <span class="pdl-message__author">Vos</span>
+        <time class="pdl-message__time">10:43</time>
+      </div>
+      <div class="pdl-message__bubble">Mensaje del usuario.</div>
+    </article>
+  </div>
+  <form class="pdl-chat__composer">
+    <button class="pdl-icon-button pdl-icon-button--ghost" type="button" aria-label="Adjuntar archivo">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 12.5 14.8 6.2a3.2 3.2 0 0 1 4.5 4.5l-8.4 8.4a5 5 0 0 1-7.1-7.1l8.1-8.1"></path></svg>
+    </button>
+    <label class="pdl-field">
+      <span class="pdl-label">Mensaje</span>
+      <textarea class="pdl-textarea" rows="1"></textarea>
+    </label>
+    <button class="pdl-icon-button pdl-icon-button--primary" type="submit" aria-label="Enviar mensaje">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"></path><path d="m6.5 10.5 5.5-5.5 5.5 5.5"></path></svg>
+    </button>
+  </form>
+</section>

@@ -1,0 +1,89 @@
+.pdl-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--pdl-space-4);
+}
+
+.pdl-stat {
+  display: grid;
+  gap: var(--pdl-space-3);
+  min-width: 0;
+  padding: var(--pdl-space-5);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-stat__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-stat__label {
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  font-weight: 600;
+  line-height: var(--pdl-line-heading);
+  letter-spacing: .02em;
+}
+
+.pdl-stat__value {
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-metric);
+  font-weight: 600;
+  line-height: var(--pdl-line-data);
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.pdl-stat__meta {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  line-height: var(--pdl-line-compact);
+}
+
+.pdl-stat__delta {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: var(--pdl-space-1);
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.pdl-stat__delta[data-direction="up"] { color: var(--pdl-success); }
+.pdl-stat__delta[data-direction="down"] { color: var(--pdl-danger); }
+
+.pdl-stat-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-stat-strip .pdl-stat {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.pdl-stat-strip .pdl-stat + .pdl-stat {
+  border-left: 1px solid var(--pdl-border-1);
+}
+
+@media (max-width: 600px) {
+  .pdl-stat-strip {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pdl-stat-strip .pdl-stat + .pdl-stat {
+    border-left: 0;
+    border-top: 1px solid var(--pdl-border-1);
+  }
+}

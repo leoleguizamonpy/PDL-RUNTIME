@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pdl.leoleguizamon.dev/schemas/product-ui.schema.json",
+  "title": "PDL Product UI Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "product", "routes", "actions"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "name": { "type": "string", "minLength": 1 },
+        "signature": { "type": "string" },
+        "brand": { "type": "string" }
+      }
+    },
+    "initial_route": { "type": "string" },
+    "routes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "path", "surface"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "path": { "type": "string", "pattern": "^/" },
+          "label": { "type": "string" },
+          "surface": { "enum": ["auth", "collection", "conversation", "workspace"] },
+          "load": { "type": "string" },
+          "navigation": { "type": "boolean" }
+        }
+      }
+    },
+    "actions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["method", "path"],
+        "properties": {
+          "method": { "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"] },
+          "path": { "type": "string", "pattern": "^/" }
+        }
+      }
+    }
+  }
+}
