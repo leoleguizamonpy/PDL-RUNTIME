@@ -50,10 +50,17 @@
   text-align: left;
 }
 
-.pdl-menu__item:hover,
+.pdl-menu__item:hover:not(:disabled),
 .pdl-menu__item:focus-visible {
   background: var(--pdl-surface-2);
   color: var(--pdl-text-1);
+}
+
+/* Unavailable items read as such instead of looking like the others. */
+.pdl-menu__item:disabled,
+.pdl-menu__item[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: .45;
 }
 
 .pdl-menu__item--danger {

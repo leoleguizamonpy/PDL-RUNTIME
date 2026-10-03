@@ -9,6 +9,13 @@
   align-items: start;
 }
 
+/* A product may hide the aside when the editor would get too narrow (a wide
+   sidebar on a small laptop) and show the preview elsewhere; the editor then
+   takes the whole width. */
+.pdl-preview-layout:has(> .pdl-preview-layout__aside[hidden]) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .pdl-preview-layout__main {
   display: grid;
   min-width: 0;
