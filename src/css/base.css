@@ -121,7 +121,7 @@ video {
 
 .pdl-page-title {
   margin: 0;
-  color: var(--pdl-text-heading);
+  color: var(--pdl-page-title-color, var(--pdl-text-heading));
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-page-title-size, var(--pdl-text-xl));
   font-weight: 580;
@@ -135,6 +135,19 @@ video {
 .pdl-page-title--lg {
   font-size: var(--pdl-page-title-size, clamp(2.1rem, 9cqi, 3.2rem));
   overflow-wrap: break-word;
+}
+
+/* A logo in place of a page's written name, inside its title (the name
+   goes in the image's alt text). Keeps its proportions, up to a banner,
+   and follows the title's alignment. */
+.pdl-page-logo {
+  display: inline-block;
+  vertical-align: bottom;
+  width: auto;
+  max-width: min(100%, 18rem);
+  height: auto;
+  max-height: 5.5rem;
+  object-fit: contain;
 }
 
 .pdl-eyebrow {

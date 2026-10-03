@@ -1,8 +1,9 @@
 /* Customization hooks (optional custom properties, see
    design-system/foundations/CUSTOMIZATION.md): --pdl-button-radius,
    --pdl-button-border-width, --pdl-button-font-size, --pdl-button-fill,
-   --pdl-button-ink, --pdl-button-line and --pdl-button-tint. Unset, buttons
-   keep PDL's own values. */
+   --pdl-button-ink, --pdl-button-line, --pdl-button-tint and
+   --pdl-button-elevation (a shadow under every button but ghost ones).
+   Unset, buttons keep PDL's own values. */
 .pdl-button {
   display: inline-flex;
   height: var(--pdl-control-md);
@@ -18,10 +19,12 @@
   font-size: var(--pdl-button-font-size, .74rem);
   font-weight: 650;
   letter-spacing: .025em;
+  box-shadow: var(--pdl-button-elevation, none);
   transition:
     color var(--pdl-motion-short) var(--pdl-ease-standard),
     border-color var(--pdl-motion-short) var(--pdl-ease-standard),
     background var(--pdl-motion-short) var(--pdl-ease-standard),
+    box-shadow var(--pdl-motion-short) var(--pdl-ease-standard),
     transform var(--pdl-motion-instant) var(--pdl-ease-standard);
 }
 
@@ -58,13 +61,16 @@
   border-color: var(--pdl-button-line, transparent);
   background: var(--pdl-button-fill, var(--pdl-text-1));
   color: var(--pdl-button-ink, var(--pdl-black));
-  box-shadow: inset 0 1px 0 color-mix(in srgb, white 18%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 18%, transparent),
+    var(--pdl-button-elevation, 0 0 #0000);
 }
 
 .pdl-button--primary:hover:not(:disabled) {
   background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 90%, var(--pdl-black));
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, white 18%, transparent),
+    var(--pdl-button-elevation, 0 0 #0000),
     var(--pdl-shadow-soft);
   transform: translateY(-1px);
 }
@@ -85,6 +91,8 @@
 .pdl-button--ghost {
   background: transparent;
   color: var(--pdl-button-tint, var(--pdl-text-2));
+  /* Nothing to cast a shadow: an elevation would only outline the box. */
+  box-shadow: none;
 }
 
 .pdl-button--ghost:hover:not(:disabled) {
@@ -92,7 +100,26 @@
   color: var(--pdl-text-1);
 }
 
+/* Frosted glass: a translucent tint of the button color over whatever is
+   behind (a page backdrop, an image), blurred. Label in the tint. */
+.pdl-button--glass {
+  border-color: var(--pdl-button-line, color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 26%, transparent));
+  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 14%, transparent);
+  color: var(--pdl-button-tint, var(--pdl-text-1));
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 22%, transparent),
+    var(--pdl-button-elevation, 0 0 #0000);
+}
+
+.pdl-button--glass:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 22%, transparent);
+  transform: translateY(-1px);
+}
+
 .pdl-button--primary:active:not(:disabled),
+.pdl-button--glass:active:not(:disabled),
 .pdl-button--outline:active:not(:disabled) {
   transform: scale(.98) translateY(0);
   box-shadow: inset 0 1px 0 color-mix(in srgb, white 18%, transparent);
@@ -105,13 +132,15 @@
 .pdl-button--featured:active:not(:disabled) {
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, white 18%, transparent),
-    0 0 0 4px color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 24%, transparent);
+    0 0 0 4px color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 24%, transparent),
+    var(--pdl-button-elevation, 0 0 #0000);
 }
 
 .pdl-button--featured:hover:not(:disabled) {
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, white 18%, transparent),
     0 0 0 4px color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 24%, transparent),
+    var(--pdl-button-elevation, 0 0 #0000),
     var(--pdl-shadow-soft);
 }
 
