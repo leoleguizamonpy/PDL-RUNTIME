@@ -51,6 +51,67 @@
   color: var(--pdl-text-1);
 }
 
+/* Segmented controls that span their container, like tab bars: equal
+   segments with their content centered. Hidden segments take no room. */
+.pdl-segmented--fill {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  width: 100%;
+}
+
+.pdl-segmented--fill > .pdl-segmented__item {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pdl-space-2);
+  padding-inline: var(--pdl-space-2);
+}
+
+/* Choice grids: options in equal columns, so a group reads as one even
+   block. Each option stacks its sample over its label. The column count is
+   --pdl-segmented-columns (default 3); inside a .pdl-field narrower than
+   22rem it becomes --pdl-segmented-columns-narrow. Pick counts that divide
+   the number of options, so every row is full. */
+.pdl-field:has(> .pdl-segmented--grid) {
+  container: pdl-choices / inline-size;
+}
+
+.pdl-segmented--grid {
+  display: grid;
+  grid-template-columns: repeat(var(--pdl-segmented-columns, 3), minmax(0, 1fr));
+  gap: var(--pdl-space-1);
+  width: 100%;
+}
+
+.pdl-segmented--grid > .pdl-segmented__item {
+  display: grid;
+  min-width: 0;
+  justify-items: center;
+  align-content: center;
+  gap: var(--pdl-space-2);
+  padding: var(--pdl-space-3) var(--pdl-space-1);
+  text-align: center;
+}
+
+/* Sample over label: samples of different heights share the top area and
+   labels line up along the bottom of each row. */
+.pdl-segmented--grid > .pdl-segmented__item:has(> :nth-child(2)) {
+  grid-template-rows: minmax(0, 1fr) auto;
+  align-content: stretch;
+  align-items: center;
+}
+
+@container pdl-choices (max-width: 22rem) {
+  .pdl-segmented--grid {
+    grid-template-columns: repeat(
+      var(--pdl-segmented-columns-narrow, var(--pdl-segmented-columns, 3)),
+      minmax(0, 1fr)
+    );
+  }
+}
+
 .pdl-range {
   width: 100%;
   height: var(--pdl-touch-target);

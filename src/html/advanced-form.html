@@ -7,6 +7,24 @@
     </div>
   </fieldset>
 
+  <!-- Tab bar: equal segments across the container. -->
+  <div class="pdl-segmented pdl-segmented--fill" role="tablist" aria-label="Secciones">
+    <button class="pdl-segmented__item" type="button" role="tab" aria-selected="true" aria-pressed="true">Contenido</button>
+    <button class="pdl-segmented__item" type="button" role="tab" aria-selected="false" aria-pressed="false">Diseño</button>
+    <button class="pdl-segmented__item" type="button" role="tab" aria-selected="false" aria-pressed="false">Publicar</button>
+  </div>
+
+  <!-- Choice grid: 4 columns, 2 below 22rem; sample over label. -->
+  <div class="pdl-field">
+    <span class="pdl-label" id="palette-choice">Paleta</span>
+    <div class="pdl-segmented pdl-segmented--grid" role="group" aria-labelledby="palette-choice" style="--pdl-segmented-columns: 4; --pdl-segmented-columns-narrow: 2">
+      <button class="pdl-segmented__item" type="button" aria-pressed="true"><span class="pdl-button pdl-button--primary pdl-button--sm" aria-hidden="true">Aa</span><span>Claro</span></button>
+      <button class="pdl-segmented__item" type="button" aria-pressed="false"><span class="pdl-button pdl-button--primary pdl-button--sm" data-pdl-palette="ocean" aria-hidden="true">Aa</span><span>Océano</span></button>
+      <button class="pdl-segmented__item" type="button" aria-pressed="false"><span class="pdl-button pdl-button--primary pdl-button--sm" data-pdl-palette="sage" aria-hidden="true">Aa</span><span>Salvia</span></button>
+      <button class="pdl-segmented__item" type="button" aria-pressed="false"><span class="pdl-button pdl-button--primary pdl-button--sm" data-pdl-palette="midnight" aria-hidden="true">Aa</span><span>Medianoche</span></button>
+    </div>
+  </div>
+
   <label class="pdl-field">
     <span class="pdl-label">Servicio</span>
     <span class="pdl-combobox" data-pdl-combobox>
