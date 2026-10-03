@@ -58,9 +58,11 @@
 .pdl-stack--sm { --pdl-stack-gap: var(--pdl-space-3); }
 .pdl-stack--lg { --pdl-stack-gap: var(--pdl-space-10); }
 
-/* Centered composition: text and inline media center; block children such
-   as buttons keep their full width. */
+/* Centered composition: text and media center; block children such as
+   buttons keep their full width. Media are grid items here, so text-align
+   alone would leave them at the start. */
 .pdl-stack--center { text-align: center; }
+.pdl-stack--center > :where(svg, img, picture, video, .pdl-avatar) { justify-self: center; }
 .pdl-cluster--center { justify-content: center; }
 
 .pdl-cluster {
