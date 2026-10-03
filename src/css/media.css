@@ -34,15 +34,17 @@
   aspect-ratio: 9 / 16;
 }
 
-/* Audio players (Spotify, SoundCloud) have a fixed height, not a ratio. */
+/* Audio players (Spotify, SoundCloud) have a fixed height, not a ratio:
+   152px or 352px inside the box's border (players pick a smaller layout
+   below those heights). */
 .pdl-embed--audio {
   aspect-ratio: auto;
-  height: 152px;
+  height: calc(152px + 2px);
 }
 
 .pdl-embed--audio-tall {
   aspect-ratio: auto;
-  height: 352px;
+  height: calc(352px + 2px);
 }
 
 /* Where a player will be (previews): its mark and name, centered. */
