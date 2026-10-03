@@ -126,7 +126,7 @@
   max-width: var(--pdl-width-prose);
   margin-inline: auto;
   color: var(--pdl-text-2);
-  font-size: var(--pdl-text-md);
+  font-size: var(--pdl-prose-size, var(--pdl-text-md));
   line-height: var(--pdl-line-relaxed);
 }
 

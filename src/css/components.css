@@ -1,3 +1,8 @@
+/* Customization hooks (optional custom properties, see
+   design-system/foundations/CUSTOMIZATION.md): --pdl-button-radius,
+   --pdl-button-border-width, --pdl-button-font-size, --pdl-button-fill,
+   --pdl-button-ink, --pdl-button-line and --pdl-button-tint. Unset, buttons
+   keep PDL's own values. */
 .pdl-button {
   display: inline-flex;
   height: var(--pdl-control-md);
@@ -5,12 +10,12 @@
   align-items: center;
   justify-content: center;
   gap: var(--pdl-space-2);
-  border: 1px solid transparent;
-  border-radius: var(--pdl-radius-control);
+  border: var(--pdl-button-border-width, 1px) solid transparent;
+  border-radius: var(--pdl-button-radius, var(--pdl-radius-control));
   padding: .7rem 1.2rem;
   cursor: pointer;
   font-family: var(--pdl-font-display);
-  font-size: .74rem;
+  font-size: var(--pdl-button-font-size, .74rem);
   font-weight: 650;
   letter-spacing: .025em;
   transition:
@@ -28,7 +33,7 @@
   height: var(--pdl-control-sm);
   min-height: var(--pdl-control-sm);
   padding-inline: .9rem;
-  font-size: .7rem;
+  font-size: var(--pdl-button-font-size, .7rem);
 }
 
 .pdl-button--lg {
@@ -50,13 +55,14 @@
 
 
 .pdl-button--primary {
-  background: var(--pdl-text-1);
-  color: var(--pdl-black);
+  border-color: var(--pdl-button-line, transparent);
+  background: var(--pdl-button-fill, var(--pdl-text-1));
+  color: var(--pdl-button-ink, var(--pdl-black));
   box-shadow: inset 0 1px 0 color-mix(in srgb, white 18%, transparent);
 }
 
 .pdl-button--primary:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--pdl-text-1) 90%, var(--pdl-black));
+  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 90%, var(--pdl-black));
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, white 18%, transparent),
     var(--pdl-shadow-soft);
@@ -64,9 +70,9 @@
 }
 
 .pdl-button--outline {
-  border-color: var(--pdl-border-2);
+  border-color: var(--pdl-button-line, var(--pdl-border-2));
   background: transparent;
-  color: var(--pdl-text-2);
+  color: var(--pdl-button-tint, var(--pdl-text-2));
 }
 
 .pdl-button--outline:hover:not(:disabled) {
@@ -78,7 +84,7 @@
 
 .pdl-button--ghost {
   background: transparent;
-  color: var(--pdl-text-2);
+  color: var(--pdl-button-tint, var(--pdl-text-2));
 }
 
 .pdl-button--ghost:hover:not(:disabled) {
@@ -100,11 +106,11 @@
   min-height: var(--pdl-control-md);
   flex: 0 0 var(--pdl-control-md);
   place-items: center;
-  border: 1px solid transparent;
+  border: var(--pdl-button-border-width, 1px) solid transparent;
   border-radius: var(--pdl-radius-control);
   padding: 0;
   background: transparent;
-  color: var(--pdl-text-2);
+  color: var(--pdl-button-tint, var(--pdl-text-2));
   cursor: pointer;
   transition:
     color var(--pdl-motion-short) var(--pdl-ease-standard),
@@ -155,18 +161,18 @@
 }
 
 .pdl-icon-button--primary {
-  background: var(--pdl-text-1);
-  color: var(--pdl-black);
+  background: var(--pdl-button-fill, var(--pdl-text-1));
+  color: var(--pdl-button-ink, var(--pdl-black));
   box-shadow: inset 0 1px 0 color-mix(in srgb, white 18%, transparent);
 }
 
 .pdl-icon-button--primary:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--pdl-text-1) 90%, var(--pdl-black));
+  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 90%, var(--pdl-black));
 }
 
 .pdl-icon-button--outline {
-  border-color: var(--pdl-border-2);
-  color: var(--pdl-text-2);
+  border-color: var(--pdl-button-line, var(--pdl-border-2));
+  color: var(--pdl-button-tint, var(--pdl-text-2));
 }
 
 .pdl-icon-button--outline:hover:not(:disabled),

@@ -27,7 +27,8 @@
   aspect-ratio: 3 / 1;
   overflow: hidden;
   border-radius: var(--pdl-radius-surface);
-  background: var(--pdl-surface-2);
+  /* A cover without an image shows this fill (--pdl-cover-fill hook). */
+  background: var(--pdl-cover-fill, var(--pdl-surface-2));
 }
 
 .pdl-cover > img {
