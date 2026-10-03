@@ -58,6 +58,11 @@
 .pdl-stack--sm { --pdl-stack-gap: var(--pdl-space-3); }
 .pdl-stack--lg { --pdl-stack-gap: var(--pdl-space-10); }
 
+/* Centered composition: text and inline media center; block children such
+   as buttons keep their full width. */
+.pdl-stack--center { text-align: center; }
+.pdl-cluster--center { justify-content: center; }
+
 .pdl-cluster {
   display: flex;
   flex-wrap: wrap;

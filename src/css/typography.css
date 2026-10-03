@@ -1,0 +1,79 @@
+/* Self-hosted variable fonts (SIL Open Font License 1.1; each license sits
+   next to its file in ./fonts), so pages whose CSP only allows their own
+   origin still get their typography. Latin subset: Spanish and Portuguese
+   included. */
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("./fonts/plus-jakarta-sans.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("./fonts/fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("./fonts/jetbrains-mono.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("./fonts/nunito.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Oswald";
+  src: url("./fonts/oswald.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Type pairings. data-pdl-type on any element swaps the display (titles)
+   and body families together, as data-pdl-palette does for color. Without
+   it, PDL's own pairing (Plus Jakarta Sans) applies. The element re-reads
+   the body family so its text follows the pairing, not the page's. */
+[data-pdl-type] {
+  font-family: var(--pdl-font-body);
+}
+
+[data-pdl-type="editorial"] {
+  --pdl-font-display: "Fraunces", Georgia, serif;
+  --pdl-display-tracking: -.02em;
+}
+
+[data-pdl-type="classic"] {
+  --pdl-font-display: "Fraunces", Georgia, serif;
+  --pdl-font-body: "Fraunces", Georgia, serif;
+  --pdl-display-tracking: -.02em;
+}
+
+[data-pdl-type="technical"] {
+  --pdl-font-display: "JetBrains Mono", ui-monospace, monospace;
+  --pdl-display-tracking: -.04em;
+}
+
+[data-pdl-type="friendly"] {
+  --pdl-font-display: "Nunito", "Segoe UI", sans-serif;
+  --pdl-font-body: "Nunito", "Segoe UI", sans-serif;
+  --pdl-display-tracking: -.02em;
+}
+
+[data-pdl-type="impact"] {
+  --pdl-font-display: "Oswald", "Arial Narrow", sans-serif;
+  --pdl-display-tracking: 0;
+}

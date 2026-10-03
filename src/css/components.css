@@ -116,12 +116,26 @@
 .pdl-icon-button svg {
   width: 18px;
   height: 18px;
+  pointer-events: none;
+}
+
+/* Line icons by default. A glyph that declares its own fill (a brand logo)
+   keeps it: forcing a stroke drew filled logos as hollow outlines. */
+.pdl-icon-button svg:not([fill]) {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
-  pointer-events: none;
+}
+
+.pdl-icon-button--lg svg {
+  width: 22px;
+  height: 22px;
+}
+
+.pdl-icon-button--round {
+  border-radius: 50%;
 }
 
 .pdl-icon-button--sm {
@@ -624,12 +638,17 @@
   width: 18px;
   height: 18px;
   flex: 0 0 18px;
+  pointer-events: none;
+}
+
+/* Same rule as icon buttons: filled glyphs keep their fill. */
+.pdl-button svg:not([fill]),
+.pdl-nav-item svg:not([fill]) {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
-  pointer-events: none;
 }
 
 .pdl-button svg {

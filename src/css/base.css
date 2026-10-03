@@ -112,7 +112,12 @@ video {
   font-size: var(--pdl-text-xl);
   font-weight: 580;
   line-height: var(--pdl-line-display);
-  letter-spacing: -.045em;
+  letter-spacing: var(--pdl-display-tracking);
+}
+
+/* A larger name for pages built around one person or brand. */
+.pdl-page-title--lg {
+  font-size: clamp(2.1rem, 8vw, 3.2rem);
 }
 
 .pdl-eyebrow {

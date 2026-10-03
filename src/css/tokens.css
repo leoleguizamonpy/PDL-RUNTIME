@@ -56,6 +56,8 @@
   --pdl-line-data: 1.25;
 
   --pdl-letter-editorial: .12em;
+  /* Tracking of large display titles; type pairings adjust it per family. */
+  --pdl-display-tracking: -.045em;
   --pdl-letter-label: .08em;
 
   --pdl-space-1: .25rem;
