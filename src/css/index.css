@@ -1,4 +1,5 @@
 @import "./tokens.css";
+@import "./palettes.css";
 @import "./base.css";
 @import "./brand.css";
 @import "./page-framework.css";
@@ -27,6 +28,7 @@
 @import "./temporal.css";
 @import "./workspace.css";
 @import "./preview.css";
+@import "./media.css";
 @import "./ai.css";
 @import "./conversation-choices.css";
 @import "./loading.css";

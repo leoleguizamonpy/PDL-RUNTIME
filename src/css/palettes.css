@@ -1,0 +1,192 @@
+/* Curated palettes. Each one is a complete color token set, applied with
+   data-pdl-palette on any element (a page, a preview, a swatch), so products
+   offer color choice without authoring CSS. Every pair a component draws
+   (text on background and surfaces, a primary button's label on its fill,
+   status colors) meets WCAG contrast; tests/palettes.test.mjs checks it.
+   The light and dark defaults stay data-pdl-theme="positive"/"negative". */
+
+[data-pdl-palette="ocean"] {
+  color-scheme: light;
+
+  --pdl-black: #eef3f4;
+  --pdl-surface-1: #e3ecee;
+  --pdl-surface-2: #d6e2e5;
+  --pdl-surface-3: #c6d6da;
+  --pdl-surface-soft: #f3f7f8;
+  --pdl-surface-elevated: #f7fafb;
+  --pdl-highlight: rgba(4, 35, 43, .035);
+  --pdl-focus-ring: rgba(11, 60, 72, .16);
+  --pdl-shadow-soft: 0 14px 42px rgba(4, 35, 43, .08);
+  --pdl-shadow-hover: 0 18px 50px rgba(4, 35, 43, .11);
+  --pdl-border-1: #cddde1;
+  --pdl-border-2: #b6cbd0;
+  --pdl-border-3: #93afb6;
+
+  --pdl-text-heading: #04232b;
+  --pdl-text-1: #0b3c48;
+  --pdl-text-2: #1d4651;
+  --pdl-text-muted: #466670;
+  --pdl-text-subtle: #5f7f88;
+  --pdl-focus: #1f6f86;
+
+  --pdl-success: #2c6a4c;
+  --pdl-warning: #73561b;
+  --pdl-danger: #9c3838;
+
+  --pdl-noise-opacity: .045;
+}
+
+[data-pdl-palette="terracotta"] {
+  color-scheme: light;
+
+  --pdl-black: #f6efe9;
+  --pdl-surface-1: #efe4db;
+  --pdl-surface-2: #e7d8cb;
+  --pdl-surface-3: #dbc6b6;
+  --pdl-surface-soft: #f9f4ef;
+  --pdl-surface-elevated: #fbf7f3;
+  --pdl-highlight: rgba(43, 18, 9, .035);
+  --pdl-focus-ring: rgba(124, 46, 21, .16);
+  --pdl-shadow-soft: 0 14px 42px rgba(43, 18, 9, .08);
+  --pdl-shadow-hover: 0 18px 50px rgba(43, 18, 9, .11);
+  --pdl-border-1: #e2d3c6;
+  --pdl-border-2: #d0b8a6;
+  --pdl-border-3: #b59783;
+
+  --pdl-text-heading: #2b1209;
+  --pdl-text-1: #7c2e15;
+  --pdl-text-2: #4a2416;
+  --pdl-text-muted: #6c4c40;
+  --pdl-text-subtle: #86675b;
+  --pdl-focus: #9a4a2c;
+
+  --pdl-success: #3f6449;
+  --pdl-warning: #71531c;
+  --pdl-danger: #9c3434;
+
+  --pdl-noise-opacity: .045;
+}
+
+[data-pdl-palette="lavender"] {
+  color-scheme: light;
+
+  --pdl-black: #f2f0f8;
+  --pdl-surface-1: #e8e4f3;
+  --pdl-surface-2: #ddd7ed;
+  --pdl-surface-3: #cec6e3;
+  --pdl-surface-soft: #f6f4fa;
+  --pdl-surface-elevated: #f9f8fc;
+  --pdl-highlight: rgba(23, 15, 51, .035);
+  --pdl-focus-ring: rgba(58, 42, 124, .16);
+  --pdl-shadow-soft: 0 14px 42px rgba(23, 15, 51, .08);
+  --pdl-shadow-hover: 0 18px 50px rgba(23, 15, 51, .11);
+  --pdl-border-1: #d8d2ea;
+  --pdl-border-2: #c2bada;
+  --pdl-border-3: #a096c4;
+
+  --pdl-text-heading: #170f33;
+  --pdl-text-1: #3a2a7c;
+  --pdl-text-2: #2c254f;
+  --pdl-text-muted: #5a5378;
+  --pdl-text-subtle: #746d92;
+  --pdl-focus: #5a47b0;
+
+  --pdl-success: #3b6450;
+  --pdl-warning: #6f541f;
+  --pdl-danger: #9b3846;
+
+  --pdl-noise-opacity: .045;
+}
+
+[data-pdl-palette="sage"] {
+  color-scheme: light;
+
+  --pdl-black: #eef2ec;
+  --pdl-surface-1: #e3eade;
+  --pdl-surface-2: #d6e0d0;
+  --pdl-surface-3: #c5d3bd;
+  --pdl-surface-soft: #f3f6f1;
+  --pdl-surface-elevated: #f7f9f6;
+  --pdl-highlight: rgba(13, 32, 18, .035);
+  --pdl-focus-ring: rgba(30, 74, 43, .16);
+  --pdl-shadow-soft: 0 14px 42px rgba(13, 32, 18, .08);
+  --pdl-shadow-hover: 0 18px 50px rgba(13, 32, 18, .11);
+  --pdl-border-1: #ccd9c6;
+  --pdl-border-2: #b7c8ae;
+  --pdl-border-3: #93a989;
+
+  --pdl-text-heading: #0d2012;
+  --pdl-text-1: #1e4a2b;
+  --pdl-text-2: #233628;
+  --pdl-text-muted: #4b604e;
+  --pdl-text-subtle: #667b69;
+  --pdl-focus: #2f6b45;
+
+  --pdl-success: #2d6440;
+  --pdl-warning: #6d531c;
+  --pdl-danger: #9a3838;
+
+  --pdl-noise-opacity: .045;
+}
+
+[data-pdl-palette="midnight"] {
+  color-scheme: dark;
+
+  --pdl-black: #0b1020;
+  --pdl-surface-1: #11182f;
+  --pdl-surface-2: #162039;
+  --pdl-surface-3: #1d2947;
+  --pdl-surface-soft: #0d1326;
+  --pdl-surface-elevated: #131b34;
+  --pdl-highlight: rgba(255, 255, 255, .035);
+  --pdl-focus-ring: rgba(159, 179, 255, .16);
+  --pdl-shadow-soft: 0 16px 48px rgba(0, 0, 0, .2);
+  --pdl-shadow-hover: 0 18px 56px rgba(0, 0, 0, .26);
+  --pdl-border-1: #222d4d;
+  --pdl-border-2: #2c3a60;
+  --pdl-border-3: #3a4a77;
+
+  --pdl-text-heading: #f5f7ff;
+  --pdl-text-1: #e4eaff;
+  --pdl-text-2: #b8c2e6;
+  --pdl-text-muted: #8792bb;
+  --pdl-text-subtle: #69749c;
+  --pdl-focus: #9fb3ff;
+
+  --pdl-success: #8fc4a3;
+  --pdl-warning: #d4b170;
+  --pdl-danger: #e08b8b;
+
+  --pdl-noise-opacity: .07;
+}
+
+[data-pdl-palette="forest"] {
+  color-scheme: dark;
+
+  --pdl-black: #0a120d;
+  --pdl-surface-1: #101a14;
+  --pdl-surface-2: #15221a;
+  --pdl-surface-3: #1c2c22;
+  --pdl-surface-soft: #0d1611;
+  --pdl-surface-elevated: #121d16;
+  --pdl-highlight: rgba(255, 255, 255, .035);
+  --pdl-focus-ring: rgba(147, 196, 159, .16);
+  --pdl-shadow-soft: 0 16px 48px rgba(0, 0, 0, .2);
+  --pdl-shadow-hover: 0 18px 56px rgba(0, 0, 0, .26);
+  --pdl-border-1: #213127;
+  --pdl-border-2: #2c4132;
+  --pdl-border-3: #3a5442;
+
+  --pdl-text-heading: #f2f8f3;
+  --pdl-text-1: #e2eee5;
+  --pdl-text-2: #b4c9ba;
+  --pdl-text-muted: #81998a;
+  --pdl-text-subtle: #64796a;
+  --pdl-focus: #9fd0ad;
+
+  --pdl-success: #93c49f;
+  --pdl-warning: #d0b072;
+  --pdl-danger: #df8c86;
+
+  --pdl-noise-opacity: .07;
+}
