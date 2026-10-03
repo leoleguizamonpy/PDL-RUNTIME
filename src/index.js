@@ -13,6 +13,7 @@ import { initNotifications, createToast, createResponseDialog, showFeedback } fr
 import { initPageMotion, withViewTransition } from "./js/motion.js";
 import { initLoading, showSplash, dismissSplash, withSplashTransition, setBusy } from "./js/loading.js";
 import { initKanban } from "./js/temporal.js";
+import { createSortable, initSortables } from "./js/sortable.js";
 import { initResizableWorkspaces } from "./js/workspace.js";
 
 export {
@@ -45,6 +46,8 @@ export {
   withSplashTransition,
   setBusy,
   initKanban,
+  createSortable,
+  initSortables,
   initResizableWorkspaces
 };
 
@@ -65,6 +68,7 @@ export function initPDL(options = {}) {
     initFormFlows(root),
     initNotifications(root),
     initKanban(root),
+    initSortables(root),
     initResizableWorkspaces(root),
     initPageMotion(root),
     initLoading(root),

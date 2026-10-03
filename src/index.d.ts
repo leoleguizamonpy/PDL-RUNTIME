@@ -38,6 +38,28 @@ export declare function initNotifications(root?: Document | HTMLElement): PDLDes
 export declare function initPageMotion(root?: Document | HTMLElement): PDLDestroyable;
 export declare function initLoading(root?: Document | HTMLElement): PDLDestroyable;
 export declare function initKanban(root?: Document | HTMLElement): PDLDestroyable;
+
+export interface PDLSortableMove {
+  from: number;
+  to: number;
+  item: HTMLElement;
+  /** True when moved with the arrow keys on its handle. */
+  keyboard?: boolean;
+}
+
+export interface PDLSortableOptions {
+  /** Items: direct children of the list. Default [data-pdl-sortable-item]. */
+  item?: string;
+  /** Handles any pointer (and the arrow keys) can drag. Default [data-pdl-sortable-handle]. */
+  handle?: string;
+  /** Extra areas a mouse can drag from; touch keeps them for scrolling. */
+  mouseHandle?: string;
+  /** Called on drop (or arrow key) with the old and new index. */
+  onMove?: (move: PDLSortableMove) => void;
+}
+
+export declare function createSortable(list: HTMLElement, options?: PDLSortableOptions): { destroy(): void };
+export declare function initSortables(root?: Document | HTMLElement): PDLDestroyable;
 export declare function initResizableWorkspaces(root?: Document | HTMLElement): PDLDestroyable;
 
 export declare function createToast(...args: unknown[]): unknown;
