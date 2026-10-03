@@ -27,6 +27,34 @@
   object-fit: cover;
 }
 
+/* Vertical videos (TikTok, shorts): 9:16, narrower and centered. */
+.pdl-embed--vertical {
+  max-width: 20rem;
+  margin-inline: auto;
+  aspect-ratio: 9 / 16;
+}
+
+/* Audio players (Spotify, SoundCloud) have a fixed height, not a ratio. */
+.pdl-embed--audio {
+  aspect-ratio: auto;
+  height: 152px;
+}
+
+.pdl-embed--audio-tall {
+  aspect-ratio: auto;
+  height: 352px;
+}
+
+/* Where a player will be (previews): its mark and name, centered. */
+.pdl-embed--placeholder {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--pdl-space-2);
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+}
+
 /* A wide banner image at the top of a page or card; the image fills it. */
 .pdl-cover {
   width: 100%;

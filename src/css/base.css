@@ -55,6 +55,20 @@ html[data-pdl-texture="off"] body::before {
   content: none;
 }
 
+/*
+ * Optional page backdrop (customization hook --pdl-page-fill: a gradient, or
+ * an image with a veil). A fixed layer behind the content rather than a
+ * fixed background, so it stays put while scrolling on phones too.
+ */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--pdl-page-fill, none);
+  pointer-events: none;
+}
+
 @media (forced-colors: active) {
   body::before {
     content: none;

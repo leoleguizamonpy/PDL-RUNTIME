@@ -52,7 +52,8 @@
   overscroll-behavior: contain;
   padding: var(--pdl-space-6) var(--pdl-space-4);
   border-radius: calc(var(--pdl-radius-surface) * 3);
-  background: var(--pdl-black);
+  /* The page backdrop, when the previewed page has one. */
+  background: var(--pdl-page-fill, var(--pdl-black));
   color: var(--pdl-text-1);
 }
 
