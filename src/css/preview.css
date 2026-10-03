@@ -44,6 +44,8 @@
 /* Scrolls on its own so a long page never pushes the frame off screen. A
    data-pdl-theme on the screen previews another theme in place. */
 .pdl-device-frame__screen {
+  /* Content sized with container units reads the phone, not the window. */
+  container-type: inline-size;
   min-height: 420px;
   max-height: calc(100vh - var(--pdl-topbar-height) - 9rem);
   overflow-y: auto;

@@ -115,9 +115,12 @@ video {
   letter-spacing: var(--pdl-display-tracking);
 }
 
-/* A larger name for pages built around one person or brand. */
+/* A larger name for pages built around one person or brand. Sized on the
+   nearest container (a device-frame preview) and on the viewport without
+   one, so a preview never overflows; long words wrap instead. */
 .pdl-page-title--lg {
-  font-size: clamp(2.1rem, 8vw, 3.2rem);
+  font-size: clamp(2.1rem, 9cqi, 3.2rem);
+  overflow-wrap: break-word;
 }
 
 .pdl-eyebrow {
