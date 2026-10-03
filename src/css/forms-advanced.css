@@ -130,6 +130,44 @@
   align-items: center;
 }
 
+/* Color picker: the native input drawn as a square swatch, the size of a
+   touch target, so the chosen color is what you see and tap. */
+.pdl-color-input {
+  width: var(--pdl-touch-target);
+  height: var(--pdl-touch-target);
+  flex: 0 0 var(--pdl-touch-target);
+  margin: 0;
+  padding: 3px;
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-1);
+  cursor: pointer;
+  appearance: none;
+}
+
+.pdl-color-input:hover {
+  border-color: var(--pdl-border-3);
+}
+
+.pdl-color-input:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 2px;
+}
+
+.pdl-color-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.pdl-color-input::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--pdl-radius-control) - 2px);
+}
+
+.pdl-color-input::-moz-color-swatch {
+  border: 0;
+  border-radius: calc(var(--pdl-radius-control) - 2px);
+}
+
 .pdl-range-value {
   min-width: 3ch;
   color: var(--pdl-text-muted);
