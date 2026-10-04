@@ -265,6 +265,60 @@
   object-fit: cover;
 }
 
+/* An icon on its own mark: a circle tinted with the text color (the
+   usual), a ring, or a tinted square; --art holds a mark that is already
+   drawn (a brand's colored circle). It leads a button's label (the size of
+   .pdl-button__thumb, so the button keeps its height) or stands as a card's
+   picture, larger. The tint follows the text, so it reads on any fill. */
+.pdl-icon-chip {
+  --pdl-icon-chip-size: 1.75rem;
+  display: inline-grid;
+  flex: none;
+  width: var(--pdl-icon-chip-size);
+  height: var(--pdl-icon-chip-size);
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.pdl-icon-chip > svg,
+.pdl-button .pdl-icon-chip > svg {
+  width: 56%;
+  height: 56%;
+  flex: none;
+}
+
+.pdl-icon-chip--outline {
+  background: none;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+
+.pdl-icon-chip--square {
+  border-radius: 28%;
+}
+
+.pdl-icon-chip--art {
+  background: none;
+}
+
+.pdl-icon-chip--art > svg,
+.pdl-button .pdl-icon-chip--art > svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pdl-button > .pdl-icon-chip {
+  margin-block: -.35rem;
+}
+
+.pdl-link-card__media > .pdl-icon-chip {
+  --pdl-icon-chip-size: 4.5rem;
+}
+
+.pdl-link-card--row .pdl-link-card__media > .pdl-icon-chip {
+  --pdl-icon-chip-size: 2.75rem;
+}
+
 /* A large photo leading a page (a person's or a brand's link page). It
    fades into the page at the bottom, and what follows rises onto the faded
    part, so the name reads on the page itself. */
