@@ -136,6 +136,102 @@
   overflow-wrap: anywhere;
 }
 
+/* Card variants. Banner: the picture fills the card and the label sits on
+   it, over a shade. Square: a 1:1 picture (pairs well in .pdl-link-grid).
+   Row: a square picture beside the label and a line of detail. */
+.pdl-link-card--banner {
+  grid-template-areas: "stack";
+}
+
+.pdl-link-card--banner > * {
+  grid-area: stack;
+}
+
+.pdl-link-card--banner .pdl-link-card__media {
+  aspect-ratio: 16 / 9;
+}
+
+.pdl-link-card--banner .pdl-link-card__label {
+  align-self: end;
+  padding-top: var(--pdl-space-10);
+  background: linear-gradient(to top, rgb(0 0 0 / 68%), transparent);
+  color: #fff;
+  text-align: start;
+}
+
+.pdl-link-card--square .pdl-link-card__media {
+  aspect-ratio: 1;
+}
+
+.pdl-link-card--row {
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  align-items: center;
+  text-align: start;
+}
+
+.pdl-link-card--row .pdl-link-card__media {
+  height: 100%;
+  min-height: 4.5rem;
+  aspect-ratio: 1;
+}
+
+.pdl-link-card--row .pdl-link-card__media > svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.pdl-link-card__text {
+  display: grid;
+  min-width: 0;
+  gap: .15rem;
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+}
+
+.pdl-link-card__text > .pdl-link-card__label {
+  padding: 0;
+}
+
+.pdl-link-card__meta {
+  overflow: hidden;
+  font-size: var(--pdl-text-xs);
+  opacity: .72;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Square cards side by side: always two columns, even on phones. */
+.pdl-link-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--pdl-space-3);
+}
+
+/* A play mark over a still frame, so a preview reads like the player. */
+.pdl-embed__play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.pdl-embed__play > svg {
+  width: 3.25rem;
+  height: 3.25rem;
+  filter: drop-shadow(0 2px 6px rgb(0 0 0 / 35%));
+}
+
+/* The column of a link page: centered, phone-like width, and a size
+   container so sizes that follow the page width (a large title) follow the
+   column, as in a device preview. */
+.pdl-link-page {
+  container-type: inline-size;
+  width: 100%;
+  max-width: 36rem;
+  margin-inline: auto;
+  padding: var(--pdl-space-8) var(--pdl-space-4) var(--pdl-space-10);
+}
+
 /* A small picture leading a button's label, in place of an icon. */
 .pdl-button__thumb {
   width: 1.75rem;

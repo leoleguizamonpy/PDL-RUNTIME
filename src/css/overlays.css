@@ -9,6 +9,13 @@
   color: var(--pdl-text-1);
 }
 
+/* Room for a wide preview (a page as a computer shows it). */
+.pdl-dialog--wide {
+  width: min(1200px, calc(100vw - 2rem));
+  max-width: none;
+  max-height: min(94vh, 1000px);
+}
+
 .pdl-dialog::backdrop {
   background: color-mix(in srgb, #000 72%, transparent);
   backdrop-filter: blur(4px);

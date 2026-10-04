@@ -64,6 +64,153 @@
   display: none;
 }
 
+/* Category rail: an editor's sections as tabs. On phones and narrow
+   layouts, rows of labeled tabs; on a computer screen (at least 64rem) with
+   room (.pdl-rail-layout at least 22rem), a sticky column of icons with
+   their labels beside the content, the chosen one in a filled circle. */
+.pdl-rail-layout {
+  container: pdl-rail / inline-size;
+}
+
+.pdl-rail-layout__body {
+  display: grid;
+  gap: var(--pdl-space-4);
+}
+
+.pdl-rail {
+  display: grid;
+  grid-template-columns: repeat(var(--pdl-rail-columns, 4), minmax(0, 1fr));
+  gap: var(--pdl-space-1);
+  padding: var(--pdl-space-1);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-rail__item {
+  display: grid;
+  min-width: 0;
+  justify-items: center;
+  gap: var(--pdl-space-1);
+  border: 0;
+  border-radius: calc(var(--pdl-radius-control) - 2px);
+  padding: var(--pdl-space-3) var(--pdl-space-1);
+  background: transparent;
+  color: var(--pdl-text-muted);
+  cursor: pointer;
+  font-family: var(--pdl-font-body);
+  font-size: var(--pdl-text-sm);
+  line-height: var(--pdl-line-compact);
+  transition: background var(--pdl-motion-short) var(--pdl-ease-standard), color var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-rail__item:hover {
+  color: var(--pdl-text-1);
+}
+
+.pdl-rail__item[aria-selected="true"] {
+  background: var(--pdl-surface-3);
+  color: var(--pdl-text-1);
+}
+
+.pdl-rail__item:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 2px;
+}
+
+.pdl-rail__icon {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  @container pdl-rail (min-width: 22rem) {
+    .pdl-rail-layout__body {
+      grid-template-columns: 4.75rem minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .pdl-rail {
+      position: sticky;
+      top: calc(var(--pdl-topbar-height, 0px) + var(--pdl-space-4));
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--pdl-space-2);
+      border: 0;
+      padding: 0;
+      background: transparent;
+    }
+
+    .pdl-rail__item {
+      padding: var(--pdl-space-1) 0;
+      font-size: var(--pdl-text-xs);
+    }
+
+    .pdl-rail__item[aria-selected="true"] {
+      background: transparent;
+    }
+
+    .pdl-rail__icon {
+      display: grid;
+      width: 2.5rem;
+      height: 2.5rem;
+      place-items: center;
+      border: 1px solid var(--pdl-border-2);
+      border-radius: 50%;
+      background: var(--pdl-surface-1);
+      box-shadow: var(--pdl-shadow-soft);
+    }
+
+    .pdl-rail__item[aria-selected="true"] .pdl-rail__icon {
+      border-color: transparent;
+      background: var(--pdl-text-1);
+      color: var(--pdl-black);
+    }
+  }
+}
+
+/* A page as a computer shows it: a window bar and a scrolling viewport
+   that paints the page backdrop (wide dialog previews). */
+.pdl-browser-frame {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-2);
+}
+
+.pdl-browser-frame__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-2) var(--pdl-space-3);
+  border-bottom: 1px solid var(--pdl-border-1);
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-browser-frame__bar::before {
+  content: "";
+  width: .55rem;
+  height: .55rem;
+  flex: none;
+  margin-right: 1.75rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 45%, transparent);
+  box-shadow: .85rem 0 0 color-mix(in srgb, currentColor 45%, transparent), 1.7rem 0 0 color-mix(in srgb, currentColor 45%, transparent);
+}
+
+.pdl-browser-frame__viewport {
+  height: min(68vh, 760px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  background: var(--pdl-page-fill, var(--pdl-black));
+  color: var(--pdl-text-1);
+}
+
+.pdl-browser-frame__viewport::-webkit-scrollbar {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .pdl-preview-layout {
     grid-template-columns: minmax(0, 1fr);

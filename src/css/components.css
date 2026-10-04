@@ -190,6 +190,19 @@
   border-radius: 50%;
 }
 
+/* An icon that draws its own shape and colors (a brand mark in a filled
+   circle): the drawing fills the button. */
+.pdl-icon-button--art {
+  padding: 0;
+  border-radius: 50%;
+}
+
+.pdl-icon-button--art svg,
+.pdl-icon-button--lg.pdl-icon-button--art svg {
+  width: 100%;
+  height: 100%;
+}
+
 .pdl-icon-button--sm {
   width: var(--pdl-control-sm);
   height: var(--pdl-control-sm);
