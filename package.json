@@ -1,6 +1,6 @@
 {
   "name": "@leoleguizamon/pdl",
-  "version": "1.4.0-alpha.52",
+  "version": "1.4.0-alpha.53",
   "description": "PDL runtime: reusable visual primitives, CSS and product-neutral interaction utilities.",
   "type": "module",
   "types": "./src/index.d.ts",

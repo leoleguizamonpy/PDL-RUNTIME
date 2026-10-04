@@ -80,6 +80,72 @@
   margin-block-end: calc(-1 * (var(--pdl-space-12) + var(--pdl-stack-gap, var(--pdl-rhythm-region))));
 }
 
+/* An image-led link (a link page's "card"): a 2:1 picture, or the link's
+   mark large, above its label, in the button's colors, border and corners
+   (corners capped so pill buttons still give a card). */
+.pdl-link-card {
+  display: grid;
+  overflow: hidden;
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
+  background: var(--pdl-button-fill, var(--pdl-surface-1));
+  color: var(--pdl-button-ink, var(--pdl-text-1));
+  box-shadow: var(--pdl-button-elevation, none);
+  text-align: center;
+  transition:
+    transform var(--pdl-motion-short) var(--pdl-ease-standard),
+    box-shadow var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-link-card:hover {
+  transform: translateY(-2px);
+}
+
+.pdl-link-card:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 3px;
+}
+
+.pdl-link-card__media {
+  display: grid;
+  aspect-ratio: 2 / 1;
+  /* Without it a tall picture would stretch the box past 2:1. */
+  overflow: hidden;
+  place-items: center;
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.pdl-link-card__media > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pdl-link-card__media > svg {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.pdl-link-card__label {
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-button-font-size, .8rem);
+  font-weight: 650;
+  line-height: var(--pdl-line-compact);
+  overflow-wrap: anywhere;
+}
+
+/* A small picture leading a button's label, in place of an icon. */
+.pdl-button__thumb {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: none;
+  margin-block: -.35rem;
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-control)), .5rem);
+  object-fit: cover;
+}
+
 /* A large photo leading a page (a person's or a brand's link page). It
    fades into the page at the bottom, and what follows rises onto the faded
    part, so the name reads on the page itself. */

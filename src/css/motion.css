@@ -65,6 +65,55 @@ html[data-pdl-motion-ready] [data-pdl-page-enter] {
   background-size: 100% 1px;
 }
 
+/* Attention motions for the one action a page wants noticed (link pages):
+   short bursts with a rest in between, and none at all for people who ask
+   for less motion. Shimmer sweeps a light over the element's own fill. */
+@media (prefers-reduced-motion: no-preference) {
+  .pdl-motion--pulse { animation: pdl-motion-pulse 2.6s var(--pdl-ease-standard) infinite; }
+  .pdl-motion--wiggle { animation: pdl-motion-wiggle 3.2s ease-in-out infinite; }
+  .pdl-motion--bounce { animation: pdl-motion-bounce 2.8s ease-out infinite; }
+  .pdl-motion--glow { animation: pdl-motion-glow 2.4s ease-out infinite; }
+
+  .pdl-motion--shimmer {
+    background-image: linear-gradient(110deg, transparent 42%, color-mix(in srgb, white 38%, transparent) 50%, transparent 58%);
+    background-repeat: no-repeat;
+    background-size: 250% 100%;
+    animation: pdl-motion-shimmer 3.2s ease-in-out infinite;
+  }
+}
+
+@keyframes pdl-motion-pulse {
+  0%, 68%, 100% { transform: scale(1); }
+  78% { transform: scale(1.04); }
+  88% { transform: scale(.99); }
+}
+
+@keyframes pdl-motion-wiggle {
+  0%, 70%, 100% { transform: rotate(0); }
+  74% { transform: rotate(-2deg); }
+  78% { transform: rotate(2deg); }
+  82% { transform: rotate(-1.5deg); }
+  86% { transform: rotate(1deg); }
+  90% { transform: rotate(0); }
+}
+
+@keyframes pdl-motion-bounce {
+  0%, 68%, 100% { transform: translateY(0); }
+  76% { transform: translateY(-6px); }
+  84% { transform: translateY(0); }
+  90% { transform: translateY(-2px); }
+}
+
+@keyframes pdl-motion-glow {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 45%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 0%, transparent); }
+}
+
+@keyframes pdl-motion-shimmer {
+  0%, 45% { background-position: 160% 0; }
+  100% { background-position: -60% 0; }
+}
+
 @keyframes pdl-fade-enter {
   from { opacity: 0; }
   to { opacity: 1; }

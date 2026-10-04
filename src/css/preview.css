@@ -55,6 +55,13 @@
   /* The page backdrop, when the previewed page has one. */
   background: var(--pdl-page-fill, var(--pdl-black));
   color: var(--pdl-text-1);
+  /* Like the phone it stands for: it scrolls without a scrollbar eating
+     into its side. */
+  scrollbar-width: none;
+}
+
+.pdl-device-frame__screen::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 768px) {
