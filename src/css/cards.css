@@ -67,6 +67,16 @@
   letter-spacing: -.02em;
 }
 
+/* A heading smaller or larger than a card's (a page's own sections). */
+.pdl-card__title--sm {
+  font-size: .9rem;
+}
+
+.pdl-card__title--lg {
+  font-size: 1.4rem;
+  letter-spacing: -.025em;
+}
+
 .pdl-card__copy {
   margin: 0;
   color: var(--pdl-text-muted);

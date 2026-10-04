@@ -23,13 +23,14 @@
   color: var(--pdl-text-2);
   font-size: var(--pdl-text-sm);
   font-weight: 600;
-  line-height: var(--pdl-line-heading);
+  line-height: var(--pdl-line-compact);
 }
 
+/* Details wrap to several lines in narrow columns: they get room. */
 .pdl-list-item__meta {
   color: var(--pdl-text-subtle);
   font-size: var(--pdl-text-xs);
-  line-height: var(--pdl-line-heading);
+  line-height: 1.45;
 }
 
 /* A list of sections to open (settings, an editor's categories): each row

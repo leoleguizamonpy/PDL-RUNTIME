@@ -183,8 +183,8 @@
 .pdl-link-card__text {
   display: grid;
   min-width: 0;
-  gap: .15rem;
-  padding: var(--pdl-space-3) var(--pdl-space-4);
+  gap: .35rem;
+  padding: var(--pdl-space-4);
 }
 
 .pdl-link-card__text > .pdl-link-card__label {
@@ -194,9 +194,26 @@
 .pdl-link-card__meta {
   overflow: hidden;
   font-size: var(--pdl-text-xs);
+  line-height: 1.45;
   opacity: .72;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* The list of a link page: buttons close together; sections (pictures,
+   players, a paragraph, a countdown, a divider) with room around them; a
+   heading opening a new group. */
+.pdl-link-list {
+  display: grid;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-link-list > :where(.pdl-figure, .pdl-gallery, .pdl-carousel, .pdl-countdown, .pdl-embed, .pdl-prose, .pdl-editorial-rule, .pdl-stack) {
+  margin-block: var(--pdl-space-2);
+}
+
+.pdl-link-list > .pdl-card__title:not(:first-child) {
+  margin-top: var(--pdl-space-5);
 }
 
 /* Square cards side by side: always two columns, even on phones. */
@@ -418,7 +435,7 @@
    drawn like the page's buttons (fill, line, corners). */
 .pdl-countdown {
   display: grid;
-  gap: var(--pdl-space-2);
+  gap: var(--pdl-space-3);
 }
 
 .pdl-countdown__units {
@@ -458,6 +475,24 @@
   padding: var(--pdl-space-4);
   font-family: var(--pdl-font-display);
   font-weight: 650;
+  line-height: var(--pdl-line-compact);
+}
+
+/* Without seconds: three boxes. Plain: the figures without boxes. */
+.pdl-countdown__units--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pdl-countdown--plain .pdl-countdown__unit {
+  border: 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  color: inherit;
+}
+
+.pdl-countdown--plain .pdl-countdown__value {
+  font-size: 2rem;
 }
 
 /* A picture of the page, opening larger, with an optional caption. */
@@ -486,6 +521,22 @@
   opacity: .8;
 }
 
+/* A picture's shape: square, wide (16:9) or tall (4:5), filled; and its
+   corners, straight instead of the buttons' own. */
+.pdl-figure__media--square { aspect-ratio: 1; }
+.pdl-figure__media--wide { aspect-ratio: 16 / 9; }
+.pdl-figure__media--tall { aspect-ratio: 4 / 5; }
+
+:is(.pdl-figure__media--square, .pdl-figure__media--wide, .pdl-figure__media--tall) > img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.pdl-figure__media--sharp,
+.pdl-gallery--sharp .pdl-gallery__item {
+  border-radius: 0;
+}
+
 /* Pictures side by side, each opening larger: a grid of squares (two
    columns; one with a single picture, three with many), or a row that
    slides sideways with the next one peeking (carousel). */
@@ -496,7 +547,13 @@
 }
 
 .pdl-gallery--1 { --pdl-gallery-columns: 1; }
+.pdl-gallery--2 { --pdl-gallery-columns: 2; }
 .pdl-gallery--3 { --pdl-gallery-columns: 3; }
+
+/* Tall pictures (4:5) instead of squares. */
+.pdl-gallery--tall .pdl-gallery__item {
+  aspect-ratio: 4 / 5;
+}
 
 .pdl-gallery__item {
   display: block;
@@ -533,17 +590,41 @@
   display: none;
 }
 
-/* A mouse cannot swipe: it gets a thin bar to drag. */
-@media (pointer: fine) {
-  .pdl-gallery--carousel {
-    padding-bottom: var(--pdl-space-2);
-    scrollbar-width: thin;
-  }
+/* A carousel never shows a scrollbar: fingers swipe it, and round buttons
+   over its edges go through it (shown by the page's script, so a page
+   without it still swipes). The button at an end fades out. */
+.pdl-carousel {
+  position: relative;
+}
 
-  .pdl-gallery--carousel::-webkit-scrollbar {
-    display: block;
-    height: 6px;
-  }
+.pdl-carousel__button {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pdl-surface-1) 90%, transparent);
+  box-shadow: 0 2px 10px rgb(0 0 0 / 18%);
+  color: var(--pdl-text-1);
+  cursor: pointer;
+  translate: 0 -50%;
+  transition: opacity var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-carousel__button--prev { left: var(--pdl-space-2); }
+.pdl-carousel__button--next { right: var(--pdl-space-2); }
+
+.pdl-carousel__button:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pdl-carousel__button:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 2px;
 }
 
 .pdl-gallery--carousel .pdl-gallery__item {

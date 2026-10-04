@@ -62,6 +62,10 @@
    buttons keep their full width. Media are grid items here, so text-align
    alone would leave them at the start. */
 .pdl-stack--center { text-align: center; }
+
+/* One element's own alignment, whatever its stack does. */
+.pdl-text-start { text-align: start; }
+.pdl-text-center { text-align: center; }
 .pdl-stack--center > :where(svg, img, picture, video, .pdl-avatar) { justify-self: center; }
 .pdl-cluster--center { justify-content: center; }
 
@@ -129,6 +133,10 @@
   font-size: var(--pdl-prose-size, var(--pdl-text-md));
   line-height: var(--pdl-line-relaxed);
 }
+
+/* Smaller or larger reading text. */
+.pdl-prose--sm { --pdl-prose-size: var(--pdl-text-sm); }
+.pdl-prose--lg { --pdl-prose-size: var(--pdl-text-lg); }
 
 .pdl-prose > * + * {
   margin-top: var(--pdl-space-5);
@@ -207,6 +215,18 @@
   width: 100%;
   height: 1px;
   background: color-mix(in srgb, var(--pdl-border-2) 72%, transparent);
+}
+
+/* Dotted: a row of dots. Space: only room, no line. */
+.pdl-editorial-rule--dotted {
+  height: 0;
+  border-top: 3px dotted color-mix(in srgb, var(--pdl-border-3) 80%, transparent);
+  background: none;
+}
+
+.pdl-editorial-rule--space {
+  height: var(--pdl-space-6);
+  background: none;
 }
 
 .pdl-editorial-meta {

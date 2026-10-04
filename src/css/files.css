@@ -102,7 +102,7 @@
 .pdl-file-item__copy {
   display: grid;
   min-width: 0;
-  gap: .15rem;
+  gap: .25rem;
 }
 
 .pdl-file-item__name,
@@ -116,13 +116,13 @@
   color: var(--pdl-text-2);
   font-size: .76rem;
   font-weight: 600;
-  line-height: var(--pdl-line-heading);
+  line-height: var(--pdl-line-compact);
 }
 
 .pdl-file-item__meta {
   color: var(--pdl-text-subtle);
   font-size: .66rem;
-  line-height: var(--pdl-line-heading);
+  line-height: 1.45;
 }
 
 .pdl-progress {

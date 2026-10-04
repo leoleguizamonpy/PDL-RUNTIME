@@ -10,7 +10,7 @@ The private PDL source repository remains the source of truth. Governance, found
 
 `@leoleguizamon/pdl`
 
-Current distribution baseline: `1.4.0-alpha.56`.
+Current distribution baseline: `1.4.0-alpha.57`.
 
 ## Security boundary
 
