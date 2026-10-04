@@ -68,6 +68,29 @@
   letter-spacing: .05em;
 }
 
+/* The signature in its written case, not in capitals: for a
+   compact footer, where it shares one row with the links. */
+.pdl-footer__brand--sentence {
+  letter-spacing: .01em;
+  text-transform: none;
+}
+
+/* A footer closing a page's own column (a link page) instead of the app
+   shell: no fill of its own, so the page's background shows through, and
+   the column's edges. Its links read in the page's muted text. */
+.pdl-footer--page {
+  margin-top: var(--pdl-space-4);
+  background: none;
+}
+
+.pdl-footer--page .pdl-footer__inner {
+  padding-inline: 0;
+}
+
+.pdl-footer--page .pdl-footer__links {
+  color: var(--pdl-text-muted);
+}
+
 .pdl-user-state {
   display: inline-flex;
   min-height: var(--pdl-touch-target);
@@ -162,6 +185,13 @@
   .pdl-footer__inner {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  /* compact-mobile: one row, the signature at the start and the links at
+     the end, instead of stacked. */
+  .pdl-footer__inner--row {
+    align-items: center;
+    flex-direction: row;
   }
 
   .pdl-user-state__copy {
