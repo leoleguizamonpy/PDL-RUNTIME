@@ -74,6 +74,12 @@
   object-fit: cover;
 }
 
+/* A banner the next item rises onto: in a stack, the following photo or
+   avatar (up to 6rem tall) sits across the cover's lower edge. */
+.pdl-cover--overlap {
+  margin-block-end: calc(-1 * (var(--pdl-space-12) + var(--pdl-stack-gap, var(--pdl-rhythm-region))));
+}
+
 /* A large photo leading a page (a person's or a brand's link page). It
    fades into the page at the bottom, and what follows rises onto the faded
    part, so the name reads on the page itself. */
