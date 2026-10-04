@@ -63,6 +63,63 @@
   opacity: .45;
 }
 
+/* The chosen one of a set (role="menuitemradio"). */
+.pdl-menu__item[aria-checked="true"] {
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+  font-weight: 650;
+}
+
+/* What is being edited, as a pill that opens a menu to switch: a photo,
+   a name over a detail line, and a chevron. */
+.pdl-switcher {
+  display: inline-flex;
+  max-width: 100%;
+  min-height: var(--pdl-touch-target);
+  align-items: center;
+  gap: var(--pdl-space-2);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: 999px;
+  padding: .3rem .8rem .3rem .3rem;
+  background: var(--pdl-surface-1);
+  color: var(--pdl-text-1);
+  cursor: pointer;
+  text-align: start;
+}
+
+.pdl-switcher:hover {
+  border-color: var(--pdl-border-3);
+}
+
+.pdl-switcher:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 2px;
+}
+
+.pdl-switcher__text {
+  display: grid;
+  min-width: 0;
+}
+
+.pdl-switcher__title,
+.pdl-switcher__meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-switcher__title {
+  font-size: var(--pdl-text-sm);
+  font-weight: 650;
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-switcher__meta {
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  line-height: var(--pdl-line-heading);
+}
+
 .pdl-menu__item--danger {
   color: var(--pdl-danger);
 }

@@ -32,6 +32,78 @@
   line-height: var(--pdl-line-heading);
 }
 
+/* A list of sections to open (settings, an editor's categories): each row
+   a mark, its name and what is chosen now, and a chevron. */
+.pdl-nav-list {
+  display: grid;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-nav-list__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--pdl-space-3);
+  width: 100%;
+  min-height: 3.75rem;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+  background: var(--pdl-surface-1);
+  color: var(--pdl-text-1);
+  cursor: pointer;
+  text-align: start;
+  transition:
+    border-color var(--pdl-motion-short) var(--pdl-ease-standard),
+    background var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-nav-list__item:hover {
+  border-color: var(--pdl-border-3);
+  background: var(--pdl-surface-2);
+}
+
+.pdl-nav-list__item:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 2px;
+}
+
+.pdl-nav-list__icon {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-3);
+  color: var(--pdl-text-1);
+}
+
+.pdl-nav-list__text {
+  display: grid;
+  min-width: 0;
+  gap: .1rem;
+}
+
+.pdl-nav-list__label {
+  font-size: var(--pdl-text-sm);
+  font-weight: 650;
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-nav-list__value {
+  overflow: hidden;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  line-height: var(--pdl-line-heading);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-nav-list__chevron {
+  display: grid;
+  color: var(--pdl-text-subtle);
+}
+
 .pdl-kv {
   display: grid;
   grid-template-columns: minmax(120px, .7fr) minmax(0, 1.3fr);
