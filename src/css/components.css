@@ -144,6 +144,42 @@
     var(--pdl-shadow-soft);
 }
 
+/* A short label pinned on a button's top edge ("Nuevo", "-20%"); the
+   button holding one is .pdl-button--badged. */
+.pdl-button--badged {
+  position: relative;
+}
+
+.pdl-button__badge {
+  position: absolute;
+  top: 0;
+  right: var(--pdl-space-4);
+  border-radius: 999px;
+  padding: .22rem .55rem;
+  background: var(--pdl-button-ink, var(--pdl-black));
+  box-shadow: 0 0 0 2px var(--pdl-button-fill, var(--pdl-text-1));
+  color: var(--pdl-button-fill, var(--pdl-text-1));
+  font-size: .58rem;
+  font-weight: 750;
+  letter-spacing: .06em;
+  line-height: 1;
+  text-transform: uppercase;
+  translate: 0 -50%;
+  white-space: nowrap;
+}
+
+.pdl-button--outline .pdl-button__badge {
+  background: var(--pdl-button-tint, var(--pdl-text-2));
+  box-shadow: none;
+  color: var(--pdl-black);
+}
+
+/* A heavier outline, for a button that leads (a featured outline). */
+.pdl-button--bold {
+  border-width: max(2px, var(--pdl-button-border-width, 1px));
+  font-weight: 750;
+}
+
 .pdl-icon-button {
   display: inline-grid;
   width: var(--pdl-control-md);

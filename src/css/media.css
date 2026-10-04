@@ -200,20 +200,26 @@
   white-space: nowrap;
 }
 
-/* The list of a link page: buttons close together; sections (pictures,
-   players, a paragraph, a countdown, a divider) with room around them; a
-   heading opening a new group. */
+/* The list of a link page: everything at the same distance; more room
+   between two elements is the page's own (.pdl-spacer). */
 .pdl-link-list {
   display: grid;
   gap: var(--pdl-space-3);
 }
 
-.pdl-link-list > :where(.pdl-figure, .pdl-gallery, .pdl-carousel, .pdl-countdown, .pdl-embed, .pdl-prose, .pdl-editorial-rule, .pdl-stack) {
-  margin-block: var(--pdl-space-2);
+/* Room set by hand between two elements: small, medium, large, extra. */
+.pdl-spacer {
+  height: var(--pdl-space-8);
 }
 
-.pdl-link-list > .pdl-card__title:not(:first-child) {
-  margin-top: var(--pdl-space-5);
+.pdl-spacer--sm { height: var(--pdl-space-4); }
+.pdl-spacer--lg { height: var(--pdl-space-14); }
+.pdl-spacer--xl { height: var(--pdl-space-20); }
+
+/* In an editor's preview the room shows as a faint dashed box. */
+.pdl-spacer--guide {
+  border: 1px dashed color-mix(in srgb, currentColor 22%, transparent);
+  border-radius: var(--pdl-radius-control);
 }
 
 /* Square cards side by side: always two columns, even on phones. */
@@ -431,68 +437,138 @@
   white-space: nowrap;
 }
 
-/* Time left to a moment: equal boxes for days, hours, minutes and seconds,
-   drawn like the page's buttons (fill, line, corners). */
+/* Time left to a moment, centered: a title, the figures (days, hours,
+   minutes, seconds) with their names under them, and the date. Sized on
+   the page's column, so they never spill out of it. Four looks:
+   - card (default): everything in one card, in the buttons' look, the
+     figures apart by colons;
+   - boxes: each figure in its own tile, in the buttons' look;
+   - flip: each figure on a solid tile split across, like a flip clock;
+   - plain: the figures alone, larger. */
 .pdl-countdown {
   display: grid;
+  justify-items: center;
   gap: var(--pdl-space-3);
+  text-align: center;
+}
+
+.pdl-countdown__title {
+  margin: 0;
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-md);
+  font-weight: 650;
+  line-height: var(--pdl-line-compact);
+  overflow-wrap: break-word;
 }
 
 .pdl-countdown__units {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: center;
   gap: var(--pdl-space-2);
 }
 
-.pdl-countdown__unit,
-.pdl-countdown__done {
+.pdl-countdown__unit {
   display: grid;
-  gap: .25rem;
-  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
-  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
-  padding: var(--pdl-space-3) var(--pdl-space-1);
-  background: var(--pdl-button-fill, var(--pdl-surface-1));
-  box-shadow: var(--pdl-button-elevation, none);
-  color: var(--pdl-button-ink, var(--pdl-text-1));
-  text-align: center;
+  min-width: 0;
+  flex: 1 1 0;
+  max-width: 5.5rem;
+  justify-items: center;
+  gap: .35rem;
 }
 
 .pdl-countdown__value {
   font-family: var(--pdl-font-display);
-  font-size: 1.6rem;
+  font-size: clamp(1.45rem, 8cqi, 2.3rem);
   font-variant-numeric: tabular-nums;
-  font-weight: 750;
+  font-weight: 700;
+  letter-spacing: -.02em;
   line-height: 1;
 }
 
 .pdl-countdown__label {
-  font-size: var(--pdl-text-xs);
+  font-size: .6rem;
+  font-weight: 650;
+  letter-spacing: .1em;
   line-height: 1;
-  opacity: .72;
+  opacity: .66;
+  text-transform: uppercase;
+}
+
+/* Between the figures, at their height. */
+.pdl-countdown__sep {
+  font-family: var(--pdl-font-display);
+  font-size: clamp(1.25rem, 7cqi, 2rem);
+  font-weight: 600;
+  line-height: 1.1;
+  opacity: .35;
+}
+
+.pdl-countdown__date {
+  font-size: var(--pdl-text-xs);
+  letter-spacing: .02em;
+  opacity: .7;
 }
 
 .pdl-countdown__done {
-  padding: var(--pdl-space-4);
   font-family: var(--pdl-font-display);
-  font-weight: 650;
+  font-size: var(--pdl-text-lg);
+  font-weight: 700;
   line-height: var(--pdl-line-compact);
 }
 
-/* Without seconds: three boxes. Plain: the figures without boxes. */
-.pdl-countdown__units--3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.pdl-countdown--card,
+.pdl-countdown--boxes .pdl-countdown__unit {
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  background: var(--pdl-button-fill, var(--pdl-surface-1));
+  box-shadow: var(--pdl-button-elevation, none);
+  color: var(--pdl-button-ink, var(--pdl-text-1));
 }
 
-.pdl-countdown--plain .pdl-countdown__unit {
-  border: 0;
-  padding: 0;
-  background: none;
-  box-shadow: none;
-  color: inherit;
+.pdl-countdown--card {
+  padding: var(--pdl-space-5) var(--pdl-space-4);
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
+}
+
+.pdl-countdown--boxes .pdl-countdown__unit {
+  max-width: none;
+  padding: var(--pdl-space-4) var(--pdl-space-1) var(--pdl-space-3);
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
+}
+
+.pdl-countdown--boxes .pdl-countdown__sep,
+.pdl-countdown--flip .pdl-countdown__sep {
+  display: none;
+}
+
+/* The tile takes the solid button's colors; a line splits it across. */
+.pdl-countdown--flip .pdl-countdown__value {
+  position: relative;
+  min-width: 2.2em;
+  border-radius: .3rem;
+  padding: .32em .2em;
+  background: var(--pdl-button-fill, var(--pdl-text-1));
+  box-shadow: var(--pdl-button-elevation, 0 2px 6px rgb(0 0 0 / 16%));
+  color: var(--pdl-button-ink, var(--pdl-black));
+}
+
+.pdl-countdown--flip .pdl-countdown__value::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--pdl-button-ink, var(--pdl-black)) 30%, transparent);
+  content: "";
 }
 
 .pdl-countdown--plain .pdl-countdown__value {
-  font-size: 2rem;
+  font-size: clamp(1.9rem, 11cqi, 3rem);
+}
+
+.pdl-countdown--plain .pdl-countdown__sep {
+  font-size: clamp(1.6rem, 9cqi, 2.6rem);
 }
 
 /* A picture of the page, opening larger, with an optional caption. */

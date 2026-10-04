@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "package": "@leoleguizamon/pdl",
-  "version": "1.4.0-alpha.57",
+  "version": "1.4.0-alpha.58",
   "sourceRepository": "leoleguizamonpy/PDL",
-  "sourceCommit": "fae2a95649d5332485199d0994243c5687f2064e",
+  "sourceCommit": "bc79292dfa699424dc35b983c1c68b6f92bdc7b0",
   "exportPolicy": "allowlist",
   "included": [
     "packages/pdl/src/**",

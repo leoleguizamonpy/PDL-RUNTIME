@@ -127,6 +127,7 @@ video {
   font-weight: 580;
   line-height: var(--pdl-line-display);
   letter-spacing: var(--pdl-display-tracking);
+  overflow-wrap: break-word;
 }
 
 /* A larger name for pages built around one person or brand. Sized on the
