@@ -76,3 +76,63 @@
     display: none;
   }
 }
+
+
+/* Asset workspace --------------------------------------------------------- */
+
+.pdl-asset-workspace {
+  display: grid;
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr) minmax(220px, 300px);
+  min-height: 560px;
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-black);
+}
+
+.pdl-asset-workspace__library,
+.pdl-asset-workspace__inspector {
+  min-width: 0;
+  overflow: auto;
+  background: var(--pdl-surface-1);
+}
+
+.pdl-asset-workspace__library {
+  border-right: 1px solid var(--pdl-border-1);
+}
+
+.pdl-asset-workspace__inspector {
+  border-left: 1px solid var(--pdl-border-1);
+}
+
+.pdl-asset-workspace__stage {
+  min-width: 0;
+  overflow: auto;
+  display: grid;
+  place-items: center;
+  padding: var(--pdl-rhythm-region, 24px);
+  background: var(--pdl-black);
+}
+
+.pdl-asset-workspace__selection {
+  width: min(100%, 720px);
+  display: grid;
+  gap: var(--pdl-rhythm-content, 16px);
+}
+
+.pdl-asset-workspace__meta {
+  display: grid;
+  gap: var(--pdl-space-2);
+  padding: var(--pdl-space-4);
+}
+
+@media (max-width: 980px) {
+  .pdl-asset-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pdl-asset-workspace__library,
+  .pdl-asset-workspace__inspector {
+    display: none;
+  }
+}
