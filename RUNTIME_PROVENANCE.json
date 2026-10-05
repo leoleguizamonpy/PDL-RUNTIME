@@ -1,13 +1,28 @@
 {
   "schemaVersion": 1,
   "package": "@leoleguizamon/pdl",
-  "version": "1.4.0-alpha.62",
-  "sourceRepository": "leoleguizamonpy/PDL",
-  "sourceCommit": "f5a4539a00edfb166a0b0360e8a4ce1f48c06251",
+  "version": "1.4.0-alpha.63",
+  "source": "leoleguizamonpy/PDL",
+  "sourceRevision": "d88c751b926edf92b934a683d36e7354ee97141d",
+  "sourceRef": "main",
+  "sourceRefType": "branch",
+  "authority": "private-source",
+  "distribution": "leoleguizamonpy/PDL-RUNTIME",
   "exportPolicy": "allowlist",
   "included": [
     "packages/pdl/src/**",
     "schemas/product-ui.schema.json"
   ],
-  "historyPolicy": "PDL-RUNTIME starts from a clean public history and does not mirror the private source repository."
+  "excludedByDesign": [
+    "FOUNDATION.md",
+    "ROADMAP.md",
+    "AGENTS.md",
+    "project.standard.yml",
+    "design-system/**",
+    "docs/**",
+    "playground/**",
+    "scripts/**",
+    "tests/**",
+    ".github/**"
+  ]
 }
