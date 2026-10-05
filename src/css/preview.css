@@ -236,6 +236,23 @@
   outline-offset: 3px;
 }
 
+/* Its texts are written in place (contenteditable): a text cursor, a
+   dashed line around the one being written, and its placeholder
+   (data-pdl-placeholder) while it is empty, so it never collapses. */
+.pdl-edit-surface [contenteditable] {
+  cursor: text;
+}
+
+.pdl-edit-surface [contenteditable]:focus {
+  outline: 1px dashed currentColor;
+  outline-offset: 2px;
+}
+
+.pdl-edit-surface [contenteditable][data-pdl-placeholder]:empty::before {
+  content: attr(data-pdl-placeholder);
+  opacity: .5;
+}
+
 .pdl-edit-toolbar {
   --pdl-button-fill: initial;
   --pdl-button-ink: initial;
