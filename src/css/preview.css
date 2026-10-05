@@ -211,6 +211,76 @@
   display: none;
 }
 
+/* Editing a page in place, in an editor's preview. .pdl-edit-surface holds
+   the page (a device frame's screen); each part that can be chosen
+   ([data-pdl-edit-target]) shows a dashed outline under the pointer and a
+   solid one once chosen ([data-pdl-selected="true"]). .pdl-edit-toolbar
+   floats over the chosen part with its actions; the editor places it with
+   --pdl-edit-toolbar-x and --pdl-edit-toolbar-y, and it scrolls with the
+   page. It keeps the editor's own look whatever the page's colors. */
+.pdl-edit-surface {
+  position: relative;
+}
+
+.pdl-edit-surface [data-pdl-edit-target] {
+  cursor: pointer;
+}
+
+.pdl-edit-surface [data-pdl-edit-target]:hover {
+  outline: 1px dashed var(--pdl-focus);
+  outline-offset: 3px;
+}
+
+.pdl-edit-surface [data-pdl-edit-target][data-pdl-selected="true"] {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 3px;
+}
+
+.pdl-edit-toolbar {
+  --pdl-button-fill: initial;
+  --pdl-button-ink: initial;
+  --pdl-button-line: initial;
+  --pdl-button-tint: initial;
+  --pdl-button-radius: initial;
+  --pdl-button-border-width: initial;
+  position: absolute;
+  z-index: 6;
+  top: var(--pdl-edit-toolbar-y, 0);
+  left: var(--pdl-edit-toolbar-x, 0);
+  display: flex;
+  flex-wrap: wrap;
+  max-width: calc(100% - 8px);
+  /* Its buttons keep the touch size; no gaps, so a phone's screen holds
+     them in one row. */
+  gap: 0;
+  padding: 2px;
+  border: 1px solid var(--pdl-border-2);
+  /* Round ends on one row; softer corners when it wraps on a phone. */
+  border-radius: 1.4rem;
+  background: var(--pdl-surface-elevated);
+  box-shadow: var(--pdl-shadow-soft);
+  color: var(--pdl-text-1);
+}
+
+.pdl-edit-toolbar .pdl-icon-button {
+  border-radius: 50%;
+}
+
+/* Removing: in red, a small button that grows when it asks again
+   ("Tocá de nuevo"). */
+.pdl-edit-toolbar__remove {
+  padding-inline: .55rem;
+  border-radius: 999px;
+  color: var(--pdl-danger);
+  white-space: nowrap;
+}
+
+/* The row of what is chosen in the preview, in the editor's list. */
+.pdl-list[data-pdl-selected="true"] {
+  border-color: var(--pdl-focus);
+  box-shadow: 0 0 0 1px var(--pdl-focus);
+}
+
 @media (max-width: 768px) {
   .pdl-preview-layout {
     grid-template-columns: minmax(0, 1fr);
