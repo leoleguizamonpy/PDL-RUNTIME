@@ -311,6 +311,125 @@
   text-align: center;
 }
 
+/* "I will attend": how many will be there, who agreed to appear and the
+   way to join (or to cancel), in one card in the buttons' look. */
+.pdl-attendance {
+  display: grid;
+  justify-items: center;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-5) var(--pdl-space-4);
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
+  background: var(--pdl-button-fill, var(--pdl-surface-1));
+  box-shadow: var(--pdl-button-elevation, none);
+  color: var(--pdl-button-ink, var(--pdl-text-1));
+  text-align: center;
+}
+
+.pdl-attendance__when,
+.pdl-attendance__meta {
+  margin: 0;
+  font-size: var(--pdl-text-xs);
+  opacity: .72;
+}
+
+.pdl-attendance__count {
+  margin: 0;
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-attendance__number {
+  display: block;
+  font-family: var(--pdl-font-display);
+  font-size: 2.25rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* The first faces of those who appear, one over the other. */
+.pdl-attendance__faces {
+  display: flex;
+  justify-content: center;
+}
+
+.pdl-attendance__faces > .pdl-attendance__face + .pdl-attendance__face {
+  margin-inline-start: -.5rem;
+}
+
+.pdl-attendance__face {
+  display: inline-grid;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  place-items: center;
+  border: 2px solid var(--pdl-button-fill, var(--pdl-surface-1));
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 14%, var(--pdl-button-fill, var(--pdl-surface-1)));
+  font-size: .65rem;
+  font-weight: 700;
+}
+
+.pdl-attendance__people {
+  display: grid;
+  width: 100%;
+  gap: var(--pdl-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: start;
+}
+
+.pdl-attendance__people > li {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--pdl-space-2);
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-attendance__name {
+  min-width: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.pdl-attendance__handle {
+  color: inherit;
+  opacity: .72;
+  text-decoration: none;
+}
+
+.pdl-attendance__handle:hover {
+  text-decoration: underline;
+}
+
+.pdl-attendance__form {
+  display: grid;
+  width: 100%;
+  gap: var(--pdl-space-3);
+  text-align: start;
+}
+
+.pdl-attendance__form > :is(button, .pdl-button) {
+  justify-self: stretch;
+}
+
+.pdl-attendance__done,
+.pdl-attendance__notice {
+  margin: 0;
+  font-weight: 650;
+  text-align: center;
+}
+
+.pdl-attendance__notice {
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-attendance__notice[data-state="danger"] {
+  color: var(--pdl-danger);
+}
+
 /* A release (an album, a single): its cover, its name and a button for
    each platform below. */
 .pdl-release {
