@@ -172,6 +172,178 @@
   overflow-wrap: anywhere;
 }
 
+/* A price list: each service (a dish, a product) with what it includes,
+   its price and, when it can be booked, its button; one card in the
+   buttons' look of the page, a line between items. */
+.pdl-price-list {
+  display: grid;
+  gap: var(--pdl-space-2);
+  text-align: start;
+}
+
+.pdl-price-list__title {
+  text-align: center;
+}
+
+.pdl-price-list__items {
+  display: grid;
+  overflow: hidden;
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
+  background: var(--pdl-button-fill, var(--pdl-surface-1));
+  box-shadow: var(--pdl-button-elevation, none);
+  color: var(--pdl-button-ink, var(--pdl-text-1));
+}
+
+.pdl-price-list__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pdl-space-2) var(--pdl-space-3);
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+}
+
+.pdl-price-list__item + .pdl-price-list__item {
+  border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+}
+
+.pdl-price-list__copy {
+  display: grid;
+  flex: 1 1 9rem;
+  min-width: 0;
+  gap: .15rem;
+}
+
+.pdl-price-list__name {
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-button-font-size, .85rem);
+  font-weight: 650;
+  line-height: var(--pdl-line-compact);
+  overflow-wrap: anywhere;
+}
+
+.pdl-price-list__detail {
+  font-size: var(--pdl-text-xs);
+  line-height: 1.45;
+  opacity: .72;
+}
+
+/* The price and the item's button, together at the end of its line. */
+.pdl-price-list__end {
+  display: grid;
+  flex: none;
+  justify-items: end;
+  gap: .4rem;
+}
+
+.pdl-price-list__price {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Opening hours: whether it is open now, then the week (days with the
+   same hours together, today's stronger), in the buttons' look. */
+.pdl-hours {
+  display: grid;
+  justify-items: center;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-4);
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
+  background: var(--pdl-button-fill, var(--pdl-surface-1));
+  box-shadow: var(--pdl-button-elevation, none);
+  color: var(--pdl-button-ink, var(--pdl-text-1));
+  text-align: start;
+}
+
+.pdl-hours__title {
+  text-align: center;
+}
+
+/* The open or closed mark in the card's own ink. */
+.pdl-hours__status.pdl-status-label {
+  border-color: color-mix(in srgb, currentColor 22%, transparent);
+  background: transparent;
+  color: inherit;
+  font-size: .75rem;
+  white-space: normal;
+}
+
+.pdl-hours__list {
+  display: grid;
+  width: 100%;
+  gap: .4rem;
+  margin: 0;
+}
+
+.pdl-hours__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  font-size: .85rem;
+  line-height: 1.4;
+}
+
+.pdl-hours__row > dt {
+  opacity: .78;
+}
+
+.pdl-hours__row > dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
+.pdl-hours__row--today {
+  font-weight: 700;
+}
+
+.pdl-hours__row--today > dt {
+  opacity: 1;
+}
+
+.pdl-hours__note {
+  margin: 0;
+  font-size: var(--pdl-text-xs);
+  line-height: 1.45;
+  opacity: .72;
+  text-align: center;
+}
+
+/* A release (an album, a single): its cover, its name and a button for
+   each platform below. */
+.pdl-release {
+  display: grid;
+  justify-items: center;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-release > .pdl-link-list {
+  width: 100%;
+}
+
+.pdl-release__cover {
+  display: block;
+  width: min(100%, 13rem);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  box-shadow: var(--pdl-button-elevation, none);
+}
+
+.pdl-release__cover > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pdl-release__title {
+  text-align: center;
+}
+
 /* A wide banner image at the top of a page or card; the image fills it. */
 .pdl-cover {
   width: 100%;
