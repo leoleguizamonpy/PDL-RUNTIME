@@ -57,6 +57,121 @@
   font-size: var(--pdl-text-sm);
 }
 
+/* A map (a place on an embedded map): 4:3, room for the streets around. */
+.pdl-embed--map {
+  aspect-ratio: 4 / 3;
+}
+
+/* Frequently asked questions: each one opens its answer (details and
+   summary, no script), in the buttons' look of the page. */
+.pdl-faq {
+  display: grid;
+  gap: var(--pdl-space-2);
+  text-align: start;
+}
+
+.pdl-faq__title {
+  text-align: center;
+}
+
+.pdl-faq__item {
+  overflow: hidden;
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
+  background: var(--pdl-button-fill, var(--pdl-surface-1));
+  box-shadow: var(--pdl-button-elevation, none);
+  color: var(--pdl-button-ink, var(--pdl-text-1));
+}
+
+.pdl-faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+  cursor: pointer;
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-button-font-size, .8rem);
+  font-weight: 650;
+  line-height: var(--pdl-line-compact);
+  list-style: none;
+}
+
+.pdl-faq__question::-webkit-details-marker {
+  display: none;
+}
+
+/* A chevron that turns when the answer opens. */
+.pdl-faq__question::after {
+  width: .5rem;
+  height: .5rem;
+  flex: none;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  content: "";
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-faq__item[open] > .pdl-faq__question::after {
+  transform: translateY(2px) rotate(-135deg);
+}
+
+.pdl-faq__question:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: -2px;
+}
+
+.pdl-faq__answer {
+  margin: 0;
+  padding: 0 var(--pdl-space-4) var(--pdl-space-4);
+  opacity: .86;
+  font-size: var(--pdl-prose-size, .85rem);
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+/* A discount code: what it gives, the code in a dashed box and a button to
+   copy it, in the buttons' look of the page. */
+.pdl-coupon {
+  display: grid;
+  justify-items: center;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-4);
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
+  background: var(--pdl-button-fill, var(--pdl-surface-1));
+  box-shadow: var(--pdl-button-elevation, none);
+  color: var(--pdl-button-ink, var(--pdl-text-1));
+  text-align: center;
+}
+
+.pdl-coupon__note {
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-button-font-size, .85rem);
+  font-weight: 650;
+  line-height: var(--pdl-line-compact);
+}
+
+.pdl-coupon__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-coupon__code {
+  padding: .45rem .9rem;
+  border: 1.5px dashed currentColor;
+  border-radius: .5rem;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  overflow-wrap: anywhere;
+}
+
 /* A wide banner image at the top of a page or card; the image fills it. */
 .pdl-cover {
   width: 100%;
