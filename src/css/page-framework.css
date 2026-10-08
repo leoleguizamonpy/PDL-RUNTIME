@@ -142,6 +142,76 @@
   margin-top: var(--pdl-space-5);
 }
 
+/* Long-form reading (an article): titles, quotes, lists, links and
+   emphasis inside the text, in the prose's own color. A modifier, so prose
+   elsewhere keeps its links and spacing as they are. */
+.pdl-prose--longform :where(p, ul, ol, blockquote, figure) {
+  margin-block: 0;
+}
+
+.pdl-prose--longform > * + * {
+  margin-top: var(--pdl-space-5);
+}
+
+.pdl-prose--longform :where(h2, h3) {
+  margin-bottom: 0;
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-weight: 650;
+  line-height: var(--pdl-line-heading);
+  text-wrap: balance;
+}
+
+.pdl-prose--longform h2 {
+  margin-top: var(--pdl-space-8);
+  font-size: var(--pdl-text-xl);
+}
+
+.pdl-prose--longform h3 {
+  margin-top: var(--pdl-space-6);
+  font-size: var(--pdl-text-lg);
+}
+
+.pdl-prose--longform > :first-child {
+  margin-top: 0;
+}
+
+.pdl-prose--longform blockquote {
+  margin-inline: 0;
+  padding-inline-start: var(--pdl-space-4);
+  border-inline-start: 3px solid color-mix(in srgb, currentColor 35%, transparent);
+  color: var(--pdl-text-1);
+  font-style: italic;
+}
+
+.pdl-prose--longform :where(ul, ol) {
+  padding-inline-start: 1.4em;
+}
+
+.pdl-prose--longform li + li {
+  margin-top: var(--pdl-space-2);
+}
+
+.pdl-prose--longform li::marker {
+  color: color-mix(in srgb, currentColor 55%, transparent);
+}
+
+.pdl-prose--longform a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .18em;
+}
+
+.pdl-prose--longform a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.pdl-prose--longform strong {
+  color: var(--pdl-text-1);
+  font-weight: 700;
+}
+
 .pdl-wide-media {
   width: min(var(--pdl-width-page), calc(100vw - (2 * var(--pdl-page-pad))));
   max-width: none;

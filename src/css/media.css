@@ -344,6 +344,77 @@
   text-align: center;
 }
 
+/* An article of a link page: the way back to the page, its title and
+   when it came out, a cover, a lead and the text, in the page's column. */
+.pdl-article {
+  display: grid;
+  gap: var(--pdl-space-5);
+  text-align: start;
+}
+
+.pdl-article__back {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: var(--pdl-space-1);
+  color: inherit;
+  font-size: var(--pdl-text-sm);
+  opacity: .8;
+  text-decoration: none;
+}
+
+.pdl-article__back:hover {
+  opacity: 1;
+}
+
+.pdl-article__back:focus-visible {
+  border-radius: .25rem;
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 3px;
+}
+
+.pdl-article__header {
+  display: grid;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-article__title {
+  margin: 0;
+  font-family: var(--pdl-font-display);
+  font-size: clamp(1.75rem, 7cqi, 2.5rem);
+  font-weight: 700;
+  line-height: var(--pdl-line-display);
+  text-wrap: balance;
+}
+
+.pdl-article__meta {
+  margin: 0;
+  font-size: var(--pdl-text-xs);
+  opacity: .72;
+}
+
+.pdl-article__cover {
+  margin: 0;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--pdl-radius-surface);
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.pdl-article__cover > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pdl-article__lead {
+  margin: 0;
+  font-size: var(--pdl-text-lg);
+  line-height: var(--pdl-line-body);
+  opacity: .86;
+}
+
 /* A wide banner image at the top of a page or card; the image fills it. */
 .pdl-cover {
   width: 100%;
