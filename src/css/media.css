@@ -430,6 +430,89 @@
   color: var(--pdl-danger);
 }
 
+/* Sensitive media (a picture, a gallery, a video): blurred under a notice
+   until the visitor chooses to see it. The notice is the label of a
+   focusable checkbox, so it works without a script and from the keyboard. */
+.pdl-sensitive {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
+}
+
+.pdl-sensitive__toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Slightly larger while blurred, so its soft edges stay outside the frame. */
+.pdl-sensitive__content {
+  filter: blur(28px) saturate(.6);
+  pointer-events: none;
+  transform: scale(1.12);
+  user-select: none;
+}
+
+.pdl-sensitive__cover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--pdl-space-2);
+  padding: var(--pdl-space-4);
+  background: rgb(0 0 0 / 38%);
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.pdl-sensitive__title {
+  font-weight: 700;
+}
+
+.pdl-sensitive__action {
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  padding: .4rem .9rem;
+  font-size: var(--pdl-text-sm);
+  font-weight: 650;
+}
+
+.pdl-sensitive__toggle:focus-visible ~ .pdl-sensitive__cover .pdl-sensitive__action {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 3px;
+}
+
+.pdl-sensitive__toggle:checked ~ .pdl-sensitive__content {
+  filter: none;
+  pointer-events: auto;
+  transform: none;
+  user-select: auto;
+}
+
+.pdl-sensitive__toggle:checked ~ .pdl-sensitive__cover {
+  display: none;
+}
+
+/* "+18": a button or a card that leads to adult content says so. */
+.pdl-age-mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  padding: .16rem .38rem;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  font-size: .62rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 750;
+  letter-spacing: .02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
 /* A release (an album, a single): its cover, its name and a button for
    each platform below. */
 .pdl-release {
