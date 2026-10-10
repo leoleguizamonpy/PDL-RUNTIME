@@ -521,7 +521,8 @@
 
 /* Stories: a row of circles, each a cover inside a ring (a new story's
    ring in color until it is seen, a highlight's quiet), its title below.
-   The row slides sideways and never shows a scrollbar. */
+   The row starts at the left, as on Instagram, slides sideways and never
+   shows a scrollbar. */
 .pdl-stories {
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -534,7 +535,7 @@
 
 .pdl-stories__list {
   display: flex;
-  justify-content: safe center;
+  justify-content: flex-start;
   gap: var(--pdl-space-3);
   margin: 0;
   padding: var(--pdl-space-1);

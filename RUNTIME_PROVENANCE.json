@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "package": "@leoleguizamon/pdl",
-  "version": "1.4.0-alpha.71",
+  "version": "1.4.0-alpha.72",
   "source": "leoleguizamonpy/PDL",
-  "sourceRevision": "0fa68ddded6798bf2e24e203c284e451cbf2ac60",
+  "sourceRevision": "ba10ab94d5a7a459fb8b45ed9eb38d81ba495434",
   "sourceRef": "main",
   "sourceRefType": "branch",
   "authority": "private-source",
