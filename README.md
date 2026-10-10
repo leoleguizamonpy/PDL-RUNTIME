@@ -10,7 +10,7 @@ The private PDL source repository remains the source of truth. Governance, found
 
 `@leoleguizamon/pdl`
 
-Current distribution baseline: `1.4.0-alpha.73`.
+Current distribution baseline: `1.4.0-alpha.74`.
 
 ## Security boundary
 
@@ -19,10 +19,10 @@ This repository is generated from an explicit allowlist. It is not a mirror of t
 
 ## Current provenance
 
-- Runtime version: `1.4.0-alpha.73`
+- Runtime version: `1.4.0-alpha.74`
 - Source repository: `leoleguizamonpy/PDL`
-- Source revision: `f0a725f4794127d82afb64394b9371e83c52357b`
-- Distribution revision: `382c6745682f007eab3114abe865ac6e8b531be3`
+- Source revision: `8e5272ecd12a963bafedbdd599063a3986851d59`
+- Distribution revision: `9f04f1ca503fd6aea83fe4f7b960df918f53032f`
 - Export policy: allowlist
 
 The machine-readable authority remains `RUNTIME_PROVENANCE.json`.
