@@ -1,0 +1,168 @@
+/* Formularios · text-input
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-input,
+.pdl-textarea,
+.pdl-select {
+  width: 100%;
+  min-height: var(--pdl-touch-target);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-control);
+  outline: 2px solid transparent;
+  background: var(--pdl-surface-soft);
+  color: var(--pdl-text-1);
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+  font-size: var(--pdl-text-sm);
+  transition:
+    border-color var(--pdl-motion-short) var(--pdl-ease-standard),
+    background var(--pdl-motion-short) var(--pdl-ease-standard),
+    box-shadow var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+/* Single-line fields share the buttons' height, so a field and a button
+   in one row line up; date and time pickers cannot grow past it. */
+
+.pdl-input,
+.pdl-select {
+  height: var(--pdl-control-md);
+  padding-block: 0;
+}
+
+.pdl-input::-webkit-datetime-edit {
+  padding-block: 0;
+}
+
+.pdl-input-control {
+  position: relative;
+  width: 100%;
+}
+
+.pdl-input-control > .pdl-input {
+  padding-inline-end: calc(var(--pdl-control-sm) + var(--pdl-space-4));
+}
+
+.pdl-input-control__action {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: var(--pdl-space-2);
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+/* Fields show focus as a 2px edge in the focus color (border + 1px ring):
+   the same color as every other focus outline, at full contrast. */
+
+.pdl-input:focus,
+.pdl-textarea:focus,
+.pdl-select:focus {
+  border-color: var(--pdl-focus);
+  background: var(--pdl-surface-1);
+  box-shadow: 0 0 0 1px var(--pdl-focus);
+}
+
+.pdl-select {
+  --pdl-select-chevron: var(--pdl-text-muted);
+  appearance: none;
+  padding-inline-end: var(--pdl-space-10);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--pdl-select-chevron) 50%),
+    linear-gradient(135deg, var(--pdl-select-chevron) 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.32rem) center,
+    calc(100% - 1rem) center;
+  background-size: .32rem .32rem, .32rem .32rem;
+  background-repeat: no-repeat;
+}
+
+/* The chevron sits at the inline end, with the padding. */
+.pdl-select:dir(rtl) {
+  background-position:
+    1rem center,
+    1.32rem center;
+}
+
+.pdl-select:focus {
+  --pdl-select-chevron: var(--pdl-text-1);
+}
+
+/* Field validation: products mark the control with aria-invalid and the
+   message with data-state, so the state is never conveyed by color alone
+   (the message text carries it) and assistive tech reads it. */
+
+.pdl-input[aria-invalid="true"],
+.pdl-textarea[aria-invalid="true"],
+.pdl-select[aria-invalid="true"] {
+  border-color: color-mix(in srgb, var(--pdl-danger) 64%, var(--pdl-border-2));
+}
+
+.pdl-input[aria-invalid="true"]:focus,
+.pdl-textarea[aria-invalid="true"]:focus,
+.pdl-select[aria-invalid="true"]:focus {
+  border-color: var(--pdl-danger);
+  box-shadow: 0 0 0 1px var(--pdl-danger);
+}
+
+/* The other field states, in the buttons' language: hover firms the line,
+   read-only drops the fill (it can be selected, not edited), disabled
+   dashes the line and steps the text down. */
+
+:is(.pdl-input, .pdl-textarea, .pdl-select, .pdl-tag-input):hover:not(:focus, :focus-within, :disabled, [aria-invalid="true"]) {
+  border-color: var(--pdl-border-3);
+}
+
+:is(.pdl-input, .pdl-textarea):read-only:not(:disabled) {
+  border-color: var(--pdl-border-1);
+  background: transparent;
+  color: var(--pdl-text-2);
+}
+
+:is(.pdl-input, .pdl-textarea, .pdl-select):disabled {
+  border-style: dashed;
+  background: transparent;
+  color: var(--pdl-text-subtle);
+  cursor: not-allowed;
+}
+
+.pdl-date-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Stacked on phones, the two fields keep the stack's distance. */
+  gap: var(--pdl-stack-gap, var(--pdl-rhythm-region)) var(--pdl-space-3);
+}
+
+.pdl-input[type="date"],
+.pdl-input[type="time"],
+.pdl-input[type="datetime-local"] {
+  color-scheme: dark;
+}
+
+[data-pdl-theme="positive"] .pdl-input[type="date"],
+[data-pdl-theme="positive"] .pdl-input[type="time"],
+[data-pdl-theme="positive"] .pdl-input[type="datetime-local"] {
+  color-scheme: light;
+}
+
+@media (max-width: 600px) {
+
+  .pdl-date-group {
+    grid-template-columns: 1fr;
+  }
+}
+
+}
+
+@layer pdl.interaction {
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-input,
+  .pdl-textarea,
+  .pdl-select {
+    transition-duration: .001ms;
+  }
+}
+
+}

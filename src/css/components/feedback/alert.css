@@ -1,0 +1,64 @@
+/* Feedback y carga · alert
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-alert,
+.pdl-banner {
+  display: grid;
+  gap: var(--pdl-space-2);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-alert {
+  padding: var(--pdl-space-4) var(--pdl-space-5);
+}
+
+.pdl-alert__title,
+.pdl-banner__title {
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-alert__copy,
+.pdl-banner__copy {
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  line-height: var(--pdl-line-body);
+}
+
+/* Severity reads at a glance: a 2px edge in the state color on the
+   inline start, the navigation's edge language in a semantic color. */
+
+.pdl-alert[data-state] {
+  border-inline-start-width: 2px;
+}
+
+.pdl-alert[data-state="success"] { border-inline-start-color: var(--pdl-success); }
+
+.pdl-alert[data-state="warning"] { border-inline-start-color: var(--pdl-warning); }
+
+.pdl-alert[data-state="danger"] { border-inline-start-color: var(--pdl-danger); }
+
+.pdl-alert[data-state="info"] { border-inline-start-color: var(--pdl-text-1); }
+
+.pdl-banner {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  padding: var(--pdl-space-4);
+}
+
+@media (max-width: 600px) {
+
+  .pdl-banner {
+    grid-template-columns: 1fr;
+  }
+}
+
+}

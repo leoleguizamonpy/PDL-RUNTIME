@@ -1,0 +1,101 @@
+/* Datos · table-search
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-search {
+  position: relative;
+  display: flex;
+  min-width: min(100%, 260px);
+  align-items: center;
+}
+
+.pdl-search .pdl-input {
+  padding-inline-end: var(--pdl-space-10);
+}
+
+.pdl-search__clear {
+  position: absolute;
+  inset-inline-end: .4rem;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 0;
+  border-radius: var(--pdl-radius-control);
+  background: transparent;
+  color: var(--pdl-text-subtle);
+  cursor: pointer;
+}
+
+.pdl-search__clear:hover {
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+}
+
+.pdl-filter-bar {
+  display: flex;
+  gap: var(--pdl-space-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pdl-filter-chip {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  gap: var(--pdl-space-2);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-pill);
+  padding: var(--pdl-space-1) var(--pdl-space-3);
+  background: transparent;
+  color: var(--pdl-text-muted);
+  cursor: pointer;
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-filter-chip[aria-pressed="true"] {
+  border-color: var(--pdl-text-muted);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+}
+
+.pdl-search > svg {
+  position: absolute;
+  inset-inline-start: .85rem;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--pdl-text-subtle);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.pdl-search > svg + .pdl-input {
+  padding-inline-start: var(--pdl-space-10);
+}
+
+}
+
+@layer pdl.responsive {
+
+/* Coarse pointers: every interactive target reaches the canonical 44px,
+   measured by scripts/visual/audit-components.mjs. Small glyph buttons
+   (clear, remove, quantity) grow their hit box, not their drawing. */
+
+@media (pointer: coarse) {
+
+  .pdl-filter-chip {
+    min-height: var(--pdl-touch-target);
+  }
+
+  .pdl-search__clear {
+    min-width: var(--pdl-touch-target);
+    min-height: var(--pdl-touch-target);
+  }
+}
+
+}

@@ -1,0 +1,45 @@
+/* Datos · sortable-list
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* Sortable lists (createSortable, initSortables). While dragging, items move
+   by --pdl-sortable-offset, set by the script: the dragged one follows the
+   pointer, the others slide to make room. */
+
+.pdl-drag-handle {
+  cursor: grab;
+  touch-action: none;
+}
+
+[data-pdl-sortable-active] {
+  cursor: grabbing;
+  user-select: none;
+}
+
+[data-pdl-sortable-active] .pdl-drag-handle {
+  cursor: grabbing;
+}
+
+[data-pdl-sortable-active] > [data-pdl-sortable-item] {
+  transform: translateY(var(--pdl-sortable-offset, 0px));
+  transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+[data-pdl-sortable-active] > [data-pdl-sortable-item][data-pdl-sortable-dragging] {
+  position: relative;
+  z-index: 2;
+  border-color: var(--pdl-border-3);
+  box-shadow: var(--pdl-shadow-soft);
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  [data-pdl-sortable-active] > [data-pdl-sortable-item] {
+    transition: none;
+  }
+}
+
+}

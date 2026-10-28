@@ -1,0 +1,74 @@
+/* Style profile module (carbon-sharp). Layers are explicit; see css/index.css. */
+
+@layer pdl.foundations {
+
+/* carbon-sharp — Mayor precisión y geometría definida.
+   Exclusively tokens: components and product templates are shared.
+   data-pdl-theme="positive" enables the light version.
+   No forced uppercase for headings. */
+
+[data-pdl-style="carbon-sharp"]:not([data-pdl-theme="positive"]) {
+  color-scheme: dark;
+  --pdl-black: #090a0b;
+  --pdl-surface-1: #131416;
+  --pdl-surface-2: #1d1f22;
+  --pdl-surface-3: #292b2f;
+  --pdl-surface-soft: #0c0d0f;
+  --pdl-surface-elevated: #222428;
+  --pdl-border-1: #33363a;
+  --pdl-border-2: #4b4e54;
+  --pdl-border-3: #656970;
+  --pdl-text-heading: #fafafa;
+  --pdl-text-1: #f2f2f3;
+  --pdl-text-2: #dedee0;
+  --pdl-text-muted: #bfc0c5;
+  --pdl-text-subtle: #adafb5;
+  --pdl-focus: #d2d6de;
+  --pdl-success: #abd8b6;
+  --pdl-warning: #ebcd92;
+  --pdl-danger: #f0aaaa;
+  --pdl-font-display: "Space Grotesk", "Plus Jakarta Sans", "Segoe UI", sans-serif;
+  --pdl-display-tracking: -.005em;
+  --pdl-radius-surface: 5px;
+  --pdl-radius-control: 4px;
+  --pdl-button-radius: 4px;
+  --pdl-shadow-soft: 0 9px 22px rgba(0,0,0,.27);
+  --pdl-shadow-hover: 0 18px 40px rgba(0,0,0,.30);
+  --pdl-noise-opacity: .02;
+  --pdl-bitplate-opacity: .015;
+  --pdl-plate-opacity: .03;
+}
+
+[data-pdl-style="carbon-sharp"][data-pdl-theme="positive"] {
+  color-scheme: light;
+  --pdl-black: #f1f1ef;
+  --pdl-surface-1: #ffffff;
+  --pdl-surface-2: #e5e5e3;
+  --pdl-surface-3: #d4d4d0;
+  --pdl-surface-soft: #f7f7f4;
+  --pdl-surface-elevated: #ffffff;
+  --pdl-border-1: #cbcbc8;
+  --pdl-border-2: #acaca8;
+  --pdl-border-3: #888784;
+  --pdl-text-heading: #101113;
+  --pdl-text-1: #17181a;
+  --pdl-text-2: #303236;
+  --pdl-text-muted: #525459;
+  --pdl-text-subtle: #5a5c61;
+  --pdl-focus: #454a50;
+  --pdl-success: #285e3a;
+  --pdl-warning: #745414;
+  --pdl-danger: #9c3232;
+  --pdl-font-display: "Space Grotesk", "Plus Jakarta Sans", "Segoe UI", sans-serif;
+  --pdl-display-tracking: -.005em;
+  --pdl-radius-surface: 5px;
+  --pdl-radius-control: 4px;
+  --pdl-button-radius: 4px;
+  --pdl-shadow-soft: 0 8px 20px rgba(0,0,0,.08);
+  --pdl-shadow-hover: 0 17px 38px rgba(0,0,0,.12);
+  --pdl-noise-opacity: .02;
+  --pdl-bitplate-opacity: .015;
+  --pdl-plate-opacity: .03;
+}
+
+}

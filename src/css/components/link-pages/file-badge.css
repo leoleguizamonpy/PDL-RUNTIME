@@ -1,0 +1,64 @@
+/* Páginas de enlaces · file-badge
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* A file's format as a mark: its extension on a document tile (a folded
+   corner) in the color file managers give its family: PDF red, documents
+   blue, sheets green, slides orange... */
+
+.pdl-file-badge {
+  --pdl-file-color: #5b6670;
+  display: inline-grid;
+  flex: none;
+  width: 2.25rem;
+  height: 2.75rem;
+  place-items: end center;
+  padding-bottom: .45rem; /* geometry */
+  border-radius: .35rem;
+  background: linear-gradient(225deg, color-mix(in srgb, #fff 42%, var(--pdl-file-color)) 0 .5rem, var(--pdl-file-color) .5rem);
+  color: #fff;
+  /* The label face is narrow and even: four letters (DOCX, EPUB) fit the
+     tile without touching its edges. */
+  font-family: var(--pdl-font-label);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  letter-spacing: 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.pdl-file-badge--pdf { --pdl-file-color: #d23a2e; }
+
+.pdl-file-badge--doc { --pdl-file-color: #2b5cb8; }
+
+.pdl-file-badge--sheet { --pdl-file-color: #1f7a46; }
+
+.pdl-file-badge--slides { --pdl-file-color: #c4501c; }
+
+.pdl-file-badge--archive { --pdl-file-color: #7a6a4f; }
+
+.pdl-file-badge--image { --pdl-file-color: #7b4dcc; }
+
+.pdl-file-badge--audio { --pdl-file-color: #c2255c; }
+
+.pdl-file-badge--video { --pdl-file-color: #0c7c8c; }
+
+.pdl-file-badge--text { --pdl-file-color: #56616b; }
+
+.pdl-file-badge--design { --pdl-file-color: #b5338a; }
+
+.pdl-file-badge--book { --pdl-file-color: #3b5bdb; }
+
+/* Composition with a core primitive (the button): kept in this family so the core never depends on it. */
+
+.pdl-button > .pdl-file-badge {
+  width: 1.4rem;
+  height: 1.75rem;
+  margin-block: -.3rem;
+  padding-bottom: .3rem; /* geometry */
+  font-size: .62em;
+}
+
+}

@@ -1,0 +1,114 @@
+/* App Runtime · app-workspace-items
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.runtime {
+
+.pdl-workspace-list {
+  display: grid;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-workspace-item {
+  display: grid;
+  gap: var(--pdl-space-4);
+}
+
+.pdl-workspace-item__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--pdl-space-5);
+}
+
+.pdl-workspace-item__copy {
+  display: grid;
+  min-width: 0;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-workspace-item__title {
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-workspace-item__description {
+  max-width: var(--pdl-width-prose);
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-regular);
+  line-height: var(--pdl-line-body);
+}
+
+.pdl-workspace-item__meta {
+  border-radius: calc(var(--pdl-radius-surface) - 3px);
+}
+
+.pdl-workspace-item__actions {
+  padding-top: var(--pdl-space-2);
+}
+
+.pdl-workspace-artifacts {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: calc(var(--pdl-radius-surface) - 3px);
+}
+
+.pdl-workspace-artifact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--pdl-space-3);
+  padding: .7rem var(--pdl-space-4);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-workspace-artifact + .pdl-workspace-artifact {
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+.pdl-workspace-artifact small {
+  color: var(--pdl-text-subtle);
+}
+
+.pdl-workspace-form {
+  display: grid;
+  gap: var(--pdl-space-4);
+}
+
+.pdl-workspace-form__title {
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-workspace-form__fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--pdl-space-4);
+}
+
+.pdl-workspace-form__footer {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.pdl-workspace-history__controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, .32fr);
+  gap: var(--pdl-space-3);
+}
+
+@media (max-width: 900px) {
+
+  .pdl-workspace-history__controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+}

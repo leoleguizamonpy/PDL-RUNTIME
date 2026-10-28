@@ -11,7 +11,8 @@ export function initSegmented(root = document) {
     const items = [...group.querySelectorAll("[data-pdl-segment]")];
     for (const item of items) {
       const select = () => {
-        for (const peer of items) peer.setAttribute("aria-pressed", String(peer === item));
+        // Tabs say "selected"; plain toggle groups say "pressed".
+        for (const peer of items) peer.setAttribute(peer.getAttribute("role") === "tab" ? "aria-selected" : "aria-pressed", String(peer === item));
         group.dispatchEvent(new CustomEvent("pdl:segment-change", {
           bubbles: true,
           detail: { value: item.dataset.pdlSegment }
@@ -131,6 +132,13 @@ export function initComboboxes(root = document) {
     };
     document.addEventListener("pointerdown", outside);
     cleanups.push(() => document.removeEventListener("pointerdown", outside));
+
+    // Tabbing away closes the list too, or it stays open over the next field.
+    const leave = event => {
+      if (!box.contains(event.relatedTarget)) close();
+    };
+    box.addEventListener("focusout", leave);
+    cleanups.push(() => box.removeEventListener("focusout", leave));
   }
 
   return { destroy() { cleanups.forEach(fn => fn()); } };

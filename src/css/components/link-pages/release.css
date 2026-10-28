@@ -1,0 +1,41 @@
+/* Páginas de enlaces · release
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* A release (an album, a single): its cover, its name and a button for
+   each platform below. */
+
+.pdl-release {
+  display: grid;
+  justify-items: center;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-release > .pdl-link-list {
+  width: 100%;
+}
+
+.pdl-release__cover {
+  display: block;
+  width: min(100%, 13rem);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  box-shadow: var(--pdl-button-elevation, none);
+}
+
+.pdl-release__cover > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pdl-release__title {
+  text-align: center;
+}
+
+}

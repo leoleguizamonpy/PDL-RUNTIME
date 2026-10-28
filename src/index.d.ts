@@ -32,6 +32,8 @@ export declare function initAdvancedForms(root?: Document | HTMLElement): PDLDes
 export declare function initSegmented(root?: Document | HTMLElement): PDLDestroyable;
 export declare function initRanges(root?: Document | HTMLElement): PDLDestroyable;
 export declare function initComboboxes(root?: Document | HTMLElement): PDLDestroyable;
+/** Command palettes: [data-pdl-command-palette] dialogs, opened by [data-pdl-command-open] or Ctrl/⌘+K; dispatch `pdl:command`. */
+export declare function initCommandPalettes(root?: Document | HTMLElement): PDLDestroyable;
 export declare function initTagInputs(root?: Document | HTMLElement): PDLDestroyable;
 export declare function initFormFlows(root?: Document | HTMLElement): PDLDestroyable;
 export declare function initNotifications(root?: Document | HTMLElement): PDLDestroyable;
@@ -70,3 +72,10 @@ export declare function showSplash(...args: unknown[]): unknown;
 export declare function dismissSplash(...args: unknown[]): unknown;
 export declare function withSplashTransition<T>(callback: () => T | Promise<T>, ...args: unknown[]): Promise<T> | T;
 export declare function setBusy(...args: unknown[]): unknown;
+
+/** Modular Carbon appearance profiles. Removing the selection restores canonical PDL. */
+export type PDLStyleProfile = "carbon-soft" | "carbon-core" | "carbon-sharp" | "carbon-commercial";
+export declare const PDL_STYLES: ReadonlyArray<Readonly<{ id: PDLStyleProfile; name: string; defaultTheme: "negative" | "positive"; defaultTexture: "off" | "grain" | "bitplate"; sampleFont?: string }>>;
+export declare const PDL_STYLE_IDS: ReadonlyArray<PDLStyleProfile>;
+export declare function setPDLStyle(style: PDLStyleProfile | "" | null, root?: Document | HTMLElement): PDLStyleProfile | "";
+export declare function getPDLStyle(root?: Document | HTMLElement): PDLStyleProfile | "";

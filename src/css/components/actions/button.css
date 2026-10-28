@@ -1,0 +1,341 @@
+/* Acciones y cards · button
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* Customization hooks (optional custom properties, see
+   design-system/foundations/CUSTOMIZATION.md): --pdl-button-radius,
+   --pdl-button-border-width, --pdl-button-font-size, --pdl-button-fill,
+   --pdl-button-ink, --pdl-button-line, --pdl-button-tint and
+   --pdl-button-elevation (a shadow under every button but ghost ones).
+   Unset, buttons keep PDL's own values. */
+
+.pdl-button {
+  /* One family: every button shares the label size, weight, tracking,
+     radius and motion. Sizes change only height and side padding;
+     variants change only color. */
+  display: inline-flex;
+  height: var(--pdl-control-md);
+  min-height: var(--pdl-control-md);
+  align-items: center;
+  justify-content: center;
+  gap: var(--pdl-space-2);
+  border: var(--pdl-button-border-width, 1px) solid transparent;
+  border-radius: var(--pdl-button-radius, var(--pdl-radius-control));
+  padding: 0 var(--pdl-button-pad, var(--pdl-space-5));
+  cursor: pointer;
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-button-font-size, var(--pdl-text-sm));
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: 0;
+  line-height: 1;
+  box-shadow: var(--pdl-button-elevation, none);
+  transition:
+    color var(--pdl-motion-short) var(--pdl-ease-standard),
+    border-color var(--pdl-motion-short) var(--pdl-ease-standard),
+    background var(--pdl-motion-short) var(--pdl-ease-standard),
+    transform var(--pdl-motion-instant) var(--pdl-ease-standard);
+}
+
+.pdl-button:active:not(:disabled) {
+  transform: scale(.98);
+}
+
+.pdl-button--sm {
+  --pdl-button-pad: var(--pdl-space-4);
+  height: var(--pdl-control-sm);
+  min-height: var(--pdl-control-sm);
+}
+
+.pdl-button--lg {
+  --pdl-button-pad: var(--pdl-space-6);
+  height: var(--pdl-control-lg);
+  min-height: var(--pdl-control-lg);
+}
+
+/* Buttons whose label is written by people (link pages, long calls to
+   action) grow to fit two or more lines instead of spilling out of the
+   fixed control height. Keeps the size's minimum height. */
+
+.pdl-button--wrap {
+  height: auto;
+  padding-block: var(--pdl-space-3);
+  line-height: var(--pdl-line-compact);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.pdl-button--primary {
+  border-color: var(--pdl-button-line, transparent);
+  background: var(--pdl-button-fill, var(--pdl-text-1));
+  color: var(--pdl-button-ink, var(--pdl-black));
+}
+
+.pdl-button--primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 88%, var(--pdl-black));
+}
+
+.pdl-button--primary:active:not(:disabled) {
+  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 76%, var(--pdl-black));
+}
+
+.pdl-button--outline {
+  border-color: var(--pdl-button-line, var(--pdl-border-2));
+  background: transparent;
+  color: var(--pdl-button-tint, var(--pdl-text-1));
+}
+
+.pdl-button--outline:hover:not(:disabled) {
+  border-color: var(--pdl-border-3);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-button--outline:active:not(:disabled) {
+  border-color: var(--pdl-border-3);
+  background: var(--pdl-surface-2);
+}
+
+.pdl-button--ghost {
+  background: transparent;
+  color: var(--pdl-button-tint, var(--pdl-text-1));
+  /* Nothing to cast a shadow: an elevation would only outline the box. */
+  box-shadow: none;
+}
+
+.pdl-button--ghost:hover:not(:disabled) {
+  background: var(--pdl-surface-1);
+}
+
+.pdl-button--ghost:active:not(:disabled) {
+  background: var(--pdl-surface-2);
+}
+
+/* Glass, for a button over a picture or a page backdrop: a tint of the
+   button color on the plate (the surface, mostly opaque). Flat, never
+   blurred: Bit Plate keeps every surface crisp. */
+
+.pdl-button--glass {
+  border-color: var(--pdl-button-line, color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 26%, transparent));
+  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 14%, var(--pdl-plate));
+  color: var(--pdl-button-tint, var(--pdl-text-1));
+}
+
+.pdl-button--glass:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 22%, var(--pdl-plate));
+}
+
+.pdl-button--glass:active:not(:disabled) {
+  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 30%, var(--pdl-plate));
+}
+
+/* The one action a page leads with: the large size. No halo or glow;
+   hierarchy comes from size and fill, like every other button. */
+
+.pdl-button--featured {
+  --pdl-button-pad: var(--pdl-space-6);
+  height: var(--pdl-control-lg);
+  min-height: var(--pdl-control-lg);
+}
+
+.pdl-button--featured.pdl-button--wrap {
+  height: auto;
+}
+
+/* A short label pinned on a button's top edge ("Nuevo", "-20%"); the
+   button holding one is .pdl-button--badged. */
+
+.pdl-button--badged {
+  position: relative;
+}
+
+.pdl-button__badge {
+  font-family: var(--pdl-font-label);
+  position: absolute;
+  top: 0;
+  inset-inline-end: var(--pdl-space-4);
+  border-radius: var(--pdl-radius-pill);
+  padding: var(--pdl-space-1) var(--pdl-space-2);
+  background: var(--pdl-button-ink, var(--pdl-black));
+  box-shadow: 0 0 0 2px var(--pdl-button-fill, var(--pdl-text-1));
+  color: var(--pdl-button-fill, var(--pdl-text-1));
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  letter-spacing: .06em;
+  line-height: 1;
+  text-transform: uppercase;
+  translate: 0 -50%;
+  white-space: nowrap;
+}
+
+.pdl-button--outline .pdl-button__badge {
+  background: var(--pdl-button-tint, var(--pdl-text-2));
+  box-shadow: none;
+  color: var(--pdl-black);
+}
+
+/* A heavier outline, for a button that leads (a featured outline). */
+
+.pdl-button--bold {
+  border-width: max(2px, var(--pdl-button-border-width, 1px));
+}
+
+/* Unavailable, in the Bit Plate language: what makes a button active is
+   missing, rather than the whole button fading: the line turns dashed (the
+   same mark as "not started" elsewhere), a filled button keeps only a faint
+   screen of its fill, and every label steps down to subtle. */
+
+:is(.pdl-button, .pdl-icon-button):is(:disabled, [aria-disabled="true"]) {
+  position: relative;
+  isolation: isolate;
+  box-shadow: none;
+  color: var(--pdl-text-subtle);
+  cursor: not-allowed;
+}
+
+:is(.pdl-button--primary, .pdl-icon-button--primary):is(:disabled, [aria-disabled="true"]) {
+  border-style: dashed;
+  border-color: var(--pdl-border-2);
+  background: transparent;
+}
+
+:is(.pdl-button--primary, .pdl-icon-button--primary):is(:disabled, [aria-disabled="true"])::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--pdl-button-fill, var(--pdl-text-1));
+  opacity: .3;
+  -webkit-mask: var(--pdl-bayer-2) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
+  mask: var(--pdl-bayer-2) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
+}
+
+:is(.pdl-button--outline, .pdl-button--glass, .pdl-icon-button--outline, .pdl-icon-button--danger):is(:disabled, [aria-disabled="true"]) {
+  border-style: dashed;
+  border-color: var(--pdl-border-2);
+  background: transparent;
+}
+
+@media (forced-colors: active) {
+
+  :is(.pdl-button, .pdl-icon-button):is(:disabled, [aria-disabled="true"]) {
+    border: 1px dashed GrayText;
+    color: GrayText;
+  }
+
+  :is(.pdl-button--primary, .pdl-icon-button--primary):is(:disabled, [aria-disabled="true"])::before {
+    content: none;
+  }
+}
+
+.pdl-button svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  pointer-events: none;
+}
+
+/* Same rule as icon buttons: filled glyphs keep their fill. */
+
+.pdl-button svg:not([fill]) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pdl-button svg {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+}
+
+/* A small picture leading a button's label, in place of an icon. */
+
+.pdl-button__thumb {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: none;
+  margin-block: -.35rem;
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-control)), .5rem);
+  object-fit: cover;
+}
+
+/* Small, leading a button's label; larger as a card's picture. */
+
+.pdl-button[aria-busy="true"] {
+  position: relative;
+  pointer-events: none;
+}
+
+/* Working: a 1-bit screen marches across the button in steps, like the
+   skeleton's band; still for people who ask for less motion. */
+
+.pdl-button[aria-busy="true"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: .12;
+  -webkit-mask: var(--pdl-bayer-4) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
+  mask: var(--pdl-bayer-4) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .pdl-button[aria-busy="true"]::after {
+    animation: pdl-busy-march .64s steps(4) infinite;
+  }
+}
+
+@keyframes pdl-busy-march {
+
+  to {
+    -webkit-mask-position: calc(var(--pdl-dither-cell) * 4) 0;
+    mask-position: calc(var(--pdl-dither-cell) * 4) 0;
+  }
+}
+
+}
+
+@layer pdl.interaction {
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-button {
+    transition-duration: .001ms;
+  }
+
+  .pdl-button:active:not(:disabled) {
+    transform: none;
+  }
+}
+
+}
+
+@layer pdl.responsive {
+
+@media (max-width: 768px) {
+
+  .pdl-button {
+    min-height: var(--pdl-touch-target);
+  }
+}
+
+/* PDL-VISUAL-TOUCH-001 — maintain 44px minimum interactive targets for
+ * coarse pointers on any viewport (including touch-capable laptops).
+ * Fine-pointer density and visual baselines are intentionally unchanged.
+ */
+
+@media (pointer: coarse) {
+
+  .pdl-button {
+    min-height: var(--pdl-touch-target);
+  }
+}
+
+}

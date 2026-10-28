@@ -1,0 +1,192 @@
+/* Páginas de enlaces · price-list
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* A price list: each service (a dish, a product) with what it includes,
+   its price and, when it can be booked, its button; one card in the
+   buttons' look of the page, a line between items. */
+
+.pdl-price-list {
+  display: grid;
+  gap: var(--pdl-space-2);
+  text-align: start;
+}
+
+.pdl-price-list__title {
+  text-align: center;
+}
+
+.pdl-price-list__items {
+  display: grid;
+  overflow: hidden;
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
+  background: var(--pdl-button-fill, var(--pdl-surface-1));
+  box-shadow: var(--pdl-button-elevation, none);
+  color: var(--pdl-button-ink, var(--pdl-text-1));
+}
+
+.pdl-price-list__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pdl-space-2) var(--pdl-space-3);
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+}
+
+.pdl-price-list__item + .pdl-price-list__item {
+  border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+}
+
+.pdl-price-list__copy {
+  display: grid;
+  flex: 1 1 9rem;
+  min-width: 0;
+  gap: .15rem;
+}
+
+.pdl-price-list__name {
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-button-font-size, var(--pdl-text-sm));
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-compact);
+  overflow-wrap: anywhere;
+}
+
+.pdl-price-list__detail {
+  font-size: var(--pdl-text-xs);
+  line-height: 1.45;
+  opacity: .72;
+}
+
+/* The price and the item's button, together at the end of its line. */
+
+.pdl-price-list__end {
+  display: grid;
+  flex: none;
+  justify-items: end;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-price-list__price {
+  font-weight: var(--pdl-weight-strong);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* A quantity on a price list's item: − the count +. */
+
+.pdl-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: .15rem;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  border-radius: var(--pdl-radius-pill);
+  padding: .15rem;
+}
+
+.pdl-qty[hidden] {
+  display: none;
+}
+
+.pdl-qty__button {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--pdl-text-lg);
+  font-weight: var(--pdl-weight-strong);
+  line-height: 1;
+}
+
+.pdl-qty__button:hover:not(:disabled) {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.pdl-qty__button:disabled {
+  cursor: default;
+  opacity: .35;
+}
+
+.pdl-qty__button:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 1px;
+}
+
+.pdl-qty__count {
+  min-width: 1.5rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--pdl-weight-strong);
+  text-align: center;
+}
+
+/* A cart: how many and the total, and the button that sends the whole
+   order; it stays at the bottom while its list scrolls by (above a dock). */
+
+.pdl-cart {
+  position: sticky;
+  bottom: calc(var(--pdl-space-3) + env(safe-area-inset-bottom, 0px));
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-2) var(--pdl-space-3);
+  margin-top: var(--pdl-space-2);
+  padding: var(--pdl-space-2) var(--pdl-space-2) var(--pdl-space-2) var(--pdl-space-4);
+  border: 1px solid color-mix(in srgb, var(--pdl-text-1) 10%, transparent);
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
+  background: var(--pdl-plate);
+  box-shadow: var(--pdl-layer-shadow);
+}
+
+.pdl-cart[hidden] {
+  display: none;
+}
+
+.pdl-cart__summary {
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-cart__send {
+  flex: none;
+}
+
+/* A price beside a product's name: tabular figures, a touch heavier, never
+   faded like other details. */
+
+.pdl-price {
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--pdl-weight-strong);
+  opacity: 1;
+  white-space: nowrap;
+}
+
+}
+
+@layer pdl.responsive {
+
+@media (pointer: coarse) {
+
+  .pdl-qty__button {
+    min-width: var(--pdl-touch-target);
+    min-height: var(--pdl-touch-target);
+  }
+
+  .pdl-qty__button {
+    width: var(--pdl-touch-target);
+    height: var(--pdl-touch-target);
+  }
+}
+
+}

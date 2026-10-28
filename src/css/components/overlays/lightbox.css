@@ -1,0 +1,150 @@
+/* Capas · lightbox
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-lightbox {
+  width: min(1100px, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-surface);
+  padding: 0;
+  background: var(--pdl-black);
+  color: var(--pdl-text-1);
+}
+
+.pdl-lightbox::backdrop {
+  /* Media wants a darker room than a dialog. */
+  background: color-mix(in srgb, var(--pdl-ink) 88%, transparent);
+}
+
+.pdl-lightbox__stage {
+  display: grid;
+  min-height: min(72vh, 760px);
+  place-items: center;
+  overflow: hidden;
+}
+
+.pdl-lightbox__stage img,
+.pdl-lightbox__stage video {
+  max-width: 100%;
+  max-height: calc(100dvh - 7rem);
+  object-fit: contain;
+}
+
+.pdl-lightbox__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+  border-top: 1px solid var(--pdl-border-1);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-lightbox__meta {
+  min-width: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+}
+
+@media (max-width: 600px) {
+
+  .pdl-lightbox {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .pdl-lightbox__stage {
+    min-height: calc(100dvh - 64px);
+  }
+}
+
+/* The lightbox (overlay-advanced.css) over the whole screen, for pictures
+   (a link page's gallery): dark and edge to edge, a bar above (where it is,
+   the way out) and one below (the way through the others, the caption). */
+
+.pdl-lightbox--full {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: rgb(0 0 0 / 92%);
+  color: #fff;
+}
+
+.pdl-lightbox--full[open] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+/* A definite row, so a picture of any shape fits the screen. */
+
+.pdl-lightbox--full .pdl-lightbox__stage {
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  min-height: 0;
+  padding-inline: var(--pdl-space-4);
+}
+
+.pdl-lightbox--full .pdl-lightbox__stage > img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.pdl-lightbox--full .pdl-lightbox__bar {
+  border-top: 0;
+  background: none;
+}
+
+.pdl-lightbox--full .pdl-lightbox__meta {
+  color: inherit;
+  font-size: var(--pdl-text-sm);
+  font-variant-numeric: tabular-nums;
+  opacity: .8;
+}
+
+.pdl-lightbox__caption {
+  flex: 1;
+  margin: 0;
+  font-size: var(--pdl-text-sm);
+  text-align: center;
+}
+
+/* Round buttons on the dark: the way out and the way through. */
+
+.pdl-lightbox__button {
+  display: grid;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 0;
+  border-radius: var(--pdl-radius-pill);
+  background: rgb(255 255 255 / 14%);
+  color: inherit;
+  cursor: pointer;
+}
+
+.pdl-lightbox__button:hover {
+  background: rgb(255 255 255 / 24%);
+}
+
+.pdl-lightbox__button:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
+.pdl-lightbox__button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+}

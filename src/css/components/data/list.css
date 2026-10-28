@@ -1,0 +1,146 @@
+/* Datos · list
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-list {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-list-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--pdl-space-4);
+  align-items: center;
+  min-height: 58px;
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+}
+
+.pdl-list-item + .pdl-list-item {
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+.pdl-list-item__title {
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  line-height: var(--pdl-line-compact);
+}
+
+/* Details wrap to several lines in narrow columns: they get room. */
+
+.pdl-list-item__meta {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  line-height: 1.45;
+}
+
+/* A list of sections to open (settings, an editor's categories): each row
+   a mark, its name and what is chosen now, and a chevron. */
+
+.pdl-nav-list {
+  display: grid;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-nav-list__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--pdl-space-3);
+  width: 100%;
+  min-height: 3.75rem;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+  background: var(--pdl-surface-1);
+  color: var(--pdl-text-1);
+  cursor: pointer;
+  text-align: start;
+  transition:
+    border-color var(--pdl-motion-short) var(--pdl-ease-standard),
+    background var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-nav-list__item:hover {
+  border-color: var(--pdl-border-3);
+  background: var(--pdl-surface-2);
+}
+
+.pdl-nav-list__item:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 2px;
+}
+
+.pdl-nav-list__icon {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-3);
+  color: var(--pdl-text-1);
+}
+
+.pdl-nav-list__text {
+  display: grid;
+  min-width: 0;
+  gap: .1rem;
+}
+
+.pdl-nav-list__label {
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-nav-list__value {
+  overflow: hidden;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  line-height: var(--pdl-line-heading);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-nav-list__chevron {
+  display: grid;
+  color: var(--pdl-text-subtle);
+}
+
+@media (max-width: 600px) {
+
+  .pdl-list-item {
+    grid-template-columns: 1fr;
+  }
+
+  .pdl-list-item--inline {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--pdl-space-3);
+  }
+}
+
+/* A row whose side holds a small control (a switch, icon buttons)
+     keeps it beside the text instead of stacking it below. */
+
+/* A list item led by a drag handle: handle, content, actions. */
+
+.pdl-list-item.pdl-list-item--handle {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--pdl-space-2);
+  padding-inline-start: var(--pdl-space-2);
+}
+
+/* The row of what is chosen in the preview, in the editor's list. */
+
+.pdl-list[data-pdl-selected="true"] {
+  border-color: var(--pdl-focus);
+  box-shadow: 0 0 0 1px var(--pdl-focus);
+}
+
+}

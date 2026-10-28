@@ -1,0 +1,51 @@
+/* Feedback y carga · notification
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-notification {
+  display: grid;
+  gap: var(--pdl-space-2);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-notification__title {
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-notification__copy {
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  line-height: var(--pdl-line-body);
+}
+
+.pdl-notification {
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: var(--pdl-space-4);
+}
+
+.pdl-notification__meta {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  line-height: var(--pdl-line-heading);
+}
+
+@media (max-width: 600px) {
+
+  .pdl-notification {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pdl-notification[data-read="true"] {
+  opacity: .62;
+}
+
+}

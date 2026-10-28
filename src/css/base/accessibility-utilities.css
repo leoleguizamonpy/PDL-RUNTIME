@@ -1,0 +1,39 @@
+/* Fundamentos · accessibility-utilities
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.base {
+
+.pdl-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.pdl-skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: var(--pdl-space-3);
+  inset-inline-start: var(--pdl-space-3);
+  transform: translateY(-160%);
+  border: 1px solid var(--pdl-border-3);
+  border-radius: var(--pdl-radius-control);
+  padding: var(--pdl-space-3) var(--pdl-space-3);
+  background: var(--pdl-surface-elevated);
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  text-decoration: none;
+  transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-skip-link:focus {
+  transform: translateY(0);
+}
+
+}

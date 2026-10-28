@@ -1,0 +1,43 @@
+/* Páginas de enlaces · date-badge
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* A date as a mark: the month on a band over the day. In the colors of
+   what holds it (a card takes the button's fill and ink). */
+
+.pdl-date-badge {
+  display: inline-grid;
+  flex: none;
+  width: 2.75rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, currentColor 28%, transparent);
+  border-radius: .55rem;
+  line-height: 1;
+  text-align: center;
+}
+
+.pdl-date-badge__month {
+  padding: var(--pdl-space-1) 0 var(--pdl-space-1);
+  background: currentColor;
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  letter-spacing: .08em;
+}
+
+/* The band's letters in the color behind the badge. */
+
+.pdl-date-badge__month > span {
+  color: var(--pdl-button-fill, var(--pdl-surface-1));
+}
+
+.pdl-date-badge__day {
+  padding: var(--pdl-space-1) 0 var(--pdl-space-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-lg);
+  font-weight: var(--pdl-weight-strong);
+  font-variant-numeric: tabular-nums;
+}
+
+}

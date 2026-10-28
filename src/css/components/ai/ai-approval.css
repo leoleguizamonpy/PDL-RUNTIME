@@ -1,0 +1,17 @@
+/* Chat e IA · ai-approval
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-approval {
+  display: grid;
+  gap: var(--pdl-space-3);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  padding: var(--pdl-space-5);
+  background: var(--pdl-surface-elevated);
+  box-shadow: inset 0 1px 0 var(--pdl-highlight);
+}
+
+}

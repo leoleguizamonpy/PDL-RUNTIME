@@ -1,0 +1,160 @@
+/* App Runtime · app-collection
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.runtime {
+
+.pdl-collection__top {
+  display: flex;
+  min-height: var(--pdl-control-md);
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--pdl-rhythm-region);
+  padding-bottom: var(--pdl-rhythm-content);
+  border-bottom: 1px solid var(--pdl-border-1);
+}
+
+/*
+ * Divider policy:
+ * editorial headings already carry their own semantic rule.
+ * Do not stack a second full-width separator under the same heading.
+ */
+
+.pdl-collection__top--editorial {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.pdl-collection__header {
+  display: grid;
+  max-width: var(--pdl-width-prose);
+  gap: var(--pdl-rhythm-content);
+}
+
+.pdl-collection__header .pdl-prose {
+  margin-inline: 0;
+}
+
+.pdl-collection__actions {
+  flex: 0 0 auto;
+  justify-content: flex-end;
+}
+
+.pdl-collection__search {
+  display: flex;
+  width: 100%;
+  max-width: none;
+  align-items: center;
+}
+
+.pdl-collection__search > * {
+  width: 100%;
+  min-width: 0;
+}
+
+.pdl-collection__search .pdl-input {
+  width: 100%;
+  min-height: var(--pdl-control-md);
+}
+
+/*
+ * Search already establishes the transition into the result set.
+ * Avoid an additional rule immediately below it when the result
+ * surface is an editorial list.
+ */
+
+.pdl-collection__search + .pdl-editorial-list {
+  border-top: 0;
+}
+
+.pdl-collection__list {
+  display: grid;
+  gap: var(--pdl-rhythm-control);
+}
+
+.pdl-collection-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--pdl-space-6);
+  align-items: center;
+  padding: var(--pdl-space-5) var(--pdl-space-6);
+}
+
+.pdl-collection-item__copy {
+  display: grid;
+  min-width: 0;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-collection-item__title {
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-medium);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-collection-item__description {
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-regular);
+  line-height: var(--pdl-line-body);
+}
+
+.pdl-collection-item__side {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-collection__empty {
+  display: grid;
+  min-height: 150px;
+  align-content: center;
+  gap: var(--pdl-space-2);
+  padding: var(--pdl-space-8);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: color-mix(in srgb, var(--pdl-surface-1) 64%, transparent);
+}
+
+.pdl-collection__empty strong {
+  color: var(--pdl-text-2);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+}
+
+.pdl-collection__empty p {
+  max-width: var(--pdl-width-prose);
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  line-height: var(--pdl-line-body);
+}
+
+@media (max-width: 760px) {
+
+  .pdl-collection__top,
+  .pdl-collection-item {
+    grid-template-columns: 1fr;
+  }
+
+  .pdl-collection__top {
+    display: grid;
+    align-items: start;
+  }
+
+  .pdl-collection__actions,
+  .pdl-collection-item__side {
+    justify-content: flex-start;
+  }
+
+  .pdl-collection__search {
+    max-width: none;
+  }
+}
+
+}

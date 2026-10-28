@@ -1,0 +1,48 @@
+<!-- topbar -->
+<div class="pdl-topbar">
+  <div class="pdl-topbar__inner">
+    <strong>Proyecto Demo</strong>
+    <div class="pdl-menu-anchor">
+      <button class="pdl-user-state" type="button" data-pdl-menu-trigger aria-expanded="false" aria-controls="account-menu" data-state="authenticated">
+        <span class="pdl-avatar">LL</span>
+        <span class="pdl-user-state__copy"><span class="pdl-user-state__name">Leo</span><span class="pdl-user-state__meta">Cuenta activa</span></span>
+        <span class="pdl-user-state__status" aria-hidden="true"></span>
+      </button>
+      <div class="pdl-menu" id="account-menu" role="menu" hidden>
+        <div class="pdl-menu__group"><span class="pdl-menu__label">Cuenta</span><button class="pdl-menu__item" role="menuitem" type="button">Perfil</button><button class="pdl-menu__item" role="menuitem" type="button">Configuración</button></div>
+        <div class="pdl-menu__group"><button class="pdl-menu__item pdl-menu__item--danger" role="menuitem" type="button">Cerrar sesión</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- tabs -->
+<div class="pdl-tabs" role="tablist" aria-label="Vistas del proyecto" data-pdl-tabs>
+  <button class="pdl-tabs__tab" type="button" role="tab" id="tab-summary" aria-selected="true" aria-controls="panel-summary">Resumen</button>
+  <button class="pdl-tabs__tab" type="button" role="tab" id="tab-activity" aria-selected="false" aria-controls="panel-activity">Actividad</button>
+  <button class="pdl-tabs__tab" type="button" role="tab" id="tab-files" aria-selected="false" aria-controls="panel-files">Archivos</button>
+  <button class="pdl-tabs__tab" type="button" role="tab" aria-selected="false" aria-disabled="true">Facturación</button>
+</div>
+<div class="pdl-panel" role="tabpanel" id="panel-summary" aria-labelledby="tab-summary">Resumen del proyecto.</div>
+<div class="pdl-panel" role="tabpanel" id="panel-activity" aria-labelledby="tab-activity" hidden>Actividad reciente.</div>
+<div class="pdl-panel" role="tabpanel" id="panel-files" aria-labelledby="tab-files" hidden>Archivos del proyecto.</div>
+
+<!-- context-switcher -->
+<button class="pdl-switcher" type="button" aria-haspopup="menu" aria-expanded="false">
+  <span class="pdl-avatar" aria-hidden="true">TÑ</span>
+  <span class="pdl-switcher__text"><span class="pdl-switcher__title">Taller Ñandutí</span><span class="pdl-switcher__meta">Página de enlaces · publicada</span></span>
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+</button>
+
+<!-- rail-navigation -->
+<div class="pdl-rail-layout">
+  <div class="pdl-rail-layout__body">
+    <nav class="pdl-rail" role="tablist" aria-label="Secciones del editor" data-pdl-tabs>
+      <button class="pdl-rail__item" type="button" role="tab" id="rail-bloques-tab" aria-controls="rail-bloques" aria-selected="true"><span class="pdl-rail__icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg></span>Bloques</button>
+      <button class="pdl-rail__item" type="button" role="tab" id="rail-colores-tab" aria-controls="rail-colores" aria-selected="false"><span class="pdl-rail__icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.8 1.6-1.6 0-1.2-1-1.4-1-2.4 0-.9.7-1.6 1.6-1.6H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3Z"/></svg></span>Colores</button>
+      <button class="pdl-rail__item" type="button" role="tab" id="rail-texto-tab" aria-controls="rail-texto" aria-selected="false"><span class="pdl-rail__icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></svg></span>Texto</button>
+      <button class="pdl-rail__item" type="button" role="tab" id="rail-ajustes-tab" aria-controls="rail-ajustes" aria-selected="false"><span class="pdl-rail__icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16Z"/></svg></span>Ajustes</button>
+    </nav>
+    <section class="pdl-panel" role="tabpanel" id="rail-bloques" aria-labelledby="rail-bloques-tab">Bloques de la página</section><section class="pdl-panel" role="tabpanel" id="rail-colores" aria-labelledby="rail-colores-tab" hidden>Colores de la página</section><section class="pdl-panel" role="tabpanel" id="rail-texto" aria-labelledby="rail-texto-tab" hidden>Tipografía de la página</section><section class="pdl-panel" role="tabpanel" id="rail-ajustes" aria-labelledby="rail-ajustes-tab" hidden>Ajustes de la página</section>
+  </div>
+</div>

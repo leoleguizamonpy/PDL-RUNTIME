@@ -1,0 +1,152 @@
+/* Navegación y shell · footer
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.base {
+
+.pdl-footer__brand.pdl-brand-signature[href] {
+  color: var(--pdl-text-muted);
+}
+
+.pdl-footer__brand.pdl-brand-signature[href]:hover,
+.pdl-footer__brand.pdl-brand-signature[href]:focus-visible {
+  color: var(--pdl-text-2);
+}
+
+}
+
+@layer pdl.components {
+
+.pdl-footer {
+  margin-top: auto;
+  border-top: 1px solid color-mix(in srgb, var(--pdl-border-1) 72%, transparent);
+  background: var(--pdl-black);
+}
+
+.pdl-footer__inner {
+  display: flex;
+  width: 100%;
+  max-width: var(--pdl-layout-max);
+  min-height: 48px;
+  margin-inline: auto;
+  padding: .78rem var(--pdl-layout-edge);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-4);
+}
+
+.pdl-footer__brand,
+.pdl-footer__meta,
+.pdl-footer__links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-footer__brand {
+  color: var(--pdl-text-muted);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: var(--pdl-letter-label);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.pdl-footer__meta,
+.pdl-footer__links {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-regular);
+  letter-spacing: .035em;
+  line-height: 1.3;
+}
+
+.pdl-footer__links a {
+  transition: color var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-footer__links a:hover,
+.pdl-footer__links a:focus-visible {
+  color: var(--pdl-text-2);
+}
+
+.pdl-footer__brand.pdl-brand-signature {
+  gap: var(--pdl-space-1);
+}
+
+.pdl-footer__brand .pdl-brand-mark {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 13px;
+}
+
+.pdl-footer__brand .pdl-brand-wordmark {
+  font-size: var(--pdl-text-xs);
+  letter-spacing: .05em;
+}
+
+/* The signature in its written case, not in capitals: for a
+   compact footer, where it shares one row with the links. */
+
+.pdl-footer__brand--sentence {
+  letter-spacing: .01em;
+  text-transform: none;
+}
+
+/* A footer closing a page's own column (a link page) instead of the app
+   shell: no fill of its own, so the page's background shows through, and
+   the column's edges. Its links read in the page's muted text. */
+
+.pdl-footer--page {
+  margin-top: var(--pdl-space-4);
+  background: none;
+}
+
+.pdl-footer--page .pdl-footer__inner {
+  padding-inline: 0;
+}
+
+.pdl-footer--page .pdl-footer__links {
+  color: var(--pdl-text-muted);
+}
+
+@media (max-width: 640px) {
+
+  .pdl-footer__inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pdl-footer__inner--row {
+    align-items: center;
+    flex-direction: row;
+  }
+}
+
+/* compact-mobile: one row, the signature at the start and the links at
+     the end, instead of stacked. */
+
+}
+
+@layer pdl.responsive {
+
+@media (pointer: coarse) {
+
+  .pdl-footer a {
+    min-width: var(--pdl-touch-target);
+  }
+
+  .pdl-footer a {
+    justify-content: center;
+  }
+
+  .pdl-footer a {
+    display: inline-flex;
+    min-height: var(--pdl-touch-target);
+    align-items: center;
+  }
+}
+
+}

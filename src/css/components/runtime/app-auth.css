@@ -1,0 +1,184 @@
+/* App Runtime · app-auth
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.runtime {
+
+/* Application authentication */
+
+.pdl-auth-view {
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  padding: clamp(var(--pdl-space-6), 6vw, var(--pdl-space-16)) var(--pdl-page-pad);
+  background: var(--pdl-black);
+}
+
+.pdl-auth-panel {
+  position: relative;
+  display: grid;
+  width: min(100%, 500px);
+  gap: var(--pdl-space-6);
+  margin: 0;
+  padding: clamp(var(--pdl-space-6), 4vw, var(--pdl-space-8));
+  border: 1px solid color-mix(in srgb, var(--pdl-border-1) 82%, transparent);
+  border-radius: var(--pdl-radius-surface);
+  background: color-mix(in srgb, var(--pdl-surface-1) 58%, var(--pdl-black));
+}
+
+.pdl-auth-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 52px;
+  height: 1px;
+  background: var(--pdl-text-muted);
+  opacity: .56;
+}
+
+.pdl-auth-panel__head {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-4);
+}
+
+.pdl-auth-panel__brand {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-auth-panel__brand-copy {
+  display: grid;
+  min-width: 0;
+  gap: .15rem;
+}
+
+.pdl-auth-panel__brand-title {
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: .055em;
+}
+
+.pdl-auth-panel__brand-meta {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  line-height: 1.25;
+}
+
+.pdl-auth-panel__status {
+  flex: 0 0 auto;
+}
+
+.pdl-auth-panel__copy {
+  display: grid;
+  gap: var(--pdl-space-3);
+  padding-block: var(--pdl-space-2);
+}
+
+.pdl-auth-panel__copy .pdl-eyebrow {
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-auth-panel__copy h1 {
+  margin: 0;
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xl);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: -.04em;
+  line-height: 1.06;
+}
+
+.pdl-auth-panel__copy p {
+  max-width: 42ch;
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-regular);
+  line-height: 1.65;
+}
+
+.pdl-auth-panel__tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  gap: 0;
+  padding: 3px;
+}
+
+.pdl-auth-panel__tabs .pdl-segmented__item {
+  width: 100%;
+  min-height: 36px;
+}
+
+/* This layer follows pdl.responsive, so the coarse-pointer target is restated. */
+
+@media (pointer: coarse) {
+
+  .pdl-auth-panel__tabs .pdl-segmented__item {
+    min-height: var(--pdl-touch-target);
+  }
+}
+
+.pdl-auth-panel__form {
+  display: grid;
+  gap: var(--pdl-space-4);
+}
+
+.pdl-auth-panel__form .pdl-field {
+  gap: var(--pdl-space-2);
+}
+
+.pdl-auth-panel__form .pdl-input {
+  min-height: 46px;
+  background: color-mix(in srgb, var(--pdl-surface-soft) 84%, var(--pdl-black));
+}
+
+.pdl-auth-panel__form .pdl-button[type="submit"] {
+  width: 100%;
+  min-height: 44px;
+  margin-top: var(--pdl-space-1);
+}
+
+.pdl-auth-panel__message:empty {
+  display: none;
+}
+
+@media (max-width: 560px) {
+
+  .pdl-auth-view {
+    place-items: start stretch;
+    padding: max(var(--pdl-space-6), env(safe-area-inset-top))
+      var(--pdl-space-4)
+      max(var(--pdl-space-6), env(safe-area-inset-bottom));
+  }
+
+  .pdl-auth-panel {
+    width: 100%;
+    gap: var(--pdl-space-5);
+    border-inline: 0;
+    border-radius: 0;
+    padding: var(--pdl-space-5) 0;
+    background: transparent;
+  }
+
+  .pdl-auth-panel__head {
+    align-items: flex-start;
+  }
+
+  .pdl-auth-panel__copy {
+    padding-block: var(--pdl-space-3);
+  }
+
+  .pdl-auth-panel__copy h1 {
+    font-size: var(--pdl-text-xl);
+  }
+}
+
+}

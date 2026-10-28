@@ -1,0 +1,49 @@
+/* Páginas de enlaces · coupon
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* A discount code: what it gives, the code in a dashed box and a button to
+   copy it, in the buttons' look of the page. */
+
+.pdl-coupon {
+  display: grid;
+  justify-items: center;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-4);
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
+  background: var(--pdl-button-fill, var(--pdl-surface-1));
+  box-shadow: var(--pdl-button-elevation, none);
+  color: var(--pdl-button-ink, var(--pdl-text-1));
+  text-align: center;
+}
+
+.pdl-coupon__note {
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-button-font-size, var(--pdl-text-sm));
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-compact);
+}
+
+.pdl-coupon__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-coupon__code {
+  padding: var(--pdl-space-2) var(--pdl-space-4);
+  border: 1.5px dashed currentColor;
+  border-radius: .5rem;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-strong);
+  letter-spacing: .08em;
+  overflow-wrap: anywhere;
+}
+
+}

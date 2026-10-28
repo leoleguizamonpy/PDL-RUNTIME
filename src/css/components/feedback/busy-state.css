@@ -1,0 +1,25 @@
+/* Feedback y carga · busy-state
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-busy {
+  position: relative;
+}
+
+.pdl-busy[aria-busy="true"] {
+  cursor: progress;
+}
+
+.pdl-busy-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  border-radius: inherit;
+  background: var(--pdl-plate);
+}
+
+}

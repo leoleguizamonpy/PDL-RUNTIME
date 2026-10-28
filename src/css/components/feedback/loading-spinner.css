@@ -1,0 +1,47 @@
+/* Feedback y carga · loading-spinner
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-spinner {
+  display: inline-block;
+  width: var(--pdl-spinner-size, 18px);
+  height: var(--pdl-spinner-size, 18px);
+  border: 1px solid var(--pdl-border-3);
+  border-top-color: var(--pdl-text-1);
+  border-radius: 50%;
+  animation: pdl-spin .8s linear infinite;
+}
+
+.pdl-processing {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pdl-space-2);
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-spinner {
+    animation: none;
+  }
+
+  .pdl-spinner {
+    border-top-color: var(--pdl-text-muted);
+  }
+}
+
+@keyframes pdl-spin {
+
+  to { transform: rotate(360deg); }
+}
+
+/* Composition with a core primitive (the button): kept in this family so the core never depends on it. */
+
+.pdl-button[aria-busy="true"] > :not(.pdl-spinner) {
+  opacity: .58;
+}
+
+}

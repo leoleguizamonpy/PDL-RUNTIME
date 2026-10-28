@@ -1,0 +1,122 @@
+/* App Runtime · app-project
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.runtime {
+
+.pdl-project-nav-item {
+  justify-content: flex-start;
+  text-align: start;
+}
+
+.pdl-project-nav-item__label,
+.pdl-project-nav-item > svg + span:not(.pdl-project-nav-item__notice) {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-align: start;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-project-nav-item__notice {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  margin-inline-start: auto;
+  border-radius: 50%;
+  background: var(--pdl-warning);
+}
+
+.pdl-project-view {
+  display: grid;
+  align-content: start;
+  gap: var(--pdl-space-6);
+  padding-block: var(--pdl-layout-page-start) var(--pdl-rhythm-page);
+}
+
+.pdl-project-view__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--pdl-space-8);
+  padding-bottom: var(--pdl-space-5);
+  border-bottom: 1px solid var(--pdl-border-1);
+}
+
+.pdl-project-view__header-copy {
+  display: grid;
+  max-width: var(--pdl-width-prose);
+  gap: var(--pdl-space-3);
+}
+
+.pdl-project-view__header-copy .pdl-prose {
+  margin-inline: 0;
+}
+
+.pdl-project-view__actions {
+  flex: 0 0 auto;
+  justify-content: flex-end;
+}
+
+.pdl-project-progress,
+.pdl-project-objective {
+  display: grid;
+  gap: var(--pdl-space-4);
+  padding: var(--pdl-space-6) var(--pdl-space-8);
+}
+
+.pdl-project-progress__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-4);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-project-progress__heading strong {
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-medium);
+}
+
+.pdl-project-progress small {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-project-objective p {
+  margin: 0;
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-regular);
+  line-height: var(--pdl-line-relaxed);
+}
+
+.pdl-project-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--pdl-space-4);
+}
+
+.pdl-project-details {
+  background: var(--pdl-surface-1);
+}
+
+@media (max-width: 900px) {
+
+  .pdl-project-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pdl-project-view__header {
+    display: grid;
+  }
+
+  .pdl-project-view__actions {
+    justify-content: flex-start;
+  }
+}
+
+}

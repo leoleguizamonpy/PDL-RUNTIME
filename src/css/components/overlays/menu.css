@@ -1,0 +1,126 @@
+/* Capas · menu
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-menu-anchor {
+  position: relative;
+  display: inline-flex;
+}
+
+.pdl-menu {
+  position: absolute;
+  z-index: var(--pdl-z-popover);
+  top: calc(100% + var(--pdl-space-2));
+  inset-inline-end: 0;
+  display: grid;
+  min-width: 220px;
+  overflow: hidden;
+  border: 1px solid var(--pdl-layer-line);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-layer-surface);
+  box-shadow: var(--pdl-layer-shadow);
+}
+
+.pdl-menu[data-pdl-menu-align="start"] {
+  inset-inline-end: auto;
+  inset-inline-start: 0;
+}
+
+.pdl-menu[hidden] {
+  display: none;
+}
+
+.pdl-menu__group {
+  display: grid;
+  padding: var(--pdl-space-2);
+}
+
+.pdl-menu__group + .pdl-menu__group {
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+.pdl-menu__item {
+  display: flex;
+  width: 100%;
+  min-height: var(--pdl-touch-target);
+  align-items: center;
+  gap: var(--pdl-space-3);
+  border: 0;
+  border-radius: var(--pdl-radius-control);
+  padding: var(--pdl-space-3) var(--pdl-space-3);
+  background: transparent;
+  color: var(--pdl-text-2);
+  cursor: pointer;
+  font-size: var(--pdl-text-sm);
+  text-align: start;
+}
+
+.pdl-menu__item:hover:not(:disabled),
+.pdl-menu__item:focus-visible {
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+}
+
+/* Unavailable items: the system's dashed line, at full legibility. */
+
+.pdl-menu__item:disabled,
+.pdl-menu__item[aria-disabled="true"] {
+  color: var(--pdl-text-subtle);
+  cursor: not-allowed;
+  text-decoration: underline dashed;
+  text-underline-offset: 4px;
+}
+
+/* The chosen one of a set (role="menuitemradio"). */
+
+.pdl-menu__item[aria-checked="true"] {
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-menu__item--danger {
+  color: var(--pdl-danger);
+}
+
+.pdl-menu__label {
+  font-family: var(--pdl-font-label);
+  padding: var(--pdl-space-2) var(--pdl-space-3) var(--pdl-space-1);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  letter-spacing: var(--pdl-letter-label);
+  text-transform: uppercase;
+}
+
+@media (max-width: 520px) {
+
+  .pdl-menu[data-pdl-mobile-sheet="true"] {
+    position: fixed;
+    inset: auto 0 0;
+    min-width: 0;
+    max-height: min(72vh, 560px);
+    overflow-y: auto;
+    border-radius: var(--pdl-radius-surface) var(--pdl-radius-surface) 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+}
+
+@layer pdl.responsive {
+
+/* Coarse pointers: every interactive target reaches the canonical 44px,
+   measured by scripts/visual/audit-components.mjs. Small glyph buttons
+   (clear, remove, quantity) grow their hit box, not their drawing. */
+
+@media (pointer: coarse) {
+
+  .pdl-menu__item {
+    min-height: var(--pdl-touch-target);
+  }
+}
+
+}

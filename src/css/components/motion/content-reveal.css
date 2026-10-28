@@ -1,0 +1,41 @@
+/* Movimiento · content-reveal
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.interaction {
+
+.pdl-fade-enter {
+  animation: pdl-fade-enter var(--pdl-motion-medium) var(--pdl-ease-enter) both;
+}
+
+.pdl-slide-enter {
+  animation: pdl-slide-enter var(--pdl-motion-medium) var(--pdl-ease-enter) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-fade-enter,
+  .pdl-slide-enter { animation: none; }
+}
+
+@keyframes pdl-fade-enter {
+
+  from { opacity: 0; }
+
+  to { opacity: 1; }
+}
+
+@keyframes pdl-slide-enter {
+
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+}

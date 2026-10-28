@@ -1,0 +1,20 @@
+/* Composición de página · alignment-utilities
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.layout {
+
+/* One element's own alignment, whatever its stack does. */
+
+.pdl-text-start { text-align: start; }
+
+.pdl-text-center { text-align: center; }
+
+.pdl-wide-media {
+  width: min(var(--pdl-width-page), calc(100vw - (2 * var(--pdl-page-pad))));
+  max-width: none;
+  margin-inline: 50%;
+  transform: translateX(-50%);
+}
+
+}

@@ -1,0 +1,204 @@
+<!-- app-shell -->
+<!-- renderWorkspaceSurface() output: shell, sidebar with project navigation, topbar with progress, overview. -->
+<div class="pdl-application-shell">
+<aside class="pdl-sidebar pdl-app-sidebar" aria-label="Navegación principal">
+<button class="pdl-app-sidebar__brand" type="button">
+<span class="pdl-app-sidebar__mark">Ñ</span>
+<span class="pdl-app-sidebar__brand-copy">
+<strong>Ñandutí Studio</strong>
+<small>Gestión de encargos</small></span></button>
+<span class="pdl-app-sidebar__label">Navegación</span>
+<nav class="pdl-sidebar__nav">
+<button class="pdl-nav-item" type="button">Proyectos</button>
+<button class="pdl-nav-item" type="button">Asistente</button></nav>
+<div class="pdl-app-sidebar__context">
+<div class="pdl-app-sidebar__project">
+<span class="pdl-app-sidebar__label">Proyecto</span>
+<strong>Carpeta para Hotel Guaraní</strong></div>
+<nav class="pdl-sidebar__nav pdl-app-sidebar__project-nav">
+<button class="pdl-nav-item pdl-project-nav-item" type="button" aria-current="page">
+<span class="pdl-project-nav-item__label">Resumen</span></button>
+<button class="pdl-nav-item pdl-project-nav-item" type="button">
+<span class="pdl-project-nav-item__label">Actividad</span>
+<span class="pdl-project-nav-item__notice" aria-label="2 pendientes"></span></button>
+<button class="pdl-nav-item pdl-project-nav-item" type="button">
+<span class="pdl-project-nav-item__label">Ficha</span></button>
+<button class="pdl-nav-item pdl-project-nav-item" type="button">
+<span class="pdl-project-nav-item__label">Asistente</span></button></nav></div>
+<div class="pdl-app-sidebar__footer">
+<strong>Gestión de encargos</strong>
+<small>Ñandutí Studio</small></div></aside>
+<div class="pdl-shell-main pdl-app-main">
+<header class="pdl-topbar pdl-app-topbar">
+<div class="pdl-topbar__inner">
+<button class="pdl-icon-button pdl-app-menu" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
+<strong class="pdl-app-topbar__context">Carpeta para Hotel Guaraní · Resumen</strong>
+<div class="pdl-app-topbar__progress">
+<strong>60%</strong>
+<progress class="pdl-progress" max="5" value="3"></progress>
+<small>3/5</small></div></div></header>
+<div class="pdl-app-content">
+<main class="pdl-container pdl-container--page pdl-project-view">
+<header class="pdl-project-view__header">
+<div class="pdl-project-view__header-copy">
+<span class="pdl-eyebrow">Resumen</span>
+<h1 class="pdl-page-title">Carpeta para Hotel Guaraní</h1>
+<p class="pdl-prose">Estado general del encargo.</p></div>
+<div class="pdl-cluster pdl-project-view__actions">
+<button class="pdl-button" type="button">Abrir asistente</button>
+<button class="pdl-button pdl-button--primary" type="button">Registrar avance</button></div></header>
+<section class="pdl-card pdl-project-progress">
+<div class="pdl-project-progress__heading">
+<span>Avance</span>
+<strong>60%</strong></div>
+<progress class="pdl-progress" max="5" value="3"></progress>
+<small>3/5 etapas completadas</small></section>
+<section class="pdl-card pdl-project-objective">
+<span class="pdl-eyebrow">Objetivo</span>
+<p>Entregar 12 carpetas de ñandutí bordadas con el logo del hotel antes del 30 de noviembre.</p></section>
+<section class="pdl-project-summary-grid">
+<article class="pdl-card pdl-workspace-item">
+<div class="pdl-workspace-item__heading">
+<div class="pdl-workspace-item__copy">
+<span class="pdl-eyebrow">Etapa 3</span>
+<strong class="pdl-workspace-item__title">Bordado de logos</strong>
+<p class="pdl-workspace-item__description">8 de 12 piezas terminadas.</p></div>
+<span class="pdl-status">En curso</span></div>
+<dl class="pdl-kv pdl-workspace-item__meta">
+<dt>Inicio</dt>
+<dd>02/11</dd>
+<dt>Horas</dt>
+<dd>46</dd></dl>
+<div class="pdl-workspace-artifacts">
+<div class="pdl-workspace-artifact">
+<span>boceto-logo.pdf</span>
+<small>PDF</small></div></div></article>
+<article class="pdl-card pdl-workspace-item">
+<div class="pdl-workspace-item__heading">
+<div class="pdl-workspace-item__copy">
+<span class="pdl-eyebrow">Etapa 4</span>
+<strong class="pdl-workspace-item__title">Almidonado y control</strong>
+<p class="pdl-workspace-item__description">Pendiente de iniciar.</p></div>
+<span class="pdl-status">Pendiente</span></div></article></section></main></div></div>
+<button class="pdl-app-backdrop" type="button" aria-label="Cerrar menú" hidden=""></button></div>
+
+<!-- Product-composed application page (no renderer): .pdl-app as a plain
+     root, and .pdl-app-page inside the shell content. -->
+<div class="pdl-app">
+  <div class="pdl-app-page">
+    <section class="pdl-section"><div class="pdl-container pdl-container--page"><h1 class="pdl-page-title">Proyectos</h1></div></section>
+  </div>
+  <div class="pdl-app-page pdl-app-page--flush">…</div>
+</div>
+
+<!-- app-auth -->
+<main class="pdl-auth-view">
+  <section class="pdl-auth-panel" aria-labelledby="auth-title">
+    <header class="pdl-auth-panel__head">
+      <span class="pdl-auth-panel__brand"><svg class="pdl-brand-mark" viewBox="0 0 682.13 682.13" aria-hidden="true"><polygon points="341.06 266.13 266.13 266.13 266.13 682.13 0 682.13 0 0 341.06 0 341.06 266.13"/><polygon points="682.13 0 682.13 682.13 341.06 682.13 341.06 416 416 416 416 0 682.13 0"/></svg><span class="pdl-auth-panel__brand-copy"><span class="pdl-auth-panel__brand-title">ÑANDUTÍ STUDIO</span><span class="pdl-auth-panel__brand-meta">Gestión de encargos</span></span></span>
+      <span class="pdl-status-label pdl-auth-panel__status" data-state="success"><span class="pdl-status-label__indicator" aria-hidden="true"></span>Servicio activo</span>
+    </header>
+    <div class="pdl-auth-panel__copy"><span class="pdl-eyebrow">Acceso</span><h1 id="auth-title">Entrá a tu espacio de trabajo</h1><p>Usá tu correo de trabajo.</p></div>
+    <div class="pdl-segmented pdl-auth-panel__tabs" role="tablist" aria-label="Modo de acceso">
+      <button class="pdl-segmented__item" type="button" role="tab" aria-selected="true">Ingresar</button>
+      <button class="pdl-segmented__item" type="button" role="tab" aria-selected="false">Crear cuenta</button>
+    </div>
+    <form class="pdl-auth-panel__form">
+      <label class="pdl-field"><span class="pdl-label">Correo</span><input class="pdl-input" type="email" autocomplete="email"></label>
+      <button class="pdl-button pdl-button--primary" type="submit">Ingresar</button>
+      <p class="pdl-auth-panel__message" role="status"></p>
+    </form>
+  </section>
+</main>
+
+<!-- app-collection -->
+<!-- renderCollectionSurface() content. -->
+<main class="pdl-container pdl-container--page pdl-collection">
+<section class="pdl-collection__top">
+<header class="pdl-collection__header">
+<h1 class="pdl-page-title">Proyectos</h1>
+<p class="pdl-prose">Encargos activos y archivados del taller.</p></header>
+<div class="pdl-cluster pdl-collection__actions">
+<button class="pdl-button pdl-button--primary" type="button">Nuevo proyecto</button></div></section>
+<div class="pdl-collection__search">
+<input class="pdl-input" type="search" placeholder="Buscar proyecto"></div>
+<section class="pdl-collection__list">
+<article class="pdl-card pdl-card--interactive pdl-collection-item">
+<div class="pdl-collection-item__copy">
+<strong class="pdl-collection-item__title">Carpeta para Hotel Guaraní</strong>
+<p class="pdl-collection-item__description">12 piezas · entrega 30 de noviembre</p></div>
+<div class="pdl-collection-item__side">
+<span class="pdl-status">En curso</span>
+<button class="pdl-button" type="button">Abrir</button></div></article>
+<article class="pdl-card pdl-card--interactive pdl-collection-item">
+<div class="pdl-collection-item__copy">
+<strong class="pdl-collection-item__title">Colección Primavera</strong>
+<p class="pdl-collection-item__description">Fotografía y catálogo</p></div>
+<div class="pdl-collection-item__side">
+<span class="pdl-status">Revisión</span>
+<button class="pdl-button" type="button">Abrir</button></div></article>
+<article class="pdl-card pdl-card--interactive pdl-collection-item">
+<div class="pdl-collection-item__copy">
+<strong class="pdl-collection-item__title">Feria de diciembre</strong>
+<p class="pdl-collection-item__description">Stand, cartelería y precios</p></div>
+<div class="pdl-collection-item__side">
+<span class="pdl-status">Planificado</span>
+<button class="pdl-button" type="button">Abrir</button></div></article></section></main>
+
+<!-- app-project -->
+<!-- Workspace section of kind "details". -->
+<dl class="pdl-kv pdl-project-details">
+<dt>Cliente</dt>
+<dd>Hotel Guaraní</dd>
+<dt>Responsable</dt>
+<dd>Ana Ramírez</dd>
+<dt>Piezas</dt>
+<dd>12</dd>
+<dt>Entrega</dt>
+<dd>30/11/2026</dd></dl>
+
+<!-- app-workspace-items -->
+<!-- Workspace section of kind "history": form, filters and items. -->
+<main class="pdl-container pdl-container--page pdl-project-view">
+<header class="pdl-project-view__header">
+<div class="pdl-project-view__header-copy">
+<span class="pdl-eyebrow">Actividad</span>
+<h1 class="pdl-page-title">Actividad del proyecto</h1>
+<p class="pdl-prose">Registro de avances, con filtro por categoría.</p></div>
+<div class="pdl-cluster pdl-project-view__actions">
+<button class="pdl-button" type="button">Abrir asistente</button>
+<button class="pdl-button pdl-button--primary" type="button">Registrar avance</button></div></header>
+<form class="pdl-card pdl-workspace-form">
+<strong class="pdl-workspace-form__title">Registrar avance</strong>
+<div class="pdl-workspace-form__fields">
+<label class="pdl-field">
+<span class="pdl-field__label">Qué se hizo</span>
+<input class="pdl-input" name="note" type="text"></label></div>
+<div class="pdl-workspace-form__footer">
+<button class="pdl-button pdl-button--primary" type="submit">Guardar</button></div>
+<div class="pdl-workspace-form__feedback"></div></form>
+<div class="pdl-workspace-history__controls">
+<input class="pdl-input" type="search" placeholder="Buscar en el historial" aria-label="Buscar en el historial">
+<select class="pdl-select" aria-label="Categoría">
+<option value="all">Todas las categorías</option>
+<option value="Bordado">Bordado</option>
+<option value="Materiales">Materiales</option>
+<option value="Cliente">Cliente</option></select></div>
+<div class="pdl-workspace-list">
+<article class="pdl-card pdl-workspace-item">
+<div class="pdl-workspace-item__heading">
+<div class="pdl-workspace-item__copy">
+<strong class="pdl-workspace-item__title">Logos 7 y 8 terminados</strong>
+<p class="pdl-workspace-item__description">Ana · hace 2 h</p></div>
+<span class="pdl-status">Hecho</span></div></article>
+<article class="pdl-card pdl-workspace-item">
+<div class="pdl-workspace-item__heading">
+<div class="pdl-workspace-item__copy">
+<strong class="pdl-workspace-item__title">Llegó el hilo crudo</strong>
+<p class="pdl-workspace-item__description">Marcos · ayer</p></div></div></article>
+<article class="pdl-card pdl-workspace-item">
+<div class="pdl-workspace-item__heading">
+<div class="pdl-workspace-item__copy">
+<strong class="pdl-workspace-item__title">Revisión con el cliente</strong>
+<p class="pdl-workspace-item__description">Pendiente de agenda</p></div>
+<span class="pdl-status">Pendiente</span></div></article></div></main>

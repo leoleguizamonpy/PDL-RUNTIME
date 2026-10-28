@@ -1,0 +1,46 @@
+/* Feedback y carga · notification-center
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-notification-center {
+  display: grid;
+  width: min(440px, calc(100vw - 2rem));
+  max-height: min(70vh, 680px);
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-notification-center__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-4);
+  border-bottom: 1px solid var(--pdl-border-1);
+}
+
+.pdl-notification-center__list {
+  overflow-y: auto;
+}
+
+.pdl-notification-center .pdl-notification {
+  border: 0;
+  border-radius: 0;
+}
+
+.pdl-notification-center .pdl-notification + .pdl-notification {
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+@media (max-width: 600px) {
+
+  .pdl-notification-center {
+    width: 100%;
+  }
+}
+
+}

@@ -1,0 +1,165 @@
+/* Capas · dialog
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* Every layer has one anatomy (tokens.css): the layer surface, line and
+   shadow, over the ink scrim. No blur: the page behind stays legible as
+   a place, just dimmed. */
+
+.pdl-dialog {
+  width: min(560px, calc(100vw - 2rem));
+  max-width: none;
+  max-height: min(82vh, 760px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--pdl-layer-line);
+  border-radius: var(--pdl-radius-surface);
+  padding: 0;
+  background: var(--pdl-layer-surface);
+  color: var(--pdl-text-1);
+  box-shadow: var(--pdl-layer-shadow);
+}
+
+.pdl-dialog::backdrop {
+  background: var(--pdl-layer-scrim);
+}
+
+/* With an inner scroller (response dialogs), the dialog clips and only
+   the inner part scrolls, so the frame and its actions never move. */
+.pdl-dialog:has(> .pdl-dialog__inner) {
+  overflow: hidden;
+}
+
+.pdl-dialog__inner {
+  display: grid;
+  max-height: calc(100dvh - (2 * var(--pdl-space-6)));
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  gap: var(--pdl-rhythm-region);
+  padding: var(--pdl-space-6);
+}
+
+.pdl-dialog__head {
+  display: grid;
+  gap: var(--pdl-rhythm-control);
+}
+
+.pdl-dialog__eyebrow {
+  font-family: var(--pdl-font-label);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: var(--pdl-letter-label);
+  text-transform: uppercase;
+}
+
+.pdl-dialog__title {
+  margin: 0;
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-strong);
+  letter-spacing: -.02em;
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-dialog__copy {
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  line-height: var(--pdl-line-relaxed);
+}
+
+.pdl-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--pdl-rhythm-control);
+}
+
+.pdl-dialog.pdl-response-dialog {
+  width: min(480px, calc(100vw - 2rem));
+}
+
+/* Room for a wide preview (a page as a computer shows it). */
+
+.pdl-dialog--wide {
+  width: min(1200px, calc(100vw - 2rem));
+  max-width: none;
+  max-height: min(94vh, 1000px);
+}
+
+.pdl-dialog__header,
+.pdl-dialog__body,
+.pdl-dialog__footer {
+  padding: var(--pdl-space-5);
+}
+
+.pdl-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--pdl-space-4);
+  border-bottom: 1px solid var(--pdl-border-1);
+}
+
+.pdl-dialog__header > .pdl-icon-button {
+  width: var(--pdl-control-md);
+  height: var(--pdl-control-md);
+  min-width: var(--pdl-control-md);
+  min-height: var(--pdl-control-md);
+  flex-basis: var(--pdl-control-md);
+}
+
+.pdl-dialog__body {
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  line-height: var(--pdl-line-relaxed);
+}
+
+.pdl-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--pdl-space-2);
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+@media (max-width: 600px) {
+
+  .pdl-dialog:not(.pdl-drawer):not(.pdl-bottom-sheet) {
+    width: calc(100vw - 1rem);
+  }
+
+  .pdl-dialog__header,
+  .pdl-dialog__body,
+  .pdl-dialog__footer {
+    padding: var(--pdl-space-4);
+  }
+
+  .pdl-dialog__footer {
+    flex-direction: column-reverse;
+  }
+
+  .pdl-dialog__footer .pdl-button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .pdl-dialog[open] {
+    animation: pdl-dialog-in var(--pdl-motion-medium) var(--pdl-ease-enter) both;
+  }
+}
+
+@keyframes pdl-dialog-in {
+
+  from { opacity: 0; transform: translateY(8px) scale(.99); }
+
+  to { opacity: 1; transform: none; }
+}
+
+}

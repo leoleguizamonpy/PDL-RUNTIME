@@ -1,0 +1,41 @@
+<!-- system-state-screen -->
+<div class="pdl-state-screen"><span class="pdl-state-screen__code">offline</span><h3 class="pdl-state-screen__title">Sin conexión</h3><p class="pdl-state-screen__copy">Estado de sistema recuperable.</p><button class="pdl-button pdl-button--primary">Reintentar</button></div>
+<div class="pdl-empty"><strong>Empty state</strong><p>No hay elementos para mostrar.</p><button class="pdl-button pdl-button--outline">Crear primero</button></div>
+
+<!-- alert -->
+<div class="pdl-alert" data-state="warning"><strong class="pdl-alert__title">Falta una decisión</strong><p class="pdl-alert__copy">Seleccioná si las aplicaciones forman parte del alcance.</p></div>
+<div class="pdl-banner"><div><strong class="pdl-banner__title">Banner</strong><p class="pdl-banner__copy">Información persistente del sistema.</p></div><button class="pdl-button pdl-button--ghost">Acción</button></div>
+
+<!-- status-indicator -->
+<span class="pdl-status-label"><span class="pdl-status-label__indicator" aria-hidden="true"></span>Borrador</span>
+<span class="pdl-status-label" data-state="success"><span class="pdl-status-label__indicator" aria-hidden="true"></span>Publicado</span>
+<span class="pdl-status-label" data-state="warning"><span class="pdl-status-label__indicator" aria-hidden="true"></span>Por vencer</span>
+<span class="pdl-status-label" data-state="danger"><span class="pdl-status-label__indicator" aria-hidden="true"></span>Rechazado</span>
+
+<!-- toast -->
+<!-- createToast() builds this inside a .pdl-toast-region (popover="manual"). -->
+<div class="pdl-toast-region" aria-live="polite">
+  <div class="pdl-toast" data-state="success" role="status">
+    <span class="pdl-feedback-symbol" data-state="success" aria-hidden="true">✓</span>
+    <div class="pdl-toast__content"><strong class="pdl-toast__title">Pedido enviado</strong><p class="pdl-toast__copy">Te avisamos cuando el taller lo confirme.</p></div>
+    <button class="pdl-icon-button pdl-icon-button--ghost pdl-icon-button--sm pdl-toast__close" type="button" aria-label="Cerrar">×</button>
+  </div>
+</div>
+
+<!-- response-feedback -->
+<!-- showFeedback({ mode: "modal" }) builds this dialog. -->
+<dialog class="pdl-dialog pdl-response-dialog" data-state="warning" aria-labelledby="stock-title">
+  <header class="pdl-dialog__header"><span class="pdl-eyebrow">Advertencia</span></header>
+  <div class="pdl-dialog__body pdl-response-dialog__body">
+    <span class="pdl-feedback-symbol" data-state="warning" aria-hidden="true">!</span>
+    <div class="pdl-response-dialog__copy"><h2 id="stock-title">Stock bajo</h2><p>Quedan 2 unidades de hilo crudo. Reponé antes del viernes.</p></div>
+  </div>
+  <footer class="pdl-dialog__footer"><button class="pdl-button pdl-button--primary" type="button" data-pdl-dialog-close>Entendido</button></footer>
+</dialog>
+
+<!-- busy-state -->
+<section class="pdl-card pdl-busy" aria-busy="true">
+  <strong>Reporte mensual</strong>
+  <p class="pdl-prose">Generando el PDF con los datos de octubre…</p>
+  <div class="pdl-busy-overlay"><span class="pdl-spinner" aria-hidden="true"></span><span class="pdl-sr-only">Cargando</span></div>
+</section>

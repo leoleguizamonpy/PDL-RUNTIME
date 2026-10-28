@@ -1,0 +1,93 @@
+/* Chat e IA · conversation-workspace
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.layout {
+
+/* Immersive conversation workspace */
+
+.pdl-conversation-workspace {
+  width: 100%;
+  min-height: calc(100dvh - 69px);
+  overflow: visible;
+  background: var(--pdl-black);
+}
+
+.pdl-conversation-workspace__inner {
+  display: grid;
+  width: 100%;
+  max-width: var(--pdl-width-chat);
+  min-height: calc(100dvh - 69px);
+  grid-template-rows: auto auto auto;
+  gap: var(--pdl-space-5);
+  margin-inline: auto;
+  overflow: visible;
+  padding: var(--pdl-space-5) var(--pdl-page-pad);
+}
+
+.pdl-conversation-workspace__head {
+  position: sticky;
+  top: 69px;
+  z-index: var(--pdl-z-sticky);
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-4);
+  margin-inline: calc(-1 * var(--pdl-space-3));
+  border-bottom: 1px solid var(--pdl-border-1);
+  padding: var(--pdl-space-3);
+  background: var(--pdl-black);
+}
+
+.pdl-conversation-workspace__heading {
+  display: grid;
+  min-width: 0;
+  gap: var(--pdl-space-1);
+}
+
+.pdl-conversation-workspace__eyebrow {
+  font-family: var(--pdl-font-label);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: var(--pdl-letter-label);
+  text-transform: uppercase;
+}
+
+.pdl-conversation-workspace__title {
+  margin: 0;
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: -.025em;
+  line-height: 1.2;
+}
+
+.pdl-conversation-workspace__body {
+  display: grid;
+  min-height: 0;
+}
+
+.pdl-conversation-workspace__message:empty {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  .pdl-conversation-workspace {
+    min-height: calc(100dvh - 69px);
+  }
+
+  .pdl-conversation-workspace__inner {
+    gap: var(--pdl-space-4);
+    padding: var(--pdl-space-4);
+  }
+
+  .pdl-conversation-workspace__title {
+    font-size: var(--pdl-text-md);
+  }
+}
+
+}

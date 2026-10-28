@@ -1,0 +1,58 @@
+/* Páginas de enlaces · cover-image
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* A wide banner image at the top of a page or card; the image fills it. */
+
+.pdl-cover {
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  overflow: hidden;
+  border-radius: var(--pdl-radius-surface);
+  /* A cover without an image shows this fill (--pdl-cover-fill hook). */
+  background: var(--pdl-cover-fill, var(--pdl-surface-2));
+}
+
+.pdl-cover > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* A banner the next item rises onto: in a stack, the following photo or
+   avatar (up to 6rem tall) sits across the cover's lower edge. */
+
+.pdl-cover--overlap {
+  margin-block-end: calc(-1 * (var(--pdl-space-12) + var(--pdl-stack-gap, var(--pdl-rhythm-region))));
+}
+
+/* A large photo leading a page (a person's or a brand's link page). It
+   dissolves into the page at the bottom in dither dots, and what follows rises onto the faded
+   part, so the name reads on the page itself. */
+
+.pdl-hero-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  max-height: 28rem;
+  overflow: hidden;
+  margin-block-end: calc(-1 * var(--pdl-space-12));
+  border-radius: var(--pdl-radius-surface);
+  /* Bit Plate fade: solid to 55%, then 12/16 Bayer dots, then 4/16, then
+     nothing, so the photo dissolves into whatever is behind in real dots
+     (2px cells, the --pdl-dither-cell). */
+  --pdl-hero-fade: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cpattern id='a' width='8' height='8' patternUnits='userSpaceOnUse'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3Crect x='2' y='0' width='2' height='2'/%3E%3Crect x='4' y='0' width='2' height='2'/%3E%3Crect x='6' y='0' width='2' height='2'/%3E%3Crect x='2' y='2' width='2' height='2'/%3E%3Crect x='6' y='2' width='2' height='2'/%3E%3Crect x='0' y='4' width='2' height='2'/%3E%3Crect x='2' y='4' width='2' height='2'/%3E%3Crect x='4' y='4' width='2' height='2'/%3E%3Crect x='6' y='4' width='2' height='2'/%3E%3Crect x='2' y='6' width='2' height='2'/%3E%3Crect x='6' y='6' width='2' height='2'/%3E%3C/pattern%3E%3Cpattern id='b' width='8' height='8' patternUnits='userSpaceOnUse'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3Crect x='4' y='0' width='2' height='2'/%3E%3Crect x='0' y='4' width='2' height='2'/%3E%3Crect x='4' y='4' width='2' height='2'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='55%25'/%3E%3Crect y='55%25' width='100%25' height='17%25' fill='url(%23a)'/%3E%3Crect y='72%25' width='100%25' height='16%25' fill='url(%23b)'/%3E%3C/svg%3E");
+  -webkit-mask: var(--pdl-hero-fade) 0 0 / 100% 100% no-repeat;
+  mask: var(--pdl-hero-fade) 0 0 / 100% 100% no-repeat;
+}
+
+.pdl-hero-photo > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+}

@@ -1,0 +1,110 @@
+/* Navegación y shell · account-menu
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-user-state {
+  display: inline-flex;
+  min-height: var(--pdl-touch-target);
+  max-width: 100%;
+  align-items: center;
+  gap: var(--pdl-space-3);
+  border: 1px solid transparent;
+  border-radius: var(--pdl-radius-control);
+  padding: var(--pdl-space-1) var(--pdl-space-2);
+  background: transparent;
+  color: var(--pdl-text-2);
+  cursor: pointer;
+  text-align: start;
+  transition:
+    background var(--pdl-motion-short) var(--pdl-ease-standard),
+    border-color var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-user-state:hover,
+.pdl-user-state[aria-expanded="true"] {
+  border-color: var(--pdl-border-2);
+  background: var(--pdl-surface-1);
+  box-shadow: inset 0 1px 0 var(--pdl-highlight);
+}
+
+.pdl-avatar {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-2);
+  border-radius: 50%;
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-2);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pdl-user-state__copy {
+  display: grid;
+  min-width: 0;
+  gap: .1rem;
+}
+
+.pdl-user-state__name,
+.pdl-user-state__meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-user-state__name {
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-user-state__meta {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-user-state__status {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: var(--pdl-success);
+}
+
+.pdl-user-state[data-state="attention"] .pdl-user-state__status {
+  background: var(--pdl-warning);
+}
+
+.pdl-user-state[data-state="expired"] .pdl-user-state__status,
+.pdl-user-state[data-state="unavailable"] .pdl-user-state__status {
+  background: var(--pdl-danger);
+}
+
+@media (max-width: 640px) {
+
+  .pdl-user-state__copy {
+    max-width: min(52vw, 240px);
+  }
+}
+
+}
+
+/* Composition with a core primitive (the stack): kept in this family so the core never depends on it. */
+@layer pdl.layout {
+.pdl-stack--center > .pdl-avatar { justify-self: center; }
+
+}

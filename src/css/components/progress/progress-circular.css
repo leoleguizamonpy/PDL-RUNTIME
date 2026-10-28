@@ -1,0 +1,26 @@
+/* Progreso y métricas · progress-circular
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-progress-ring {
+  --pdl-ring-size: 68px;
+  --pdl-ring-width: 5px;
+  display: grid;
+  width: var(--pdl-ring-size);
+  height: var(--pdl-ring-size);
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--pdl-surface-1) calc(50% - var(--pdl-ring-width)), transparent calc(50% - var(--pdl-ring-width) + 1px)),
+    conic-gradient(var(--pdl-text-2) var(--pdl-progress, 0%), var(--pdl-border-1) 0);
+}
+
+.pdl-progress-ring__value {
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+}

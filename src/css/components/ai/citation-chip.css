@@ -1,0 +1,20 @@
+/* Chat e IA · citation-chip
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-citation {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  gap: var(--pdl-space-1);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-pill);
+  padding: var(--pdl-space-1) var(--pdl-space-2);
+  background: transparent;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+}
+
+}

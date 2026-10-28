@@ -1,0 +1,23 @@
+/* Capas · popover
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-popover {
+  position: fixed;
+  z-index: var(--pdl-z-popover);
+  width: min(320px, calc(100vw - 2rem));
+  border: 1px solid var(--pdl-layer-line);
+  border-radius: var(--pdl-radius-surface);
+  padding: var(--pdl-space-3);
+  background: var(--pdl-layer-surface);
+  color: var(--pdl-text-2);
+  box-shadow: var(--pdl-layer-shadow);
+}
+
+.pdl-popover[hidden] {
+  display: none;
+}
+
+}

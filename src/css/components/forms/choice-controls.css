@@ -1,0 +1,145 @@
+/* Formularios · choice-controls
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-check {
+  display: inline-flex;
+  min-height: var(--pdl-touch-target);
+  align-items: center;
+  gap: var(--pdl-space-3);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-regular);
+  cursor: pointer;
+}
+
+/* Checkbox and radio drawn in the system's line, not the browser's:
+   an 18px box (square or round), filled with ink when on. Forced colors
+   hand them back to the operating system. */
+
+.pdl-check input,
+.pdl-radio input {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  place-content: center;
+  margin: 0;
+  border: 1px solid var(--pdl-border-3);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-soft);
+  cursor: pointer;
+  appearance: none;
+  transition:
+    border-color var(--pdl-motion-short) var(--pdl-ease-standard),
+    background var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-radio input {
+  border-radius: 50%;
+}
+
+.pdl-check input:hover:not(:disabled),
+.pdl-radio input:hover:not(:disabled) {
+  border-color: var(--pdl-text-2);
+}
+
+.pdl-check input:is(:checked, :indeterminate) {
+  border-color: var(--pdl-text-1);
+  background: var(--pdl-text-1);
+}
+
+/* The tick: two sides of a rotated box, in the page's ink. A glyph, so
+   physical sides: it must not mirror in right-to-left text. */
+
+.pdl-check input:checked::before {
+  content: "";
+  width: 10px;
+  height: 5px;
+  border-bottom: 2px solid var(--pdl-black);
+  border-left: 2px solid var(--pdl-black);
+  transform: translateY(-1px) rotate(-45deg);
+}
+
+.pdl-check input:indeterminate::before {
+  content: "";
+  width: 8px;
+  height: 0;
+  border-block-end: 2px solid var(--pdl-black);
+}
+
+/* On is a thick ring: the dot is the background showing through. */
+
+.pdl-radio input:checked {
+  border: 5px solid var(--pdl-text-1);
+}
+
+:is(.pdl-check, .pdl-radio):has(input:disabled) {
+  color: var(--pdl-text-subtle);
+  cursor: not-allowed;
+}
+
+:is(.pdl-check, .pdl-radio) input:disabled {
+  border-style: dashed;
+  cursor: not-allowed;
+}
+
+/* On but unavailable: the ink steps down to subtle, like the label. */
+
+.pdl-check input:disabled:is(:checked, :indeterminate) {
+  border-style: solid;
+  border-color: var(--pdl-text-subtle);
+  background: var(--pdl-text-subtle);
+}
+
+.pdl-radio input:disabled:checked {
+  border-style: solid;
+  border-color: var(--pdl-text-subtle);
+}
+
+@media (forced-colors: active) {
+
+  .pdl-check input,
+  .pdl-radio input {
+    appearance: auto;
+    border: 0;
+  }
+
+  .pdl-check input::before {
+    content: none;
+  }
+}
+
+.pdl-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pdl-space-2);
+}
+
+/* Options are separate choices: room between them, like checkboxes. */
+
+.pdl-radio-group {
+  column-gap: var(--pdl-space-6);
+}
+
+.pdl-radio {
+  display: inline-flex;
+  min-height: var(--pdl-touch-target);
+  align-items: center;
+  gap: var(--pdl-space-3);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+  cursor: pointer;
+}
+
+}
+
+/* Composition with a core primitive (the stack): kept in this family so the core never depends on it. */
+@layer pdl.layout {
+.pdl-stack > :is(.pdl-check, .pdl-switch, .pdl-radio-group) + :is(.pdl-check, .pdl-switch, .pdl-radio-group) {
+  margin-block-start: calc(var(--pdl-space-1) - var(--pdl-stack-gap, var(--pdl-rhythm-region)));
+}
+
+}

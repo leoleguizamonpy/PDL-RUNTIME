@@ -1,0 +1,92 @@
+/* Feedback y carga · system-state-screen
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-empty {
+  display: grid;
+  min-height: 180px;
+  place-content: center;
+  gap: var(--pdl-space-2);
+  padding: var(--pdl-space-8);
+  text-align: center;
+}
+
+.pdl-empty > strong {
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-lg);
+}
+
+.pdl-empty > p {
+  max-width: 54ch;
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-state-screen {
+  display: grid;
+  min-height: min(62vh, 560px);
+  place-content: center;
+  justify-items: center;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-10) var(--pdl-space-5);
+  text-align: center;
+}
+
+.pdl-state-screen__code {
+  font-family: var(--pdl-font-label);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  letter-spacing: var(--pdl-letter-label);
+  text-transform: uppercase;
+}
+
+.pdl-state-screen__title {
+  margin: 0;
+  max-width: 18ch;
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xl);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
+  letter-spacing: -.035em;
+}
+
+.pdl-state-screen__copy {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  line-height: var(--pdl-line-relaxed);
+}
+
+.pdl-empty {
+  display: grid;
+  min-height: 148px;
+  place-content: center;
+  gap: var(--pdl-space-2);
+  padding: var(--pdl-space-8);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: color-mix(in srgb, var(--pdl-surface-1) 72%, transparent);
+  text-align: start;
+}
+
+.pdl-empty > strong {
+  color: var(--pdl-text-2);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+}
+
+.pdl-empty > p {
+  max-width: var(--pdl-width-prose);
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  line-height: var(--pdl-line-body);
+}
+
+}

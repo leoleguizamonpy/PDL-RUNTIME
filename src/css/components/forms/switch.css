@@ -1,0 +1,127 @@
+/* Formularios · switch
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-switch {
+  position: relative;
+  display: inline-flex;
+  min-height: var(--pdl-touch-target);
+  align-items: center;
+  gap: var(--pdl-space-3);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+  cursor: pointer;
+}
+
+.pdl-switch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pdl-switch__track {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  flex: 0 0 42px;
+  border: 1px solid var(--pdl-border-3);
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-surface-soft);
+  transition:
+    border-color var(--pdl-motion-short) var(--pdl-ease-standard),
+    background var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-switch__track::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 3px;
+  inset-inline-start: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--pdl-text-muted);
+  transition:
+    transform var(--pdl-motion-short) var(--pdl-ease-standard),
+    background var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-switch input:checked + .pdl-switch__track {
+  border-color: var(--pdl-text-2);
+  background: var(--pdl-text-1);
+}
+
+.pdl-switch input:checked + .pdl-switch__track::after {
+  background: var(--pdl-black);
+  transform: translateX(18px);
+}
+
+.pdl-switch:dir(rtl) input:checked + .pdl-switch__track::after {
+  transform: translateX(-18px);
+}
+
+.pdl-switch:has(input:disabled) {
+  color: var(--pdl-text-subtle);
+  cursor: not-allowed;
+}
+
+.pdl-switch input:disabled + .pdl-switch__track {
+  border-style: dashed;
+}
+
+/* Forced colors drop backgrounds: the knob is drawn as a ring instead. */
+
+@media (forced-colors: active) {
+
+  .pdl-switch__track::after {
+    border: 8px solid CanvasText;
+  }
+
+  .pdl-switch input:checked + .pdl-switch__track {
+    border-color: Highlight;
+  }
+
+  .pdl-switch input:checked + .pdl-switch__track::after {
+    border-color: Highlight;
+  }
+}
+
+.pdl-switch input:focus-visible + .pdl-switch__track {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 3px;
+}
+
+.pdl-theme-switch {
+  display: inline-flex;
+  width: fit-content;
+  min-height: var(--pdl-touch-target);
+  align-items: center;
+  justify-content: center;
+  gap: var(--pdl-space-1);
+  color: var(--pdl-text-muted);
+}
+
+.pdl-theme-switch > svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+.pdl-theme-switch .pdl-switch {
+  min-height: var(--pdl-touch-target);
+}
+
+}
+
+@layer pdl.responsive {
+
+@media (pointer: coarse) {
+
+  .pdl-switch {
+    min-width: var(--pdl-touch-target);
+  }
+}
+
+}

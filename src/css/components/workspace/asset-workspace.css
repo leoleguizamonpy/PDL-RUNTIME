@@ -1,0 +1,69 @@
+/* Espacio de trabajo · asset-workspace
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* Asset workspace --------------------------------------------------------- */
+
+.pdl-asset-workspace {
+  display: grid;
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr) minmax(220px, 300px);
+  min-height: 560px;
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-black);
+}
+
+.pdl-asset-workspace__library,
+.pdl-asset-workspace__inspector {
+  min-width: 0;
+  overflow: auto;
+  background: var(--pdl-surface-1);
+}
+
+.pdl-asset-workspace__library {
+  border-inline-end: 1px solid var(--pdl-border-1);
+}
+
+.pdl-asset-workspace__inspector {
+  border-inline-start: 1px solid var(--pdl-border-1);
+}
+
+.pdl-asset-workspace__stage {
+  min-width: 0;
+  overflow: auto;
+  display: grid;
+  place-items: center;
+  padding: var(--pdl-rhythm-region, 24px);
+  background: var(--pdl-black);
+}
+
+.pdl-asset-workspace__selection {
+  width: min(100%, 720px);
+  display: grid;
+  gap: var(--pdl-rhythm-content, 16px);
+}
+
+.pdl-asset-workspace__meta {
+  display: grid;
+  gap: var(--pdl-space-2);
+  padding: var(--pdl-space-4);
+}
+
+@media (max-width: 980px) {
+
+  .pdl-asset-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Scoped to the workspace: the panes are also .pdl-inspector (workspace
+     family), so the override must not depend on which module loads last. */
+
+  .pdl-asset-workspace > :is(.pdl-asset-workspace__library, .pdl-asset-workspace__inspector) {
+    display: none;
+  }
+}
+
+}

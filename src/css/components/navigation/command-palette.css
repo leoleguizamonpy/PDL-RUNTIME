@@ -1,0 +1,238 @@
+/* Navegación y shell · command-palette
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* A modal dialog near the top of the viewport: a search field over a list
+   of commands in groups. It floats as a layer (the combobox's tokens), and
+   the active command reads as the field's focus does: an inline-start edge. */
+
+.pdl-command-palette {
+  width: min(36rem, calc(100vw - (2 * var(--pdl-space-4))));
+  max-width: none;
+  max-height: min(32rem, calc(100dvh - (2 * var(--pdl-space-6))));
+  overflow: hidden;
+  border: 1px solid var(--pdl-layer-line);
+  border-radius: var(--pdl-radius-surface);
+  padding: 0;
+  background: var(--pdl-layer-surface);
+  color: var(--pdl-text-1);
+  box-shadow: var(--pdl-layer-shadow);
+}
+
+dialog.pdl-command-palette {
+  margin-block: min(12vh, 6rem) auto;
+}
+
+/* Open as a dialog, or rendered in place when it is not a <dialog> (a
+   preview in documentation). */
+.pdl-command-palette[open],
+.pdl-command-palette:not(dialog) {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.pdl-command-palette::backdrop {
+  background: var(--pdl-layer-scrim);
+}
+
+.pdl-command-palette__search {
+  display: flex;
+  align-items: center;
+  gap: var(--pdl-space-3);
+  border-bottom: 1px solid var(--pdl-border-1);
+  padding-inline: var(--pdl-space-4);
+  color: var(--pdl-text-subtle);
+}
+
+.pdl-command-palette__search svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.pdl-command-palette__input {
+  flex: 1;
+  min-width: 0;
+  height: var(--pdl-control-lg);
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--pdl-text-1);
+  font: inherit;
+  font-size: var(--pdl-text-md);
+  outline: none;
+}
+
+/* The field has no box of its own: focus is the fields' 2px edge, drawn
+   as the search row's bottom line. */
+.pdl-command-palette__search:focus-within {
+  box-shadow: inset 0 -2px 0 var(--pdl-focus);
+}
+
+.pdl-command-palette__input::placeholder {
+  color: var(--pdl-text-subtle);
+}
+
+.pdl-command-palette__list {
+  display: grid;
+  align-content: start;
+  gap: var(--pdl-space-3);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin: 0;
+  padding: var(--pdl-space-2);
+  list-style: none;
+}
+
+.pdl-command-palette__group {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pdl-command-palette__group[hidden],
+.pdl-command-palette__item[hidden],
+.pdl-command-palette__empty[hidden] {
+  display: none;
+}
+
+.pdl-command-palette__heading {
+  padding: var(--pdl-space-2) var(--pdl-space-3) var(--pdl-space-1);
+  color: var(--pdl-text-subtle);
+  font-family: var(--pdl-font-label);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: var(--pdl-letter-label);
+  text-transform: uppercase;
+}
+
+.pdl-command-palette__item {
+  display: flex;
+  align-items: center;
+  gap: var(--pdl-space-3);
+  min-height: var(--pdl-touch-target);
+  border-radius: var(--pdl-radius-control);
+  padding: var(--pdl-space-2) var(--pdl-space-3);
+  color: var(--pdl-text-muted);
+  cursor: pointer;
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-command-palette__item svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pdl-command-palette__label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-command-palette__item:hover {
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+}
+
+.pdl-command-palette__item.is-active {
+  background: var(--pdl-surface-2);
+  box-shadow: inset 2px 0 0 var(--pdl-text-1);
+  color: var(--pdl-text-1);
+}
+
+.pdl-command-palette__item:dir(rtl).is-active {
+  box-shadow: inset -2px 0 0 var(--pdl-text-1);
+}
+
+/* Unavailable commands: the system's dashed line, never activated. */
+.pdl-command-palette__item[aria-disabled="true"] {
+  color: var(--pdl-text-subtle);
+  cursor: not-allowed;
+}
+
+.pdl-command-palette__item[aria-disabled="true"] .pdl-command-palette__label {
+  text-decoration: underline dashed;
+  text-underline-offset: 4px;
+}
+
+.pdl-command-palette__shortcut {
+  display: inline-flex;
+  flex: none;
+  gap: var(--pdl-space-1);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-command-palette__shortcut kbd,
+.pdl-command-palette__footer kbd {
+  min-width: 1.6em;
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-control);
+  padding: 0 var(--pdl-space-1);
+  text-align: center;
+}
+
+.pdl-command-palette__empty {
+  margin: 0;
+  padding: var(--pdl-space-6) var(--pdl-space-4);
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  text-align: center;
+}
+
+.pdl-command-palette__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pdl-space-4);
+  border-top: 1px solid var(--pdl-border-1);
+  padding: var(--pdl-space-2) var(--pdl-space-4);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+}
+
+@layer pdl.responsive {
+
+@media (max-width: 640px) {
+  dialog.pdl-command-palette {
+    width: 100vw;
+    max-height: calc(100dvh - var(--pdl-space-6));
+    margin-block: 0 auto;
+    border-width: 0 0 1px;
+    border-radius: 0 0 var(--pdl-radius-surface) var(--pdl-radius-surface);
+  }
+
+  .pdl-command-palette__footer {
+    display: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .pdl-command-palette__search:focus-within {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .pdl-command-palette__item.is-active {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+}
+
+}

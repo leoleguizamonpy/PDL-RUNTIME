@@ -1,0 +1,144 @@
+/* Feedback y carga · toast
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-toast {
+  width: min(420px, calc(100vw - 2rem));
+  padding: var(--pdl-space-4) var(--pdl-space-5);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-toast-region {
+  position: fixed;
+  z-index: var(--pdl-z-toast);
+  top: calc(var(--pdl-space-4) + env(safe-area-inset-top));
+  inset-inline-end: calc(var(--pdl-space-4) + env(safe-area-inset-right));
+  display: grid;
+  width: min(380px, calc(100vw - 2rem));
+  gap: var(--pdl-space-2);
+  pointer-events: none;
+}
+
+/* Promoted to the top layer via popover="manual": reset UA popover chrome. */
+
+.pdl-toast-region[popover] {
+  bottom: auto;
+  inset-inline-start: auto;
+  height: auto;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+}
+
+.pdl-toast {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--pdl-space-3);
+  align-items: start;
+  border: 1px solid var(--pdl-layer-line);
+  border-radius: var(--pdl-radius-surface);
+  padding: var(--pdl-space-4);
+  background: var(--pdl-layer-surface);
+  box-shadow: var(--pdl-layer-shadow);
+  pointer-events: auto;
+}
+
+.pdl-feedback-symbol {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  place-items: center;
+  border: 1px solid var(--pdl-border-2);
+  border-radius: 50%;
+  background: var(--pdl-surface-soft);
+  color: var(--pdl-text-2);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  line-height: 1;
+}
+
+[data-state="success"] > .pdl-feedback-symbol,
+.pdl-feedback-symbol[data-state="success"] {
+  border-color: color-mix(in srgb, var(--pdl-success) 42%, var(--pdl-border-1));
+  color: var(--pdl-success);
+}
+
+[data-state="warning"] > .pdl-feedback-symbol,
+.pdl-feedback-symbol[data-state="warning"] {
+  border-color: color-mix(in srgb, var(--pdl-warning) 42%, var(--pdl-border-1));
+  color: var(--pdl-warning);
+}
+
+[data-state="danger"] > .pdl-feedback-symbol,
+.pdl-feedback-symbol[data-state="danger"] {
+  border-color: color-mix(in srgb, var(--pdl-danger) 42%, var(--pdl-border-1));
+  color: var(--pdl-danger);
+}
+
+.pdl-toast[data-state="success"] { border-color: color-mix(in srgb, var(--pdl-success) 28%, var(--pdl-border-1)); }
+
+.pdl-toast[data-state="warning"] { border-color: color-mix(in srgb, var(--pdl-warning) 28%, var(--pdl-border-1)); }
+
+.pdl-toast[data-state="danger"] { border-color: color-mix(in srgb, var(--pdl-danger) 28%, var(--pdl-border-1)); }
+
+.pdl-toast__content {
+  display: grid;
+  gap: var(--pdl-space-1);
+}
+
+.pdl-toast__title {
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-toast__copy {
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  line-height: var(--pdl-line-body);
+}
+
+.pdl-toast__close {
+  align-self: start;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .pdl-toast {
+    animation: pdl-toast-in var(--pdl-motion-medium) var(--pdl-ease-enter) both;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .pdl-toast-region,
+  .pdl-toast-region[popover] {
+    top: auto;
+    right: var(--pdl-space-2);
+    bottom: calc(var(--pdl-space-2) + env(safe-area-inset-bottom));
+    left: var(--pdl-space-2);
+    width: auto;
+  }
+}
+
+@keyframes pdl-toast-in {
+
+  from { opacity: 0; transform: translateY(-8px); }
+
+  to { opacity: 1; transform: none; }
+}
+
+}

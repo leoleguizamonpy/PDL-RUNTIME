@@ -1,0 +1,393 @@
+/* Páginas de enlaces · stories
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* Stories: a row of circles, each a cover inside a ring (a new story's
+   ring in color until it is seen, a highlight's quiet), its title below.
+   The row starts at the left, as on Instagram, slides sideways and never
+   shows a scrollbar. */
+
+.pdl-stories {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.pdl-stories::-webkit-scrollbar {
+  display: none;
+}
+
+.pdl-stories__list {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--pdl-space-3);
+  margin: 0;
+  padding: var(--pdl-space-1);
+  list-style: none;
+}
+
+.pdl-stories__item {
+  display: grid;
+  width: 4.5rem;
+  justify-items: center;
+  gap: var(--pdl-space-1);
+  border-radius: var(--pdl-radius-control);
+  color: inherit;
+  text-decoration: none;
+}
+
+.pdl-stories__item:focus-visible,
+.pdl-story-ring:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 3px;
+}
+
+.pdl-stories__ring {
+  display: grid;
+  width: 4.25rem;
+  height: 4.25rem;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  padding: 2px;
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 24%, transparent);
+}
+
+/* A new story is a solid ink ring; seen ones fade to the quiet ring above.
+   Products can set --pdl-story-ring (a brand accent), never a gradient. */
+
+.pdl-stories__ring--new,
+.pdl-story-ring {
+  background: var(--pdl-story-ring, var(--pdl-text-1));
+}
+
+.pdl-stories__item[data-seen] .pdl-stories__ring--new,
+.pdl-story-ring[data-seen] {
+  background: color-mix(in srgb, currentColor 24%, transparent);
+}
+
+.pdl-stories__cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border: 2px solid var(--pdl-surface-1);
+  border-radius: 50%;
+  background: var(--pdl-surface-1);
+  object-fit: cover;
+}
+
+.pdl-stories__title {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: var(--pdl-text-xs);
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The profile photo with a story: a ring that opens it. */
+
+.pdl-story-ring {
+  display: inline-grid;
+  width: fit-content;
+  padding: 3px;
+  border-radius: 50%;
+}
+
+.pdl-story-ring > svg {
+  display: block;
+  border-radius: 50%;
+  background: var(--pdl-surface-1);
+}
+
+/* A story, full screen: the photos one after another in a 9:16 frame, a
+   bar for each across the top (the current one fills while it shows), who
+   it is and a way out, taps on either side to go back or on, and its "see
+   more" button at the bottom. */
+
+.pdl-story {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #000;
+  color: #fff;
+}
+
+.pdl-story::backdrop {
+  background: #000;
+}
+
+.pdl-story__frame {
+  position: relative;
+  width: min(100vw, calc(100dvh * 9 / 16));
+  height: 100dvh;
+  margin-inline: auto;
+  overflow: hidden;
+}
+
+.pdl-story__progress {
+  position: absolute;
+  inset: var(--pdl-space-2) var(--pdl-space-2) auto;
+  z-index: 3;
+  display: flex;
+  gap: 3px;
+}
+
+.pdl-story__bar {
+  flex: 1;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 35%);
+}
+
+.pdl-story__fill {
+  display: block;
+  height: 100%;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.pdl-story__bar[data-state="done"] .pdl-story__fill {
+  transform: none;
+}
+
+.pdl-story__bar[data-state="active"] .pdl-story__fill {
+  animation: pdl-story-fill var(--pdl-story-duration, 5s) linear forwards;
+}
+
+.pdl-story[data-paused] .pdl-story__fill {
+  animation-play-state: paused;
+}
+
+.pdl-story__head {
+  position: absolute;
+  inset: calc(var(--pdl-space-2) + .75rem) var(--pdl-space-2) auto var(--pdl-space-3);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: var(--pdl-space-2);
+  text-shadow: 0 1px 3px rgb(0 0 0 / 50%);
+}
+
+.pdl-story__avatar {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 22%);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-story__avatar > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pdl-story__who {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  line-height: 1.25;
+}
+
+.pdl-story__name {
+  overflow: hidden;
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-story__title {
+  overflow: hidden;
+  font-size: var(--pdl-text-xs);
+  opacity: .8;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-story__close {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.pdl-story__slides {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+/* Each photo with its line over it, one shown at a time. */
+
+.pdl-story__slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  margin: 0;
+  place-items: center;
+}
+
+.pdl-story__slide[hidden] {
+  display: none;
+}
+
+.pdl-story__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pdl-story__caption {
+  position: absolute;
+  inset-inline: var(--pdl-space-4);
+  bottom: calc(var(--pdl-space-6, 2rem) + env(safe-area-inset-bottom, 0px));
+  margin: 0;
+  font-size: var(--pdl-text-lg);
+  font-weight: var(--pdl-weight-strong);
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  text-align: center;
+  text-shadow: 0 1px 4px rgb(0 0 0 / 70%);
+}
+
+/* Above "Ver más" when the story has one. */
+
+.pdl-story__frame:has(.pdl-story__link) .pdl-story__caption {
+  bottom: calc(var(--pdl-space-6, 2rem) + 3.75rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* A sensitive story: blurred and paused under its notice until "Ver". */
+
+.pdl-story__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: none;
+  place-content: center;
+  justify-items: center;
+  gap: var(--pdl-space-2);
+  padding: var(--pdl-space-4);
+  border: 0;
+  background: rgb(0 0 0 / 30%);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+
+.pdl-story[data-veiled] .pdl-story__veil {
+  display: grid;
+}
+
+.pdl-story[data-veiled] .pdl-story__slides {
+  filter: blur(28px) saturate(.6);
+  transform: scale(1.12);
+}
+
+.pdl-story[data-veiled] .pdl-story__fill {
+  animation-play-state: paused;
+}
+
+.pdl-story__veil:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -6px;
+}
+
+/* A sensitive story's circle, blurred inside its ring. */
+
+.pdl-stories__ring--sensitive .pdl-stories__cover {
+  clip-path: circle(50%);
+  filter: blur(5px);
+}
+
+.pdl-story__nav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pdl-story__nav--prev {
+  inset-inline-start: 0;
+  width: 30%;
+}
+
+.pdl-story__nav--next {
+  inset-inline-end: 0;
+  width: 70%;
+}
+
+.pdl-story__close:focus-visible,
+.pdl-story__nav:focus-visible,
+.pdl-story__link:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+
+.pdl-story__link {
+  position: absolute;
+  bottom: calc(var(--pdl-space-6, 2rem) + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  z-index: 3;
+  max-width: calc(100% - 2 * var(--pdl-space-4));
+  overflow: hidden;
+  border-radius: var(--pdl-radius-pill);
+  padding: var(--pdl-space-2) var(--pdl-space-5);
+  background: #fff;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 30%);
+  color: #000;
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  translate: -50% 0;
+}
+
+@keyframes pdl-story-fill {
+
+  to { transform: none; }
+}
+
+}
+
+@layer pdl.responsive {
+
+/* Coarse pointers: every interactive target reaches the canonical 44px,
+   measured by scripts/visual/audit-components.mjs. Small glyph buttons
+   (clear, remove, quantity) grow their hit box, not their drawing. */
+
+@media (pointer: coarse) {
+
+  .pdl-story__link {
+    min-height: var(--pdl-touch-target);
+  }
+}
+
+}

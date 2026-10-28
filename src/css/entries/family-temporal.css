@@ -1,0 +1,38 @@
+/*
+ * PDL — Planificación (generated). The core (foundations, layout, actions)
+ * + temporal.
+ */
+
+@layer pdl.foundations, pdl.base, pdl.layout, pdl.components, pdl.interaction, pdl.responsive, pdl.runtime;
+
+/* Foundations */
+@import "../foundations/tokens.css";
+@import "../foundations/palettes.css";
+@import "../foundations/typography.css";
+
+/* Base: element defaults */
+@import "../base/base.css";
+
+/* Fundamentos */
+@import "../base/typography.css";
+@import "../base/accessibility-utilities.css";
+@import "../base/texture.css";
+
+/* Composición de página */
+@import "../components/layout/page-container.css";
+@import "../components/layout/page-section.css";
+@import "../components/layout/page-grid.css";
+@import "../components/layout/alignment-utilities.css";
+@import "../components/layout/editorial-system.css";
+@import "../components/layout/page-profiles.css";
+
+/* Acciones y cards */
+@import "../components/actions/button.css";
+@import "../components/actions/icon-button.css";
+@import "../components/actions/card.css";
+@import "../components/actions/status-indicator.css";
+
+/* Planificación */
+@import "../components/temporal/calendar.css";
+@import "../components/temporal/kanban.css";
+@import "../components/temporal/gantt.css";

@@ -1,0 +1,64 @@
+/* Feedback y carga · skeleton
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-skeleton {
+  overflow: hidden;
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-2);
+}
+
+/* Loading scan: a hard-edged band of ordered dots stepping across the
+   placeholder, like a plate being exposed. No soft gradient sweep. */
+
+.pdl-skeleton::after {
+  content: "";
+  display: block;
+  width: 24%;
+  height: 100%;
+  background: var(--pdl-dither-ink, var(--pdl-text-1));
+  opacity: .14;
+  -webkit-mask: var(--pdl-bayer-8) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
+  mask: var(--pdl-bayer-8) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
+  animation: pdl-skeleton 1.6s steps(10, end) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-skeleton::after {
+    animation: none;
+    display: none;
+  }
+}
+
+@keyframes pdl-skeleton {
+
+  from { transform: translateX(-100%); }
+
+  to { transform: translateX(420%); }
+}
+
+.pdl-skeleton--line {
+  width: 100%;
+  height: .75rem;
+}
+
+.pdl-skeleton--title {
+  width: min(72%, 420px);
+  height: 1.15rem;
+}
+
+.pdl-skeleton--avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.pdl-skeleton--card {
+  min-height: 180px;
+  border-radius: var(--pdl-radius-surface);
+}
+
+}

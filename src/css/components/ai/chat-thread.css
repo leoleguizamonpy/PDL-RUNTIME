@@ -1,0 +1,254 @@
+/* Chat e IA · chat-thread
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-chat {
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--pdl-border-1) 72%, transparent);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-black);
+}
+
+.pdl-chat__header {
+  display: flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-4);
+  padding: .85rem var(--pdl-space-5);
+  border-bottom: 1px solid color-mix(in srgb, var(--pdl-border-1) 72%, transparent);
+  background: color-mix(in srgb, var(--pdl-black) 96%, transparent);
+}
+
+.pdl-chat__identity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-chat__identity-copy {
+  display: grid;
+  min-width: 0;
+  gap: var(--pdl-space-1);
+}
+
+.pdl-chat__identity-title {
+  overflow: hidden;
+  color: var(--pdl-text-2);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-chat__thread {
+  display: grid;
+  gap: var(--pdl-space-5);
+  max-height: 34rem;
+  overflow-y: auto;
+  padding: var(--pdl-space-8);
+}
+
+.pdl-message {
+  display: grid;
+  max-width: min(86%, 780px);
+  gap: var(--pdl-space-1);
+}
+
+.pdl-message--user {
+  max-width: min(72%, 640px);
+  justify-self: end;
+}
+
+.pdl-message__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--pdl-space-2);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: .055em;
+  line-height: 1.25;
+}
+
+.pdl-message__author {
+  color: var(--pdl-text-muted);
+  font-family: var(--pdl-font-display);
+  font-weight: var(--pdl-weight-medium);
+}
+
+.pdl-message__time {
+  color: var(--pdl-text-subtle);
+  font-weight: var(--pdl-weight-regular);
+}
+
+.pdl-message__bubble {
+  padding: .35rem 0 var(--pdl-space-4);
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--pdl-border-1) 68%, transparent);
+  border-radius: 0;
+  background: transparent;
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-regular);
+  line-height: 1.62;
+}
+
+.pdl-message--user .pdl-message__bubble {
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+  border: 1px solid color-mix(in srgb, var(--pdl-text-1) 18%, transparent);
+  border-radius: var(--pdl-radius-surface) 2px var(--pdl-radius-surface) var(--pdl-radius-surface);
+  background: var(--pdl-text-1);
+  color: var(--pdl-black);
+  line-height: 1.5;
+}
+
+.pdl-chat__composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--pdl-space-3);
+  padding: .78rem var(--pdl-space-5);
+  border-top: 1px solid var(--pdl-border-1);
+  background: color-mix(in srgb, var(--pdl-surface-soft) 92%, var(--pdl-black));
+}
+
+/* With a leading action (attach), the field takes the middle column. */
+.pdl-chat__composer:has(> :first-child:is(.pdl-icon-button, .pdl-button)) {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.pdl-chat__reply {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--pdl-space-3);
+  width: 100%;
+}
+
+.pdl-chat__reply > .pdl-field {
+  min-width: 0;
+}
+
+.pdl-chat__reply > .pdl-cluster {
+  flex-wrap: nowrap;
+}
+
+.pdl-chat__reply .pdl-textarea {
+  min-height: var(--pdl-control-lg);
+  resize: vertical;
+}
+
+.pdl-chat__composer .pdl-label {
+  font-size: var(--pdl-text-xs);
+  letter-spacing: .035em;
+}
+
+.pdl-chat__composer .pdl-textarea {
+  font-size: var(--pdl-text-sm);
+  line-height: 1.5;
+}
+
+.pdl-chat--workspace {
+  display: grid;
+  min-height: calc(100dvh - 150px);
+  height: auto;
+  grid-template-rows: auto auto;
+  overflow: visible;
+  border-inline: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.pdl-chat--workspace .pdl-chat__thread {
+  min-height: 0;
+  max-height: none;
+  overflow: visible;
+  padding: var(--pdl-space-6) 0;
+}
+
+.pdl-chat--workspace .pdl-chat__composer {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--pdl-z-sticky);
+  padding: var(--pdl-space-4) 0;
+  background: var(--pdl-black);
+}
+
+.pdl-chat__composer--actions {
+  grid-template-columns: 1fr;
+}
+
+.pdl-chat__composer--actions > .pdl-chat-choices {
+  grid-column: 1;
+}
+
+.pdl-chat--workspace .pdl-message {
+  max-width: min(92%, 820px);
+}
+
+.pdl-chat--workspace .pdl-message--user {
+  max-width: min(76%, 680px);
+}
+
+@media (max-width: 768px) {
+
+  .pdl-chat--workspace .pdl-chat__thread {
+    padding: var(--pdl-space-4) 0;
+  }
+
+  .pdl-chat--workspace .pdl-chat__composer {
+    padding-block: var(--pdl-space-3);
+  }
+
+  .pdl-chat--workspace .pdl-message,
+  .pdl-chat--workspace .pdl-message--user {
+    max-width: 100%;
+  }
+}
+
+.pdl-chat__composer > .pdl-chat-choices {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+}
+
+@layer pdl.responsive {
+
+@media (max-width: 768px) {
+
+  .pdl-chat__thread {
+    max-height: none;
+    padding: var(--pdl-space-4);
+  }
+
+  .pdl-message {
+    max-width: 100%;
+  }
+
+  .pdl-chat__composer {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+@media (max-width: 420px) {
+
+  .pdl-chat__composer {
+    padding: var(--pdl-space-3);
+  }
+}
+
+@media (orientation: landscape) and (max-height: 540px) {
+
+  .pdl-chat__thread {
+    max-height: 18rem;
+  }
+}
+
+}

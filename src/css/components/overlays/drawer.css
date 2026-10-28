@@ -1,0 +1,43 @@
+/* Capas · drawer
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-drawer {
+  width: min(440px, 92vw);
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  margin-inline-start: auto;
+  border-radius: 0;
+  border-block: 0;
+  border-inline-end: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .pdl-drawer[open] {
+    animation-name: pdl-drawer-in;
+  }
+
+  .pdl-drawer[open]:dir(rtl) {
+    animation-name: pdl-drawer-in-rtl;
+  }
+}
+
+@keyframes pdl-drawer-in-rtl {
+
+  from { opacity: 0; transform: translateX(-16px); }
+
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes pdl-drawer-in {
+
+  from { opacity: 0; transform: translateX(16px); }
+
+  to { opacity: 1; transform: none; }
+}
+
+}

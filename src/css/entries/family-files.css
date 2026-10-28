@@ -1,0 +1,90 @@
+/*
+ * PDL — Archivos (generated). The core (foundations, layout, actions)
+ * + files + forms, navigation, overlays, progress, feedback.
+ */
+
+@layer pdl.foundations, pdl.base, pdl.layout, pdl.components, pdl.interaction, pdl.responsive, pdl.runtime;
+
+/* Foundations */
+@import "../foundations/tokens.css";
+@import "../foundations/palettes.css";
+@import "../foundations/typography.css";
+
+/* Base: element defaults */
+@import "../base/base.css";
+
+/* Fundamentos */
+@import "../base/typography.css";
+@import "../base/accessibility-utilities.css";
+@import "../base/texture.css";
+
+/* Composición de página */
+@import "../components/layout/page-container.css";
+@import "../components/layout/page-section.css";
+@import "../components/layout/page-grid.css";
+@import "../components/layout/alignment-utilities.css";
+@import "../components/layout/editorial-system.css";
+@import "../components/layout/page-profiles.css";
+
+/* Acciones y cards */
+@import "../components/actions/button.css";
+@import "../components/actions/icon-button.css";
+@import "../components/actions/card.css";
+@import "../components/actions/status-indicator.css";
+
+/* Formularios */
+@import "../components/forms/field-validation.css";
+@import "../components/forms/text-input.css";
+@import "../components/forms/choice-controls.css";
+@import "../components/forms/switch.css";
+@import "../components/forms/segmented-control.css";
+@import "../components/forms/tag-input.css";
+@import "../components/forms/range.css";
+@import "../components/forms/color-input.css";
+@import "../components/forms/combobox.css";
+@import "../components/forms/form-flow.css";
+
+/* Navegación y shell */
+@import "../components/navigation/brand-signature.css";
+@import "../components/navigation/footer.css";
+@import "../components/navigation/sidebar.css";
+@import "../components/navigation/topbar.css";
+@import "../components/navigation/bottom-nav.css";
+@import "../components/navigation/account-menu.css";
+@import "../components/navigation/context-switcher.css";
+@import "../components/navigation/tabs.css";
+@import "../components/navigation/pagination.css";
+@import "../components/navigation/command-palette.css";
+@import "../components/navigation/rail-navigation.css";
+
+/* Capas */
+@import "../components/overlays/dialog.css";
+@import "../components/overlays/menu.css";
+@import "../components/overlays/drawer.css";
+@import "../components/overlays/bottom-sheet.css";
+@import "../components/overlays/tooltip.css";
+@import "../components/overlays/popover.css";
+@import "../components/overlays/lightbox.css";
+
+/* Progreso y métricas */
+@import "../components/progress/progress-linear.css";
+@import "../components/progress/progress-circular.css";
+@import "../components/progress/statistics-kpi.css";
+@import "../components/progress/chart.css";
+
+/* Feedback y carga */
+@import "../components/feedback/system-state-screen.css";
+@import "../components/feedback/skeleton.css";
+@import "../components/feedback/toast.css";
+@import "../components/feedback/alert.css";
+@import "../components/feedback/notification.css";
+@import "../components/feedback/response-feedback.css";
+@import "../components/feedback/notification-center.css";
+@import "../components/feedback/branded-splash.css";
+@import "../components/feedback/loading-spinner.css";
+@import "../components/feedback/loading-dots.css";
+@import "../components/feedback/busy-state.css";
+
+/* Archivos */
+@import "../components/files/file-upload.css";
+@import "../components/files/file-browser.css";

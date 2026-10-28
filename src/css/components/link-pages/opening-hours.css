@@ -1,0 +1,78 @@
+/* Páginas de enlaces · opening-hours
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* Opening hours: whether it is open now, then the week (days with the
+   same hours together, today's stronger), in the buttons' look. */
+
+.pdl-hours {
+  display: grid;
+  justify-items: center;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-4);
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
+  background: var(--pdl-button-fill, var(--pdl-surface-1));
+  box-shadow: var(--pdl-button-elevation, none);
+  color: var(--pdl-button-ink, var(--pdl-text-1));
+  text-align: start;
+}
+
+.pdl-hours__title {
+  text-align: center;
+}
+
+/* The open or closed mark in the card's own ink. */
+
+.pdl-hours__status.pdl-status-label {
+  border-color: color-mix(in srgb, currentColor 22%, transparent);
+  background: transparent;
+  color: inherit;
+  font-size: var(--pdl-text-xs);
+  white-space: normal;
+}
+
+.pdl-hours__list {
+  display: grid;
+  width: 100%;
+  gap: var(--pdl-space-2);
+  margin: 0;
+}
+
+.pdl-hours__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  font-size: var(--pdl-text-sm);
+  line-height: 1.4;
+}
+
+.pdl-hours__row > dt {
+  opacity: .78;
+}
+
+.pdl-hours__row > dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
+.pdl-hours__row--today {
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-hours__row--today > dt {
+  opacity: 1;
+}
+
+.pdl-hours__note {
+  margin: 0;
+  font-size: var(--pdl-text-xs);
+  line-height: 1.45;
+  opacity: .72;
+  text-align: center;
+}
+
+}

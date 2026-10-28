@@ -1,0 +1,60 @@
+/* Páginas de enlaces · sticker
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* Stickers: decorative images placed freely over an area (a link page).
+   The area is their positioning context. Each one is centered on
+   --pdl-sticker-x (a share of the area's width) and --pdl-sticker-y (a
+   distance from its top), --pdl-sticker-size wide and turned
+   --pdl-sticker-rotate. They stay inside the area's width and never take
+   pointer input, so whatever is under them stays usable. */
+
+.pdl-sticker-area {
+  position: relative;
+}
+
+.pdl-sticker {
+  position: absolute;
+  z-index: 1;
+  top: calc(var(--pdl-sticker-y, 0rem) - var(--pdl-sticker-size, 4rem) / 2);
+  left: clamp(
+    0px,
+    calc(var(--pdl-sticker-x, 50%) - var(--pdl-sticker-size, 4rem) / 2),
+    calc(100% - var(--pdl-sticker-size, 4rem))
+  );
+  width: var(--pdl-sticker-size, 4rem);
+  height: var(--pdl-sticker-size, 4rem);
+  transform: rotate(var(--pdl-sticker-rotate, 0deg));
+  pointer-events: none;
+  user-select: none;
+}
+
+.pdl-sticker > svg,
+.pdl-sticker > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* In an editor stickers are moved by hand: they take the pointer, and the
+   chosen one (aria-pressed) shows a dashed outline. */
+
+.pdl-sticker--editable {
+  cursor: grab;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+.pdl-sticker--editable:active {
+  cursor: grabbing;
+}
+
+.pdl-sticker--editable[aria-pressed="true"] {
+  border-radius: var(--pdl-radius-control);
+  outline: 2px dashed var(--pdl-focus);
+  outline-offset: 4px;
+}
+
+}

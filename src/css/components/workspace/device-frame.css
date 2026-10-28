@@ -1,0 +1,93 @@
+/* Espacio de trabajo · device-frame
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-device-frame {
+  width: 100%;
+  max-width: 340px;
+  margin-inline: auto;
+  padding: var(--pdl-space-2);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: calc(var(--pdl-radius-surface) * 4);
+  background: var(--pdl-surface-2);
+}
+
+/* Scrolls on its own so a long page never pushes the frame off screen. A
+   data-pdl-theme on the screen previews another theme in place. */
+
+.pdl-device-frame__screen {
+  /* Content sized with container units reads the phone, not the window. */
+  container-type: inline-size;
+  min-height: 420px;
+  max-height: calc(100vh - var(--pdl-topbar-height) - 9rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--pdl-space-6) var(--pdl-space-4);
+  border-radius: calc(var(--pdl-radius-surface) * 3);
+  /* The page backdrop, when the previewed page has one. */
+  background: var(--pdl-page-fill, var(--pdl-black));
+  color: var(--pdl-text-1);
+  /* Like the phone it stands for: it scrolls without a scrollbar eating
+     into its side. */
+  scrollbar-width: none;
+}
+
+.pdl-device-frame__screen::-webkit-scrollbar {
+  display: none;
+}
+
+/* A page as a computer shows it: a window bar and a scrolling viewport
+   that paints the page backdrop (wide dialog previews). */
+
+.pdl-browser-frame {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-2);
+}
+
+.pdl-browser-frame__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-2) var(--pdl-space-3);
+  border-bottom: 1px solid var(--pdl-border-1);
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-browser-frame__bar::before {
+  content: "";
+  width: .55rem;
+  height: .55rem;
+  flex: none;
+  margin-right: 1.75rem; /* geometry */
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 45%, transparent);
+  box-shadow: .85rem 0 0 color-mix(in srgb, currentColor 45%, transparent), 1.7rem 0 0 color-mix(in srgb, currentColor 45%, transparent);
+}
+
+.pdl-browser-frame__viewport {
+  height: min(68vh, 760px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  background: var(--pdl-page-fill, var(--pdl-black));
+  color: var(--pdl-text-1);
+}
+
+.pdl-browser-frame__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  .pdl-device-frame__screen {
+    max-height: none;
+  }
+}
+
+}

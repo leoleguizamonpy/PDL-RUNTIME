@@ -1,0 +1,50 @@
+/* Datos · key-value
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-kv {
+  display: grid;
+  grid-template-columns: minmax(120px, .7fr) minmax(0, 1.3fr);
+  gap: 0;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  overflow: hidden;
+}
+
+.pdl-kv dt,
+.pdl-kv dd {
+  margin: 0;
+  padding: .8rem var(--pdl-space-4);
+  border-bottom: 1px solid var(--pdl-border-1);
+}
+
+.pdl-kv dt {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-kv dd {
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+}
+
+@media (max-width: 600px) {
+
+  .pdl-kv {
+    grid-template-columns: 1fr;
+  }
+
+  .pdl-kv dt {
+    padding-bottom: var(--pdl-space-1);
+    border-bottom: 0;
+  }
+
+  .pdl-kv dd {
+    padding-top: 0;
+  }
+}
+
+}

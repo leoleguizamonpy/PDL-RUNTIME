@@ -1,0 +1,229 @@
+/* Fundamentos · base
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.base {
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+@supports not (scrollbar-gutter: stable) {
+
+  html {
+    overflow-y: scroll;
+  }
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--pdl-black);
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-body);
+  font-size: var(--pdl-text-md);
+  line-height: var(--pdl-line-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--pdl-text-1);
+  color: var(--pdl-black);
+}
+
+code,
+kbd,
+samp {
+  font-family: var(--pdl-font-mono);
+  font-size: .9em;
+  font-feature-settings: "zero" 1;
+}
+
+/*
+ * Material texture
+ * ─────────────────────────────────────────────────────────────────────────
+ * PDL surfaces are flat. Depth comes from one static, non-animated texture
+ * layer over the viewport, never from gradients or glows.
+ *
+ *   html[data-pdl-texture]   (default)  film grain
+ *                            "bitplate" 1-bit ordered screen (Bayer 4x4)
+ *                            "off"      no texture
+ *
+ * The same ordered screen is available on any element with .pdl-dither, so
+ * placeholders, media frames and empty canvases read as printed plate
+ * instead of a grey box.
+ */
+
+/* Bayer 4x4 threshold tiles: a dot is "on" where the matrix value is below
+   the level. Masks, not images, so the dot always takes the local ink. */
+
+:root {
+  --pdl-bayer-1: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3C/svg%3E");
+  --pdl-bayer-2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3C/svg%3E");
+  --pdl-bayer-4: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='2' y='0' width='1' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3C/svg%3E");
+  --pdl-bayer-8: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='2' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='3' y='1' width='1' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3C/svg%3E");
+  --pdl-bayer-12: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='1' y='0' width='1' height='1'/%3E%3Crect x='2' y='0' width='1' height='1'/%3E%3Crect x='3' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='3' y='1' width='1' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='3' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3C/svg%3E");
+}
+
+/* ── Page texture ──────────────────────────────────────────────────────── */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  opacity: var(--pdl-noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: normal;
+  pointer-events: none;
+}
+
+html[data-pdl-texture="bitplate"] body::before {
+  opacity: var(--pdl-bitplate-opacity);
+  background: var(--pdl-dither-ink, var(--pdl-text-1));
+  -webkit-mask: var(--pdl-bayer-2) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
+  mask: var(--pdl-bayer-2) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
+  image-rendering: pixelated;
+}
+
+html[data-pdl-texture="off"] body::before {
+  content: none;
+}
+
+/*
+ * Optional page backdrop (customization hook --pdl-page-fill: a solid
+ * color, or an image with a veil). A fixed layer behind the content rather
+ * than a fixed background, so it stays put while scrolling on phones too.
+ */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--pdl-page-fill, none);
+  pointer-events: none;
+}
+
+@media (forced-colors: active) {
+
+  body::before {
+    content: none;
+  }
+}
+
+}
+
+@layer pdl.interaction {
+
+[data-pdl-page-enter] {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity var(--pdl-motion-medium) var(--pdl-ease-enter),
+    transform var(--pdl-motion-medium) var(--pdl-ease-enter);
+}
+
+html[data-pdl-motion-ready] [data-pdl-page-enter] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-pdl-reveal] {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity var(--pdl-motion-long) var(--pdl-ease-enter),
+    transform var(--pdl-motion-long) var(--pdl-ease-enter);
+  transition-delay: var(--pdl-reveal-delay, 0ms);
+}
+
+[data-pdl-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  html { scroll-behavior: auto; }
+
+  [data-pdl-page-enter],
+  [data-pdl-reveal],
+  [data-pdl-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+/* Reduced motion is global: whatever moves, stops, whether the person asks
+   through the system (prefers-reduced-motion) or the product turns motion
+   off (data-pdl-motion="off"). Components never need their own rule. */
+
+html[data-pdl-motion="off"] *,
+html[data-pdl-motion="off"] *::before,
+html[data-pdl-motion="off"] *::after {
+  scroll-behavior: auto !important;
+  animation-duration: .001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .001ms !important;
+}
+
+}

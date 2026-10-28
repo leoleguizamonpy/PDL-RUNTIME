@@ -1,6 +1,7 @@
 import { initCursor } from "./js/cursor.js";
 import { initSidebar, initTabs, initDisclosure } from "./js/runtime.js";
 import { initMenus } from "./js/menus.js";
+import { initCommandPalettes } from "./js/command-palette.js";
 import { initUploadZones } from "./js/upload.js";
 import { initTableControls } from "./js/data-controls.js";
 import { initDataGrids } from "./js/data-grid.js";
@@ -22,6 +23,7 @@ export {
   initTabs,
   initDisclosure,
   initMenus,
+  initCommandPalettes,
   initUploadZones,
   initTableControls,
   initDataGrids,
@@ -58,6 +60,7 @@ export function initPDL(options = {}) {
     initTabs(root),
     initDisclosure(root),
     initMenus(root),
+    initCommandPalettes(root),
     initUploadZones(root),
     initTableControls(root),
     initDataGrids(root),
@@ -81,5 +84,7 @@ export function initPDL(options = {}) {
     }
   };
 }
+
+export { PDL_STYLES, PDL_STYLE_IDS, getPDLStyle, setPDLStyle } from "./js/style-profiles.js";
 
 export * from "./app/index.js";

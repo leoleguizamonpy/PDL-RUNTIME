@@ -1,0 +1,45 @@
+/* Planificación · gantt
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-gantt {
+  display: grid;
+  grid-template-columns: minmax(180px, .7fr) minmax(520px, 2fr);
+  overflow: auto;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-gantt__labels,
+.pdl-gantt__timeline {
+  display: grid;
+  grid-auto-rows: 44px;
+}
+
+.pdl-gantt__label,
+.pdl-gantt__row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--pdl-border-1);
+  padding-inline: var(--pdl-space-3);
+}
+
+.pdl-gantt__row {
+  position: relative;
+  background-image: linear-gradient(to right, var(--pdl-border-1) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
+}
+
+.pdl-gantt__bar {
+  position: absolute;
+  inset-inline-start: var(--pdl-gantt-start, 0%);
+  width: var(--pdl-gantt-width, 25%);
+  height: 18px;
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-text-2);
+}
+
+}

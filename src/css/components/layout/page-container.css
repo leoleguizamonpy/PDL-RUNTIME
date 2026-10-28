@@ -1,0 +1,47 @@
+/* Composición de página · page-container
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.base {
+
+.pdl-wrap {
+  width: 100%;
+  max-width: var(--pdl-content-max);
+  margin-inline: auto;
+  padding-inline: var(--pdl-page-pad);
+}
+
+}
+
+@layer pdl.layout {
+
+.pdl-container,
+.pdl-wrap {
+  width: 100%;
+  max-width: var(--pdl-layout-max);
+  margin-inline: auto;
+  padding-inline: var(--pdl-layout-edge);
+}
+
+.pdl-container--page { max-width: var(--pdl-layout-max); }
+
+.pdl-container--chat { max-width: var(--pdl-width-chat); }
+
+.pdl-container--prose { max-width: var(--pdl-width-prose); }
+
+.pdl-container--narrow { max-width: var(--pdl-width-narrow); }
+
+.pdl-container--fluid { max-width: none; }
+
+}
+
+@layer pdl.responsive {
+
+@media (max-width: 420px) {
+
+  .pdl-wrap {
+    padding-inline: var(--pdl-space-4);
+  }
+}
+
+}

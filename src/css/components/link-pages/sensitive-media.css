@@ -1,0 +1,76 @@
+/* Páginas de enlaces · sensitive-media
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* Sensitive media (a picture, a gallery, a video): blurred under a notice
+   until the visitor chooses to see it. The notice is the label of a
+   focusable checkbox, so it works without a script and from the keyboard. */
+
+.pdl-sensitive {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
+}
+
+.pdl-sensitive__toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Slightly larger while blurred, so its soft edges stay outside the frame. */
+
+.pdl-sensitive__content {
+  filter: blur(28px) saturate(.6);
+  pointer-events: none;
+  transform: scale(1.12);
+  user-select: none;
+}
+
+.pdl-sensitive__cover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--pdl-space-2);
+  padding: var(--pdl-space-4);
+  background: rgb(0 0 0 / 38%);
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.pdl-sensitive__title {
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-sensitive__action {
+  border: 1.5px solid currentColor;
+  border-radius: var(--pdl-radius-pill);
+  padding: var(--pdl-space-2) var(--pdl-space-4);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-sensitive__toggle:focus-visible ~ .pdl-sensitive__cover .pdl-sensitive__action {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 3px;
+}
+
+.pdl-sensitive__toggle:checked ~ .pdl-sensitive__content {
+  filter: none;
+  pointer-events: auto;
+  transform: none;
+  user-select: auto;
+}
+
+.pdl-sensitive__toggle:checked ~ .pdl-sensitive__cover {
+  display: none;
+}
+
+}

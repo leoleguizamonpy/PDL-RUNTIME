@@ -1,0 +1,341 @@
+/* App Runtime · app-shell
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.runtime {
+
+.pdl-app {
+  min-height: 100vh;
+  background: var(--pdl-black);
+}
+
+.pdl-app > .pdl-container,
+.pdl-app > .pdl-chat,
+.pdl-app > .pdl-workspace {
+  min-height: 100vh;
+}
+
+.pdl-app .pdl-chat {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  border: 0;
+  border-radius: 0;
+}
+
+.pdl-app .pdl-chat > header {
+  flex: 0 0 auto;
+  border-bottom: 1px solid var(--pdl-border-1);
+}
+
+.pdl-app .pdl-chat__thread {
+  width: 100%;
+  max-height: none;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-inline: max(var(--pdl-page-pad), calc((100% - var(--pdl-width-chat)) / 2 + var(--pdl-page-pad)));
+}
+
+.pdl-app .pdl-chat__composer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  flex: 0 0 auto;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding-inline: max(var(--pdl-page-pad), calc((100% - var(--pdl-width-chat)) / 2 + var(--pdl-page-pad)));
+}
+
+.pdl-app .pdl-workspace {
+  display: grid;
+  grid-template-columns: var(--pdl-sidebar-width) minmax(0, 1fr);
+}
+
+.pdl-app .pdl-workspace > .pdl-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.pdl-app .pdl-workspace__main {
+  min-width: 0;
+  padding: var(--pdl-space-8) var(--pdl-page-pad);
+}
+
+@media (max-width: 980px) {
+
+  .pdl-app .pdl-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .pdl-app .pdl-workspace > .pdl-sidebar {
+    position: static;
+    height: auto;
+  }
+}
+
+/* Application collections */
+
+.pdl-app > .pdl-container {
+  align-content: start;
+}
+
+.pdl-application-shell .pdl-collection,
+.pdl-app .pdl-collection {
+  display: grid;
+  align-content: start;
+  gap: var(--pdl-rhythm-block);
+  padding-block: 0;
+}
+
+/* Canonical application shell */
+
+.pdl-application-shell {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+.pdl-app-sidebar {
+  padding: var(--pdl-space-4) 0;
+}
+
+.pdl-app-sidebar__close {
+  display: none;
+}
+
+.pdl-app-sidebar__brand {
+  display: flex;
+  width: calc(100% - (2 * var(--pdl-space-4)));
+  min-height: 48px;
+  align-items: center;
+  gap: var(--pdl-space-3);
+  margin: 0 var(--pdl-space-4) var(--pdl-space-8);
+  border: 0;
+  border-radius: var(--pdl-radius-control);
+  padding: var(--pdl-space-2) var(--pdl-space-2);
+  background: transparent;
+  color: var(--pdl-text-1);
+  cursor: pointer;
+  text-align: start;
+}
+
+.pdl-app-sidebar__brand:hover {
+  background: var(--pdl-surface-1);
+}
+
+.pdl-app-sidebar__mark {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  place-items: center;
+  border: 1px solid var(--pdl-border-2);
+  border-radius: 50%;
+  background: var(--pdl-surface-1);
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-app-sidebar__brand-copy {
+  display: grid;
+  min-width: 0;
+  gap: .08rem;
+}
+
+.pdl-app-sidebar__brand-copy strong {
+  overflow: hidden;
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-app-sidebar__brand-copy small {
+  overflow: hidden;
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-app-sidebar__label {
+  font-family: var(--pdl-font-label);
+  display: block;
+  padding: 0 calc(var(--pdl-space-4) + .7rem) var(--pdl-space-2);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  letter-spacing: var(--pdl-letter-label);
+  text-transform: uppercase;
+}
+
+.pdl-app-sidebar__footer {
+  display: grid;
+  gap: .15rem;
+  margin-top: auto;
+  padding: var(--pdl-space-4) calc(var(--pdl-space-4) + .7rem) 0;
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+.pdl-app-sidebar__footer strong {
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+}
+
+.pdl-app-sidebar__footer small {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-app-main {
+  position: relative;
+  z-index: var(--pdl-z-content);
+  display: flex;
+  min-width: 0;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.pdl-app-topbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--pdl-z-topbar);
+}
+
+.pdl-app-topbar__context {
+  color: var(--pdl-text-2);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+}
+
+.pdl-app-menu {
+  display: none;
+}
+
+.pdl-app-content {
+  min-width: 0;
+  flex: 1 0 auto;
+}
+
+.pdl-app-page {
+  width: 100%;
+  padding-block: var(--pdl-layout-page-start);
+}
+
+.pdl-app-page > .pdl-section:first-of-type {
+  border-top: 0;
+}
+
+.pdl-app-page > .pdl-section:last-of-type .pdl-collection > .pdl-editorial-list:last-child,
+.pdl-app-page > .pdl-section:last-of-type .pdl-collection > :last-child .pdl-editorial-list:last-child {
+  border-bottom: 0;
+}
+
+.pdl-app-page--flush {
+  padding-block: 0;
+}
+
+.pdl-app-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--pdl-z-backdrop);
+  border: 0;
+  background: rgba(0, 0, 0, .56);
+}
+
+@media (max-width: 980px) {
+
+  .pdl-app-menu,
+  .pdl-app-sidebar__close {
+    display: inline-grid;
+  }
+
+  .pdl-app-sidebar {
+    z-index: var(--pdl-z-sidebar);
+  }
+}
+
+/* Icon rail on touch tablets (see responsive.css): text-only parts of the
+   application sidebar do not fit in 76px and would overlap the content. */
+
+@media (min-width: 981px) and (max-width: 1100px) and (pointer: coarse) {
+
+  .pdl-app-sidebar__label,
+  .pdl-app-sidebar__brand-copy,
+  .pdl-app-sidebar__footer {
+    display: none;
+  }
+
+  .pdl-app-sidebar__brand {
+    justify-content: center;
+    padding-inline: 0;
+  }
+}
+
+/* Project workspace */
+
+.pdl-app-sidebar__context {
+  display: grid;
+  min-height: 0;
+  margin-top: var(--pdl-space-5);
+  border-top: 1px solid var(--pdl-border-1);
+  padding-top: var(--pdl-space-5);
+}
+
+.pdl-app-sidebar__project {
+  display: grid;
+  gap: var(--pdl-space-1);
+  padding: 0 calc(var(--pdl-space-4) + .7rem) var(--pdl-space-2);
+}
+
+.pdl-app-sidebar__project .pdl-app-sidebar__label {
+  padding: 0;
+}
+
+.pdl-app-sidebar__project strong {
+  overflow: hidden;
+  color: var(--pdl-text-2);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-app-topbar__progress {
+  display: grid;
+  grid-template-columns: auto minmax(80px, 150px) auto;
+  align-items: center;
+  gap: var(--pdl-space-2);
+  margin-inline-start: auto;
+}
+
+.pdl-app-topbar__progress strong,
+.pdl-app-topbar__progress small {
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+}
+
+.pdl-app-topbar__progress small {
+  color: var(--pdl-text-subtle);
+}
+
+@media (max-width: 900px) {
+
+  .pdl-app-topbar__progress {
+    grid-template-columns: auto minmax(60px, 100px);
+  }
+
+  .pdl-app-topbar__progress small {
+    display: none;
+  }
+}
+
+}

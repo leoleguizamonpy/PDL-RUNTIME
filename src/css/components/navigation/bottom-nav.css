@@ -1,0 +1,55 @@
+/* Navegación y shell · bottom-nav
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  [data-pdl-navigation="bottom"] .pdl-bottom-nav {
+    position: sticky;
+    bottom: 0;
+    z-index: var(--pdl-z-bottom-nav);
+    display: grid;
+    grid-template-columns: repeat(var(--pdl-bottom-nav-count, 4), minmax(0, 1fr));
+    padding: var(--pdl-space-2) max(var(--pdl-space-2), env(safe-area-inset-right))
+      max(var(--pdl-space-2), env(safe-area-inset-bottom))
+      max(var(--pdl-space-2), env(safe-area-inset-left));
+    border-top: 1px solid var(--pdl-border-1);
+    background: var(--pdl-black);
+  }
+
+  .pdl-bottom-nav__item {
+    display: grid;
+    min-height: var(--pdl-touch-target);
+    place-items: center;
+    padding: var(--pdl-space-2);
+    border-radius: var(--pdl-radius-control);
+    color: var(--pdl-text-muted);
+    font-size: var(--pdl-text-xs);
+  }
+
+  /* Current page: the navigation's 2px edge, here on the top side. */
+  .pdl-bottom-nav__item[aria-current="page"] {
+    background: var(--pdl-surface-2);
+    box-shadow: inset 0 2px 0 var(--pdl-text-1);
+    color: var(--pdl-text-1);
+  }
+}
+
+/* With the bottom navigation on screen, toasts sit above it instead of
+     covering it (rapid repeated actions would otherwise block navigation). */
+
+@media (max-width: 600px) {
+
+  body:has([data-pdl-navigation="bottom"] .pdl-bottom-nav) .pdl-toast-region,
+  body:has([data-pdl-navigation="bottom"] .pdl-bottom-nav) .pdl-toast-region[popover] {
+    bottom: calc(var(--pdl-space-2) + var(--pdl-bottom-nav-height) + env(safe-area-inset-bottom));
+  }
+}
+
+}

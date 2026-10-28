@@ -6,11 +6,14 @@ const VIEWPORT_MARGIN = 8;
 // Menus open toward the start of the page from their trigger's end edge. A
 // trigger near the left edge (a toolbar that wrapped on a phone) would push
 // the menu off screen, so it aligns to the trigger's start instead.
+// The menu hangs from the trigger's end side; if that pushes it past the
+// viewport's far edge (left in LTR, right in RTL), hang it from the start.
 function alignMenu(menu) {
   delete menu.dataset.pdlMenuAlign;
-  if (menu.getBoundingClientRect().left < VIEWPORT_MARGIN) {
-    menu.dataset.pdlMenuAlign = "start";
-  }
+  const box = menu.getBoundingClientRect();
+  const rtl = getComputedStyle(menu).direction === "rtl";
+  const overflow = rtl ? box.right > window.innerWidth - VIEWPORT_MARGIN : box.left < VIEWPORT_MARGIN;
+  if (overflow) menu.dataset.pdlMenuAlign = "start";
 }
 
 function menuItems(menu) {

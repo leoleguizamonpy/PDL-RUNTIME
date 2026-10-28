@@ -1,0 +1,76 @@
+/* Navegación y shell · pagination
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  flex-wrap: wrap;
+  padding-top: var(--pdl-space-4);
+}
+
+.pdl-pagination__meta {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-pagination__pages {
+  display: flex;
+  align-items: center;
+  gap: var(--pdl-space-1);
+}
+
+.pdl-page {
+  display: grid;
+  min-width: 36px;
+  min-height: 36px;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--pdl-radius-control);
+  background: transparent;
+  color: var(--pdl-text-muted);
+  cursor: pointer;
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-page:hover {
+  background: var(--pdl-surface-1);
+  color: var(--pdl-text-1);
+}
+
+.pdl-page[aria-current="page"] {
+  border-color: var(--pdl-border-2);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+}
+
+.pdl-page:disabled {
+  cursor: not-allowed;
+  opacity: .4;
+}
+
+}
+
+@layer pdl.responsive {
+
+/* Coarse pointers: every interactive target reaches the canonical 44px,
+   measured by scripts/visual/audit-components.mjs. Small glyph buttons
+   (clear, remove, quantity) grow their hit box, not their drawing. */
+
+@media (pointer: coarse) {
+
+  .pdl-page {
+    min-height: var(--pdl-touch-target);
+  }
+
+  .pdl-page {
+    min-width: var(--pdl-touch-target);
+    min-height: var(--pdl-touch-target);
+  }
+}
+
+}

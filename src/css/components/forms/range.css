@@ -1,0 +1,108 @@
+/* Formularios · range
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-range {
+  width: 100%;
+  height: var(--pdl-touch-target);
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  accent-color: var(--pdl-text-1);
+  cursor: pointer;
+}
+
+.pdl-range::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-border-2);
+}
+
+.pdl-range::-moz-range-track {
+  height: 2px;
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-border-2);
+}
+
+.pdl-range::-moz-range-progress {
+  height: 2px;
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-text-1);
+}
+
+.pdl-range::-webkit-slider-thumb {
+  width: 14px;
+  height: 14px;
+  margin-top: -6px;
+  appearance: none;
+  border: 2px solid var(--pdl-black);
+  border-radius: 50%;
+  background: var(--pdl-text-1);
+  box-shadow: 0 0 0 1px var(--pdl-border-3);
+  transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--pdl-black);
+  border-radius: 50%;
+  background: var(--pdl-text-1);
+  box-shadow: 0 0 0 1px var(--pdl-border-3);
+  transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-range:hover::-webkit-slider-thumb,
+.pdl-range:focus-visible::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+.pdl-range:hover::-moz-range-thumb,
+.pdl-range:focus-visible::-moz-range-thumb {
+  transform: scale(1.15);
+}
+
+.pdl-range:focus-visible {
+  outline: 2px solid transparent;
+}
+
+.pdl-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px var(--pdl-black), 0 0 0 4px var(--pdl-focus);
+}
+
+.pdl-range:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 2px var(--pdl-black), 0 0 0 4px var(--pdl-focus);
+}
+
+.pdl-range-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--pdl-space-3);
+  align-items: center;
+}
+
+.pdl-range-value {
+  min-width: 3ch;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
+/* Forced colors drop backgrounds: the track becomes a line, the chosen
+   segment takes the system's selection colors. */
+
+@media (forced-colors: active) {
+
+  .pdl-range::-webkit-slider-runnable-track {
+    border-top: 2px solid CanvasText;
+  }
+
+  .pdl-range::-moz-range-track {
+    border-top: 2px solid CanvasText;
+  }
+}
+
+}

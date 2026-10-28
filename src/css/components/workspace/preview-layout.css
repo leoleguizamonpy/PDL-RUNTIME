@@ -1,0 +1,53 @@
+/* Espacio de trabajo · preview-layout
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* Live-preview layouts: an editor next to a pinned preview, and a device
+   frame to show how a page looks on a phone. Product-neutral: any editor
+   with a live result (page builders, email or card designers) can use it. */
+
+.pdl-preview-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  gap: var(--pdl-rhythm-region);
+  align-items: start;
+}
+
+/* A product may hide the aside when the editor would get too narrow (a wide
+   sidebar on a small laptop) and show the preview elsewhere; the editor then
+   takes the whole width. */
+
+.pdl-preview-layout:has(> .pdl-preview-layout__aside[hidden]) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.pdl-preview-layout__main {
+  display: grid;
+  min-width: 0;
+  gap: var(--pdl-rhythm-content);
+}
+
+/* Stays in view below the topbar while the editor scrolls. */
+
+.pdl-preview-layout__aside {
+  position: sticky;
+  top: calc(var(--pdl-topbar-height) + var(--pdl-space-4));
+  display: grid;
+  min-width: 0;
+  gap: var(--pdl-space-3);
+}
+
+@media (max-width: 768px) {
+
+  .pdl-preview-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pdl-preview-layout__aside {
+    position: static;
+  }
+}
+
+}

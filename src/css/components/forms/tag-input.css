@@ -1,0 +1,94 @@
+/* Formularios · tag-input
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-tag-input {
+  display: flex;
+  min-height: var(--pdl-control-md);
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pdl-space-2);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-control);
+  padding: var(--pdl-space-1) var(--pdl-space-2);
+  background: var(--pdl-surface-soft);
+}
+
+.pdl-tag-input:focus-within {
+  border-color: var(--pdl-focus);
+  outline: 2px solid transparent;
+  background: var(--pdl-surface-1);
+  box-shadow: 0 0 0 1px var(--pdl-focus);
+}
+
+.pdl-tag {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  gap: var(--pdl-space-1);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-pill);
+  padding: var(--pdl-space-1) var(--pdl-space-2);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-tag__remove {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  background: transparent;
+  color: var(--pdl-text-subtle);
+  cursor: pointer;
+}
+
+.pdl-tag__remove:hover {
+  background: var(--pdl-surface-3);
+  color: var(--pdl-text-1);
+}
+
+.pdl-tag-input__control {
+  min-width: 8ch;
+  flex: 1 1 120px;
+  border: 0;
+  outline: 0;
+  padding: var(--pdl-space-1);
+  background: transparent;
+  color: var(--pdl-text-1);
+  font: inherit;
+  font-size: var(--pdl-text-sm);
+}
+
+}
+
+@layer pdl.responsive {
+
+/* Coarse pointers: every interactive target reaches the canonical 44px,
+   measured by scripts/visual/audit-components.mjs. Small glyph buttons
+   (clear, remove, quantity) grow their hit box, not their drawing. */
+
+@media (pointer: coarse) {
+
+  .pdl-tag-input__control {
+    min-height: var(--pdl-touch-target);
+  }
+
+  .pdl-tag__remove {
+    min-width: var(--pdl-touch-target);
+    min-height: var(--pdl-touch-target);
+  }
+}
+
+}

@@ -1,0 +1,24 @@
+/* Páginas de enlaces · age-mark
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* "+18": a button or a card that leads to adult content says so. */
+
+.pdl-age-mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  padding: .16rem var(--pdl-space-2);
+  border: 1.5px solid currentColor;
+  border-radius: var(--pdl-radius-pill);
+  font-size: var(--pdl-text-xs);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--pdl-weight-strong);
+  letter-spacing: .02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+}

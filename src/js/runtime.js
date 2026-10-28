@@ -110,14 +110,48 @@ export function initTabs(root = document) {
       }
     };
 
+    // Roving tabindex from the start: only the selected tab is in the Tab order.
+    const selected = tabs.find(tab => tab.getAttribute("aria-selected") === "true") ?? tabs[0];
+    for (const tab of tabs) tab.tabIndex = tab === selected ? 0 : -1;
+
     const handler = event => {
       const tab = event.target.closest("[role='tab']");
       if (!tab) return;
       activate(tab);
     };
 
+    // Arrow keys move between tabs (wrapping, mirrored right-to-left),
+    // Home and End jump to the ends; the moved-to tab is activated.
+    const onKeydown = event => {
+      const enabled = tabs.filter(tab => !tab.disabled && tab.getAttribute("aria-disabled") !== "true");
+      const current = enabled.indexOf(event.target.closest("[role='tab']"));
+      if (current < 0) return;
+      const rtl = getComputedStyle(tablist).direction === "rtl";
+      // Declared orientation wins; otherwise read it from the layout, since
+      // a rail is vertical on desktop and a row on phones.
+      const declared = tablist.getAttribute("aria-orientation");
+      const vertical = declared
+        ? declared === "vertical"
+        : enabled.length > 1 && Math.abs(enabled[1].getBoundingClientRect().top - enabled[0].getBoundingClientRect().top) > Math.abs(enabled[1].getBoundingClientRect().left - enabled[0].getBoundingClientRect().left);
+      const next = vertical ? "ArrowDown" : rtl ? "ArrowLeft" : "ArrowRight";
+      const previous = vertical ? "ArrowUp" : rtl ? "ArrowRight" : "ArrowLeft";
+      let index = null;
+      if (event.key === next) index = (current + 1) % enabled.length;
+      else if (event.key === previous) index = (current - 1 + enabled.length) % enabled.length;
+      else if (event.key === "Home") index = 0;
+      else if (event.key === "End") index = enabled.length - 1;
+      if (index === null) return;
+      event.preventDefault();
+      activate(enabled[index]);
+      enabled[index].focus();
+    };
+
     tablist.addEventListener("click", handler);
-    cleanups.push(() => tablist.removeEventListener("click", handler));
+    tablist.addEventListener("keydown", onKeydown);
+    cleanups.push(() => {
+      tablist.removeEventListener("click", handler);
+      tablist.removeEventListener("keydown", onKeydown);
+    });
   }
 
   return { destroy() { cleanups.forEach(fn => fn()); } };

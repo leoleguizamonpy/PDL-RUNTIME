@@ -1,0 +1,154 @@
+/* Movimiento · page-motion
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.interaction {
+
+.pdl-motion-surface {
+  transition:
+    background var(--pdl-motion-short) var(--pdl-ease-standard),
+    border-color var(--pdl-motion-short) var(--pdl-ease-standard),
+    color var(--pdl-motion-short) var(--pdl-ease-standard),
+    opacity var(--pdl-motion-short) var(--pdl-ease-standard),
+    transform var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-motion-lift:hover {
+  transform: translateY(-2px);
+}
+
+.pdl-motion-press:active {
+  transform: scale(.985);
+}
+
+.pdl-link-motion {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition:
+    color var(--pdl-motion-short) var(--pdl-ease-standard),
+    background-size var(--pdl-motion-medium) var(--pdl-ease-standard);
+}
+
+.pdl-link-motion:hover,
+.pdl-link-motion:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* Attention motions for the one action a page wants noticed (link pages):
+   short bursts with a rest in between, and none at all for people who ask
+   for less motion. Shimmer steps a band of dots across the element. */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .pdl-motion--pulse { animation: pdl-motion-pulse 2.6s var(--pdl-ease-standard) infinite; }
+
+  .pdl-motion--wiggle { animation: pdl-motion-wiggle 3.2s ease-in-out infinite; }
+
+  .pdl-motion--bounce { animation: pdl-motion-bounce 2.8s ease-out infinite; }
+
+  .pdl-motion--glow { animation: pdl-motion-glow 2.4s ease-out infinite; }
+
+  /* Shimmer: a hard-edged band of 1-bit dots in the label's ink steps across
+     the element, then rests, like the skeleton's scan. No soft light sweep.
+     On a layer of its own, so it never clips a badge; off while busy. */
+  .pdl-motion--shimmer {
+    position: relative;
+  }
+
+  .pdl-motion--shimmer:not([aria-busy="true"])::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: .22;
+    -webkit-mask: var(--pdl-bayer-4) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
+    mask: var(--pdl-bayer-4) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
+    clip-path: inset(0 100% 0 0);
+    pointer-events: none;
+    animation: pdl-motion-shimmer 3.2s steps(8, end) infinite;
+  }
+
+  .pdl-motion--shimmer:dir(rtl)::after {
+    animation-direction: reverse;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-motion-surface,
+  .pdl-link-motion {
+    transition-duration: .001ms;
+  }
+
+  .pdl-motion-lift:hover,
+  .pdl-motion-press:active {
+    transform: none;
+  }
+}
+
+@keyframes pdl-motion-pulse {
+
+  0%, 68%, 100% { transform: scale(1); }
+
+  78% { transform: scale(1.04); }
+
+  88% { transform: scale(.99); }
+}
+
+@keyframes pdl-motion-wiggle {
+
+  0%, 70%, 100% { transform: rotate(0); }
+
+  74% { transform: rotate(-2deg); }
+
+  78% { transform: rotate(2deg); }
+
+  82% { transform: rotate(-1.5deg); }
+
+  86% { transform: rotate(1deg); }
+
+  90% { transform: rotate(0); }
+}
+
+@keyframes pdl-motion-bounce {
+
+  0%, 68%, 100% { transform: translateY(0); }
+
+  76% { transform: translateY(-6px); }
+
+  84% { transform: translateY(0); }
+
+  90% { transform: translateY(-2px); }
+}
+
+@keyframes pdl-motion-glow {
+
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 45%, transparent); }
+
+  70%, 100% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 0%, transparent); }
+}
+
+@keyframes pdl-motion-shimmer {
+    0%, 45% { clip-path: inset(0 100% 0 0); }
+    55% { clip-path: inset(0 70% 0 0); }
+    90% { clip-path: inset(0 0 0 70%); }
+    100% { clip-path: inset(0 0 0 100%); }
+  }
+
+}
+
+@layer pdl.responsive {
+
+@media (pointer: coarse) {
+
+  .pdl-link-motion {
+    display: inline-flex;
+    min-height: var(--pdl-touch-target);
+    align-items: center;
+  }
+}
+
+}

@@ -1,0 +1,41 @@
+/* Feedback y carga · response-feedback
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-response-dialog__body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: var(--pdl-space-4);
+}
+
+.pdl-response-dialog__copy {
+  display: grid;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-response-dialog__copy > h2 {
+  margin: 0;
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-medium);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-response-dialog__copy > p {
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  line-height: var(--pdl-line-body);
+}
+
+.pdl-response-dialog[data-state="success"] { border-color: color-mix(in srgb, var(--pdl-success) 30%, var(--pdl-border-1)); }
+
+.pdl-response-dialog[data-state="warning"] { border-color: color-mix(in srgb, var(--pdl-warning) 30%, var(--pdl-border-1)); }
+
+.pdl-response-dialog[data-state="danger"] { border-color: color-mix(in srgb, var(--pdl-danger) 30%, var(--pdl-border-1)); }
+
+}

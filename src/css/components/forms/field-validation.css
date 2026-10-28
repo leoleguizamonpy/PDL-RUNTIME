@@ -1,0 +1,47 @@
+/* Formularios · field-validation
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-field {
+  display: grid;
+  align-content: start;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-label {
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+}
+
+.pdl-helper {
+  /* Often a <p>: its browser margin would push the field apart. */
+  margin: 0;
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  line-height: var(--pdl-line-body);
+}
+
+.pdl-field:has(:is(.pdl-input, .pdl-textarea, .pdl-select):disabled) .pdl-label {
+  color: var(--pdl-text-subtle);
+}
+
+.pdl-helper[data-state="danger"] { color: var(--pdl-danger); }
+
+.pdl-helper[data-state="warning"] { color: var(--pdl-warning); }
+
+.pdl-helper[data-state="success"] { color: var(--pdl-success); }
+
+/* Choice grids: options in equal columns, so a group reads as one even
+   block. Each option stacks its sample over its label. The column count is
+   --pdl-segmented-columns (default 3); inside a .pdl-field narrower than
+   22rem it becomes --pdl-segmented-columns-narrow. Pick counts that divide
+   the number of options, so every row is full. */
+
+.pdl-field:has(> .pdl-segmented--grid) {
+  container: pdl-choices / inline-size;
+}
+
+}

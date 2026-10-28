@@ -1,0 +1,69 @@
+/* Navegación y shell · context-switcher
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* What is being edited, as a pill that opens a menu to switch: a photo,
+   a name over a detail line, and a chevron. */
+
+.pdl-switcher {
+  display: inline-flex;
+  justify-self: start;
+  max-width: 100%;
+  min-height: var(--pdl-touch-target);
+  align-items: center;
+  gap: var(--pdl-space-2);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-pill);
+  padding-block: var(--pdl-space-1);
+  padding-inline: var(--pdl-space-1) var(--pdl-space-3);
+  background: var(--pdl-surface-1);
+  color: var(--pdl-text-1);
+  cursor: pointer;
+  text-align: start;
+}
+
+.pdl-switcher:hover {
+  border-color: var(--pdl-border-3);
+}
+
+.pdl-switcher[aria-expanded="true"] {
+  border-color: var(--pdl-text-1);
+}
+
+.pdl-switcher > svg {
+  flex: none;
+  color: var(--pdl-text-muted);
+}
+
+.pdl-switcher:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 2px;
+}
+
+.pdl-switcher__text {
+  display: grid;
+  min-width: 0;
+}
+
+.pdl-switcher__title,
+.pdl-switcher__meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-switcher__title {
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-switcher__meta {
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  line-height: var(--pdl-line-heading);
+}
+
+}

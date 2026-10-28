@@ -1,0 +1,25 @@
+/* Capas · tooltip
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-tooltip {
+  position: fixed;
+  z-index: var(--pdl-z-tooltip);
+  max-width: 240px;
+  padding: var(--pdl-space-2) var(--pdl-space-2);
+  border: 1px solid var(--pdl-layer-line);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-xs);
+  line-height: var(--pdl-line-compact);
+  pointer-events: none;
+}
+
+.pdl-tooltip[hidden] {
+  display: none;
+}
+
+}

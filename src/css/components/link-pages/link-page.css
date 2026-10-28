@@ -1,0 +1,54 @@
+/* Páginas de enlaces · link-page
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* The list of a link page: everything at the same distance; more room
+   between two elements is the page's own (.pdl-spacer). */
+
+.pdl-link-list {
+  display: grid;
+  gap: var(--pdl-space-3);
+}
+
+/* Room set by hand between two elements: small, medium, large, extra. */
+
+.pdl-spacer {
+  height: var(--pdl-space-8);
+}
+
+.pdl-spacer--sm { height: var(--pdl-space-4); }
+
+.pdl-spacer--lg { height: var(--pdl-space-14); }
+
+.pdl-spacer--xl { height: var(--pdl-space-20); }
+
+/* In an editor's preview the room shows as a faint dashed box. */
+
+.pdl-spacer--guide {
+  border: 1px dashed color-mix(in srgb, currentColor 22%, transparent);
+  border-radius: var(--pdl-radius-control);
+}
+
+/* Square cards side by side: always two columns, even on phones. */
+
+.pdl-link-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--pdl-space-3);
+}
+
+/* The column of a link page: centered, phone-like width, and a size
+   container so sizes that follow the page width (a large title) follow the
+   column, as in a device preview. */
+
+.pdl-link-page {
+  container-type: inline-size;
+  width: 100%;
+  max-width: 36rem;
+  margin-inline: auto;
+  padding: var(--pdl-space-8) var(--pdl-space-4) var(--pdl-space-10);
+}
+
+}

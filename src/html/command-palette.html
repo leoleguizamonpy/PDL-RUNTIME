@@ -1,0 +1,27 @@
+<button class="pdl-button pdl-button--outline" type="button" data-pdl-command-open="command-palette" aria-keyshortcuts="Control+K Meta+K">Buscar comandos <kbd data-pdl-command-key>Ctrl K</kbd></button>
+
+<dialog class="pdl-command-palette" id="command-palette" data-pdl-command-palette aria-label="Paleta de comandos">
+  <div class="pdl-command-palette__search">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+    <input class="pdl-command-palette__input" type="text" role="combobox" aria-expanded="true" aria-controls="command-palette-list" aria-autocomplete="list" aria-label="Buscar un comando" placeholder="Buscar un comando…" autocomplete="off" spellcheck="false">
+  </div>
+  <ul class="pdl-command-palette__list" id="command-palette-list" role="listbox" aria-label="Comandos">
+    <li role="none">
+      <ul class="pdl-command-palette__group" role="group" aria-labelledby="command-group-pages">
+        <li class="pdl-command-palette__heading" id="command-group-pages" role="presentation">Ir a</li>
+        <li class="pdl-command-palette__item" id="command-home" role="option" aria-selected="false" data-href="#inicio" data-keywords="home portada"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4Z"></path></svg><span class="pdl-command-palette__label">Inicio</span></li>
+        <li class="pdl-command-palette__item" id="command-projects" role="option" aria-selected="false" data-href="#proyectos" data-keywords="trabajos"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 10h18"></path></svg><span class="pdl-command-palette__label">Proyectos</span></li>
+      </ul>
+    </li>
+    <li role="none">
+      <ul class="pdl-command-palette__group" role="group" aria-labelledby="command-group-actions">
+        <li class="pdl-command-palette__heading" id="command-group-actions" role="presentation">Acciones</li>
+        <li class="pdl-command-palette__item" id="command-new" role="option" aria-selected="false" data-command="new-project" data-keywords="crear agregar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg><span class="pdl-command-palette__label">Nuevo proyecto</span><span class="pdl-command-palette__shortcut" aria-hidden="true"><kbd>N</kbd></span></li>
+        <li class="pdl-command-palette__item" id="command-theme" role="option" aria-selected="false" data-command="toggle-theme" data-keywords="oscuro claro modo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14A8 8 0 1 1 10 4a6 6 0 0 0 10 10Z"></path></svg><span class="pdl-command-palette__label">Cambiar tema</span><span class="pdl-command-palette__shortcut" aria-hidden="true"><kbd>⇧</kbd><kbd>T</kbd></span></li>
+        <li class="pdl-command-palette__item" id="command-export" role="option" aria-selected="false" aria-disabled="true" data-command="export"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg><span class="pdl-command-palette__label">Exportar (sin permisos)</span></li>
+      </ul>
+    </li>
+  </ul>
+  <p class="pdl-command-palette__empty" role="status" hidden>Ningún comando coincide.</p>
+  <footer class="pdl-command-palette__footer" aria-hidden="true"><span><kbd>↑</kbd> <kbd>↓</kbd> moverse</span><span><kbd>↵</kbd> ejecutar</span><span><kbd>Esc</kbd> cerrar</span></footer>
+</dialog>

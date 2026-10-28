@@ -1,0 +1,54 @@
+/* Formularios · combobox
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-combobox {
+  position: relative;
+}
+
+.pdl-combobox__list {
+  position: absolute;
+  z-index: var(--pdl-z-popover);
+  top: calc(100% + var(--pdl-space-1));
+  inset-inline: 0;
+  display: grid;
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid var(--pdl-layer-line);
+  border-radius: var(--pdl-radius-surface);
+  padding: var(--pdl-space-1);
+  background: var(--pdl-layer-surface);
+  box-shadow: var(--pdl-layer-shadow);
+}
+
+.pdl-combobox__list[hidden] {
+  display: none;
+}
+
+.pdl-combobox__option {
+  display: grid;
+  gap: 2px;
+  min-height: var(--pdl-touch-target);
+  align-content: center;
+  border-radius: var(--pdl-radius-control);
+  padding: var(--pdl-space-2) var(--pdl-space-3);
+  color: var(--pdl-text-muted);
+  cursor: pointer;
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-combobox__option:hover,
+.pdl-combobox__option[aria-selected="true"],
+.pdl-combobox__option.is-active {
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+}
+
+.pdl-combobox__meta {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+}

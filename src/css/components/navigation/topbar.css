@@ -1,0 +1,47 @@
+/* Navegación y shell · topbar
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-topbar {
+  position: relative;
+  z-index: var(--pdl-z-topbar);
+  display: flex;
+  min-height: var(--pdl-topbar-height);
+  align-items: center;
+  border-bottom: 1px solid var(--pdl-border-1);
+  background: var(--pdl-black);
+}
+
+.pdl-topbar__inner {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: var(--pdl-layout-max);
+  margin-inline: auto;
+  padding-inline: var(--pdl-layout-edge);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-4);
+}
+
+.pdl-topbar__center {
+  position: absolute;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 640px) {
+
+  .pdl-topbar__center {
+    position: static;
+    margin-inline: auto;
+    transform: none;
+  }
+}
+
+}

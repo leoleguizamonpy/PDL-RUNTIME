@@ -1,0 +1,184 @@
+/* Acciones y cards · icon-button
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-icon-button {
+  display: inline-grid;
+  width: var(--pdl-control-md);
+  height: var(--pdl-control-md);
+  min-width: var(--pdl-control-md);
+  min-height: var(--pdl-control-md);
+  flex: 0 0 var(--pdl-control-md);
+  place-items: center;
+  border: var(--pdl-button-border-width, 1px) solid transparent;
+  border-radius: var(--pdl-radius-control);
+  padding: 0;
+  background: transparent;
+  color: var(--pdl-button-tint, var(--pdl-text-2));
+  cursor: pointer;
+  transition:
+    color var(--pdl-motion-short) var(--pdl-ease-standard),
+    border-color var(--pdl-motion-short) var(--pdl-ease-standard),
+    background var(--pdl-motion-short) var(--pdl-ease-standard),
+    transform var(--pdl-motion-instant) var(--pdl-ease-standard);
+}
+
+.pdl-icon-button svg {
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+/* Line icons by default. A glyph that declares its own fill (a brand logo)
+   keeps it: forcing a stroke drew filled logos as hollow outlines. */
+
+.pdl-icon-button svg:not([fill]) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pdl-icon-button--lg svg {
+  width: 20px;
+  height: 20px;
+}
+
+.pdl-icon-button--round {
+  border-radius: 50%;
+}
+
+/* An icon that draws its own shape and colors (a brand mark in a filled
+   circle): the drawing fills the button. */
+
+.pdl-icon-button--art {
+  padding: 0;
+  border-radius: 50%;
+}
+
+.pdl-icon-button--art svg,
+.pdl-icon-button--lg.pdl-icon-button--art svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pdl-icon-button--sm {
+  width: var(--pdl-control-sm);
+  height: var(--pdl-control-sm);
+  min-width: var(--pdl-control-sm);
+  min-height: var(--pdl-control-sm);
+  flex-basis: var(--pdl-control-sm);
+}
+
+.pdl-icon-button--lg {
+  width: var(--pdl-control-lg);
+  height: var(--pdl-control-lg);
+  min-width: var(--pdl-control-lg);
+  min-height: var(--pdl-control-lg);
+  flex-basis: var(--pdl-control-lg);
+}
+
+.pdl-icon-button--primary {
+  background: var(--pdl-button-fill, var(--pdl-text-1));
+  color: var(--pdl-button-ink, var(--pdl-black));
+}
+
+.pdl-icon-button--primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 88%, var(--pdl-black));
+}
+
+.pdl-icon-button--primary:active:not(:disabled) {
+  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 76%, var(--pdl-black));
+}
+
+.pdl-icon-button--outline {
+  border-color: var(--pdl-button-line, var(--pdl-border-2));
+  color: var(--pdl-button-tint, var(--pdl-text-2));
+}
+
+.pdl-icon-button--outline:hover:not(:disabled) {
+  border-color: var(--pdl-border-3);
+  background: var(--pdl-surface-1);
+  color: var(--pdl-text-1);
+}
+
+/* Ghost never draws a line, as in the text button: only the tint moves. */
+
+.pdl-icon-button--ghost:hover:not(:disabled) {
+  background: var(--pdl-surface-1);
+  color: var(--pdl-text-1);
+}
+
+.pdl-icon-button--danger {
+  border-color: color-mix(in srgb, var(--pdl-danger) 32%, var(--pdl-border-1));
+  color: var(--pdl-danger);
+}
+
+.pdl-icon-button--danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--pdl-danger) 10%, transparent);
+}
+
+.pdl-icon-button--danger:active:not(:disabled) {
+  background: color-mix(in srgb, var(--pdl-danger) 18%, transparent);
+}
+
+.pdl-icon-button--outline:active:not(:disabled),
+.pdl-icon-button--ghost:active:not(:disabled) {
+  background: var(--pdl-surface-2);
+}
+
+.pdl-icon-button:active:not(:disabled) {
+  transform: scale(.96);
+}
+
+@media (pointer: coarse) {
+
+  .pdl-icon-button,
+  .pdl-icon-button--sm {
+    width: var(--pdl-touch-target);
+    height: var(--pdl-touch-target);
+    min-width: var(--pdl-touch-target);
+    min-height: var(--pdl-touch-target);
+    flex-basis: var(--pdl-touch-target);
+  }
+}
+
+}
+
+@layer pdl.interaction {
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-icon-button {
+    transition-duration: .001ms;
+  }
+
+  .pdl-icon-button:active:not(:disabled) {
+    transform: none;
+  }
+}
+
+}
+
+@layer pdl.responsive {
+
+/* PDL-VISUAL-TOUCH-001 — maintain 44px minimum interactive targets for
+ * coarse pointers on any viewport (including touch-capable laptops).
+ * Fine-pointer density and visual baselines are intentionally unchanged.
+ */
+
+@media (pointer: coarse) {
+
+  .pdl-icon-button {
+    min-height: var(--pdl-touch-target);
+  }
+
+  .pdl-icon-button {
+    min-width: var(--pdl-touch-target);
+  }
+}
+
+}

@@ -1,0 +1,182 @@
+/* Navegación y shell · sidebar
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-sidebar {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: var(--pdl-z-sidebar);
+  display: flex;
+  width: var(--pdl-sidebar-width);
+  flex-direction: column;
+  /* A fixed full-height sidebar must scroll when its content is taller than
+     the viewport (short laptops, phones in landscape, long navigation). */
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-inline-end: 1px solid var(--pdl-border-1);
+  background: var(--pdl-black);
+}
+
+.pdl-sidebar__nav {
+  display: grid;
+  gap: var(--pdl-space-1);
+  padding: var(--pdl-space-4);
+}
+
+.pdl-nav-item {
+  position: relative;
+  display: flex;
+  min-height: var(--pdl-control-md);
+  width: 100%;
+  align-items: center;
+  gap: var(--pdl-space-3);
+  border: 0;
+  border-radius: var(--pdl-radius-control);
+  padding: var(--pdl-space-3) var(--pdl-space-3);
+  background: transparent;
+  color: var(--pdl-text-muted);
+  text-align: start;
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: .01em;
+  transition:
+    color var(--pdl-motion-short) var(--pdl-ease-standard),
+    background var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-nav-item:hover {
+  color: var(--pdl-text-1);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-nav-item[aria-current="page"],
+.pdl-nav-item.is-active {
+  background: color-mix(in srgb, var(--pdl-text-1) 3%, transparent);
+  color: var(--pdl-text-1);
+}
+
+.pdl-nav-item[aria-current="page"]::before,
+.pdl-nav-item.is-active::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  width: 2px;
+  height: 20px;
+  border-radius: 1px;
+  background: var(--pdl-text-1);
+}
+
+.pdl-shell-main {
+  min-height: 100vh;
+  margin-inline-start: var(--pdl-sidebar-width);
+}
+
+.pdl-nav-item svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  pointer-events: none;
+}
+
+/* Same rule as icon buttons: filled glyphs keep their fill. */
+
+.pdl-nav-item svg:not([fill]) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+}
+
+@layer pdl.interaction {
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-nav-item {
+    transition-duration: .001ms;
+  }
+}
+
+}
+
+@layer pdl.responsive {
+
+@media (max-width: 980px) {
+
+  .pdl-sidebar {
+    z-index: var(--pdl-z-sidebar);
+    transform: translateX(-100%);
+    transition: transform var(--pdl-motion-medium) var(--pdl-ease-standard);
+  }
+
+  .pdl-sidebar:dir(rtl) {
+    transform: translateX(100%);
+  }
+
+  .pdl-sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .pdl-shell-main {
+    margin-inline-start: 0;
+  }
+}
+
+/* Touch tablets in landscape keep a persistent icon rail. Below 981px the
+   sidebar is off-canvas (see above), so the rail must not reserve a gutter
+   there: starting at 769px left an empty 76px strip on portrait tablets. */
+
+@media (min-width: 981px) and (max-width: 1100px) and (pointer: coarse) {
+
+  .pdl-sidebar {
+    width: 76px;
+  }
+
+  .pdl-shell-main {
+    margin-inline-start: 76px; /* geometry */
+  }
+
+  .pdl-nav-item {
+    min-height: var(--pdl-touch-target);
+    justify-content: center;
+  }
+
+  .pdl-nav-item__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+}
+
+/* Visually hidden, not display:none, so icon-only links keep a name. */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-sidebar {
+    transition-duration: .001ms;
+  }
+}
+
+/* PDL-VISUAL-TOUCH-001 — maintain 44px minimum interactive targets for
+ * coarse pointers on any viewport (including touch-capable laptops).
+ * Fine-pointer density and visual baselines are intentionally unchanged.
+ */
+
+@media (pointer: coarse) {
+
+  .pdl-nav-item {
+    min-height: var(--pdl-touch-target);
+  }
+}
+
+}

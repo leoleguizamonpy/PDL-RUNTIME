@@ -453,7 +453,9 @@ function renderWorkspaceHistory(section, ctx, host) {
   const search = el("input", "pdl-input");
   search.type = "search";
   search.placeholder = section.search_placeholder || "Buscar en el historial";
+  search.setAttribute("aria-label", search.placeholder);
   const category = el("select", "pdl-select");
+  category.setAttribute("aria-label", section.category_label || "Categoría");
   const categories = ["all", ...new Set((section.items || []).map(item => item.category).filter(Boolean))];
   for (const value of categories) {
     const option = el("option", "", value === "all" ? "Todas las categorías" : value);

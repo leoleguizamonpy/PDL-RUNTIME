@@ -1,0 +1,39 @@
+/* Datos · diff
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-diff {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--pdl-text-xs);
+  line-height: 1.55;
+}
+
+.pdl-diff__line {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: var(--pdl-space-3);
+  padding: .4rem var(--pdl-space-3);
+  color: var(--pdl-text-muted);
+}
+
+.pdl-diff__line[data-change="add"] {
+  background: color-mix(in srgb, var(--pdl-success) 10%, transparent);
+}
+
+.pdl-diff__line[data-change="remove"] {
+  background: color-mix(in srgb, var(--pdl-danger) 10%, transparent);
+}
+
+.pdl-diff__number {
+  color: var(--pdl-text-subtle);
+  text-align: end;
+  user-select: none;
+}
+
+}

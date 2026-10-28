@@ -1,0 +1,113 @@
+/* Chat e IA · chat-summary
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-chat-summary {
+  display: grid;
+  width: 100%;
+  max-width: 72ch;
+  gap: var(--pdl-space-5);
+  margin-top: var(--pdl-space-3);
+  border-top: 1px solid color-mix(in srgb, var(--pdl-border-2) 72%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--pdl-border-1) 72%, transparent);
+  padding-block: var(--pdl-space-5);
+}
+
+.pdl-chat-summary__head {
+  display: grid;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-chat-summary__eyebrow {
+  font-family: var(--pdl-font-label);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: var(--pdl-letter-label);
+  text-transform: uppercase;
+}
+
+.pdl-chat-summary__title {
+  margin: 0;
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: -.018em;
+  line-height: 1.35;
+}
+
+.pdl-chat-summary__copy {
+  max-width: 64ch;
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-regular);
+  line-height: 1.62;
+}
+
+.pdl-chat-summary__group {
+  display: grid;
+  gap: var(--pdl-space-3);
+  border-top: 1px solid color-mix(in srgb, var(--pdl-border-1) 72%, transparent);
+  padding-top: var(--pdl-space-4);
+}
+
+.pdl-chat-summary__group-title {
+  font-family: var(--pdl-font-label);
+  margin: 0;
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.pdl-chat-summary__list {
+  display: grid;
+  margin: 0;
+}
+
+.pdl-chat-summary__row {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, .72fr) minmax(0, 1.6fr);
+  gap: var(--pdl-space-4);
+  padding: var(--pdl-space-3) 0;
+  border-top: 1px solid color-mix(in srgb, var(--pdl-border-1) 58%, transparent);
+}
+
+.pdl-chat-summary__row:first-child {
+  border-top: 0;
+}
+
+.pdl-chat-summary__row dt {
+  font-family: var(--pdl-font-label);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+  letter-spacing: .04em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.pdl-chat-summary__row dd {
+  min-width: 0;
+  margin: 0;
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-regular);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+
+  .pdl-chat-summary__row {
+    grid-template-columns: 1fr;
+    gap: var(--pdl-space-1);
+  }
+}
+
+}

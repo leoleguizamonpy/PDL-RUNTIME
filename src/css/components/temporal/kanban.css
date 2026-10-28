@@ -1,0 +1,48 @@
+/* Planificación · kanban
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-kanban {
+  display: grid;
+  grid-auto-columns: minmax(260px, 1fr);
+  grid-auto-flow: column;
+  gap: var(--pdl-space-4);
+  overflow-x: auto;
+  padding-bottom: var(--pdl-space-2);
+}
+
+.pdl-kanban__column {
+  display: grid;
+  align-content: start;
+  gap: var(--pdl-space-3);
+  min-height: 320px;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  padding: var(--pdl-space-3);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-kanban__head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--pdl-space-2);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-kanban__card {
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-control);
+  padding: var(--pdl-space-3);
+  background: var(--pdl-black);
+  cursor: grab;
+}
+
+.pdl-kanban__card[aria-grabbed="true"] {
+  opacity: .72;
+}
+
+}

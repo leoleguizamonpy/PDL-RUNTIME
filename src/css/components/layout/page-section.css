@@ -1,0 +1,45 @@
+/* Composición de página · page-section
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.layout {
+
+.pdl-section {
+  width: 100%;
+  border-top: 1px solid color-mix(in srgb, var(--pdl-border-1) 72%, transparent);
+}
+
+.pdl-section__inner {
+  width: 100%;
+  max-width: var(--pdl-layout-max);
+  margin-inline: auto;
+  padding: var(--pdl-section-pad-standard) var(--pdl-layout-edge);
+}
+
+.pdl-section--compact .pdl-section__inner,
+.pdl-section--operational .pdl-section__inner {
+  padding-block: var(--pdl-rhythm-section);
+}
+
+.pdl-section--spacious .pdl-section__inner,
+.pdl-section--hero .pdl-section__inner {
+  padding-block: var(--pdl-section-pad-spacious);
+}
+
+.pdl-section--surface-1 { background: var(--pdl-surface-1); }
+
+.pdl-section--surface-2 { background: var(--pdl-surface-2); }
+
+.pdl-section--contrast { background: var(--pdl-black); }
+
+.pdl-page-header {
+  display: grid;
+  gap: var(--pdl-space-4);
+  max-width: min(100%, 760px);
+}
+
+.pdl-page-flow {
+  display: grid;
+}
+
+}

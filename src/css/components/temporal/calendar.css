@@ -1,0 +1,79 @@
+/* Planificación · calendar
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+.pdl-calendar {
+  display: grid;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-calendar__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  flex-wrap: wrap;
+}
+
+.pdl-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-calendar__weekday {
+  padding: var(--pdl-space-2) var(--pdl-space-3);
+  border-bottom: 1px solid var(--pdl-border-1);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  text-align: center;
+}
+
+.pdl-calendar__day {
+  min-height: 112px;
+  padding: var(--pdl-space-2);
+  border-inline-end: 1px solid var(--pdl-border-1);
+  border-bottom: 1px solid var(--pdl-border-1);
+  background: transparent;
+}
+
+.pdl-calendar__day:nth-child(7n) { border-inline-end: 0; }
+
+.pdl-calendar__date {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.pdl-calendar__event {
+  display: block;
+  margin-top: var(--pdl-space-1);
+  overflow: hidden;
+  border-inline-start: 2px solid var(--pdl-text-muted);
+  border-radius: 2px;
+  padding: var(--pdl-space-1) var(--pdl-space-2);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+
+  .pdl-calendar__grid {
+    min-width: 720px;
+  }
+
+  .pdl-calendar {
+    overflow-x: auto;
+  }
+}
+
+}

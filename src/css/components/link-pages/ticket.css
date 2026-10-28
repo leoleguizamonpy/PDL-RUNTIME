@@ -1,0 +1,67 @@
+/* Páginas de enlaces · ticket
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* An event's entry: who it is for and its QR, black on white so it scans
+   in any light, with its code to read aloud or type. Compact inside the
+   event's card (a link to the entry's own page). */
+
+.pdl-ticket {
+  justify-items: center;
+  text-align: center;
+}
+
+.pdl-ticket__qr {
+  display: inline-grid;
+  padding: var(--pdl-space-3);
+  border-radius: var(--pdl-radius-surface);
+  background: #fff;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--pdl-text-1) 8%, transparent);
+}
+
+.pdl-ticket__qr > svg {
+  display: block;
+  width: min(100%, 240px);
+  height: auto;
+}
+
+.pdl-ticket__name {
+  margin: 0;
+  font-size: var(--pdl-text-lg);
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-ticket__code {
+  margin: 0;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: var(--pdl-text-lg);
+  font-weight: var(--pdl-weight-strong);
+  letter-spacing: .12em;
+}
+
+.pdl-ticket--compact {
+  display: grid;
+  gap: var(--pdl-space-2);
+  padding: var(--pdl-space-3);
+  border: 1.5px dashed color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
+  color: inherit;
+  text-decoration: none;
+}
+
+.pdl-ticket--compact .pdl-ticket__qr > svg {
+  width: 132px;
+}
+
+.pdl-ticket--compact .pdl-ticket__code {
+  font-size: var(--pdl-text-md);
+}
+
+.pdl-ticket--compact:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 3px;
+}
+
+}

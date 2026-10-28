@@ -1,0 +1,67 @@
+<!-- stories -->
+<a class="pdl-story-ring" href="#" aria-label="Ver la historia de Taller Ñandutí"><svg width="88" height="88" viewBox="0 0 88 88" aria-hidden="true"><rect width="88" height="88" fill="#1c1c1e"/><circle cx="44" cy="36" r="15" fill="#f4f2ed"/><path d="M14 88c4-20 16-28 30-28s26 8 30 28Z" fill="#f4f2ed"/></svg></a>
+<nav class="pdl-stories" aria-label="Historias destacadas">
+  <ul class="pdl-stories__list">
+    <li><a class="pdl-stories__item" href="#"><span class="pdl-stories__ring pdl-stories__ring--new"><img class="pdl-stories__cover" src="media/square.webp" alt=""></span><span class="pdl-stories__title">Novedades</span></a></li>
+    <li><a class="pdl-stories__item" href="#" data-seen><span class="pdl-stories__ring pdl-stories__ring--new"><img class="pdl-stories__cover" src="media/square2.webp" alt=""></span><span class="pdl-stories__title">Proceso</span></a></li>
+    <li><a class="pdl-stories__item" href="#"><span class="pdl-stories__ring"><img class="pdl-stories__cover" src="media/square3.webp" alt=""></span><span class="pdl-stories__title">Destacada</span></a></li>
+    <li><a class="pdl-stories__item" href="#"><span class="pdl-stories__ring pdl-stories__ring--sensitive"><img class="pdl-stories__cover" src="media/portrait.webp" alt=""></span><span class="pdl-stories__title">Sensible</span></a></li>
+  </ul>
+</nav>
+<!-- The story itself opens full screen as a modal dialog (showModal()). -->
+<dialog class="pdl-story" aria-label="Historia de Taller Ñandutí" style="--pdl-story-duration: 6s">
+  <div class="pdl-story__frame">
+    <div class="pdl-story__progress" aria-hidden="true">
+      <span class="pdl-story__bar" data-state="done"><span class="pdl-story__fill"></span></span>
+      <span class="pdl-story__bar" data-state="active"><span class="pdl-story__fill"></span></span>
+    </div>
+    <header class="pdl-story__head">
+      <span class="pdl-story__avatar">TÑ</span>
+      <span class="pdl-story__who"><span class="pdl-story__name">Taller Ñandutí</span><span class="pdl-story__title">Novedades · hace 2 h</span></span>
+      <button class="pdl-story__close" type="button" aria-label="Cerrar historia"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </header>
+    <div class="pdl-story__slides">
+      <figure class="pdl-story__slide"><img class="pdl-story__photo" src="media/portrait.webp" alt=""><figcaption class="pdl-story__caption">Nueva colección</figcaption></figure>
+    </div>
+    <button class="pdl-story__nav pdl-story__nav--prev" type="button" aria-label="Anterior"></button>
+    <button class="pdl-story__nav pdl-story__nav--next" type="button" aria-label="Siguiente"></button>
+    <button class="pdl-story__veil" type="button"><strong>Contenido sensible</strong><span>Tocá para ver</span></button>
+    <a class="pdl-story__link" href="#">Ver más</a>
+  </div>
+</dialog>
+
+<!-- gallery -->
+<figure class="pdl-figure"><a class="pdl-figure__media pdl-figure__media--wide" href="#"><img src="media/land.webp" alt="Río Paraná"></a><figcaption class="pdl-figure__caption">Río Paraná al atardecer.</figcaption></figure>
+<div class="pdl-gallery pdl-gallery--3">
+  <a class="pdl-gallery__item" href="#"><img src="media/square.webp" alt="Foto 1 de la galería"></a>
+  <a class="pdl-gallery__item" href="#"><img src="media/square2.webp" alt="Foto 2 de la galería"></a>
+  <a class="pdl-gallery__item" href="#"><img src="media/square3.webp" alt="Foto 3 de la galería"></a>
+</div>
+<div class="pdl-carousel">
+  <div class="pdl-gallery pdl-gallery--carousel">
+    <a class="pdl-gallery__item" href="#"><img src="media/portrait.webp" alt="Foto 4 de la galería"></a>
+    <a class="pdl-gallery__item" href="#"><img src="media/portrait2.webp" alt="Foto 5 de la galería"></a>
+    <a class="pdl-gallery__item" href="#"><img src="media/portrait.webp" alt="Foto 6 de la galería"></a>
+  </div>
+  <button class="pdl-carousel__button pdl-carousel__button--prev" type="button" aria-label="Anterior" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
+  <button class="pdl-carousel__button pdl-carousel__button--next" type="button" aria-label="Siguiente"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+</div>
+
+<!-- sensitive-media -->
+<div class="pdl-sensitive">
+  <input class="pdl-sensitive__toggle" type="checkbox" id="sensitive-1">
+  <img class="pdl-sensitive__content" src="media/land2.webp" alt="">
+  <label class="pdl-sensitive__cover" for="sensitive-1"><span class="pdl-sensitive__title">Contenido sensible</span><span>Puede no ser apto para todo público.</span><span class="pdl-sensitive__action">Ver</span></label>
+</div>
+
+<!-- article -->
+<article class="pdl-article">
+  <a class="pdl-article__back" href="#"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg><span>Taller Ñandutí</span></a>
+  <header class="pdl-article__header">
+    <h1 class="pdl-article__title">Cómo se teje una tela de araña</h1>
+    <p class="pdl-article__meta">12 de octubre de 2026 · 4 min de lectura</p>
+  </header>
+  <figure class="pdl-article__cover"><img src="media/land.webp" alt=""></figure>
+  <p class="pdl-article__lead">El ñandutí nace de un bastidor, un hilo tenso y mucha paciencia.</p>
+  <div class="pdl-prose pdl-prose--longform"><h2>El bastidor</h2><p>Todo empieza con un marco de madera y una tela tensada.</p></div>
+</article>

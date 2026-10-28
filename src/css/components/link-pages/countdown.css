@@ -1,0 +1,145 @@
+/* Páginas de enlaces · countdown
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* Time left to a moment, centered: a title, the figures (days, hours,
+   minutes, seconds) with their names under them, and the date. Sized on
+   the page's column, so they never spill out of it. Four looks:
+   - card (default): everything in one card, in the buttons' look, the
+     figures apart by colons;
+   - boxes: each figure in its own tile, in the buttons' look;
+   - flip: each figure on a solid tile split across, like a flip clock;
+   - plain: the figures alone, larger. */
+
+.pdl-countdown {
+  display: grid;
+  justify-items: center;
+  gap: var(--pdl-space-3);
+  text-align: center;
+}
+
+.pdl-countdown__title {
+  margin: 0;
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-compact);
+  overflow-wrap: break-word;
+}
+
+.pdl-countdown__units {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-countdown__unit {
+  display: grid;
+  min-width: 0;
+  flex: 1 1 0;
+  max-width: 5.5rem;
+  justify-items: center;
+  gap: var(--pdl-space-1);
+}
+
+.pdl-countdown__value {
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xl);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--pdl-weight-strong);
+  letter-spacing: -.02em;
+  line-height: 1;
+}
+
+.pdl-countdown__label {
+  font-family: var(--pdl-font-label);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  letter-spacing: var(--pdl-letter-label);
+  line-height: 1;
+  opacity: .66;
+  text-transform: uppercase;
+}
+
+/* Between the figures, at their height. */
+
+.pdl-countdown__sep {
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-xl);
+  font-weight: var(--pdl-weight-medium);
+  line-height: 1.1;
+  opacity: .35;
+}
+
+.pdl-countdown__date {
+  font-size: var(--pdl-text-xs);
+  letter-spacing: .02em;
+  opacity: .7;
+}
+
+.pdl-countdown__done {
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-lg);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-compact);
+}
+
+.pdl-countdown--card,
+.pdl-countdown--boxes .pdl-countdown__unit {
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  background: var(--pdl-button-fill, var(--pdl-surface-1));
+  box-shadow: var(--pdl-button-elevation, none);
+  color: var(--pdl-button-ink, var(--pdl-text-1));
+}
+
+.pdl-countdown--card {
+  padding: var(--pdl-space-5) var(--pdl-space-4);
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
+}
+
+.pdl-countdown--boxes .pdl-countdown__unit {
+  max-width: none;
+  padding: var(--pdl-space-4) var(--pdl-space-1) var(--pdl-space-3);
+  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
+}
+
+.pdl-countdown--boxes .pdl-countdown__sep,
+.pdl-countdown--flip .pdl-countdown__sep {
+  display: none;
+}
+
+/* The tile takes the solid button's colors; a line splits it across. */
+
+.pdl-countdown--flip .pdl-countdown__value {
+  position: relative;
+  min-width: 2.2em;
+  border-radius: .3rem;
+  padding: .32em .2em;
+  background: var(--pdl-button-fill, var(--pdl-text-1));
+  box-shadow: var(--pdl-button-elevation, 0 2px 6px rgb(0 0 0 / 16%));
+  color: var(--pdl-button-ink, var(--pdl-black));
+}
+
+.pdl-countdown--flip .pdl-countdown__value::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--pdl-button-ink, var(--pdl-black)) 30%, transparent);
+  content: "";
+}
+
+.pdl-countdown--plain .pdl-countdown__value {
+  font-size: var(--pdl-text-display);
+}
+
+.pdl-countdown--plain .pdl-countdown__sep {
+  font-size: var(--pdl-text-xl);
+}
+
+}

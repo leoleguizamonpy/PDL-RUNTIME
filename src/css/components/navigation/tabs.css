@@ -1,0 +1,77 @@
+/* Navegación y shell · tabs
+   Family module (design-system/registry/families.json). Layers are explicit;
+   their global order is declared once in css/index.css. */
+
+@layer pdl.components {
+
+/* Line tabs: a row of labels over a hairline; the selected tab carries the
+   navigation's 2px edge, here on its bottom side (the sidebar and the
+   palette put it at the inline start, the bottom nav on top). For choices
+   inside a form, use the segmented control instead. */
+
+.pdl-tabs {
+  display: flex;
+  gap: var(--pdl-space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--pdl-border-1);
+}
+
+.pdl-tabs__tab {
+  display: inline-flex;
+  flex: none;
+  min-height: var(--pdl-control-md);
+  align-items: center;
+  gap: var(--pdl-space-2);
+  border: 0;
+  border-radius: var(--pdl-radius-control) var(--pdl-radius-control) 0 0;
+  padding-inline: var(--pdl-space-3);
+  background: transparent;
+  color: var(--pdl-text-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  white-space: nowrap;
+}
+
+.pdl-tabs__tab:hover {
+  color: var(--pdl-text-1);
+}
+
+.pdl-tabs__tab[aria-selected="true"] {
+  box-shadow: inset 0 -2px 0 var(--pdl-text-1);
+  color: var(--pdl-text-1);
+}
+
+.pdl-tabs__tab:focus-visible {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: -2px;
+}
+
+/* Unavailable: the system's dashed line. */
+.pdl-tabs__tab:disabled,
+.pdl-tabs__tab[aria-disabled="true"] {
+  color: var(--pdl-text-subtle);
+  cursor: not-allowed;
+  text-decoration: underline dashed;
+  text-underline-offset: 4px;
+}
+
+}
+
+@layer pdl.responsive {
+
+@media (pointer: coarse) {
+  .pdl-tabs__tab {
+    min-height: var(--pdl-touch-target);
+  }
+}
+
+@media (forced-colors: active) {
+  .pdl-tabs__tab[aria-selected="true"] {
+    border-bottom: 2px solid Highlight;
+  }
+}
+
+}

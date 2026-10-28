@@ -1,4 +1,9 @@
 <section class="pdl-data-grid" data-pdl-data-grid>
+  <!-- Column toggles act on the grid they are in. -->
+  <div class="pdl-cluster" aria-label="Columnas visibles">
+    <label class="pdl-column-toggle"><input type="checkbox" checked data-pdl-column-toggle="status"> Estado</label>
+    <label class="pdl-column-toggle"><input type="checkbox" checked data-pdl-column-toggle="updated"> Actualizado</label>
+  </div>
   <div class="pdl-data-grid__bulk">
     <span class="pdl-data-grid__count"><span data-pdl-selection-count>0</span> seleccionados</span>
     <button class="pdl-button pdl-button--ghost" type="button" data-pdl-clear-selection>Limpiar</button>
@@ -8,7 +13,7 @@
     <table class="pdl-table">
       <thead>
         <tr>
-          <th><input class="pdl-grid-select" type="checkbox" aria-label="Seleccionar todos" data-pdl-select-all></th>
+          <th><label class="pdl-data-grid__hit"><input class="pdl-grid-select" type="checkbox" aria-label="Seleccionar todos" data-pdl-select-all></label></th>
           <th data-pdl-column="name">Nombre</th>
           <th data-pdl-column="status">Estado</th>
           <th data-pdl-column="updated">Actualizado</th>
@@ -16,7 +21,7 @@
       </thead>
       <tbody>
         <tr data-row-id="alpha" data-selected="false">
-          <td><input class="pdl-grid-select" type="checkbox" aria-label="Seleccionar Alpha" data-pdl-row-select></td>
+          <td><label class="pdl-data-grid__hit"><input class="pdl-grid-select" type="checkbox" aria-label="Seleccionar Alpha" data-pdl-row-select></label></td>
           <td data-pdl-column="name">Alpha</td>
           <td data-pdl-column="status">Activo</td>
           <td data-pdl-column="updated">Hoy</td>
@@ -25,3 +30,4 @@
     </table>
   </div>
 </section>
+
