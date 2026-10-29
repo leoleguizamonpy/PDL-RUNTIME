@@ -109,7 +109,7 @@
   text-align: center;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 767.98px) {
 
   .pdl-data-grid__bulk {
     align-items: stretch;

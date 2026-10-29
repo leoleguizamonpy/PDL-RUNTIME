@@ -6,7 +6,7 @@
 
 .pdl-device-frame {
   width: 100%;
-  max-width: 340px;
+  max-width: var(--pdl-width-panel);
   margin-inline: auto;
   padding: var(--pdl-space-2);
   border: 1px solid var(--pdl-border-2);
@@ -83,7 +83,7 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
 
   .pdl-device-frame__screen {
     max-height: none;

@@ -12,7 +12,10 @@
   border: 1px solid var(--pdl-border-2);
   border-radius: var(--pdl-radius-control);
   outline: 2px solid transparent;
-  background: var(--pdl-surface-soft);
+  /* Same body as a secondary button: a white control with a line and a
+     soft shadow, so fields and buttons read as one family. */
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
   color: var(--pdl-text-1);
   padding: var(--pdl-space-3) var(--pdl-space-4);
   font-size: var(--pdl-text-sm);
@@ -29,6 +32,15 @@
 .pdl-select {
   height: var(--pdl-control-md);
   padding-block: 0;
+}
+
+/* Compact fields share the small buttons' and chips' height. Toolbars
+   (table, filter and workspace) use them by default. */
+.pdl-input--sm,
+.pdl-select--sm {
+  height: var(--pdl-control-sm);
+  min-height: var(--pdl-control-sm);
+  padding-inline-start: var(--pdl-space-3);
 }
 
 .pdl-input::-webkit-datetime-edit {
@@ -58,30 +70,32 @@
 .pdl-input:focus,
 .pdl-textarea:focus,
 .pdl-select:focus {
-  border-color: var(--pdl-focus);
+  border-color: var(--pdl-accent-line);
   background: var(--pdl-surface-1);
-  box-shadow: 0 0 0 1px var(--pdl-focus);
+  box-shadow: var(--pdl-shadow-xs), 0 0 0 4px var(--pdl-ring);
 }
 
 .pdl-select {
   --pdl-select-chevron: var(--pdl-text-muted);
   appearance: none;
   padding-inline-end: var(--pdl-space-10);
+  /* A stroked chevron (two hard-edged bands, no blending), drawn like the
+     icon set's chevrons instead of a filled triangle. */
   background-image:
-    linear-gradient(45deg, transparent 50%, var(--pdl-select-chevron) 50%),
-    linear-gradient(135deg, var(--pdl-select-chevron) 50%, transparent 50%);
+    linear-gradient(45deg, transparent calc(50% - .85px), var(--pdl-select-chevron) calc(50% - .85px) calc(50% + .85px), transparent calc(50% + .85px)),
+    linear-gradient(-45deg, transparent calc(50% - .85px), var(--pdl-select-chevron) calc(50% - .85px) calc(50% + .85px), transparent calc(50% + .85px));
   background-position:
-    calc(100% - 1.32rem) center,
-    calc(100% - 1rem) center;
-  background-size: .32rem .32rem, .32rem .32rem;
+    calc(100% - 1rem - 5px) calc(50% + 1px),
+    calc(100% - 1rem) calc(50% + 1px);
+  background-size: 6px 6px, 6px 6px;
   background-repeat: no-repeat;
 }
 
 /* The chevron sits at the inline end, with the padding. */
 .pdl-select:dir(rtl) {
   background-position:
-    1rem center,
-    1.32rem center;
+    1rem calc(50% + 1px),
+    calc(1rem + 5px) calc(50% + 1px);
 }
 
 .pdl-select:focus {
@@ -101,8 +115,8 @@
 .pdl-input[aria-invalid="true"]:focus,
 .pdl-textarea[aria-invalid="true"]:focus,
 .pdl-select[aria-invalid="true"]:focus {
-  border-color: var(--pdl-danger);
-  box-shadow: 0 0 0 1px var(--pdl-danger);
+  border-color: var(--pdl-danger-line);
+  box-shadow: var(--pdl-shadow-xs), 0 0 0 4px color-mix(in srgb, var(--pdl-danger) 18%, transparent);
 }
 
 /* The other field states, in the buttons' language: hover firms the line,
@@ -120,8 +134,7 @@
 }
 
 :is(.pdl-input, .pdl-textarea, .pdl-select):disabled {
-  border-style: dashed;
-  background: transparent;
+  background: var(--pdl-surface-2);
   color: var(--pdl-text-subtle);
   cursor: not-allowed;
 }
@@ -145,10 +158,24 @@
   color-scheme: light;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-date-group {
     grid-template-columns: 1fr;
+  }
+}
+
+}
+
+@layer pdl.responsive {
+
+/* Compact fields keep the touch target on coarse pointers. */
+@media (pointer: coarse) {
+
+  .pdl-input--sm,
+  .pdl-select--sm {
+    height: var(--pdl-touch-target);
+    min-height: var(--pdl-touch-target);
   }
 }
 

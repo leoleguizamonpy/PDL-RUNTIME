@@ -10,7 +10,7 @@
 
 .pdl-preview-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  grid-template-columns: minmax(0, 1fr) var(--pdl-width-panel);
   gap: var(--pdl-rhythm-region);
   align-items: start;
 }
@@ -39,7 +39,7 @@
   gap: var(--pdl-space-3);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
 
   .pdl-preview-layout {
     grid-template-columns: minmax(0, 1fr);

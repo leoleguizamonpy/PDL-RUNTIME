@@ -8,7 +8,7 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
 
   [data-pdl-navigation="bottom"] .pdl-bottom-nav {
     position: sticky;
@@ -20,7 +20,8 @@
       max(var(--pdl-space-2), env(safe-area-inset-bottom))
       max(var(--pdl-space-2), env(safe-area-inset-left));
     border-top: 1px solid var(--pdl-border-1);
-    background: var(--pdl-black);
+    background: var(--pdl-surface-1);
+    box-shadow: 0 -1px 0 var(--pdl-border-1), var(--pdl-shadow-sm);
   }
 
   .pdl-bottom-nav__item {
@@ -35,16 +36,16 @@
 
   /* Current page: the navigation's 2px edge, here on the top side. */
   .pdl-bottom-nav__item[aria-current="page"] {
-    background: var(--pdl-surface-2);
-    box-shadow: inset 0 2px 0 var(--pdl-text-1);
-    color: var(--pdl-text-1);
+    background: var(--pdl-accent-soft);
+    box-shadow: inset 0 2px 0 var(--pdl-accent);
+    color: var(--pdl-accent-strong);
   }
 }
 
 /* With the bottom navigation on screen, toasts sit above it instead of
      covering it (rapid repeated actions would otherwise block navigation). */
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   body:has([data-pdl-navigation="bottom"] .pdl-bottom-nav) .pdl-toast-region,
   body:has([data-pdl-navigation="bottom"] .pdl-bottom-nav) .pdl-toast-region[popover] {

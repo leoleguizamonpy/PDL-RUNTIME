@@ -6,7 +6,7 @@
 
 .pdl-notification-center {
   display: grid;
-  width: min(440px, calc(100vw - 2rem));
+  width: min(var(--pdl-width-drawer), calc(100vw - 2rem));
   max-height: min(70vh, 680px);
   overflow: hidden;
   border: 1px solid var(--pdl-border-2);
@@ -36,7 +36,7 @@
   border-top: 1px solid var(--pdl-border-1);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-notification-center {
     width: 100%;

@@ -7,17 +7,66 @@
 .pdl-panel,
 .pdl-card {
   min-width: 0;
-  border: 1px solid color-mix(in srgb, var(--pdl-border-1) 82%, transparent);
+  border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
 .pdl-panel {
-  padding: var(--pdl-space-10);
+  padding: var(--pdl-space-8);
 }
 
 .pdl-card {
-  padding: var(--pdl-space-8);
+  padding: var(--pdl-space-6);
+}
+
+/* A card that holds a table or a list edge to edge: the head keeps the
+   padding, the content runs to the frame. */
+.pdl-card--flush {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Card head: title (with an optional count), a line of context and the
+   card's own tools on the end. */
+.pdl-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--pdl-space-3) var(--pdl-space-4);
+}
+
+.pdl-card--flush > .pdl-card__head {
+  padding: var(--pdl-space-5) var(--pdl-space-6);
+}
+
+.pdl-card__head > :first-child {
+  min-width: 0;
+}
+
+.pdl-card__desc {
+  margin: 2px 0 0;
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-card__tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pdl-space-2);
+  margin-inline-start: auto;
+}
+
+.pdl-card__body {
+  padding: 0 var(--pdl-space-6) var(--pdl-space-6);
+}
+
+/* Narrow columns (an aside on the page grid): the frame gives the
+   content its room back. */
+.pdl-card--compact {
+  gap: var(--pdl-space-4);
+  padding: var(--pdl-space-5);
 }
 
 .pdl-card--interactive {
@@ -116,10 +165,14 @@
   margin: 0;
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-md);
-  font-weight: var(--pdl-weight-medium);
+  font-size: var(--pdl-text-lg);
+  font-weight: var(--pdl-weight-bold);
   line-height: var(--pdl-line-heading);
-  letter-spacing: -.02em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pdl-space-2);
+  letter-spacing: -.01em;
 }
 
 /* A heading smaller or larger than a card's (a page's own sections). */
@@ -214,7 +267,7 @@
   transform: translateY(-.15em);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 767.98px) {
 
   .pdl-card--horizontal {
     grid-template-columns: 1fr;
@@ -262,7 +315,7 @@
 
 @layer pdl.responsive {
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
 
   .pdl-panel {
     padding: var(--pdl-space-5);
@@ -271,14 +324,24 @@
 
 /* Phones: surfaces keep the same air relative to the screen. */
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-panel {
     padding: var(--pdl-space-6);
   }
 
-  .pdl-card {
-    padding: var(--pdl-space-6);
+  /* A flush card keeps its zero padding: its head and body pad
+     themselves, a little tighter on a phone. */
+  .pdl-card:not(.pdl-card--flush) {
+    padding: var(--pdl-space-5);
+  }
+
+  .pdl-card--flush > .pdl-card__head {
+    padding: var(--pdl-space-4);
+  }
+
+  .pdl-card__body {
+    padding: 0 var(--pdl-space-4) var(--pdl-space-4);
   }
 }
 

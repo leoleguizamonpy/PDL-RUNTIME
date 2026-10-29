@@ -10,7 +10,7 @@ export function initResizableWorkspaces(root = document) {
       // the right, so pointer and arrow math use the side it is drawn on.
       const side = handle.dataset.pdlResizer;
       const atLeft = () => (side === "left") !== (getComputedStyle(workspace).direction === "rtl");
-      const [min, max, property] = side === "left" ? [180, 420, "--pdl-left-pane"] : [220, 480, "--pdl-right-pane"];
+      const [min, max, property] = side === "left" ? [192, 448, "--pdl-left-pane"] : [192, 448, "--pdl-right-pane"];
       const pane = () => {
         const set = parseFloat(workspace.style.getPropertyValue(property));
         if (!Number.isNaN(set)) return set;

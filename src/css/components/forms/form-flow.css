@@ -6,7 +6,8 @@
 
 .pdl-form-flow {
   display: grid;
-  grid-template-columns: minmax(210px, 250px) minmax(0, 1fr);
+  /* The step list is a sidebar of the side scale. */
+  grid-template-columns: var(--pdl-width-sidebar) minmax(0, 1fr);
   overflow: hidden;
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
@@ -59,9 +60,15 @@
 }
 
 .pdl-form-step[aria-current="step"] {
-  border-color: var(--pdl-border-2);
-  background: var(--pdl-surface-2);
-  color: var(--pdl-text-1);
+  border-color: transparent;
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
+}
+
+.pdl-form-step[aria-current="step"] .pdl-form-step__index {
+  border-color: var(--pdl-accent);
+  background: var(--pdl-accent);
+  color: var(--pdl-on-accent);
 }
 
 .pdl-form-step[data-state="complete"] .pdl-form-step__index {
@@ -155,7 +162,7 @@
   display: none;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 767.98px) {
 
   .pdl-form-flow {
     grid-template-columns: 1fr;

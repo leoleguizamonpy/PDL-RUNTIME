@@ -4,21 +4,71 @@
 
 @layer pdl.components {
 
+/* A floating panel 8px off the viewport edge, rounded like a card. */
 .pdl-drawer {
-  width: min(440px, 92vw);
-  height: 100dvh;
+  width: min(var(--pdl-width-drawer), calc(100vw - var(--pdl-space-4)));
+  height: calc(100dvh - var(--pdl-space-4));
   max-height: none;
-  margin: 0;
+  margin: var(--pdl-space-2);
   margin-inline-start: auto;
-  border-radius: 0;
-  border-block: 0;
-  border-inline-end: 0;
+  border-radius: calc(var(--pdl-radius-surface) + 4px);
+}
+
+.pdl-drawer .pdl-dialog__header {
+  align-items: flex-start;
+}
+
+/* On a phone the drawer becomes a bottom sheet with a grab handle. */
+@media (max-width: 575.98px) {
+
+  .pdl-drawer {
+    width: 100%;
+    height: auto;
+    max-height: 92dvh;
+    margin: auto 0 0;
+    border-inline: 0;
+    border-bottom: 0;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .pdl-drawer::before {
+    content: "";
+    position: absolute;
+    top: var(--pdl-space-2);
+    inset-inline: 0;
+    width: 40px;
+    height: 4px;
+    margin-inline: auto;
+    border-radius: 4px;
+    background: var(--pdl-border-2);
+  }
+
+  .pdl-drawer .pdl-dialog__header {
+    padding-top: var(--pdl-space-6);
+  }
+
+  .pdl-drawer .pdl-dialog__footer {
+    flex-direction: row;
+    padding-bottom: calc(var(--pdl-space-3) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .pdl-drawer .pdl-dialog__footer .pdl-button {
+    flex: 1;
+    width: auto;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
 
   .pdl-drawer[open] {
     animation-name: pdl-drawer-in;
+  }
+
+  @media (max-width: 575.98px) {
+    .pdl-drawer[open],
+    .pdl-drawer[open]:dir(rtl) {
+      animation-name: pdl-sheet-in;
+    }
   }
 
   .pdl-drawer[open]:dir(rtl) {

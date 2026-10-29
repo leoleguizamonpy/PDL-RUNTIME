@@ -8,7 +8,7 @@
 
 .pdl-asset-workspace {
   display: grid;
-  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr) minmax(220px, 300px);
+  grid-template-columns: minmax(12rem, var(--pdl-width-sidebar)) minmax(0, 1fr) minmax(12rem, var(--pdl-width-panel));
   min-height: 560px;
   overflow: hidden;
   border: 1px solid var(--pdl-border-1);
@@ -52,7 +52,7 @@
   padding: var(--pdl-space-4);
 }
 
-@media (max-width: 980px) {
+@media (max-width: 991.98px) {
 
   .pdl-asset-workspace {
     grid-template-columns: minmax(0, 1fr);

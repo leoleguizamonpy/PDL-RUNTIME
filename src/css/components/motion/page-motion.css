@@ -38,7 +38,7 @@
 
 /* Attention motions for the one action a page wants noticed (link pages):
    short bursts with a rest in between, and none at all for people who ask
-   for less motion. Shimmer steps a band of dots across the element. */
+   for less motion. Shimmer sweeps a soft light across the element. */
 
 @media (prefers-reduced-motion: no-preference) {
 
@@ -50,9 +50,9 @@
 
   .pdl-motion--glow { animation: pdl-motion-glow 2.4s ease-out infinite; }
 
-  /* Shimmer: a hard-edged band of 1-bit dots in the label's ink steps across
-     the element, then rests, like the skeleton's scan. No soft light sweep.
-     On a layer of its own, so it never clips a badge; off while busy. */
+  /* Shimmer: a soft light in the label's color sweeps across the element,
+     then rests. On a layer of its own, so it never clips a badge; off while
+     busy. */
   .pdl-motion--shimmer {
     position: relative;
   }
@@ -62,13 +62,10 @@
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: currentColor;
-    opacity: .22;
-    -webkit-mask: var(--pdl-bayer-4) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
-    mask: var(--pdl-bayer-4) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
-    clip-path: inset(0 100% 0 0);
+    background: linear-gradient(100deg, transparent 30%, color-mix(in srgb, currentColor 22%, transparent) 50%, transparent 70%) 0 0 / 250% 100% no-repeat;
+    background-position: 120% 0;
     pointer-events: none;
-    animation: pdl-motion-shimmer 3.2s steps(8, end) infinite;
+    animation: pdl-motion-shimmer 3.2s ease-in-out infinite;
   }
 
   .pdl-motion--shimmer:dir(rtl)::after {
@@ -126,16 +123,14 @@
 
 @keyframes pdl-motion-glow {
 
-  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 45%, transparent); }
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--pdl-button-fill, var(--pdl-accent)) 45%, transparent); }
 
-  70%, 100% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 0%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--pdl-button-fill, var(--pdl-accent)) 0%, transparent); }
 }
 
 @keyframes pdl-motion-shimmer {
-    0%, 45% { clip-path: inset(0 100% 0 0); }
-    55% { clip-path: inset(0 70% 0 0); }
-    90% { clip-path: inset(0 0 0 70%); }
-    100% { clip-path: inset(0 0 0 100%); }
+    0%, 40% { background-position: 120% 0; }
+    100% { background-position: -20% 0; }
   }
 
 }

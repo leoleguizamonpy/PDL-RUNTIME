@@ -7,14 +7,14 @@
 .pdl-alert,
 .pdl-banner {
   display: grid;
-  gap: var(--pdl-space-2);
-  border: 1px solid var(--pdl-border-2);
+  gap: var(--pdl-space-1);
+  border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   background: var(--pdl-surface-1);
 }
 
 .pdl-alert {
-  padding: var(--pdl-space-4) var(--pdl-space-5);
+  padding: var(--pdl-space-4);
 }
 
 .pdl-alert__title,
@@ -33,20 +33,64 @@
   line-height: var(--pdl-line-body);
 }
 
-/* Severity reads at a glance: a 2px edge in the state color on the
-   inline start, the navigation's edge language in a semantic color. */
+/* Severity reads at a glance: the band takes its state's tint and line. */
 
-.pdl-alert[data-state] {
-  border-inline-start-width: 2px;
+.pdl-alert[data-state="success"] { border-color: var(--pdl-success-line); background: var(--pdl-success-bg); --pdl-alert-tone: var(--pdl-success); }
+
+.pdl-alert[data-state="warning"] { border-color: var(--pdl-warning-line); background: var(--pdl-warning-bg); --pdl-alert-tone: var(--pdl-warning); }
+
+.pdl-alert[data-state="danger"] { border-color: var(--pdl-danger-line); background: var(--pdl-danger-bg); --pdl-alert-tone: var(--pdl-danger); }
+
+.pdl-alert[data-state="info"] { border-color: var(--pdl-accent-line); background: var(--pdl-accent-soft); --pdl-alert-tone: var(--pdl-accent-strong); }
+
+.pdl-alert[data-state] .pdl-alert__copy { color: var(--pdl-text-2); }
+
+/* Optional icon in a ringed circle, leading the text. */
+.pdl-alert:has(> .pdl-alert__icon) {
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--pdl-space-3);
+  row-gap: 2px;
 }
 
-.pdl-alert[data-state="success"] { border-inline-start-color: var(--pdl-success); }
+.pdl-alert:has(> .pdl-alert__icon) > :not(.pdl-alert__icon) {
+  grid-column: 2;
+}
 
-.pdl-alert[data-state="warning"] { border-inline-start-color: var(--pdl-warning); }
+.pdl-alert__icon {
+  display: grid;
+  grid-row: 1 / span 3;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--pdl-alert-tone, var(--pdl-text-2)) 14%, transparent);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--pdl-alert-tone, var(--pdl-text-2)) 6%, transparent);
+  color: var(--pdl-alert-tone, var(--pdl-text-2));
+}
 
-.pdl-alert[data-state="danger"] { border-inline-start-color: var(--pdl-danger); }
+.pdl-alert__icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
-.pdl-alert[data-state="info"] { border-inline-start-color: var(--pdl-text-1); }
+/* A link to act on the alert, in its tone. */
+.pdl-alert__action {
+  width: fit-content;
+  margin-top: var(--pdl-space-1);
+  color: var(--pdl-alert-tone, var(--pdl-accent-strong));
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  text-decoration: none;
+}
+
+.pdl-alert__action:hover {
+  text-decoration: underline;
+}
 
 .pdl-banner {
   grid-template-columns: minmax(0, 1fr) auto;
@@ -54,7 +98,7 @@
   padding: var(--pdl-space-4);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-banner {
     grid-template-columns: 1fr;

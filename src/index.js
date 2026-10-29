@@ -1,4 +1,5 @@
 import { initCursor } from "./js/cursor.js";
+import { initThemeToggles } from "./js/theme.js";
 import { initSidebar, initTabs, initDisclosure } from "./js/runtime.js";
 import { initMenus } from "./js/menus.js";
 import { initCommandPalettes } from "./js/command-palette.js";
@@ -61,6 +62,7 @@ export function initPDL(options = {}) {
     initDisclosure(root),
     initMenus(root),
     initCommandPalettes(root),
+    initThemeToggles(root),
     initUploadZones(root),
     initTableControls(root),
     initDataGrids(root),
@@ -75,7 +77,10 @@ export function initPDL(options = {}) {
     initResizableWorkspaces(root),
     initPageMotion(root),
     initLoading(root),
-    initCursor({ root, enabled: options.cursor !== false })
+    // Operational apps (a page whose body holds the app shell or a page
+    // profile) keep the system
+    // pointer: the ring covered labels and data. Pass cursor: true to opt in.
+    initCursor({ root, enabled: options.cursor === true || (options.cursor !== false && !document.querySelector("body > .pdl-shell-main, body > [data-pdl-page-profile]")) })
   ];
 
   return {
@@ -85,6 +90,6 @@ export function initPDL(options = {}) {
   };
 }
 
-export { PDL_STYLES, PDL_STYLE_IDS, getPDLStyle, setPDLStyle } from "./js/style-profiles.js";
+export { PDL_BRANDS, PDL_THEMES, getPDLBrand, setPDLBrand, getPDLTheme, setPDLTheme, initThemeToggles } from "./js/theme.js";
 
 export * from "./app/index.js";

@@ -49,7 +49,7 @@
   font-size: var(--pdl-text-xs);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-lightbox {
     width: 100%;

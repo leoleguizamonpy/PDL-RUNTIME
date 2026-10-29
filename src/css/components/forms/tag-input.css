@@ -19,7 +19,7 @@
   border: 1px solid var(--pdl-border-2);
   border-radius: var(--pdl-radius-control);
   padding: var(--pdl-space-1) var(--pdl-space-2);
-  background: var(--pdl-surface-soft);
+  background: var(--pdl-surface-1);
 }
 
 .pdl-tag-input:focus-within {

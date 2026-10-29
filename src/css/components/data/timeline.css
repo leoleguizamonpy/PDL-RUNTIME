@@ -7,6 +7,10 @@
 .pdl-timeline {
   display: grid;
   gap: 0;
+  /* Usually an <ol>: the browser indent pushed the rail off the edge. */
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .pdl-timeline-item {
@@ -36,7 +40,7 @@
   height: 9px;
   margin-top: 7px; /* geometry */
   justify-self: center;
-  border: 2px solid var(--pdl-black);
+  border: 2px solid var(--pdl-surface-1);
   border-radius: 50%;
   background: var(--pdl-text-muted);
   box-shadow: 0 0 0 1px var(--pdl-border-3);
@@ -48,10 +52,44 @@
   padding-bottom: var(--pdl-space-5);
 }
 
+.pdl-timeline__dot[data-state="success"] { background: var(--pdl-success); box-shadow: 0 0 0 1px var(--pdl-success-line); }
+
+.pdl-timeline__dot[data-state="warning"] { background: var(--pdl-warning); box-shadow: 0 0 0 1px var(--pdl-warning-line); }
+
+.pdl-timeline__dot[data-state="danger"] { background: var(--pdl-danger); box-shadow: 0 0 0 1px var(--pdl-danger-line); }
+
+.pdl-timeline__dot[data-state="info"] { background: var(--pdl-accent); box-shadow: 0 0 0 1px var(--pdl-accent-line); }
+
+/* Activity feed: an avatar in place of the dot, the rail under it. */
+.pdl-timeline-item:has(> .pdl-avatar) {
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: var(--pdl-space-3);
+  min-height: 0;
+}
+
+.pdl-timeline-item:has(> .pdl-avatar)::before {
+  top: 44px;
+  bottom: 4px;
+  inset-inline-start: 17px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--pdl-border-1);
+}
+
+.pdl-timeline-item > .pdl-avatar {
+  width: 36px;
+  height: 36px;
+}
+
+.pdl-timeline__who {
+  color: var(--pdl-text-1);
+  font-weight: var(--pdl-weight-bold);
+}
+
 .pdl-timeline__title {
   color: var(--pdl-text-2);
   font-size: var(--pdl-text-sm);
-  font-weight: var(--pdl-weight-medium);
+  font-weight: var(--pdl-weight-strong);
   line-height: var(--pdl-line-heading);
 }
 

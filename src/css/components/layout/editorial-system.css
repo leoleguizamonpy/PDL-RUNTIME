@@ -56,7 +56,6 @@
   color: var(--pdl-text-muted);
   font-size: var(--pdl-text-xs);
   font-weight: var(--pdl-weight-regular);
-  letter-spacing: .025em;
   line-height: 1.4;
 }
 
@@ -185,7 +184,7 @@
   line-height: var(--pdl-line-relaxed);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 767.98px) {
 
   .pdl-editorial-row {
     grid-template-columns: 2.25rem minmax(0, 1fr);

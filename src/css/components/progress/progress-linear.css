@@ -45,10 +45,69 @@
 
 .pdl-progress {
   width: 100%;
-  height: 5px;
+  height: 6px;
   overflow: hidden;
   border-radius: var(--pdl-radius-pill);
-  background: var(--pdl-border-1);
+  background: var(--pdl-surface-3);
+}
+
+/* Composition bar: several segments that add up to the whole. Each
+   segment sets its share with --pdl-progress and its color with
+   data-series (1–4) or a state. */
+.pdl-meter {
+  display: flex;
+  height: 8px;
+  gap: 2px;
+  overflow: hidden;
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-surface-3);
+}
+
+.pdl-meter__segment {
+  flex: 0 0 var(--pdl-progress, 0%);
+  height: 100%;
+  background: var(--pdl-series-1);
+}
+
+.pdl-meter__segment[data-series="2"] { background: var(--pdl-series-2); }
+
+.pdl-meter__segment[data-series="3"] { background: var(--pdl-series-3); }
+
+.pdl-meter__segment[data-series="4"] { background: var(--pdl-series-4); }
+
+.pdl-meter__segment[data-state="success"] { background: var(--pdl-success); }
+
+.pdl-meter__segment[data-state="warning"] { background: var(--pdl-warning); }
+
+.pdl-meter__segment[data-state="danger"] { background: var(--pdl-danger); }
+
+.pdl-meter__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pdl-space-1) var(--pdl-space-3);
+  margin-top: var(--pdl-space-3);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-meter__legend [data-series]::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-inline-end: var(--pdl-space-2);
+  border-radius: 2px;
+  background: var(--pdl-series-1);
+}
+
+.pdl-meter__legend [data-series="2"]::before { background: var(--pdl-series-2); }
+
+.pdl-meter__legend [data-series="3"]::before { background: var(--pdl-series-3); }
+
+.pdl-meter__legend [data-series="4"]::before { background: var(--pdl-series-4); }
+
+@media (forced-colors: active) {
+  .pdl-meter__segment { background: CanvasText; }
 }
 
 .pdl-progress--compact { height: 3px; }
@@ -59,7 +118,7 @@
   width: var(--pdl-progress, 0%);
   height: 100%;
   border-radius: inherit;
-  background: var(--pdl-text-2);
+  background: var(--pdl-accent);
   transition: width var(--pdl-motion-medium) var(--pdl-ease-standard);
 }
 
@@ -88,7 +147,7 @@
 
 .pdl-progress-step.is-complete,
 .pdl-progress-step[aria-current="step"] {
-  background: var(--pdl-text-2);
+  background: var(--pdl-accent);
 }
 
 @media (prefers-reduced-motion: reduce) {

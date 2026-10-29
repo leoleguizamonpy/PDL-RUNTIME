@@ -47,8 +47,8 @@
 }
 
 .pdl-check input:is(:checked, :indeterminate) {
-  border-color: var(--pdl-text-1);
-  background: var(--pdl-text-1);
+  border-color: var(--pdl-accent);
+  background: var(--pdl-accent);
 }
 
 /* The tick: two sides of a rotated box, in the page's ink. A glyph, so
@@ -58,8 +58,8 @@
   content: "";
   width: 10px;
   height: 5px;
-  border-bottom: 2px solid var(--pdl-black);
-  border-left: 2px solid var(--pdl-black);
+  border-bottom: 2px solid var(--pdl-on-accent);
+  border-left: 2px solid var(--pdl-on-accent);
   transform: translateY(-1px) rotate(-45deg);
 }
 
@@ -67,13 +67,13 @@
   content: "";
   width: 8px;
   height: 0;
-  border-block-end: 2px solid var(--pdl-black);
+  border-block-end: 2px solid var(--pdl-on-accent);
 }
 
 /* On is a thick ring: the dot is the background showing through. */
 
 .pdl-radio input:checked {
-  border: 5px solid var(--pdl-text-1);
+  border: 5px solid var(--pdl-accent);
 }
 
 :is(.pdl-check, .pdl-radio):has(input:disabled) {
@@ -82,7 +82,7 @@
 }
 
 :is(.pdl-check, .pdl-radio) input:disabled {
-  border-style: dashed;
+  opacity: .5;
   cursor: not-allowed;
 }
 

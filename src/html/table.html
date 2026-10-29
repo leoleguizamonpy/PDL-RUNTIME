@@ -11,18 +11,46 @@
       <tr>
         <th><button class="pdl-table__sort" type="button" data-pdl-sort="name">Proyecto</button></th>
         <th><button class="pdl-table__sort" type="button" data-pdl-sort="status">Estado</button></th>
-        <th>Progreso</th>
+        <th class="pdl-table__num">Progreso</th>
+        <th class="pdl-table__actions"><span class="pdl-sr-only">Acciones</span></th>
       </tr>
     </thead>
     <tbody>
+      <!-- __primary keeps the name readable; __num aligns figures on the
+           end edge; __actions stays pinned while the table scrolls. -->
       <tr data-status="active">
-        <td data-label="Proyecto">Proyecto Atlas</td>
+        <td class="pdl-table__primary" data-label="Proyecto">Proyecto Atlas</td>
         <td data-label="Estado">Activo</td>
-        <td data-label="Progreso">72%</td>
+        <td class="pdl-table__num" data-label="Progreso">72%</td>
+        <td class="pdl-table__actions" data-label="Acciones"><button class="pdl-icon-button pdl-icon-button--ghost pdl-icon-button--sm" type="button" aria-label="Acciones de Proyecto Atlas">⋯</button></td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<!-- semantic-table: inside a flush card. The card head holds the title
+     (with a count), a line of context and the card's tools; the table runs
+     edge to edge. Totals go in <tfoot>: the label in the first cell, empty
+     cells kept so columns line up (stacked on a phone, they hide). -->
+<article class="pdl-card pdl-card--flush">
+  <header class="pdl-card__head">
+    <div>
+      <h2 class="pdl-card__title">Entregas <span class="pdl-status">3</span></h2>
+      <p class="pdl-card__desc">Zafra 2026 · kilos netos tras descuento de humedad</p>
+    </div>
+    <div class="pdl-card__tools"><button class="pdl-button pdl-button--outline pdl-button--sm" type="button">Exportar</button></div>
+  </header>
+  <div class="pdl-table-wrap">
+    <table class="pdl-table" data-pdl-table-mode="stack">
+      <thead><tr><th>Remito</th><th>Fecha</th><th class="pdl-table__num">Kilos</th><th class="pdl-table__num">Importe</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td class="pdl-table__primary" data-label="Remito"><span class="pdl-table__strong">R-0412</span></td><td data-label="Fecha">12 oct</td><td class="pdl-table__num" data-label="Kilos">1.240 kg</td><td class="pdl-table__num" data-label="Importe">₲ 1.826.000</td><td data-label="Estado"><span class="pdl-status-label" data-state="success"><span class="pdl-status-label__indicator" aria-hidden="true"></span>Pagado</span></td></tr>
+        <tr><td class="pdl-table__primary" data-label="Remito"><span class="pdl-table__strong">R-0398</span></td><td data-label="Fecha">5 oct</td><td class="pdl-table__num" data-label="Kilos">980 kg</td><td class="pdl-table__num" data-label="Importe">₲ 1.443.000</td><td data-label="Estado"><span class="pdl-status-label" data-state="warning"><span class="pdl-status-label__indicator" aria-hidden="true"></span>Pendiente</span></td></tr>
+      </tbody>
+      <tfoot><tr><td>Total</td><td></td><td class="pdl-table__num" data-label="Kilos">2.220 kg</td><td class="pdl-table__num" data-label="Importe">₲ 3.269.000</td><td></td></tr></tfoot>
+    </table>
+  </div>
+</article>
 
 <!-- semantic-table -->
 <div class="pdl-table-wrap">

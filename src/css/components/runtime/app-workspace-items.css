@@ -104,7 +104,7 @@
   gap: var(--pdl-space-3);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 991.98px) {
 
   .pdl-workspace-history__controls {
     grid-template-columns: 1fr;

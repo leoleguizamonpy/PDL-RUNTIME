@@ -112,7 +112,7 @@
   color: var(--pdl-text-muted);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 575.98px) {
 
   .pdl-footer__inner {
     align-items: flex-start;

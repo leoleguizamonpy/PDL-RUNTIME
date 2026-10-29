@@ -97,14 +97,15 @@
 .pdl-project-summary-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--pdl-space-4);
+  column-gap: var(--pdl-gutter);
+  row-gap: var(--pdl-gutter);
 }
 
 .pdl-project-details {
   background: var(--pdl-surface-1);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 991.98px) {
 
   .pdl-project-summary-grid {
     grid-template-columns: 1fr;

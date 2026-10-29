@@ -150,7 +150,7 @@
   display: none;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 575.98px) {
 
   .pdl-auth-view {
     place-items: start stretch;

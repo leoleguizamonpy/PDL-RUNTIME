@@ -135,7 +135,7 @@
   line-height: var(--pdl-line-body);
 }
 
-@media (max-width: 760px) {
+@media (max-width: 767.98px) {
 
   .pdl-collection__top,
   .pdl-collection-item {

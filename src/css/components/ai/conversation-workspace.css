@@ -8,7 +8,7 @@
 
 .pdl-conversation-workspace {
   width: 100%;
-  min-height: calc(100dvh - 69px);
+  min-height: calc(100dvh - var(--pdl-topbar-height));
   overflow: visible;
   background: var(--pdl-black);
 }
@@ -17,7 +17,7 @@
   display: grid;
   width: 100%;
   max-width: var(--pdl-width-chat);
-  min-height: calc(100dvh - 69px);
+  min-height: calc(100dvh - var(--pdl-topbar-height));
   grid-template-rows: auto auto auto;
   gap: var(--pdl-space-5);
   margin-inline: auto;
@@ -27,7 +27,7 @@
 
 .pdl-conversation-workspace__head {
   position: sticky;
-  top: 69px;
+  top: var(--pdl-topbar-height);
   z-index: var(--pdl-z-sticky);
   display: flex;
   min-width: 0;
@@ -74,10 +74,10 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
 
   .pdl-conversation-workspace {
-    min-height: calc(100dvh - 69px);
+    min-height: calc(100dvh - var(--pdl-topbar-height));
   }
 
   .pdl-conversation-workspace__inner {

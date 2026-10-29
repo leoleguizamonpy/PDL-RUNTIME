@@ -8,6 +8,15 @@
   </div>
 </section>
 
+<!-- progress-linear: a composition bar. Segments add up to the whole;
+     each sets its share and a series color, and the legend names them. -->
+<div class="pdl-meter" role="img" aria-label="Destino del saldo: 62% pagos, 24% anticipos, 14% aportes">
+  <span class="pdl-meter__segment" style="--pdl-progress: 62%"></span>
+  <span class="pdl-meter__segment" data-series="2" style="--pdl-progress: 24%"></span>
+  <span class="pdl-meter__segment" data-series="3" style="--pdl-progress: 14%"></span>
+</div>
+<div class="pdl-meter__legend" aria-hidden="true"><span data-series="1">Pagos 62%</span><span data-series="2">Anticipos 24%</span><span data-series="3">Aportes 14%</span></div>
+
 <!-- progress-linear -->
 <div class="pdl-progress-steps" style="--pdl-step-count:4"><span class="pdl-progress-step is-complete"></span><span class="pdl-progress-step is-complete"></span><span class="pdl-progress-step" aria-current="step"></span><span class="pdl-progress-step"></span></div>
 

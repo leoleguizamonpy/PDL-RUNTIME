@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "package": "@leoleguizamon/pdl",
-  "version": "1.4.0-alpha.75",
+  "version": "2.0.0-alpha.1",
   "source": "leoleguizamonpy/PDL",
-  "sourceRevision": "0cbd543cfce8599623d73dacbeb2db414cea8dc1",
+  "sourceRevision": "9faa71358a08be5a15a17f99d0352552316be409",
   "sourceRef": "main",
   "sourceRefType": "branch",
   "authority": "private-source",
@@ -11,6 +11,9 @@
   "exportPolicy": "allowlist",
   "included": [
     "packages/pdl/src/**",
+    "packages/pdl/USING_PDL.md",
+    "packages/pdl/templates/**",
+    "packages/pdl/bin/**",
     "schemas/product-ui.schema.json"
   ],
   "excludedByDesign": [

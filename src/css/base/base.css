@@ -78,6 +78,11 @@ video {
   color: var(--pdl-black);
 }
 
+b,
+strong {
+  font-weight: var(--pdl-weight-strong);
+}
+
 code,
 kbd,
 samp {
@@ -86,56 +91,9 @@ samp {
   font-feature-settings: "zero" 1;
 }
 
-/*
- * Material texture
- * ─────────────────────────────────────────────────────────────────────────
- * PDL surfaces are flat. Depth comes from one static, non-animated texture
- * layer over the viewport, never from gradients or glows.
- *
- *   html[data-pdl-texture]   (default)  film grain
- *                            "bitplate" 1-bit ordered screen (Bayer 4x4)
- *                            "off"      no texture
- *
- * The same ordered screen is available on any element with .pdl-dither, so
- * placeholders, media frames and empty canvases read as printed plate
- * instead of a grey box.
- */
-
-/* Bayer 4x4 threshold tiles: a dot is "on" where the matrix value is below
-   the level. Masks, not images, so the dot always takes the local ink. */
-
-:root {
-  --pdl-bayer-1: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3C/svg%3E");
-  --pdl-bayer-2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3C/svg%3E");
-  --pdl-bayer-4: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='2' y='0' width='1' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3C/svg%3E");
-  --pdl-bayer-8: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='2' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='3' y='1' width='1' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3C/svg%3E");
-  --pdl-bayer-12: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='1' y='0' width='1' height='1'/%3E%3Crect x='2' y='0' width='1' height='1'/%3E%3Crect x='3' y='0' width='1' height='1'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='3' y='1' width='1' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='3' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3C/svg%3E");
-}
-
-/* ── Page texture ──────────────────────────────────────────────────────── */
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  opacity: var(--pdl-noise-opacity);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  mix-blend-mode: normal;
-  pointer-events: none;
-}
-
-html[data-pdl-texture="bitplate"] body::before {
-  opacity: var(--pdl-bitplate-opacity);
-  background: var(--pdl-dither-ink, var(--pdl-text-1));
-  -webkit-mask: var(--pdl-bayer-2) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
-  mask: var(--pdl-bayer-2) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
-  image-rendering: pixelated;
-}
-
-html[data-pdl-texture="off"] body::before {
-  content: none;
+/* Key caps are labels, not running code: one step of the scale. */
+kbd {
+  font-size: var(--pdl-text-xs);
 }
 
 /*
@@ -151,13 +109,6 @@ body::after {
   z-index: -1;
   background: var(--pdl-page-fill, none);
   pointer-events: none;
-}
-
-@media (forced-colors: active) {
-
-  body::before {
-    content: none;
-  }
 }
 
 }

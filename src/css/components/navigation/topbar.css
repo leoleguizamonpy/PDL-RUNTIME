@@ -11,7 +11,107 @@
   min-height: var(--pdl-topbar-height);
   align-items: center;
   border-bottom: 1px solid var(--pdl-border-1);
-  background: var(--pdl-black);
+  background: color-mix(in srgb, var(--pdl-black) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(8px);
+}
+
+/* Where the page sits: links, then the current page in ink. */
+.pdl-breadcrumbs {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--pdl-space-2);
+  margin: 0;
+  padding: 0;
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  list-style: none;
+}
+
+.pdl-breadcrumbs li {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--pdl-space-2);
+}
+
+.pdl-breadcrumbs li + li::before {
+  content: "/";
+  color: var(--pdl-border-3);
+}
+
+.pdl-breadcrumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pdl-breadcrumbs a:hover {
+  color: var(--pdl-text-1);
+}
+
+.pdl-breadcrumbs [aria-current] {
+  overflow: hidden;
+  color: var(--pdl-text-1);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* A search field that opens the command palette, with its shortcut. */
+.pdl-topbar__search {
+  display: flex;
+  width: 320px;
+  max-width: 40vw;
+  min-width: 0;
+  flex: 0 1 auto;
+  height: var(--pdl-control-md);
+  align-items: center;
+  gap: var(--pdl-space-2);
+  padding: 0 var(--pdl-space-3);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  color: var(--pdl-text-subtle);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--pdl-text-sm);
+}
+
+/* The topbar's controls keep one row; the search field gives way first. */
+.pdl-topbar__inner > .pdl-cluster:has(> .pdl-topbar__search) {
+  min-width: 0;
+  flex-wrap: nowrap;
+}
+
+.pdl-topbar__search:hover {
+  border-color: var(--pdl-border-3);
+}
+
+.pdl-topbar__search > span {
+  flex: 1;
+  text-align: start;
+}
+
+.pdl-topbar__search svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pdl-kbd,
+.pdl-topbar__search kbd {
+  padding: 1px var(--pdl-space-1);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: 4px;
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-subtle);
+  font: var(--pdl-weight-strong) var(--pdl-text-xs)/1.5 var(--pdl-font-body);
 }
 
 .pdl-topbar__inner {
@@ -35,7 +135,42 @@
   transform: translateX(-50%);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 575.98px) {
+
+  /* On a phone the bar keeps one row: secondary text and shortcut hints go,
+     the controls stay. */
+  .pdl-topbar :is(.pdl-user-state__copy, .pdl-switcher__meta, [data-pdl-command-key], .pdl-breadcrumbs li:not(:last-child)) {
+    display: none;
+  }
+
+  .pdl-topbar__inner {
+    gap: var(--pdl-space-2);
+  }
+
+  /* The search field folds to its icon. */
+  .pdl-topbar__search {
+    width: var(--pdl-control-md);
+    justify-content: center;
+    padding: 0;
+  }
+
+  .pdl-topbar__search > :not(svg) {
+    display: none;
+  }
+
+  .pdl-topbar__inner > .pdl-cluster {
+    min-width: 0;
+    flex-wrap: nowrap;
+    gap: var(--pdl-space-1);
+  }
+}
+
+@media (max-width: 575.98px) {
+
+  /* The context keeps its avatar and chevron; its name is in the page. */
+  .pdl-topbar .pdl-switcher__text {
+    display: none;
+  }
 
   .pdl-topbar__center {
     position: static;

@@ -29,7 +29,7 @@
 .pdl-range::-moz-range-progress {
   height: 2px;
   border-radius: var(--pdl-radius-pill);
-  background: var(--pdl-text-1);
+  background: var(--pdl-accent);
 }
 
 .pdl-range::-webkit-slider-thumb {
@@ -39,7 +39,7 @@
   appearance: none;
   border: 2px solid var(--pdl-black);
   border-radius: 50%;
-  background: var(--pdl-text-1);
+  background: var(--pdl-accent);
   box-shadow: 0 0 0 1px var(--pdl-border-3);
   transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
 }
@@ -49,7 +49,7 @@
   height: 14px;
   border: 2px solid var(--pdl-black);
   border-radius: 50%;
-  background: var(--pdl-text-1);
+  background: var(--pdl-accent);
   box-shadow: 0 0 0 1px var(--pdl-border-3);
   transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
 }

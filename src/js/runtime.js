@@ -1,5 +1,5 @@
 // Matches the off-canvas range in responsive.css.
-const OFF_CANVAS_SIDEBAR = "(max-width: 980px)";
+const OFF_CANVAS_SIDEBAR = "(max-width: 991.98px)";
 
 const FOCUSABLE =
   "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex='-1'])";

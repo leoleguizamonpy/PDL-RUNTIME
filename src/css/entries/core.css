@@ -6,7 +6,6 @@
 
 /* Foundations */
 @import "../foundations/tokens.css";
-@import "../foundations/palettes.css";
 @import "../foundations/typography.css";
 
 /* Base: element defaults */
@@ -15,7 +14,6 @@
 /* Fundamentos */
 @import "../base/typography.css";
 @import "../base/accessibility-utilities.css";
-@import "../base/texture.css";
 
 /* Composición de página */
 @import "../components/layout/page-container.css";

@@ -10,19 +10,19 @@
   background: var(--pdl-surface-2);
 }
 
-/* Loading scan: a hard-edged band of ordered dots stepping across the
-   placeholder, like a plate being exposed. No soft gradient sweep. */
+/* Loading: a soft light sweeps across the placeholder. */
+
+.pdl-skeleton {
+  position: relative;
+}
 
 .pdl-skeleton::after {
   content: "";
-  display: block;
-  width: 24%;
-  height: 100%;
-  background: var(--pdl-dither-ink, var(--pdl-text-1));
-  opacity: .14;
-  -webkit-mask: var(--pdl-bayer-8) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
-  mask: var(--pdl-bayer-8) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
-  animation: pdl-skeleton 1.6s steps(10, end) infinite;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--pdl-surface-1) 70%, transparent), transparent);
+  transform: translateX(-100%);
+  animation: pdl-skeleton 1.4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -35,9 +35,7 @@
 
 @keyframes pdl-skeleton {
 
-  from { transform: translateX(-100%); }
-
-  to { transform: translateX(420%); }
+  to { transform: translateX(100%); }
 }
 
 .pdl-skeleton--line {

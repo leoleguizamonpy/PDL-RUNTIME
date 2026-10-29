@@ -63,7 +63,7 @@
   display: none;
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 992px) {
 
   @container pdl-rail (min-width: 22rem) {
     .pdl-rail-layout__body {
@@ -118,8 +118,8 @@
 
     .pdl-rail__item[aria-selected="true"] .pdl-rail__icon {
       border-color: transparent;
-      background: var(--pdl-text-1);
-      color: var(--pdl-black);
+      background: var(--pdl-accent);
+      color: var(--pdl-on-accent);
     }
   }
 }

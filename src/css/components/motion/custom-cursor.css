@@ -77,7 +77,7 @@ body.pdl-custom-cursor [popover]:popover-open * {
   cursor: auto;
 }
 
-@media (max-width: 768px), (hover: none), (pointer: coarse) {
+@media (max-width: 767.98px), (hover: none), (pointer: coarse) {
 
   .pdl-cursor,
   .pdl-cursor-ring {

@@ -13,22 +13,32 @@
 .pdl-segmented {
   width: fit-content;
   align-self: start;
-  padding: var(--pdl-space-1);
-  border: 1px solid var(--pdl-border-1);
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--pdl-border-2);
   border-radius: var(--pdl-radius-control);
-  background: var(--pdl-surface-1);
+  background: var(--pdl-surface-2);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
 .pdl-segmented__item {
   /* Item + frame = the md control height, like a field or a button. */
-  min-height: calc(var(--pdl-control-md) - var(--pdl-space-2) - 2px);
+  /* Item + frame = the md control height, like a field or a button. */
+  display: inline-flex;
+  min-height: calc(var(--pdl-control-md) - 6px);
+  align-items: center;
+  justify-content: center;
+  gap: var(--pdl-space-2);
   border: 0;
-  border-radius: calc(var(--pdl-radius-control) - 1px);
-  padding: var(--pdl-space-2) var(--pdl-space-3);
+  border-radius: calc(var(--pdl-radius-control) - 2px);
+  padding: 0 var(--pdl-space-3);
   background: transparent;
   color: var(--pdl-text-muted);
   cursor: pointer;
+  font: inherit;
   font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  white-space: nowrap;
   transition:
     background var(--pdl-motion-short) var(--pdl-ease-standard),
     color var(--pdl-motion-short) var(--pdl-ease-standard);
@@ -37,8 +47,19 @@
 .pdl-segmented__item[aria-pressed="true"],
 .pdl-segmented__item[aria-selected="true"],
 .pdl-segmented__item[aria-current="true"] {
-  background: var(--pdl-surface-3);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-sm);
   color: var(--pdl-text-1);
+}
+
+.pdl-segmented__item:hover:not([aria-pressed="true"], [aria-selected="true"], [aria-current="true"]) {
+  color: var(--pdl-text-1);
+}
+
+/* A count after the label. */
+.pdl-segmented__count {
+  color: var(--pdl-text-subtle);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Segmented controls that span their container, like tab bars: equal
@@ -96,14 +117,17 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-segmented {
     width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
 
   .pdl-segmented__item {
-    flex: 1 1 0;
+    flex: 1 0 auto;
   }
 }
 

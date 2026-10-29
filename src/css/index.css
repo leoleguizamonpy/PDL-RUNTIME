@@ -7,22 +7,14 @@
  * file per component, each declaring the layers its rules belong to.
  * Product CSS is unlayered, so a consumer stylesheet always wins over PDL.
  *
- * Smaller entries: css/entries/family-<id>.css and css/entries/style-<id>.css.
+ * Smaller entries: css/entries/family-<id>.css.
  */
 
 @layer pdl.foundations, pdl.base, pdl.layout, pdl.components, pdl.interaction, pdl.responsive, pdl.runtime;
 
 /* Foundations */
 @import "./foundations/tokens.css";
-@import "./foundations/palettes.css";
 @import "./foundations/typography.css";
-
-/* Style profiles: opt-in with data-pdl-style */
-@import "./styles/carbon-common.css";
-@import "./styles/carbon-soft.css";
-@import "./styles/carbon-core.css";
-@import "./styles/carbon-sharp.css";
-@import "./styles/carbon-commercial.css";
 
 /* Base: element defaults */
 @import "./base/base.css";
@@ -30,7 +22,6 @@
 /* Fundamentos */
 @import "./base/typography.css";
 @import "./base/accessibility-utilities.css";
-@import "./base/texture.css";
 
 /* Composición de página */
 @import "./components/layout/page-container.css";
@@ -170,6 +161,3 @@
 @import "./components/runtime/app-project.css";
 @import "./components/runtime/app-workspace-items.css";
 @import "./components/runtime/app-auth.css";
-
-/* Style bridge: last, so profile typography reaches component titles */
-@import "./styles/carbon-bridge.css";

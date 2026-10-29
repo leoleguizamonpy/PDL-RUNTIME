@@ -10,6 +10,14 @@
   gap: var(--pdl-space-2);
 }
 
+/* Label beside its control (toolbars, dense settings): the label sits on
+   the control's center line instead of above it. */
+.pdl-field--inline {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--pdl-space-2);
+}
+
 .pdl-label {
   color: var(--pdl-text-2);
   font-size: var(--pdl-text-xs);
@@ -29,6 +37,9 @@
 }
 
 .pdl-helper[data-state="danger"] { color: var(--pdl-danger); }
+
+/* An invalid control's message reads as the error it is. */
+.pdl-field:has([aria-invalid="true"]) .pdl-helper:not([data-state]) { color: var(--pdl-danger); }
 
 .pdl-helper[data-state="warning"] { color: var(--pdl-warning); }
 

@@ -150,24 +150,19 @@ dialog.pdl-command-palette {
 }
 
 .pdl-command-palette__item.is-active {
-  background: var(--pdl-surface-2);
-  box-shadow: inset 2px 0 0 var(--pdl-text-1);
-  color: var(--pdl-text-1);
+  background: var(--pdl-accent-soft);
+  box-shadow: inset 2px 0 0 var(--pdl-accent);
+  color: var(--pdl-accent-strong);
 }
 
 .pdl-command-palette__item:dir(rtl).is-active {
-  box-shadow: inset -2px 0 0 var(--pdl-text-1);
+  box-shadow: inset -2px 0 0 var(--pdl-accent);
 }
 
-/* Unavailable commands: the system's dashed line, never activated. */
+/* Unavailable commands: quieter, never activated. */
 .pdl-command-palette__item[aria-disabled="true"] {
-  color: var(--pdl-text-subtle);
+  opacity: .5;
   cursor: not-allowed;
-}
-
-.pdl-command-palette__item[aria-disabled="true"] .pdl-command-palette__label {
-  text-decoration: underline dashed;
-  text-underline-offset: 4px;
 }
 
 .pdl-command-palette__shortcut {
@@ -209,7 +204,7 @@ dialog.pdl-command-palette {
 
 @layer pdl.responsive {
 
-@media (max-width: 640px) {
+@media (max-width: 575.98px) {
   dialog.pdl-command-palette {
     width: 100vw;
     max-height: calc(100dvh - var(--pdl-space-6));

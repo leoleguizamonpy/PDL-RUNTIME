@@ -10,6 +10,15 @@
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+}
+
+/* Inside a flush card the card is the frame. */
+.pdl-card--flush > .pdl-table-wrap,
+.pdl-card__body > .pdl-table-wrap:only-child {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .pdl-table {
@@ -22,19 +31,82 @@
 
 .pdl-table th,
 .pdl-table td {
-  padding: .82rem var(--pdl-space-4);
+  padding: var(--pdl-space-3);
   border-bottom: 1px solid var(--pdl-border-1);
   text-align: start;
   vertical-align: middle;
 }
 
-.pdl-table th {
-  font-family: var(--pdl-font-label);
+.pdl-table :is(th, td):first-child { padding-inline-start: var(--pdl-space-6); }
+
+.pdl-table :is(th, td):last-child { padding-inline-end: var(--pdl-space-4); }
+
+/* Header band: a quiet tint, sentence-case labels in the body face. */
+.pdl-table thead th {
+  position: relative;
+  height: 44px;
+  padding-block: 0;
+  background: var(--pdl-surface-2);
   color: var(--pdl-text-subtle);
+  font-family: var(--pdl-font-body);
   font-size: var(--pdl-text-xs);
   font-weight: var(--pdl-weight-strong);
-  letter-spacing: .05em;
-  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pdl-table tbody td {
+  height: 60px;
+  padding-block: var(--pdl-space-2);
+}
+
+.pdl-table .pdl-table__strong,
+.pdl-table tbody th {
+  color: var(--pdl-text-1);
+  font-weight: var(--pdl-weight-strong);
+}
+
+/* Totals row. */
+.pdl-table tfoot td,
+.pdl-table tfoot th {
+  height: 56px;
+  border-top: 1px solid var(--pdl-border-1);
+  border-bottom: 0;
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+  font-weight: var(--pdl-weight-bold);
+}
+
+.pdl-table .pdl-table__num {
+  /* Amounts and counts: aligned on the end edge, equal-width digits and
+     never broken between the currency and the figure. */
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.pdl-table .pdl-table__actions {
+  /* Row actions: as narrow as their buttons and pinned to the end edge,
+     so they stay reachable while a wide table scrolls. */
+  position: sticky;
+  inset-inline-end: 0;
+  width: 1%;
+  padding-inline: var(--pdl-space-2);
+  white-space: nowrap;
+  background: var(--pdl-surface-1);
+  box-shadow: inset 1px 0 0 var(--pdl-border-1);
+}
+
+.pdl-table .pdl-table__actions:dir(rtl) {
+  box-shadow: inset -1px 0 0 var(--pdl-border-1);
+}
+
+.pdl-table tbody tr:hover .pdl-table__actions {
+  background: var(--pdl-surface-2);
+}
+
+.pdl-table .pdl-table__primary {
+  /* The row's name column keeps room for a readable line. */
+  min-width: 12rem;
 }
 
 .pdl-table tbody tr:last-child td {
@@ -76,11 +148,60 @@
 
 .pdl-table-toolbar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  /* A labeled field is taller than a chip row: align on the control line. */
+  align-items: end;
+  /* Search and filters start on the content edge; the last control (sort,
+     view) goes to the end. space-between dropped the middle group on no
+     line at all. */
+  justify-content: flex-start;
   gap: var(--pdl-space-3);
   flex-wrap: wrap;
   margin-bottom: var(--pdl-space-3);
+}
+
+/* Toolbar fields are compact: search, filters and sort make one row. */
+.pdl-table-toolbar :is(.pdl-input, .pdl-select) {
+  height: var(--pdl-control-sm);
+  min-height: var(--pdl-control-sm);
+  padding-inline-start: var(--pdl-space-3);
+}
+
+.pdl-table-toolbar > :last-child:not(:first-child) {
+  margin-inline-start: auto;
+}
+
+/* On the page's four-column grid (above a .pdl-split--aside or a four-up
+   metric row): search on the first column, filters across the middle two,
+   the last control on the fourth, so every edge meets a line above. */
+.pdl-table-toolbar--columns {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--pdl-gutter);
+}
+
+.pdl-table-toolbar--columns > * {
+  min-width: 0;
+}
+
+.pdl-table-toolbar--columns > :nth-child(2):not(:last-child) {
+  grid-column: span 2;
+}
+
+.pdl-table-toolbar--columns > :last-child:not(:first-child) {
+  grid-column: -2 / -1;
+  margin-inline-start: 0;
+}
+
+@media (max-width: 1199.98px) {
+
+  .pdl-table-toolbar--columns {
+    display: flex;
+    gap: var(--pdl-space-3);
+  }
+
+  .pdl-table-toolbar--columns > :last-child:not(:first-child) {
+    margin-inline-start: auto;
+  }
 }
 
 .pdl-table-toolbar__group {
@@ -90,7 +211,7 @@
   flex-wrap: wrap;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 767.98px) {
 
   .pdl-table[data-pdl-table-mode="stack"] thead {
     position: absolute;
@@ -100,33 +221,115 @@
     clip-path: inset(50%);
   }
 
+  /* On a phone each row becomes a two-column card of labeled facts. */
   .pdl-table[data-pdl-table-mode="stack"],
-  .pdl-table[data-pdl-table-mode="stack"] tbody,
-  .pdl-table[data-pdl-table-mode="stack"] tr,
-  .pdl-table[data-pdl-table-mode="stack"] td {
+  .pdl-table[data-pdl-table-mode="stack"] :is(tbody, tfoot) {
     display: block;
     width: 100%;
   }
 
   .pdl-table[data-pdl-table-mode="stack"] tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--pdl-space-2) var(--pdl-space-4);
     padding: var(--pdl-space-3) var(--pdl-space-4);
     border-bottom: 1px solid var(--pdl-border-1);
   }
 
-  .pdl-table[data-pdl-table-mode="stack"] tr:last-child {
+  .pdl-table[data-pdl-table-mode="stack"] tbody tr:last-child {
     border-bottom: 0;
   }
 
-  .pdl-table[data-pdl-table-mode="stack"] td {
-    display: grid;
-    grid-template-columns: minmax(100px, .85fr) minmax(0, 1.4fr);
-    gap: var(--pdl-space-3);
-    padding: var(--pdl-space-2) 0;
-    border: 0;
+  .pdl-table[data-pdl-table-mode="stack"] tfoot tr {
+    background: var(--pdl-surface-2);
   }
 
-  .pdl-table[data-pdl-table-mode="stack"] td::before {
+  .pdl-table[data-pdl-table-mode="stack"] :is(td, th) {
+    display: block;
+    height: auto;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    white-space: normal;
+  }
+
+  /* The row's name (its first cell) spans the card, like a title, without
+     a label; the actions cell needs no label either. */
+  .pdl-table[data-pdl-table-mode="stack"] :is(.pdl-table__primary, tbody th, tr > :first-child) {
+    grid-column: 1 / -1;
+  }
+
+  .pdl-table[data-pdl-table-mode="stack"] :is(tr > td:first-child, .pdl-table__actions)[data-label]::before {
+    display: none;
+  }
+
+  /* A status needs no label: it sits beside the title, on the card's
+     first line, so a row stays short. */
+  .pdl-table[data-pdl-table-mode="stack"] tbody tr:has(> td > :is(.pdl-status-label, .pdl-status)) > :first-child {
+    grid-column: 1;
+  }
+
+  .pdl-table[data-pdl-table-mode="stack"] tbody td:not(:first-child):has(> :is(.pdl-status-label, .pdl-status)) {
+    grid-row: 1;
+    grid-column: 2;
+    justify-self: end;
+    align-self: start;
+  }
+
+  .pdl-table[data-pdl-table-mode="stack"] tbody td:not(:first-child):has(> :is(.pdl-status-label, .pdl-status))::before {
+    display: none;
+  }
+
+  /* With row actions in the corner, the status steps in from them. */
+  .pdl-table[data-pdl-table-mode="stack"] tbody tr:has(> .pdl-table__actions) > td:not(:first-child):has(> :is(.pdl-status-label, .pdl-status)) {
+    margin-inline-end: var(--pdl-space-10);
+  }
+
+  .pdl-table[data-pdl-table-mode="stack"] tbody tr:has(> .pdl-table__actions):has(> td > :is(.pdl-status-label, .pdl-status)) > :first-child {
+    padding-inline-end: 0;
+  }
+
+  .pdl-table[data-pdl-table-mode="stack"] tfoot td:empty {
+    display: none;
+  }
+
+  .pdl-table[data-pdl-table-mode="stack"] .pdl-table__num {
+    /* Stacked, the label leads the row: the figure follows it. */
+    text-align: start;
+  }
+
+  /* Row actions sit in the card's top corner. */
+  .pdl-table[data-pdl-table-mode="stack"] tr {
+    position: relative;
+  }
+
+  .pdl-table[data-pdl-table-mode="stack"] tr:has(.pdl-table__actions) > :first-child {
+    padding-inline-end: var(--pdl-space-10, 40px);
+  }
+
+  .pdl-table[data-pdl-table-mode="stack"] .pdl-table__actions {
+    position: absolute;
+    inset-block-start: var(--pdl-space-3);
+    inset-inline-end: var(--pdl-space-2);
+    width: auto;
+    padding-inline: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .pdl-table[data-pdl-table-mode="stack"] tbody tr:hover .pdl-table__actions {
+    background: transparent;
+  }
+
+  .pdl-table[data-pdl-table-mode="stack"] .pdl-table__primary {
+    min-width: 0;
+  }
+
+  .pdl-table[data-pdl-table-mode="stack"] td[data-label]::before {
     content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
     color: var(--pdl-text-subtle);
     font-size: var(--pdl-text-xs);
     font-weight: var(--pdl-weight-strong);
@@ -145,6 +348,13 @@
 @media (pointer: coarse) {
 
   .pdl-table__sort {
+    min-width: var(--pdl-touch-target);
+    min-height: var(--pdl-touch-target);
+  }
+
+  /* Compact toolbar fields grow back to the touch target. */
+  .pdl-table-toolbar :is(.pdl-input, .pdl-select) {
+    height: var(--pdl-touch-target);
     min-height: var(--pdl-touch-target);
   }
 }

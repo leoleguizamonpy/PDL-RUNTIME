@@ -30,7 +30,7 @@
 }
 
 /* A large photo leading a page (a person's or a brand's link page). It
-   dissolves into the page at the bottom in dither dots, and what follows rises onto the faded
+   fades into the page at the bottom, and what follows rises onto the faded
    part, so the name reads on the page itself. */
 
 .pdl-hero-photo {
@@ -40,12 +40,10 @@
   overflow: hidden;
   margin-block-end: calc(-1 * var(--pdl-space-12));
   border-radius: var(--pdl-radius-surface);
-  /* Bit Plate fade: solid to 55%, then 12/16 Bayer dots, then 4/16, then
-     nothing, so the photo dissolves into whatever is behind in real dots
-     (2px cells, the --pdl-dither-cell). */
-  --pdl-hero-fade: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cpattern id='a' width='8' height='8' patternUnits='userSpaceOnUse'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3Crect x='2' y='0' width='2' height='2'/%3E%3Crect x='4' y='0' width='2' height='2'/%3E%3Crect x='6' y='0' width='2' height='2'/%3E%3Crect x='2' y='2' width='2' height='2'/%3E%3Crect x='6' y='2' width='2' height='2'/%3E%3Crect x='0' y='4' width='2' height='2'/%3E%3Crect x='2' y='4' width='2' height='2'/%3E%3Crect x='4' y='4' width='2' height='2'/%3E%3Crect x='6' y='4' width='2' height='2'/%3E%3Crect x='2' y='6' width='2' height='2'/%3E%3Crect x='6' y='6' width='2' height='2'/%3E%3C/pattern%3E%3Cpattern id='b' width='8' height='8' patternUnits='userSpaceOnUse'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3Crect x='4' y='0' width='2' height='2'/%3E%3Crect x='0' y='4' width='2' height='2'/%3E%3Crect x='4' y='4' width='2' height='2'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='55%25'/%3E%3Crect y='55%25' width='100%25' height='17%25' fill='url(%23a)'/%3E%3Crect y='72%25' width='100%25' height='16%25' fill='url(%23b)'/%3E%3C/svg%3E");
-  -webkit-mask: var(--pdl-hero-fade) 0 0 / 100% 100% no-repeat;
-  mask: var(--pdl-hero-fade) 0 0 / 100% 100% no-repeat;
+  /* The photo fades into the page at the bottom, so the name that follows
+     reads on the page itself. */
+  -webkit-mask: linear-gradient(#000 55%, transparent 92%);
+  mask: linear-gradient(#000 55%, transparent 92%);
 }
 
 .pdl-hero-photo > img {

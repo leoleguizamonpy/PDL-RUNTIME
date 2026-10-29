@@ -4,43 +4,26 @@
 
 @layer pdl.components {
 
-.pdl-status {
-  display: inline-flex;
-  width: fit-content;
-  min-height: 24px;
-  flex: 0 0 auto;
-  align-items: center;
-  padding: var(--pdl-space-1) var(--pdl-space-3);
-  border: 1px solid var(--pdl-border-1);
-  border-radius: var(--pdl-radius-pill);
-  background: color-mix(in srgb, var(--pdl-surface-2) 72%, transparent);
-  color: var(--pdl-text-muted);
-  font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
-  white-space: nowrap;
-}
+/* Badges: a pill with a tinted fill in its state's color, meaning carried
+   by the word as well as the color. .pdl-status is a plain chip (a count,
+   a category); .pdl-status-label leads with a dot (a state). */
 
-.pdl-status--success { color: var(--pdl-success); }
-
-.pdl-status--warning { color: var(--pdl-warning); }
-
-.pdl-status--danger { color: var(--pdl-danger); }
-
+.pdl-status,
 .pdl-status-label {
   display: inline-flex;
   width: fit-content;
-  min-height: 26px;
+  height: 22px;
+  flex: 0 0 auto;
   align-items: center;
-  gap: var(--pdl-space-2);
-  border: 1px solid color-mix(in srgb, var(--pdl-border-1) 84%, transparent);
-  border-radius: var(--pdl-radius-control);
-  padding: var(--pdl-space-1) var(--pdl-space-3);
-  background: color-mix(in srgb, var(--pdl-surface-1) 74%, transparent);
-  color: var(--pdl-text-muted);
+  gap: var(--pdl-space-1);
+  padding: 0 var(--pdl-space-2);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-2);
   font-family: var(--pdl-font-body);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: .018em;
+  font-weight: var(--pdl-weight-strong);
   line-height: 1;
   white-space: nowrap;
 }
@@ -50,35 +33,37 @@
   height: 6px;
   flex: 0 0 6px;
   border-radius: 50%;
-  background: var(--pdl-text-subtle);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pdl-text-subtle) 10%, transparent);
+  background: currentColor;
 }
 
-.pdl-status-label[data-state="success"] .pdl-status-label__indicator {
-  background: var(--pdl-success);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pdl-success) 10%, transparent);
+:is(.pdl-status, .pdl-status-label):is(.pdl-status--success, [data-state="success"]) {
+  border-color: var(--pdl-success-line);
+  background: var(--pdl-success-bg);
+  color: var(--pdl-success);
 }
 
-.pdl-status-label[data-state="warning"] .pdl-status-label__indicator {
-  background: var(--pdl-warning);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pdl-warning) 10%, transparent);
+:is(.pdl-status, .pdl-status-label):is(.pdl-status--warning, [data-state="warning"]) {
+  border-color: var(--pdl-warning-line);
+  background: var(--pdl-warning-bg);
+  color: var(--pdl-warning);
 }
 
-.pdl-status-label[data-state="danger"] .pdl-status-label__indicator {
-  background: var(--pdl-danger);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pdl-danger) 10%, transparent);
+:is(.pdl-status, .pdl-status-label):is(.pdl-status--danger, [data-state="danger"]) {
+  border-color: var(--pdl-danger-line);
+  background: var(--pdl-danger-bg);
+  color: var(--pdl-danger);
 }
 
-.pdl-status-label[data-state="success"] {
-  border-color: color-mix(in srgb, var(--pdl-success) 18%, var(--pdl-border-1));
+:is(.pdl-status, .pdl-status-label):is(.pdl-status--info, [data-state="info"]) {
+  border-color: var(--pdl-info-line);
+  background: var(--pdl-info-bg);
+  color: var(--pdl-info);
 }
 
-.pdl-status-label[data-state="warning"] {
-  border-color: color-mix(in srgb, var(--pdl-warning) 18%, var(--pdl-border-1));
-}
-
-.pdl-status-label[data-state="danger"] {
-  border-color: color-mix(in srgb, var(--pdl-danger) 18%, var(--pdl-border-1));
+:is(.pdl-status, .pdl-status-label):is(.pdl-status--accent, [data-state="accent"]) {
+  border-color: var(--pdl-accent-line);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
 }
 
 }

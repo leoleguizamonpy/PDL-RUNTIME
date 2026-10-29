@@ -82,16 +82,16 @@
 }
 
 .pdl-icon-button--primary {
-  background: var(--pdl-button-fill, var(--pdl-text-1));
-  color: var(--pdl-button-ink, var(--pdl-black));
+  background: var(--pdl-button-fill, var(--pdl-accent));
+  color: var(--pdl-button-ink, var(--pdl-on-accent));
 }
 
 .pdl-icon-button--primary:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 88%, var(--pdl-black));
+  background: var(--pdl-button-fill, var(--pdl-accent-hover));
 }
 
 .pdl-icon-button--primary:active:not(:disabled) {
-  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 76%, var(--pdl-black));
+  background: var(--pdl-button-fill, var(--pdl-accent-strong));
 }
 
 .pdl-icon-button--outline {

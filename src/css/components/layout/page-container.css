@@ -37,7 +37,7 @@
 
 @layer pdl.responsive {
 
-@media (max-width: 420px) {
+@media (max-width: 575.98px) {
 
   .pdl-wrap {
     padding-inline: var(--pdl-space-4);

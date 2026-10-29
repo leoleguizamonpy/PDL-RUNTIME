@@ -94,7 +94,7 @@
 .pdl-chat-choice[data-selected="true"] .pdl-chat-choice__index {
   border-color: var(--pdl-text-2);
   background: var(--pdl-text-2);
-  color: var(--pdl-black);
+  color: var(--pdl-on-accent);
 }
 
 .pdl-chat-choice__copy {
@@ -145,7 +145,7 @@
   color: var(--pdl-text-2);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-chat-choice {
     grid-template-columns: 1.65rem minmax(0, 1fr) auto;

@@ -10,8 +10,16 @@
   min-width: 0;
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
-  padding: var(--pdl-space-5);
+  padding: var(--pdl-space-6);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+}
+
+.pdl-card > .pdl-chart,
+.pdl-card__body > .pdl-chart {
+  border: 0;
+  padding: 0;
+  box-shadow: none;
 }
 
 .pdl-chart__head {
@@ -26,7 +34,7 @@
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-md);
-  font-weight: var(--pdl-weight-strong);
+  font-weight: var(--pdl-weight-bold);
 }
 
 .pdl-chart__meta {
@@ -61,17 +69,24 @@
 .pdl-bar {
   display: grid;
   min-width: 0;
+  width: 100%;
+  max-width: 56px;
   height: var(--pdl-value, 50%);
+  justify-self: center;
   align-items: end;
-  border-radius: var(--pdl-radius-control) var(--pdl-radius-control) 0 0;
-  background: var(--pdl-text-2);
+  border-radius: 6px 6px 2px 2px;
+  background: var(--pdl-chart-soft);
   transition:
     height var(--pdl-motion-medium) var(--pdl-ease-standard),
     opacity var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
-.pdl-bar:hover {
-  opacity: .78;
+/* Hover and the current period take the full chart color. */
+.pdl-bar:hover,
+.pdl-bar.is-current,
+.pdl-bar[aria-current] {
+  background: var(--pdl-chart);
+  box-shadow: inset 0 0 0 1px var(--pdl-chart-line);
 }
 
 .pdl-bar__label {
@@ -99,7 +114,7 @@
   width: 8px;
   height: 8px;
   border-radius: 2px;
-  background: var(--pdl-text-2);
+  background: var(--pdl-chart);
 }
 
 .pdl-line-chart {
@@ -110,14 +125,27 @@
 
 .pdl-line-chart path[data-series] {
   fill: none;
-  stroke: var(--pdl-text-2);
+  stroke: var(--pdl-chart);
   stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
 }
 
+.pdl-line-chart path[data-series="2"] { stroke: var(--pdl-series-2); }
+
+.pdl-line-chart path[data-series="3"] { stroke: var(--pdl-series-3); }
+
+.pdl-line-chart path[data-series="4"] { stroke: var(--pdl-series-4); }
+
+.pdl-line-chart [data-area] {
+  fill: var(--pdl-chart-soft);
+  stroke: none;
+}
+
 .pdl-line-chart circle {
-  fill: var(--pdl-black);
-  stroke: var(--pdl-text-2);
+  fill: var(--pdl-surface-1);
+  stroke: var(--pdl-chart);
   stroke-width: 2;
   vector-effect: non-scaling-stroke;
 }
@@ -157,7 +185,7 @@
   clip-path: inset(50%);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-chart {
     padding: var(--pdl-space-4);

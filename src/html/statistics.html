@@ -1,10 +1,32 @@
 <section class="pdl-stat-grid" aria-label="Métricas principales">
+  <!-- The one figure the page leads with: the hero card, in the brand's hero color. -->
+  <article class="pdl-stat pdl-stat--hero">
+    <div class="pdl-stat__head">
+      <span class="pdl-stat__label">Saldo a cobrar</span>
+      <span class="pdl-stat__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18v12H3zM3 7l3-4h12l3 4M16 13h2"/></svg></span>
+    </div>
+    <strong class="pdl-stat__value">₲ 12.458.200</strong>
+    <span class="pdl-stat__meta">Al cierre de la semana</span>
+  </article>
   <article class="pdl-stat">
     <div class="pdl-stat__head">
-      <span class="pdl-stat__label">Proyectos activos</span>
-      <span class="pdl-stat__delta" data-direction="up">+12%</span>
+      <span class="pdl-stat__label">Kilos entregados</span>
+      <span class="pdl-stat__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5zM4 7.5l8 4.5 8-4.5M12 12v9"/></svg></span>
     </div>
-    <strong class="pdl-stat__value">24</strong>
+    <!-- Value and sparkline share a row; sparklines hide on phones. -->
+    <div class="pdl-stat__row">
+      <strong class="pdl-stat__value">38.420 kg</strong>
+      <svg class="pdl-stat__spark" viewBox="0 0 72 28" aria-hidden="true"><path data-area d="M0 22 12 18 24 20 36 12 48 14 60 6 72 8V28H0Z"/><path d="M0 22 12 18 24 20 36 12 48 14 60 6 72 8"/><circle cx="72" cy="8" r="2.5"/></svg>
+    </div>
+    <span class="pdl-stat__meta"><span class="pdl-stat__delta" data-direction="up">↑ 12%</span> vs. zafra anterior</span>
+  </article>
+  <!-- Direction is where the number went; tone is whether that is good. -->
+  <article class="pdl-stat">
+    <div class="pdl-stat__head">
+      <span class="pdl-stat__label">Remitos observados</span>
+      <span class="pdl-stat__delta" data-direction="up" data-tone="negative">↑ 3</span>
+    </div>
+    <strong class="pdl-stat__value">7</strong>
     <span class="pdl-stat__meta">Comparado con el período anterior</span>
   </article>
 </section>

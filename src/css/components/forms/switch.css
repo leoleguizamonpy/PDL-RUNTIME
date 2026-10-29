@@ -49,12 +49,12 @@
 }
 
 .pdl-switch input:checked + .pdl-switch__track {
-  border-color: var(--pdl-text-2);
-  background: var(--pdl-text-1);
+  border-color: var(--pdl-accent);
+  background: var(--pdl-accent);
 }
 
 .pdl-switch input:checked + .pdl-switch__track::after {
-  background: var(--pdl-black);
+  background: var(--pdl-on-accent);
   transform: translateX(18px);
 }
 
@@ -68,7 +68,7 @@
 }
 
 .pdl-switch input:disabled + .pdl-switch__track {
-  border-style: dashed;
+  opacity: .5;
 }
 
 /* Forced colors drop backgrounds: the knob is drawn as a ring instead. */
@@ -112,6 +112,24 @@
 .pdl-theme-switch .pdl-switch {
   min-height: var(--pdl-touch-target);
 }
+
+/* Theme toggle: initThemeToggles swaps the sun and the moon. */
+[data-pdl-theme-toggle] .pdl-theme-switch__sun { display: none; }
+
+:root[data-pdl-theme="dark"] [data-pdl-theme-toggle] .pdl-theme-switch__sun,
+:root[data-pdl-theme="negative"] [data-pdl-theme-toggle] .pdl-theme-switch__sun { display: block; }
+
+:root[data-pdl-theme="dark"] [data-pdl-theme-toggle] .pdl-theme-switch__moon,
+:root[data-pdl-theme="negative"] [data-pdl-theme-toggle] .pdl-theme-switch__moon { display: none; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-pdl-theme]) [data-pdl-theme-toggle] .pdl-theme-switch__sun,
+  :root[data-pdl-theme="system"] [data-pdl-theme-toggle] .pdl-theme-switch__sun { display: block; }
+
+  :root:not([data-pdl-theme]) [data-pdl-theme-toggle] .pdl-theme-switch__moon,
+  :root[data-pdl-theme="system"] [data-pdl-theme-toggle] .pdl-theme-switch__moon { display: none; }
+}
+
 
 }
 

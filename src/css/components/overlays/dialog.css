@@ -26,6 +26,25 @@
   background: var(--pdl-layer-scrim);
 }
 
+/* With header/body/footer only the body scrolls: the title and the
+   primary action stay in view in a long form (drawers included). */
+.pdl-dialog[open]:has(> .pdl-dialog__body) {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pdl-dialog[open] > :is(.pdl-dialog__header, .pdl-dialog__footer) {
+  flex: none;
+}
+
+.pdl-dialog[open] > .pdl-dialog__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
 /* With an inner scroller (response dialogs), the dialog clips and only
    the inner part scrolls, so the frame and its actions never move. */
 .pdl-dialog:has(> .pdl-dialog__inner) {
@@ -60,9 +79,9 @@
   margin: 0;
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-md);
-  font-weight: var(--pdl-weight-strong);
-  letter-spacing: -.02em;
+  font-size: var(--pdl-text-lg);
+  font-weight: var(--pdl-weight-bold);
+  letter-spacing: -.01em;
   line-height: var(--pdl-line-heading);
 }
 
@@ -95,12 +114,16 @@
 .pdl-dialog__header,
 .pdl-dialog__body,
 .pdl-dialog__footer {
-  padding: var(--pdl-space-5);
+  padding: var(--pdl-space-6);
+}
+
+.pdl-dialog__footer {
+  padding-block: var(--pdl-space-4);
 }
 
 .pdl-dialog__header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: var(--pdl-space-4);
   border-bottom: 1px solid var(--pdl-border-1);
@@ -127,7 +150,7 @@
   border-top: 1px solid var(--pdl-border-1);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-dialog:not(.pdl-drawer):not(.pdl-bottom-sheet) {
     width: calc(100vw - 1rem);

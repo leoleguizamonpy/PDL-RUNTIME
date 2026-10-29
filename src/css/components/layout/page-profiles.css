@@ -14,7 +14,8 @@
 .pdl-form-flow-page {
   display: grid;
   width: 100%;
-  gap: var(--pdl-rhythm-block);
+  /* Regions of a page breathe a section apart. */
+  gap: var(--pdl-rhythm-section);
 }
 
 .pdl-listing-page__head,
@@ -37,6 +38,20 @@
   gap: var(--pdl-rhythm-control);
 }
 
+.pdl-listing-page__head {
+  /* The page's name and actions close with a line: what follows is content. */
+  padding-bottom: var(--pdl-rhythm-block);
+  border-bottom: 1px solid color-mix(in srgb, var(--pdl-border-1) 72%, transparent);
+}
+
+/* State of the work (alerts, metrics): one group, tighter inside than the
+   space that separates it from the head and from the results. */
+.pdl-listing-page__summary {
+  display: grid;
+  min-width: 0;
+  gap: var(--pdl-space-6);
+}
+
 .pdl-listing-page__controls {
   display: grid;
   grid-template-columns: minmax(14rem, 1fr) auto;
@@ -49,7 +64,9 @@
 .pdl-listing-page__results {
   display: grid;
   min-width: 0;
-  gap: var(--pdl-rhythm-region);
+  /* Tabs, controls and results belong together: one step tighter than
+     the space between regions. */
+  gap: var(--pdl-space-6);
 }
 
 .pdl-listing-page__footer {
@@ -65,15 +82,56 @@
 
 .pdl-detail-page__summary {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  gap: var(--pdl-rhythm-content);
+  /* Four-up on the grid system (one span of 3 each), two on phones. */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--pdl-gutter);
+  row-gap: var(--pdl-gutter);
 }
 
 .pdl-detail-page__body {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(14rem, .7fr);
-  gap: var(--pdl-rhythm-block);
+  /* On the grid system: content spans 9 of 12, the aside 3 (6 + 2 in an
+     8-column project), the same lines as the summary above. */
+  grid-template-columns: repeat(var(--pdl-columns), minmax(0, 1fr));
+  column-gap: var(--pdl-gutter);
+  row-gap: var(--pdl-rhythm-block);
   align-items: start;
+}
+
+.pdl-detail-page__body > :first-child { grid-column: span 9; }
+
+.pdl-detail-page__body > :last-child:not(:first-child) { grid-column: span 3; }
+
+[data-pdl-columns="8"] .pdl-detail-page__body > :first-child { grid-column: span 6; }
+
+[data-pdl-columns="8"] .pdl-detail-page__body > :last-child:not(:first-child) { grid-column: span 2; }
+
+@media (max-width: 1199.98px) {
+
+  /* Same specificity as the span rules above (including 8 columns), so the
+     stacked layout always wins below xl. */
+  /* Four figures in two rows: a full figure needs more than a quarter of
+     a tablet's width. */
+  .pdl-detail-page__summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .pdl-detail-page__body > :first-child,
+  .pdl-detail-page__body > :last-child:not(:first-child),
+  [data-pdl-columns="8"] .pdl-detail-page__body > :first-child,
+  [data-pdl-columns="8"] .pdl-detail-page__body > :last-child:not(:first-child) { grid-column: 1 / -1; }
+}
+
+/* Stacked on a tablet, the aside's cards sit side by side. */
+@media (min-width: 768px) and (max-width: 1199.98px) {
+
+  .pdl-detail-page__body > .pdl-stack:last-child:not(:first-child) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+@media (max-width: 767.98px) {
+
+  .pdl-detail-page__summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .pdl-detail-page__media,
@@ -91,7 +149,7 @@
 }
 
 .pdl-workspace-page {
-  min-height: calc(100dvh - var(--pdl-topbar-height, 69px));
+  min-height: calc(100dvh - var(--pdl-topbar-height));
   /* The surface takes the remaining height; the context row stays its size. */
   grid-template-rows: auto minmax(0, 1fr);
   gap: var(--pdl-rhythm-content);
@@ -99,7 +157,7 @@
 
 .pdl-workspace-page__context {
   position: sticky;
-  top: var(--pdl-topbar-height, 69px);
+  top: var(--pdl-topbar-height);
   z-index: var(--pdl-z-sticky);
   align-items: center;
   padding-block: var(--pdl-rhythm-content);
@@ -131,7 +189,7 @@
   gap: var(--pdl-rhythm-control);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 767.98px) {
 
   .pdl-listing-page__head,
   .pdl-detail-page__hero,
@@ -152,7 +210,7 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 575.98px) {
 
   .pdl-listing-page,
   .pdl-detail-page,

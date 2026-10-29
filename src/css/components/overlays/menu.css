@@ -63,14 +63,12 @@
   color: var(--pdl-text-1);
 }
 
-/* Unavailable items: the system's dashed line, at full legibility. */
+/* Unavailable items: quieter and inert. */
 
 .pdl-menu__item:disabled,
 .pdl-menu__item[aria-disabled="true"] {
-  color: var(--pdl-text-subtle);
+  opacity: .5;
   cursor: not-allowed;
-  text-decoration: underline dashed;
-  text-underline-offset: 4px;
 }
 
 /* The chosen one of a set (role="menuitemradio"). */
@@ -95,7 +93,7 @@
   text-transform: uppercase;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 575.98px) {
 
   .pdl-menu[data-pdl-mobile-sheet="true"] {
     position: fixed;

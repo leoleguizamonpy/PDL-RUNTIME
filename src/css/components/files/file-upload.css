@@ -132,7 +132,7 @@
   line-height: 1.45;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-dropzone {
     min-height: 120px;

@@ -7,21 +7,136 @@
 .pdl-stat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: var(--pdl-space-4);
+  /* The grid system's gutters, so metric edges line up with the rows and
+     splits around them. */
+  column-gap: var(--pdl-gutter);
+  row-gap: var(--pdl-gutter-y);
 }
 
 .pdl-stat {
+  /* The figure is sized on its card (xl follows the container), so it
+     never outranks the page title. */
+  container-type: inline-size;
   display: grid;
   gap: var(--pdl-space-3);
   min-width: 0;
-  padding: var(--pdl-space-5);
+  gap: var(--pdl-space-4);
+  padding: var(--pdl-space-5) var(--pdl-space-6);
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  transition:
+    box-shadow var(--pdl-motion-short) var(--pdl-ease-standard),
+    transform var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+a.pdl-stat:hover,
+.pdl-stat[data-interactive]:hover {
+  box-shadow: var(--pdl-shadow-sm);
+  transform: translateY(-1px);
+}
+
+/* Optional icon tile at the head's end. */
+.pdl-stat__icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  place-items: center;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  color: var(--pdl-text-2);
+}
+
+.pdl-stat__icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Value and sparkline share a row, bottoms aligned. */
+.pdl-stat__row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  min-width: 0;
+}
+
+.pdl-stat__spark {
+  width: 72px;
+  height: 28px;
+  flex: none;
+  overflow: visible;
+  color: var(--pdl-chart, var(--pdl-accent));
+}
+
+.pdl-stat__spark :is(path, polyline):not([data-area]) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pdl-stat__spark [data-area] {
+  fill: currentColor;
+  opacity: .12;
+  stroke: none;
+}
+
+.pdl-stat__spark circle {
+  fill: var(--pdl-surface-1);
+  stroke: currentColor;
+  stroke-width: 1.75;
+}
+
+.pdl-stat__spark[data-tone="positive"] { color: var(--pdl-success); }
+
+.pdl-stat__spark[data-tone="negative"] { color: var(--pdl-danger); }
+
+/* The one figure the page leads with: a filled hero card. */
+.pdl-stat--hero {
+  border-color: var(--pdl-hero-line, var(--pdl-hero));
+  background: var(--pdl-hero);
+  box-shadow: var(--pdl-shadow-sm), inset 0 -3px 0 rgba(0, 0, 0, .08);
+  color: var(--pdl-hero-ink);
+}
+
+.pdl-stat--hero :is(.pdl-stat__label, .pdl-stat__meta, .pdl-stat__delta) {
+  color: var(--pdl-hero-muted);
+}
+
+.pdl-stat.pdl-stat--hero .pdl-stat__delta {
+  color: var(--pdl-hero-ink);
+}
+
+.pdl-stat--hero .pdl-stat__value {
+  color: var(--pdl-hero-ink);
+}
+
+.pdl-stat--hero .pdl-stat__icon {
+  border-color: color-mix(in srgb, var(--pdl-hero-ink) 18%, transparent);
+  background: color-mix(in srgb, var(--pdl-hero-ink) 12%, transparent);
+  box-shadow: none;
+  color: var(--pdl-hero-ink);
+}
+
+.pdl-stat--hero .pdl-stat__spark {
+  color: var(--pdl-hero-ink);
 }
 
 .pdl-stat__head {
   display: flex;
+  /* Same height with or without a delta, so values share a baseline. */
+  min-height: calc(var(--pdl-text-xs) * var(--pdl-line-heading));
   align-items: center;
   justify-content: space-between;
   gap: var(--pdl-space-3);
@@ -29,19 +144,19 @@
 
 .pdl-stat__label {
   color: var(--pdl-text-muted);
-  font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
   line-height: var(--pdl-line-heading);
-  letter-spacing: .02em;
 }
 
 .pdl-stat__value {
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-display);
-  font-weight: var(--pdl-weight-medium);
+  font-size: var(--pdl-text-xl);
+  font-weight: var(--pdl-weight-bold);
+  white-space: nowrap;
   line-height: var(--pdl-line-data);
-  letter-spacing: -.04em;
+  letter-spacing: var(--pdl-display-tracking);
   font-variant-numeric: tabular-nums;
 }
 
@@ -55,15 +170,56 @@
   display: inline-flex;
   width: fit-content;
   align-items: center;
-  gap: var(--pdl-space-1);
+  gap: 2px;
   color: var(--pdl-text-muted);
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-bold);
+  line-height: var(--pdl-line-heading);
+  white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 
 .pdl-stat__delta[data-direction="up"] { color: var(--pdl-success); }
 
 .pdl-stat__delta[data-direction="down"] { color: var(--pdl-danger); }
+
+/* Direction says where the number went; tone says whether that is good.
+   More overdue orders go up and are bad: data-direction="up" data-tone="negative". */
+.pdl-stat__delta[data-tone="positive"] { color: var(--pdl-success); }
+
+.pdl-stat__delta[data-tone="negative"] { color: var(--pdl-danger); }
+
+.pdl-stat__delta[data-tone="neutral"] { color: var(--pdl-text-muted); }
+
+@media (max-width: 575.98px) {
+
+  /* Two columns on a phone instead of four screen-tall cards. */
+  .pdl-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pdl-stat-grid .pdl-stat {
+    gap: var(--pdl-space-3);
+    padding: var(--pdl-space-4);
+  }
+
+  /* The hero leads, full width; icons and sparklines step aside. */
+  /* Also in a detail page's summary (two columns on a phone). */
+  :is(.pdl-stat-grid, .pdl-detail-page__summary) > .pdl-stat--hero {
+    grid-column: 1 / -1;
+    order: -1;
+  }
+
+  /* An odd one out at the end takes the full row instead of half of it. */
+  :is(.pdl-stat-grid, .pdl-detail-page__summary):has(> .pdl-stat--hero) > .pdl-stat:last-child:nth-child(even):not(.pdl-stat--hero),
+  :is(.pdl-stat-grid, .pdl-detail-page__summary):not(:has(> .pdl-stat--hero)) > .pdl-stat:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .pdl-stat-grid :is(.pdl-stat__icon, .pdl-stat__spark) {
+    display: none;
+  }
+}
 
 .pdl-stat-strip {
   display: grid;
@@ -84,7 +240,7 @@
   border-inline-start: 1px solid var(--pdl-border-1);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-stat-strip {
     grid-template-columns: 1fr 1fr;

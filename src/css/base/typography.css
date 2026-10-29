@@ -9,7 +9,7 @@
   color: var(--pdl-page-title-color, var(--pdl-text-heading));
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-page-title-size, var(--pdl-text-xl));
-  font-weight: var(--pdl-weight-medium);
+  font-weight: var(--pdl-weight-bold);
   line-height: var(--pdl-line-display);
   letter-spacing: var(--pdl-display-tracking);
   overflow-wrap: break-word;
@@ -38,13 +38,13 @@
   object-fit: contain;
 }
 
-/* Labels speak in the technical voice: monospace, uppercase, tracked. */
+/* Eyebrows: the body face, small, uppercase and tracked. */
 
 .pdl-eyebrow {
   color: var(--pdl-text-subtle);
   font-family: var(--pdl-font-label);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
+  font-weight: var(--pdl-weight-strong);
   line-height: var(--pdl-line-heading);
   letter-spacing: var(--pdl-letter-label);
   text-transform: uppercase;

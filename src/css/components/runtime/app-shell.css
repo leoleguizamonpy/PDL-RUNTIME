@@ -62,7 +62,7 @@
   padding: var(--pdl-space-8) var(--pdl-page-pad);
 }
 
-@media (max-width: 980px) {
+@media (max-width: 991.98px) {
 
   .pdl-app .pdl-workspace {
     grid-template-columns: 1fr;
@@ -250,7 +250,7 @@
   background: rgba(0, 0, 0, .56);
 }
 
-@media (max-width: 980px) {
+@media (max-width: 991.98px) {
 
   .pdl-app-menu,
   .pdl-app-sidebar__close {
@@ -263,9 +263,9 @@
 }
 
 /* Icon rail on touch tablets (see responsive.css): text-only parts of the
-   application sidebar do not fit in 76px and would overlap the content. */
+   application sidebar do not fit in the rail width and would overlap the content. */
 
-@media (min-width: 981px) and (max-width: 1100px) and (pointer: coarse) {
+@media (min-width: 992px) and (max-width: 1199.98px) {
 
   .pdl-app-sidebar__label,
   .pdl-app-sidebar__brand-copy,
@@ -327,7 +327,7 @@
   color: var(--pdl-text-subtle);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 991.98px) {
 
   .pdl-app-topbar__progress {
     grid-template-columns: auto minmax(60px, 100px);

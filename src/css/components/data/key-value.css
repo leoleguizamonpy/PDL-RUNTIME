@@ -16,14 +16,38 @@
 .pdl-kv dt,
 .pdl-kv dd {
   margin: 0;
-  padding: .8rem var(--pdl-space-4);
+  padding: var(--pdl-space-3) var(--pdl-space-4);
   border-bottom: 1px solid var(--pdl-border-1);
 }
 
 .pdl-kv dt {
   color: var(--pdl-text-subtle);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-strong);
+  /* Label role. */
+  font-weight: var(--pdl-weight-medium);
+}
+
+/* Inside a card the card is the frame; in a compact card the key takes
+   only the room it needs. */
+.pdl-card > .pdl-kv {
+  border: 0;
+  border-radius: 0;
+}
+
+.pdl-card > .pdl-kv > :is(dt, dd) {
+  padding-inline: 0;
+}
+
+.pdl-card > .pdl-kv > dt {
+  padding-inline-end: var(--pdl-space-4);
+}
+
+.pdl-card > .pdl-kv > :is(dt, dd):nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.pdl-card--compact > .pdl-kv {
+  grid-template-columns: auto minmax(0, 1fr);
 }
 
 .pdl-kv dd {
@@ -31,7 +55,7 @@
   font-size: var(--pdl-text-sm);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-kv {
     grid-template-columns: 1fr;
@@ -45,6 +69,96 @@
   .pdl-kv dd {
     padding-top: 0;
   }
+}
+
+
+/* Ledger lines: label at the start, figure at the end, dashed between;
+   a .pdl-kv-lines__total row closes the sum. */
+.pdl-kv-lines {
+  display: grid;
+  margin: 0;
+}
+
+.pdl-kv-lines > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-3) 0;
+  border-bottom: 1px dashed var(--pdl-border-1);
+}
+
+.pdl-kv-lines > div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.pdl-kv-lines dt {
+  color: var(--pdl-text-muted);
+}
+
+.pdl-kv-lines dd {
+  margin: 0;
+  color: var(--pdl-text-1);
+  font-weight: var(--pdl-weight-strong);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.pdl-kv-lines > .pdl-kv-lines__total {
+  margin-top: var(--pdl-space-1);
+  padding-top: var(--pdl-space-3);
+  border-top: 1px solid var(--pdl-border-2);
+  border-bottom: 0;
+}
+
+.pdl-kv-lines__total dt {
+  color: var(--pdl-text-1);
+  font-weight: var(--pdl-weight-bold);
+}
+
+.pdl-kv-lines__total dd {
+  color: var(--pdl-accent-strong);
+  font-weight: var(--pdl-weight-bold);
+}
+
+/* Facts: an icon, a small label, the value in ink. */
+.pdl-facts {
+  display: grid;
+  gap: var(--pdl-space-4);
+  margin: 0;
+}
+
+.pdl-facts > div {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  column-gap: var(--pdl-space-3);
+}
+
+.pdl-facts > div > :not(svg) {
+  grid-column: 2;
+}
+
+.pdl-facts svg {
+  grid-row: 1 / span 2;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  fill: none;
+  stroke: var(--pdl-text-subtle);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pdl-facts dt {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-facts dd {
+  margin: 0;
+  color: var(--pdl-text-1);
+  font-weight: var(--pdl-weight-strong);
 }
 
 }

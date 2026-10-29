@@ -5,6 +5,7 @@ import { initAdvancedForms } from "../forms-advanced.js";
 import { initFormFlows } from "../form-flow.js";
 import { initSidebar, initTabs, initDisclosure } from "../runtime.js";
 import { initCommandPalettes } from "../command-palette.js";
+import { initThemeToggles } from "../theme.js";
 import { initMenus } from "../menus.js";
 import { initOverlays } from "../overlays.js";
 import { initAdvancedOverlays } from "../overlay-advanced.js";
@@ -22,6 +23,7 @@ export function initFamily(options = {}) {
     initTabs(root),
     initDisclosure(root),
     initCommandPalettes(root),
+    initThemeToggles(root),
     initMenus(root),
     initOverlays(root),
     initAdvancedOverlays(root),

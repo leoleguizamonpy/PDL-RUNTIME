@@ -6,7 +6,7 @@
 
 .pdl-file-browser {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
+  grid-template-columns: var(--pdl-width-sidebar) minmax(0, 1fr);
   min-height: 420px;
   overflow: hidden;
   border: 1px solid var(--pdl-border-1);
@@ -54,7 +54,8 @@
 .pdl-file-browser__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: var(--pdl-space-3);
+  column-gap: var(--pdl-gutter);
+  row-gap: var(--pdl-gutter);
 }
 
 .pdl-file-card {
@@ -196,7 +197,7 @@
   object-fit: contain;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 767.98px) {
 
   .pdl-file-browser {
     grid-template-columns: 1fr;
@@ -210,7 +211,7 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 575.98px) {
 
   .pdl-file-browser__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

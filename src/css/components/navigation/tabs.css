@@ -4,34 +4,34 @@
 
 @layer pdl.components {
 
-/* Line tabs: a row of labels over a hairline; the selected tab carries the
-   navigation's 2px edge, here on its bottom side (the sidebar and the
-   palette put it at the inline start, the bottom nav on top). For choices
-   inside a form, use the segmented control instead. */
+/* Line tabs: a row of labels over a hairline; the selected tab carries a
+   2px accent underline and an optional count pill. For choices inside a
+   form, use the segmented control instead. */
 
 .pdl-tabs {
   display: flex;
-  gap: var(--pdl-space-1);
+  gap: var(--pdl-space-4);
   overflow-x: auto;
   scrollbar-width: none;
   border-bottom: 1px solid var(--pdl-border-1);
 }
 
 .pdl-tabs__tab {
+  position: relative;
   display: inline-flex;
   flex: none;
   min-height: var(--pdl-control-md);
   align-items: center;
   gap: var(--pdl-space-2);
   border: 0;
-  border-radius: var(--pdl-radius-control) var(--pdl-radius-control) 0 0;
-  padding-inline: var(--pdl-space-3);
+  padding-inline: var(--pdl-space-1);
   background: transparent;
-  color: var(--pdl-text-muted);
+  color: var(--pdl-text-subtle);
   cursor: pointer;
   font: inherit;
   font-size: var(--pdl-text-sm);
-  font-weight: var(--pdl-weight-medium);
+  font-weight: var(--pdl-weight-strong);
+  text-decoration: none;
   white-space: nowrap;
 }
 
@@ -39,9 +39,34 @@
   color: var(--pdl-text-1);
 }
 
-.pdl-tabs__tab[aria-selected="true"] {
-  box-shadow: inset 0 -2px 0 var(--pdl-text-1);
-  color: var(--pdl-text-1);
+.pdl-tabs__tab:is([aria-selected="true"], [aria-current="page"]) {
+  color: var(--pdl-accent-strong);
+}
+
+.pdl-tabs__tab:is([aria-selected="true"], [aria-current="page"])::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--pdl-accent);
+}
+
+/* Count pill beside the label. */
+.pdl-tabs__count {
+  padding-inline: var(--pdl-space-2);
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-surface-3);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-xs);
+  line-height: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pdl-tabs__tab:is([aria-selected="true"], [aria-current="page"]) .pdl-tabs__count {
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
 }
 
 .pdl-tabs__tab:focus-visible {
@@ -49,13 +74,11 @@
   outline-offset: -2px;
 }
 
-/* Unavailable: the system's dashed line. */
+/* Unavailable: quieter and inert. */
 .pdl-tabs__tab:disabled,
 .pdl-tabs__tab[aria-disabled="true"] {
-  color: var(--pdl-text-subtle);
+  opacity: .5;
   cursor: not-allowed;
-  text-decoration: underline dashed;
-  text-underline-offset: 4px;
 }
 
 }
@@ -69,8 +92,8 @@
 }
 
 @media (forced-colors: active) {
-  .pdl-tabs__tab[aria-selected="true"] {
-    border-bottom: 2px solid Highlight;
+  .pdl-tabs__tab:is([aria-selected="true"], [aria-current="page"])::after {
+    background: Highlight;
   }
 }
 

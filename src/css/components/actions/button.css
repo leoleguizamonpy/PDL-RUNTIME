@@ -27,10 +27,10 @@
   cursor: pointer;
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-button-font-size, var(--pdl-text-sm));
-  font-weight: var(--pdl-weight-medium);
+  font-weight: var(--pdl-weight-strong);
   letter-spacing: 0;
   line-height: 1;
-  box-shadow: var(--pdl-button-elevation, none);
+  box-shadow: var(--pdl-button-elevation, var(--pdl-shadow-xs));
   transition:
     color var(--pdl-motion-short) var(--pdl-ease-standard),
     border-color var(--pdl-motion-short) var(--pdl-ease-standard),
@@ -43,7 +43,7 @@
 }
 
 .pdl-button--sm {
-  --pdl-button-pad: var(--pdl-space-4);
+  --pdl-button-pad: var(--pdl-space-3);
   height: var(--pdl-control-sm);
   min-height: var(--pdl-control-sm);
 }
@@ -67,44 +67,48 @@
 }
 
 .pdl-button--primary {
-  border-color: var(--pdl-button-line, transparent);
-  background: var(--pdl-button-fill, var(--pdl-text-1));
-  color: var(--pdl-button-ink, var(--pdl-black));
+  /* The brand's accent; a hairline inner shade gives it a pressed edge. */
+  border-color: var(--pdl-button-line, var(--pdl-button-fill, var(--pdl-accent)));
+  background: var(--pdl-button-fill, var(--pdl-accent));
+  color: var(--pdl-button-ink, var(--pdl-on-accent));
+  box-shadow: var(--pdl-button-elevation, var(--pdl-shadow-xs)), inset 0 -2px 0 rgba(0, 0, 0, .1);
 }
 
 .pdl-button--primary:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 88%, var(--pdl-black));
+  border-color: var(--pdl-button-line, var(--pdl-accent-hover));
+  background: var(--pdl-button-fill, var(--pdl-accent-hover));
 }
 
 .pdl-button--primary:active:not(:disabled) {
-  background: color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 76%, var(--pdl-black));
+  background: var(--pdl-button-fill, var(--pdl-accent-strong));
 }
 
+/* Secondary: a white control with a line and a soft shadow. */
 .pdl-button--outline {
   border-color: var(--pdl-button-line, var(--pdl-border-2));
-  background: transparent;
-  color: var(--pdl-button-tint, var(--pdl-text-1));
+  background: var(--pdl-surface-1);
+  color: var(--pdl-button-tint, var(--pdl-text-2));
 }
 
 .pdl-button--outline:hover:not(:disabled) {
-  border-color: var(--pdl-border-3);
-  background: var(--pdl-surface-1);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
 }
 
 .pdl-button--outline:active:not(:disabled) {
-  border-color: var(--pdl-border-3);
-  background: var(--pdl-surface-2);
+  background: var(--pdl-surface-3);
 }
 
 .pdl-button--ghost {
   background: transparent;
-  color: var(--pdl-button-tint, var(--pdl-text-1));
+  color: var(--pdl-button-tint, var(--pdl-text-2));
   /* Nothing to cast a shadow: an elevation would only outline the box. */
   box-shadow: none;
 }
 
 .pdl-button--ghost:hover:not(:disabled) {
-  background: var(--pdl-surface-1);
+  background: var(--pdl-surface-3);
+  color: var(--pdl-text-1);
 }
 
 .pdl-button--ghost:active:not(:disabled) {
@@ -112,8 +116,7 @@
 }
 
 /* Glass, for a button over a picture or a page backdrop: a tint of the
-   button color on the plate (the surface, mostly opaque). Flat, never
-   blurred: Bit Plate keeps every surface crisp. */
+   button color on a mostly opaque surface. */
 
 .pdl-button--glass {
   border-color: var(--pdl-button-line, color-mix(in srgb, var(--pdl-button-fill, var(--pdl-text-1)) 26%, transparent));
@@ -157,8 +160,8 @@
   border-radius: var(--pdl-radius-pill);
   padding: var(--pdl-space-1) var(--pdl-space-2);
   background: var(--pdl-button-ink, var(--pdl-black));
-  box-shadow: 0 0 0 2px var(--pdl-button-fill, var(--pdl-text-1));
-  color: var(--pdl-button-fill, var(--pdl-text-1));
+  box-shadow: 0 0 0 2px var(--pdl-button-fill, var(--pdl-accent));
+  color: var(--pdl-button-fill, var(--pdl-accent));
   font-size: var(--pdl-text-xs);
   font-weight: var(--pdl-weight-strong);
   letter-spacing: .06em;
@@ -171,7 +174,7 @@
 .pdl-button--outline .pdl-button__badge {
   background: var(--pdl-button-tint, var(--pdl-text-2));
   box-shadow: none;
-  color: var(--pdl-black);
+  color: var(--pdl-on-accent);
 }
 
 /* A heavier outline, for a button that leads (a featured outline). */
@@ -180,52 +183,25 @@
   border-width: max(2px, var(--pdl-button-border-width, 1px));
 }
 
-/* Unavailable, in the Bit Plate language: what makes a button active is
-   missing, rather than the whole button fading: the line turns dashed (the
-   same mark as "not started" elsewhere), a filled button keeps only a faint
-   screen of its fill, and every label steps down to subtle. */
+/* In a row of actions a label never breaks; a lone button in a narrow
+   column (link pages) may, with .pdl-button--wrap. */
+.pdl-button:where(.pdl-cluster > *) {
+  white-space: nowrap;
+}
 
+/* Disabled: the same control, quieter and inert. */
 :is(.pdl-button, .pdl-icon-button):is(:disabled, [aria-disabled="true"]) {
-  position: relative;
-  isolation: isolate;
-  box-shadow: none;
-  color: var(--pdl-text-subtle);
+  opacity: .5;
   cursor: not-allowed;
-}
-
-:is(.pdl-button--primary, .pdl-icon-button--primary):is(:disabled, [aria-disabled="true"]) {
-  border-style: dashed;
-  border-color: var(--pdl-border-2);
-  background: transparent;
-}
-
-:is(.pdl-button--primary, .pdl-icon-button--primary):is(:disabled, [aria-disabled="true"])::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: var(--pdl-button-fill, var(--pdl-text-1));
-  opacity: .3;
-  -webkit-mask: var(--pdl-bayer-2) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
-  mask: var(--pdl-bayer-2) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
-}
-
-:is(.pdl-button--outline, .pdl-button--glass, .pdl-icon-button--outline, .pdl-icon-button--danger):is(:disabled, [aria-disabled="true"]) {
-  border-style: dashed;
-  border-color: var(--pdl-border-2);
-  background: transparent;
+  box-shadow: none;
 }
 
 @media (forced-colors: active) {
 
   :is(.pdl-button, .pdl-icon-button):is(:disabled, [aria-disabled="true"]) {
-    border: 1px dashed GrayText;
+    border-color: GrayText;
     color: GrayText;
-  }
-
-  :is(.pdl-button--primary, .pdl-icon-button--primary):is(:disabled, [aria-disabled="true"])::before {
-    content: none;
+    opacity: 1;
   }
 }
 
@@ -270,34 +246,29 @@
   pointer-events: none;
 }
 
-/* Working: a 1-bit screen marches across the button in steps, like the
-   skeleton's band; still for people who ask for less motion. */
+/* Working: a spinner after the label; the button keeps its size. */
 
 .pdl-button[aria-busy="true"]::after {
   content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: currentColor;
-  opacity: .12;
-  -webkit-mask: var(--pdl-bayer-4) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
-  mask: var(--pdl-bayer-4) 0 0 / calc(var(--pdl-dither-cell) * 4) repeat;
-  pointer-events: none;
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border: 2px solid currentColor;
+  border-inline-end-color: transparent;
+  border-radius: 50%;
+  opacity: .8;
 }
 
 @media (prefers-reduced-motion: no-preference) {
 
   .pdl-button[aria-busy="true"]::after {
-    animation: pdl-busy-march .64s steps(4) infinite;
+    animation: pdl-spin .7s linear infinite;
   }
 }
 
-@keyframes pdl-busy-march {
+@keyframes pdl-spin {
 
-  to {
-    -webkit-mask-position: calc(var(--pdl-dither-cell) * 4) 0;
-    mask-position: calc(var(--pdl-dither-cell) * 4) 0;
-  }
+  to { transform: rotate(1turn); }
 }
 
 }
@@ -319,7 +290,7 @@
 
 @layer pdl.responsive {
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
 
   .pdl-button {
     min-height: var(--pdl-touch-target);

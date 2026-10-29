@@ -5,11 +5,11 @@
 @layer pdl.components {
 
 .pdl-toast {
-  width: min(420px, calc(100vw - 2rem));
-  padding: var(--pdl-space-4) var(--pdl-space-5);
-  border: 1px solid var(--pdl-border-2);
-  border-radius: var(--pdl-radius-surface);
-  background: var(--pdl-surface-2);
+  width: min(380px, calc(100vw - 2rem));
+  padding: var(--pdl-space-4);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: calc(var(--pdl-radius-surface) + 4px);
+  background: var(--pdl-surface-1);
   color: var(--pdl-text-2);
   font-size: var(--pdl-text-sm);
 }
@@ -45,7 +45,7 @@
   gap: var(--pdl-space-3);
   align-items: start;
   border: 1px solid var(--pdl-layer-line);
-  border-radius: var(--pdl-radius-surface);
+  border-radius: calc(var(--pdl-radius-surface) + 4px);
   padding: var(--pdl-space-4);
   background: var(--pdl-layer-surface);
   box-shadow: var(--pdl-layer-shadow);
@@ -53,44 +53,43 @@
 }
 
 .pdl-feedback-symbol {
+  --pdl-symbol-tone: var(--pdl-text-2);
   display: grid;
-  width: 28px;
-  height: 28px;
-  flex: 0 0 28px;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
   place-items: center;
-  border: 1px solid var(--pdl-border-2);
   border-radius: 50%;
-  background: var(--pdl-surface-soft);
-  color: var(--pdl-text-2);
+  background: color-mix(in srgb, var(--pdl-symbol-tone) 14%, transparent);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--pdl-symbol-tone) 6%, transparent);
+  color: var(--pdl-symbol-tone);
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-strong);
+  font-weight: var(--pdl-weight-bold);
   line-height: 1;
 }
 
-[data-state="success"] > .pdl-feedback-symbol,
-.pdl-feedback-symbol[data-state="success"] {
-  border-color: color-mix(in srgb, var(--pdl-success) 42%, var(--pdl-border-1));
-  color: var(--pdl-success);
+.pdl-feedback-symbol svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
+
+[data-state="success"] > .pdl-feedback-symbol,
+.pdl-feedback-symbol[data-state="success"] { --pdl-symbol-tone: var(--pdl-success); }
 
 [data-state="warning"] > .pdl-feedback-symbol,
-.pdl-feedback-symbol[data-state="warning"] {
-  border-color: color-mix(in srgb, var(--pdl-warning) 42%, var(--pdl-border-1));
-  color: var(--pdl-warning);
-}
+.pdl-feedback-symbol[data-state="warning"] { --pdl-symbol-tone: var(--pdl-warning); }
 
 [data-state="danger"] > .pdl-feedback-symbol,
-.pdl-feedback-symbol[data-state="danger"] {
-  border-color: color-mix(in srgb, var(--pdl-danger) 42%, var(--pdl-border-1));
-  color: var(--pdl-danger);
-}
+.pdl-feedback-symbol[data-state="danger"] { --pdl-symbol-tone: var(--pdl-danger); }
 
-.pdl-toast[data-state="success"] { border-color: color-mix(in srgb, var(--pdl-success) 28%, var(--pdl-border-1)); }
-
-.pdl-toast[data-state="warning"] { border-color: color-mix(in srgb, var(--pdl-warning) 28%, var(--pdl-border-1)); }
-
-.pdl-toast[data-state="danger"] { border-color: color-mix(in srgb, var(--pdl-danger) 28%, var(--pdl-border-1)); }
+[data-state="info"] > .pdl-feedback-symbol,
+.pdl-feedback-symbol[data-state="info"] { --pdl-symbol-tone: var(--pdl-accent); }
 
 .pdl-toast__content {
   display: grid;
@@ -107,7 +106,7 @@
 .pdl-toast__copy {
   margin: 0;
   color: var(--pdl-text-muted);
-  font-size: var(--pdl-text-xs);
+  font-size: var(--pdl-text-sm);
   line-height: var(--pdl-line-body);
 }
 
@@ -122,14 +121,13 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-toast-region,
   .pdl-toast-region[popover] {
     top: auto;
-    right: var(--pdl-space-2);
-    bottom: calc(var(--pdl-space-2) + env(safe-area-inset-bottom));
-    left: var(--pdl-space-2);
+    inset-inline: var(--pdl-space-4);
+    bottom: calc(var(--pdl-space-4) + env(safe-area-inset-bottom));
     width: auto;
   }
 }

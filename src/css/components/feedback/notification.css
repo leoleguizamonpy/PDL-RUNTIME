@@ -37,7 +37,7 @@
   line-height: var(--pdl-line-heading);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-notification {
     grid-template-columns: 1fr;

@@ -2,73 +2,15 @@
 
 @layer pdl.foundations {
 
-:root,
-[data-pdl-theme="negative"] {
-  color-scheme: dark;
+:root {
 
-  /* Bit Plate signature: two absolute references, ink and paper, from which
-     both themes are tuned. Everything else is a step between them. */
-  --pdl-ink: #0b0b0c;
-  --pdl-paper: #f4f2ed;
-
-  --pdl-black: #0b0b0c;
-  --pdl-surface-1: #111111;
-  --pdl-surface-2: #171717;
-  --pdl-surface-3: #1f1f1f;
-  --pdl-surface-soft: #0d0d0d;
-  --pdl-surface-elevated: #141414;
-  --pdl-highlight: rgba(255, 255, 255, .035);
-  /* Legacy: kept for consumers; PDL components paint focus with --pdl-focus. */
-  --pdl-focus-ring: rgba(185, 200, 230, .14);
-  --pdl-shadow-soft: 0 16px 48px rgba(0, 0, 0, .16);
-  /* Floating layer anatomy (lists, menus, popovers, dialogs): one surface,
-     line and shadow, so every layer reads as above the page the same way. */
-  --pdl-layer-surface: var(--pdl-surface-elevated);
-  --pdl-layer-line: var(--pdl-border-2);
-  --pdl-layer-shadow: var(--pdl-shadow-soft);
-  /* A plate over a picture or moving content (glass button, dock, busy
-     veil): the surface, mostly opaque, never blurred. */
-  --pdl-plate: color-mix(in srgb, var(--pdl-surface-1) 82%, transparent);
-  --pdl-layer-scrim: color-mix(in srgb, var(--pdl-ink) 72%, transparent);
-  --pdl-shadow-hover: 0 18px 56px rgba(0, 0, 0, .22);
-  --pdl-border-1: #242424;
-  --pdl-border-2: #2f2f2f;
-  --pdl-border-3: #3c3c3c;
-
-  --pdl-text-heading: #f9f7f2;
-  --pdl-text-1: #f4f2ed;
-  --pdl-text-2: #c9c5bc;
-  --pdl-text-muted: #918d87;
-  --pdl-text-subtle: #83817c;
-
-  --pdl-success: #8fae98;
-  --pdl-warning: #c9a96c;
-  --pdl-danger: #c97878;
-  --pdl-focus: #b9c8e6;
-
-  /* One authored family carried through display and body, matching the
-     Leo Leguizamón personal-site signature (leoleguizamon.com) instead of a
-     generic geometric-sans default. Loaded by the product shell — see
-     design-system/foundations/TYPOGRAPHY.md — falls back gracefully if absent. */
-  --pdl-font-display: "Plus Jakarta Sans", "Montserrat", "Segoe UI", sans-serif;
-  --pdl-font-body: "Plus Jakarta Sans", "DM Sans", "Segoe UI", sans-serif;
-  /* Technical voice: indices, labels, metadata, values and code. Monospace
-     carries the "plate" personality without touching reading text. */
+  /* One family for the whole interface: Manrope, self-hosted (OFL). */
+  --pdl-font-display: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --pdl-font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+  /* Code and key caps only. Labels and column headers use the body face. */
   --pdl-font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  --pdl-font-label: var(--pdl-font-mono);
+  --pdl-font-label: var(--pdl-font-body);
 
-  --pdl-noise-opacity: .035;
-
-  /* 1-bit ordered dither (Bayer 4x4). Cell = size of one screen dot.
-     The dot color is --pdl-dither-ink, resolved where it is drawn and
-     falling back to the local --pdl-text-1, so palettes recolor it. */
-  --pdl-dither-cell: 2px;
-  --pdl-bitplate-opacity: .025;
-  /* Decorative plates (stages, device backdrops): dots behind content, never
-     louder than the page texture by more than a step. */
-  --pdl-plate-opacity: .045;
-  /* Default ink of .pdl-dither placeholders. */
-  --pdl-dither-opacity: .14;
 
   /* Hairline: the single rule weight used for structure. */
   --pdl-hairline: 1px;
@@ -84,6 +26,20 @@
   --pdl-text-xl: clamp(1.75rem, 1.1rem + 2.6cqi, 2.5rem);    /* page titles */
   --pdl-text-display: clamp(2.25rem, 1.2rem + 4.4cqi, 3.5rem); /* figures, large names */
 
+  /* Type roles: each piece of text plays exactly one, and a role is one
+     size, one weight and one tracking (tests/type-roles.test.mjs):
+       page title    xl       bold    display tracking
+       figure        xl       bold    tabular, nowrap (KPI values)
+       block title   md       bold            (cards, dialogs, regions)
+       interface     sm       strong          (controls, nav, tabs)
+       body / data   sm       regular         (app text, cells; md for reading)
+       emphasis      sm       strong          (names, alert titles, <strong>)
+       label         xs       strong          (field labels, column headers, status)
+       meta          xs       regular         (secondary lines, deltas)
+       index         xs       strong  label tracking, uppercase (eyebrows)
+     One face (Manrope) for all of it; mono only for code.
+     Lowercase text is never tracked: only uppercase index text is. */
+
   /* Former names, kept as aliases of the scale for consumers. */
   --pdl-text-micro: var(--pdl-text-xs);
   --pdl-text-caption: var(--pdl-text-xs);
@@ -96,6 +52,7 @@
   --pdl-weight-regular: 400;
   --pdl-weight-medium: 560;
   --pdl-weight-strong: 680;
+  --pdl-weight-bold: 740;
 
   --pdl-line-display: 1.08;
   --pdl-line-heading: 1.2;
@@ -106,7 +63,7 @@
 
   --pdl-letter-editorial: .12em;
   /* Tracking of large display titles; type pairings adjust it per family. */
-  --pdl-display-tracking: -.045em;
+  --pdl-display-tracking: -.02em;
   --pdl-letter-label: .08em;
 
   --pdl-space-1: .25rem;
@@ -124,8 +81,8 @@
   --pdl-space-24: 6rem;
   --pdl-space-32: 8rem;
 
-  --pdl-radius-control: 4px;
-  --pdl-radius-surface: 8px;
+  --pdl-radius-control: 8px;
+  --pdl-radius-surface: 12px;
   --pdl-radius-pill: 999px;
 
   --pdl-control-sm: 36px;
@@ -133,17 +90,41 @@
   --pdl-control-lg: 52px;
   --pdl-touch-target: 44px;
 
-  --pdl-width-page: 1100px;
+  /* Grid system (Bootstrap's model on CSS grid). Every project uses the
+     same grid: a 16px gutter and 12 columns, or 8 when the project sets
+     html[data-pdl-columns="8"]. Columns gap by --pdl-gutter, rows by
+     --pdl-gutter-y. Breakpoints are Bootstrap's and the only ones in the
+     package (tests/grid-system.test.mjs):
+       sm 576 · md 768 · lg 992 · xl 1200 · xxl 1400
+     written as (min-width: 576px) or (max-width: 575.98px), and so on.
+     Containers take Bootstrap's widths: narrow 540 · prose 720 · chat 960
+     · page 1140. */
+  --pdl-gutter: 1rem;
+  --pdl-gutter-y: 2rem;
+  --pdl-columns: 12;
+
+  --pdl-width-page: 1140px;
   --pdl-width-chat: 960px;
-  --pdl-width-prose: 760px;
-  --pdl-width-narrow: 640px;
+  --pdl-width-prose: 720px;
+  --pdl-width-narrow: 540px;
   --pdl-content-max: var(--pdl-width-page);
 
-  --pdl-page-pad: 2.5rem;
+  /* Side widths: four, the same in every project. Rail (icons only),
+     sidebar (navigation, file trees, left panes), panel (inspectors,
+     previews, right panes, popovers) and drawer (sheets from the side,
+     notification center). */
+  --pdl-width-rail: 64px;
+  --pdl-width-sidebar: 256px;
+  --pdl-width-panel: 320px;
+  --pdl-width-drawer: 448px;
 
-  /* Canonical application grid */
-  --pdl-layout-columns: 12;
-  --pdl-layout-gutter: var(--pdl-space-8);
+  /* Page edge: two gutters on wide screens, one and a half on tablets,
+     one on phones. */
+  --pdl-page-pad: 2rem;
+
+  /* Canonical application grid (former names of the grid system). */
+  --pdl-layout-columns: var(--pdl-columns);
+  --pdl-layout-gutter: var(--pdl-gutter);
   --pdl-layout-edge: var(--pdl-page-pad);
   --pdl-layout-max: var(--pdl-width-page);
   --pdl-layout-page-start: var(--pdl-rhythm-shell);
@@ -159,8 +140,8 @@
   --pdl-section-pad-compact: var(--pdl-rhythm-section);
   --pdl-section-pad-standard: var(--pdl-space-24);
   --pdl-section-pad-spacious: var(--pdl-space-32);
-  --pdl-sidebar-width: 248px;
-  --pdl-topbar-height: 69px;
+  --pdl-sidebar-width: var(--pdl-width-sidebar);
+  --pdl-topbar-height: 64px;
   /* Space taken by .pdl-bottom-nav on phones (touch target + padding). */
   --pdl-bottom-nav-height: 4.5rem;
 
@@ -195,43 +176,329 @@
   --pdl-cursor-ring-hover: 58px;
 }
 
+/* ── Color ─────────────────────────────────────────────────────────────
+   Light by default; dark with data-pdl-theme="dark", or by the system when
+   the root sets no theme. positive/negative are former names of light/dark.
+   Neutrals are cool slate; a brand changes only the accent pair:
+     accent  what you act on (primary action, current item, focus, selection)
+     hero    the one figure that matters on a screen (.pdl-stat--hero) */
+
+:root,
+[data-pdl-theme="light"],
 [data-pdl-theme="positive"] {
   color-scheme: light;
+  --pdl-ink: #101828;
+  --pdl-paper: #ffffff;
 
-  --pdl-black: #f4f2ed;
-  --pdl-surface-1: #e9e6df;
-  --pdl-surface-2: #dfdcd5;
-  --pdl-surface-3: #d2cec6;
-  --pdl-surface-soft: #f5f1e9;
-  --pdl-surface-elevated: #f8f5ee;
-  --pdl-highlight: rgba(9, 9, 9, .035);
-  --pdl-focus-ring: rgba(66, 90, 135, .14);
-  --pdl-shadow-soft: 0 14px 42px rgba(9, 9, 9, .08);
-  --pdl-shadow-hover: 0 18px 50px rgba(9, 9, 9, .11);
-  --pdl-border-1: #d7d3ca;
-  --pdl-border-2: #c6c1b7;
-  --pdl-border-3: #aaa49a;
+  --pdl-black: #f8f9fb;
+  --pdl-surface-1: #ffffff;
+  --pdl-surface-2: #f9fafb;
+  --pdl-surface-3: #f2f4f7;
+  --pdl-surface-soft: #ffffff;
+  --pdl-surface-elevated: #ffffff;
+  --pdl-highlight: rgba(16, 24, 40, .04);
+  --pdl-border-1: #eaecf0;
+  --pdl-border-2: #d0d5dd;
+  --pdl-border-3: #98a2b3;
 
-  --pdl-text-heading: #000000;
-  --pdl-text-1: #0b0b0c;
-  --pdl-text-2: #292826;
-  --pdl-text-muted: #57544f;
-  --pdl-text-subtle: #625f5a;
-  --pdl-focus: #425a87;
+  --pdl-text-heading: #0c111d;
+  --pdl-text-1: #101828;
+  --pdl-text-2: #344054;
+  --pdl-text-muted: #475467;
+  --pdl-text-subtle: #667085;
 
-  /* Status colors re-tuned for light surfaces (>= 4.5:1 on bg, surface-1/2, elevated) */
-  --pdl-success: #4b6854;
-  --pdl-warning: #775d2c;
-  --pdl-danger: #a34141;
+  --pdl-success: #067647; --pdl-success-bg: #ecfdf3; --pdl-success-line: #abefc6;
+  --pdl-warning: #b54708; --pdl-warning-bg: #fffaeb; --pdl-warning-line: #fedf89;
+  --pdl-danger: #b42318;  --pdl-danger-bg: #fef3f2;  --pdl-danger-line: #fecdca;
+  --pdl-info: #6941c6;    --pdl-info-bg: #f9f5ff;    --pdl-info-line: #e9d7fe;
 
-  --pdl-noise-opacity: .025;
-  --pdl-bitplate-opacity: .03;
-  --pdl-plate-opacity: .055;
+  --pdl-shadow-xs: 0 1px 2px rgba(16, 24, 40, .05);
+  --pdl-shadow-sm: 0 1px 3px rgba(16, 24, 40, .08), 0 1px 2px rgba(16, 24, 40, .04);
+  --pdl-shadow-lg: 0 12px 16px -4px rgba(16, 24, 40, .08), 0 4px 6px -2px rgba(16, 24, 40, .03);
+  --pdl-shadow-xl: 0 24px 48px -12px rgba(16, 24, 40, .18);
+
+  /* Brand: indigo (default). */
+  --pdl-accent: #4f46e5;
+  --pdl-accent-strong: #4338ca;
+  --pdl-accent-hover: #4338ca;
+  --pdl-on-accent: #ffffff;
+  --pdl-accent-soft: #eef2ff;
+  --pdl-accent-line: #c7d2fe;
+  --pdl-ring: rgba(79, 70, 229, .22);
+  --pdl-hero: var(--pdl-accent);
+  --pdl-hero-ink: #ffffff;
+  --pdl-hero-muted: #ffffff;
+  --pdl-chart: var(--pdl-accent);
+  --pdl-chart-soft: color-mix(in srgb, var(--pdl-accent) 16%, var(--pdl-surface-1));
+  --pdl-chart-line: transparent;
+  --pdl-series-1: var(--pdl-accent);
+  --pdl-series-2: var(--pdl-info);
+  --pdl-series-3: var(--pdl-border-3);
+  --pdl-series-4: var(--pdl-success);
+}
+
+[data-pdl-theme="dark"],
+[data-pdl-theme="negative"] {
+  color-scheme: dark;
+  --pdl-ink: #f5f5f6;
+  --pdl-paper: #0c111d;
+
+  --pdl-black: #0c111d;
+  --pdl-surface-1: #111827;
+  --pdl-surface-2: #161b26;
+  --pdl-surface-3: #1f242f;
+  --pdl-surface-soft: #111827;
+  --pdl-surface-elevated: #161b26;
+  --pdl-highlight: rgba(255, 255, 255, .04);
+  --pdl-border-1: #1f242f;
+  --pdl-border-2: #333741;
+  --pdl-border-3: #61646c;
+
+  --pdl-text-heading: #ffffff;
+  --pdl-text-1: #f5f5f6;
+  --pdl-text-2: #cecfd2;
+  --pdl-text-muted: #94969c;
+  --pdl-text-subtle: #85888e;
+
+  --pdl-success: #47cd89; --pdl-success-bg: rgba(71, 205, 137, .1);  --pdl-success-line: rgba(71, 205, 137, .3);
+  --pdl-warning: #fdb022; --pdl-warning-bg: rgba(253, 176, 34, .1);  --pdl-warning-line: rgba(253, 176, 34, .3);
+  --pdl-danger: #f97066;  --pdl-danger-bg: rgba(249, 112, 102, .1);  --pdl-danger-line: rgba(249, 112, 102, .3);
+  --pdl-info: #b692f6;    --pdl-info-bg: rgba(182, 146, 246, .1);    --pdl-info-line: rgba(182, 146, 246, .3);
+
+  --pdl-shadow-xs: 0 1px 2px rgba(0, 0, 0, .3);
+  --pdl-shadow-sm: 0 1px 3px rgba(0, 0, 0, .35);
+  --pdl-shadow-lg: 0 12px 24px rgba(0, 0, 0, .4);
+  --pdl-shadow-xl: 0 24px 48px -12px rgba(0, 0, 0, .55);
+
+  --pdl-accent: #5f62f0;
+  --pdl-accent-strong: #a5b4fc;
+  --pdl-accent-hover: #818cf8;
+  --pdl-on-accent: #ffffff;
+  --pdl-accent-soft: rgba(99, 102, 241, .14);
+  --pdl-accent-line: rgba(99, 102, 241, .4);
+  --pdl-ring: rgba(99, 102, 241, .35);
+  --pdl-chart-soft: var(--pdl-surface-3);
+}
+
+@media (prefers-color-scheme: dark) {
+
+  :root:not([data-pdl-theme]),
+  [data-pdl-theme="system"] {
+    color-scheme: dark;
+    --pdl-ink: #f5f5f6;
+    --pdl-paper: #0c111d;
+    --pdl-black: #0c111d;
+    --pdl-surface-1: #111827;
+    --pdl-surface-2: #161b26;
+    --pdl-surface-3: #1f242f;
+    --pdl-surface-soft: #111827;
+    --pdl-surface-elevated: #161b26;
+    --pdl-highlight: rgba(255, 255, 255, .04);
+    --pdl-border-1: #1f242f;
+    --pdl-border-2: #333741;
+    --pdl-border-3: #61646c;
+    --pdl-text-heading: #ffffff;
+    --pdl-text-1: #f5f5f6;
+    --pdl-text-2: #cecfd2;
+    --pdl-text-muted: #94969c;
+    --pdl-text-subtle: #85888e;
+    --pdl-success: #47cd89; --pdl-success-bg: rgba(71, 205, 137, .1);  --pdl-success-line: rgba(71, 205, 137, .3);
+    --pdl-warning: #fdb022; --pdl-warning-bg: rgba(253, 176, 34, .1);  --pdl-warning-line: rgba(253, 176, 34, .3);
+    --pdl-danger: #f97066;  --pdl-danger-bg: rgba(249, 112, 102, .1);  --pdl-danger-line: rgba(249, 112, 102, .3);
+    --pdl-info: #b692f6;    --pdl-info-bg: rgba(182, 146, 246, .1);    --pdl-info-line: rgba(182, 146, 246, .3);
+    --pdl-shadow-xs: 0 1px 2px rgba(0, 0, 0, .3);
+    --pdl-shadow-sm: 0 1px 3px rgba(0, 0, 0, .35);
+    --pdl-shadow-lg: 0 12px 24px rgba(0, 0, 0, .4);
+    --pdl-shadow-xl: 0 24px 48px -12px rgba(0, 0, 0, .55);
+    --pdl-accent: #5f62f0;
+    --pdl-accent-strong: #a5b4fc;
+    --pdl-accent-hover: #818cf8;
+    --pdl-on-accent: #ffffff;
+    --pdl-accent-soft: rgba(99, 102, 241, .14);
+    --pdl-accent-line: rgba(99, 102, 241, .4);
+    --pdl-ring: rgba(99, 102, 241, .35);
+    --pdl-chart-soft: var(--pdl-surface-3);
+  }
+}
+
+/* Derived: every layer and state reads from the tokens above. */
+:root,
+[data-pdl-theme],
+[data-pdl-brand] {
+  --pdl-focus: var(--pdl-accent);
+  --pdl-focus-ring: var(--pdl-ring);
+  --pdl-shadow-soft: var(--pdl-shadow-lg);
+  --pdl-shadow-hover: var(--pdl-shadow-lg);
+  --pdl-layer-surface: var(--pdl-surface-elevated);
+  --pdl-layer-line: var(--pdl-border-1);
+  --pdl-layer-shadow: var(--pdl-shadow-xl);
+  --pdl-plate: color-mix(in srgb, var(--pdl-surface-1) 88%, transparent);
+  --pdl-layer-scrim: rgba(12, 17, 29, .45);
+}
+
+/* ── Brands ────────────────────────────────────────────────────────────
+   data-pdl-brand on <html>. Each brand sets its accent pair for light and
+   dark; neutrals stay, except Leo's dark, which is neutral black. */
+
+/* Leo: ink and acid lime (leoleguizamon.com). */
+[data-pdl-brand="leo"] {
+  --pdl-accent: #0b0b0c;
+  --pdl-accent-strong: #0b0b0c;
+  --pdl-accent-hover: #2a2a2e;
+  --pdl-on-accent: #e8ff47;
+  --pdl-accent-soft: #f6ffc7;
+  --pdl-accent-line: #d9f03a;
+  --pdl-ring: rgba(150, 175, 0, .35);
+  --pdl-hero: #e8ff47;
+  --pdl-hero-ink: #0b0b0c;
+  --pdl-hero-muted: rgba(11, 11, 12, .66);
+  --pdl-chart: #e8ff47;
+  --pdl-chart-soft: #eef0f3;
+  --pdl-chart-line: #0b0b0c;
+  --pdl-series-1: #0b0b0c;
+  --pdl-series-2: #8a8f98;
+  --pdl-series-3: #d0d5dd;
+  --pdl-series-4: #c8e000;
+}
+
+/* Tierra: yerba green and red soil (Misiones). */
+[data-pdl-brand="tierra"] {
+  --pdl-accent: #1f6b4a;
+  --pdl-accent-strong: #17553a;
+  --pdl-accent-hover: #17553a;
+  --pdl-on-accent: #ffffff;
+  --pdl-accent-soft: #eaf5ef;
+  --pdl-accent-line: #b7dcc8;
+  --pdl-ring: rgba(31, 107, 74, .25);
+  --pdl-hero: #b4472a;
+  --pdl-hero-ink: #ffffff;
+  --pdl-hero-muted: #ffffff;
+  --pdl-chart: #1f6b4a;
+  --pdl-chart-soft: #e2efe8;
+  --pdl-series-1: #1f6b4a;
+  --pdl-series-2: #b4472a;
+  --pdl-series-3: #d6cfc5;
+  --pdl-series-4: #d9a441;
+}
+
+[data-pdl-brand="leo"]:is([data-pdl-theme="dark"], [data-pdl-theme="negative"]) {
+  --pdl-ink: #f0f0eb;
+  --pdl-paper: #090909;
+  --pdl-black: #090909;
+  --pdl-surface-1: #111111;
+  --pdl-surface-2: #161616;
+  --pdl-surface-3: #1f1f1f;
+  --pdl-surface-soft: #111111;
+  --pdl-surface-elevated: #161616;
+  --pdl-border-1: #222222;
+  --pdl-border-2: #333333;
+  --pdl-border-3: #5c5c5c;
+  --pdl-text-heading: #ffffff;
+  --pdl-text-1: #f0f0eb;
+  --pdl-text-2: #d4d4cf;
+  --pdl-text-muted: #a3a39e;
+  --pdl-text-subtle: #8a8a85;
+  --pdl-accent: #e8ff47;
+  --pdl-accent-strong: #e8ff47;
+  --pdl-accent-hover: #f1ff86;
+  --pdl-on-accent: #0b0b0c;
+  --pdl-accent-soft: rgba(232, 255, 71, .12);
+  --pdl-accent-line: rgba(232, 255, 71, .4);
+  --pdl-ring: rgba(232, 255, 71, .3);
+  --pdl-chart-soft: #262626;
+  --pdl-chart-line: transparent;
+  --pdl-series-1: #e8ff47;
+  --pdl-series-2: #61646c;
+  --pdl-series-3: #333333;
+  --pdl-series-4: #47cd89;
+}
+
+[data-pdl-brand="tierra"]:is([data-pdl-theme="dark"], [data-pdl-theme="negative"]) {
+  --pdl-accent: #4fb787;
+  --pdl-accent-strong: #7fd0a8;
+  --pdl-accent-hover: #6cc79b;
+  --pdl-on-accent: #08130d;
+  --pdl-accent-soft: rgba(79, 183, 135, .14);
+  --pdl-accent-line: rgba(79, 183, 135, .4);
+  --pdl-ring: rgba(79, 183, 135, .3);
+  --pdl-hero: #b84f30;
+  --pdl-chart: #4fb787;
+  --pdl-chart-soft: var(--pdl-surface-3);
+  --pdl-series-1: #4fb787;
+}
+
+@media (prefers-color-scheme: dark) {
+
+  [data-pdl-brand="leo"]:is(:not([data-pdl-theme]), [data-pdl-theme="system"]) {
+    --pdl-ink: #f0f0eb;
+    --pdl-paper: #090909;
+    --pdl-black: #090909;
+    --pdl-surface-1: #111111;
+    --pdl-surface-2: #161616;
+    --pdl-surface-3: #1f1f1f;
+    --pdl-surface-soft: #111111;
+    --pdl-surface-elevated: #161616;
+    --pdl-border-1: #222222;
+    --pdl-border-2: #333333;
+    --pdl-border-3: #5c5c5c;
+    --pdl-text-heading: #ffffff;
+    --pdl-text-1: #f0f0eb;
+    --pdl-text-2: #d4d4cf;
+    --pdl-text-muted: #a3a39e;
+    --pdl-text-subtle: #8a8a85;
+    --pdl-accent: #e8ff47;
+    --pdl-accent-strong: #e8ff47;
+    --pdl-accent-hover: #f1ff86;
+    --pdl-on-accent: #0b0b0c;
+    --pdl-accent-soft: rgba(232, 255, 71, .12);
+    --pdl-accent-line: rgba(232, 255, 71, .4);
+    --pdl-ring: rgba(232, 255, 71, .3);
+    --pdl-chart-soft: #262626;
+    --pdl-chart-line: transparent;
+    --pdl-series-1: #e8ff47;
+    --pdl-series-2: #61646c;
+    --pdl-series-3: #333333;
+    --pdl-series-4: #47cd89;
+  }
+
+  [data-pdl-brand="tierra"]:is(:not([data-pdl-theme]), [data-pdl-theme="system"]) {
+    --pdl-accent: #4fb787;
+    --pdl-accent-strong: #7fd0a8;
+    --pdl-accent-hover: #6cc79b;
+    --pdl-on-accent: #08130d;
+    --pdl-accent-soft: rgba(79, 183, 135, .14);
+    --pdl-accent-line: rgba(79, 183, 135, .4);
+    --pdl-ring: rgba(79, 183, 135, .3);
+    --pdl-hero: #b84f30;
+    --pdl-chart: #4fb787;
+    --pdl-chart-soft: var(--pdl-surface-3);
+    --pdl-series-1: #4fb787;
+  }
+}
+
+/* App type scale. Operational screens (a page whose body holds the app
+   shell, or any root with data-pdl-type="app") read in four sizes, small
+   and dense: 12 labels, meta and column headers · 13 interface, body,
+   cells and descriptions · 16 block titles · 24 page title and figures.
+   Reading pages (landing, article, link pages) keep the full scale; set
+   data-pdl-type="reading" on <html> to keep it inside an app too. */
+:root:where(:has(> body > .pdl-shell-main)):not([data-pdl-type="reading"]),
+[data-pdl-type="app"] {
+  --pdl-text-xs: .75rem;
+  --pdl-text-sm: .8125rem;
+  --pdl-text-md: .8125rem;
+  --pdl-text-lg: 1rem;
+  --pdl-text-xl: 1.5rem;
+  --pdl-text-display: 1.5rem;
+}
+
+[data-pdl-columns="8"] {
+  --pdl-columns: 8;
 }
 
 [data-pdl-density="compact"] {
   --pdl-control-md: 40px;
-  --pdl-page-pad: 2rem;
+  --pdl-page-pad: 1.5rem;
 }
 
 [data-pdl-density="comfortable"] {
@@ -239,36 +506,34 @@
   --pdl-page-pad: 3rem;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 991.98px) {
 
   :root {
-    --pdl-page-pad: 2rem;
+    --pdl-page-pad: 1.5rem;
     --pdl-section-pad-standard: var(--pdl-space-20);
     --pdl-section-pad-spacious: var(--pdl-space-24);
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
 
   :root {
-    --pdl-page-pad: 1.5rem;
-    --pdl-layout-gutter: var(--pdl-space-5);
     --pdl-section-pad-compact: var(--pdl-space-10);
     --pdl-section-pad-standard: var(--pdl-space-16);
     --pdl-section-pad-spacious: var(--pdl-space-20);
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 575.98px) {
 
   :root {
-    --pdl-page-pad: 1.25rem;
+    --pdl-page-pad: 1rem;
   }
 }
 
 /* Responsive semantic rhythm */
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   :root {
     --pdl-rhythm-region: var(--pdl-space-6);

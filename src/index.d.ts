@@ -74,8 +74,13 @@ export declare function withSplashTransition<T>(callback: () => T | Promise<T>, 
 export declare function setBusy(...args: unknown[]): unknown;
 
 /** Modular Carbon appearance profiles. Removing the selection restores canonical PDL. */
-export type PDLStyleProfile = "carbon-soft" | "carbon-core" | "carbon-sharp" | "carbon-commercial";
-export declare const PDL_STYLES: ReadonlyArray<Readonly<{ id: PDLStyleProfile; name: string; defaultTheme: "negative" | "positive"; defaultTexture: "off" | "grain" | "bitplate"; sampleFont?: string }>>;
-export declare const PDL_STYLE_IDS: ReadonlyArray<PDLStyleProfile>;
-export declare function setPDLStyle(style: PDLStyleProfile | "" | null, root?: Document | HTMLElement): PDLStyleProfile | "";
-export declare function getPDLStyle(root?: Document | HTMLElement): PDLStyleProfile | "";
+export type PDLBrand = "indigo" | "leo" | "tierra";
+export type PDLTheme = "light" | "dark";
+export declare const PDL_BRANDS: ReadonlyArray<PDLBrand>;
+export declare const PDL_THEMES: ReadonlyArray<PDLTheme | "system">;
+export declare function getPDLBrand(root?: Document | HTMLElement): PDLBrand;
+export declare function setPDLBrand(brand: PDLBrand | "" | null, root?: Document | HTMLElement): PDLBrand;
+export declare function getPDLTheme(root?: Document | HTMLElement): PDLTheme;
+export declare function setPDLTheme(theme: PDLTheme | "system", root?: Document | HTMLElement): PDLTheme;
+/** [data-pdl-theme-toggle] buttons switch light ↔ dark and remember the choice. */
+export declare function initThemeToggles(root?: Document | HTMLElement): { destroy(): void };

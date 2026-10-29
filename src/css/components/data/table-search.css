@@ -41,24 +41,40 @@
   align-items: center;
 }
 
+/* Fields in a filter bar take the chips' height. */
+.pdl-filter-bar :is(.pdl-input, .pdl-select) {
+  height: var(--pdl-control-sm);
+  min-height: var(--pdl-control-sm);
+  padding-inline-start: var(--pdl-space-3);
+}
+
 .pdl-filter-chip {
   display: inline-flex;
-  min-height: 34px;
+  /* A chip is a small control: the small buttons' height, radius and
+     interface type, so it sits in a row with fields and buttons. */
+  min-height: var(--pdl-control-sm);
   align-items: center;
   gap: var(--pdl-space-2);
   border: 1px solid var(--pdl-border-2);
-  border-radius: var(--pdl-radius-pill);
-  padding: var(--pdl-space-1) var(--pdl-space-3);
-  background: transparent;
-  color: var(--pdl-text-muted);
+  border-radius: var(--pdl-radius-control);
+  padding: 0 var(--pdl-space-3);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  color: var(--pdl-text-2);
   cursor: pointer;
-  font-size: var(--pdl-text-xs);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-filter-chip:hover:not([aria-pressed="true"]) {
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
 }
 
 .pdl-filter-chip[aria-pressed="true"] {
-  border-color: var(--pdl-text-muted);
-  background: var(--pdl-surface-2);
-  color: var(--pdl-text-1);
+  border-color: var(--pdl-accent-line);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
 }
 
 .pdl-search > svg {
@@ -89,6 +105,11 @@
 @media (pointer: coarse) {
 
   .pdl-filter-chip {
+    min-height: var(--pdl-touch-target);
+  }
+
+  .pdl-filter-bar :is(.pdl-input, .pdl-select) {
+    height: var(--pdl-touch-target);
     min-height: var(--pdl-touch-target);
   }
 

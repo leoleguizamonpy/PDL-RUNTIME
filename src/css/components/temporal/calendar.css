@@ -65,7 +65,7 @@
   white-space: nowrap;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 767.98px) {
 
   .pdl-calendar__grid {
     min-width: 720px;

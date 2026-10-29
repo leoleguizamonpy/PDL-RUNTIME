@@ -18,13 +18,76 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   border-inline-end: 1px solid var(--pdl-border-1);
-  background: var(--pdl-black);
+  background: var(--pdl-surface-1);
 }
 
 .pdl-sidebar__nav {
   display: grid;
-  gap: var(--pdl-space-1);
-  padding: var(--pdl-space-4);
+  gap: 2px;
+  padding: var(--pdl-space-2) var(--pdl-space-4);
+}
+
+/* Group label above a set of links. */
+.pdl-sidebar__label {
+  margin: var(--pdl-space-4) var(--pdl-space-2) 6px;
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-sidebar__nav > .pdl-sidebar__label:first-child {
+  margin-top: 0;
+}
+
+/* Count pill at the item's end. */
+.pdl-nav-item__count {
+  margin-inline-start: auto;
+  padding: 2px var(--pdl-space-2);
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-surface-3);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+}
+
+.pdl-nav-item[aria-current="page"] .pdl-nav-item__count {
+  background: var(--pdl-surface-1);
+  color: var(--pdl-accent-strong);
+}
+
+/* The signed-in person, pinned to the bottom. */
+.pdl-sidebar__footer {
+  display: flex;
+  margin-top: auto;
+  align-items: center;
+  gap: var(--pdl-space-3);
+  margin-inline: var(--pdl-space-4);
+  padding: var(--pdl-space-3) var(--pdl-space-2) var(--pdl-space-4);
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+.pdl-sidebar__footer > :not(.pdl-avatar, button, .pdl-icon-button) {
+  min-width: 0;
+  flex: 1;
+}
+
+.pdl-sidebar__user {
+  overflow: hidden;
+  color: var(--pdl-text-1);
+  font-weight: var(--pdl-weight-strong);
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-sidebar__meta {
+  overflow: hidden;
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .pdl-nav-item {
@@ -35,44 +98,111 @@
   align-items: center;
   gap: var(--pdl-space-3);
   border: 0;
-  border-radius: var(--pdl-radius-control);
-  padding: var(--pdl-space-3) var(--pdl-space-3);
+  border-radius: calc(var(--pdl-radius-control) - 2px);
+  padding: 0 var(--pdl-space-3);
   background: transparent;
-  color: var(--pdl-text-muted);
+  color: var(--pdl-text-2);
   text-align: start;
+  text-decoration: none;
+  font: inherit;
   font-size: var(--pdl-text-sm);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: .01em;
+  font-weight: var(--pdl-weight-strong);
+  cursor: pointer;
   transition:
     color var(--pdl-motion-short) var(--pdl-ease-standard),
     background var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
+.pdl-nav-item svg {
+  color: var(--pdl-text-subtle);
+}
+
 .pdl-nav-item:hover {
   color: var(--pdl-text-1);
-  background: var(--pdl-surface-1);
+  background: var(--pdl-surface-2);
 }
 
+/* Current page: a soft accent fill, the icon in the accent. */
 .pdl-nav-item[aria-current="page"],
 .pdl-nav-item.is-active {
-  background: color-mix(in srgb, var(--pdl-text-1) 3%, transparent);
-  color: var(--pdl-text-1);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
 }
 
-.pdl-nav-item[aria-current="page"]::before,
-.pdl-nav-item.is-active::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: 0;
-  width: 2px;
-  height: 20px;
-  border-radius: 1px;
-  background: var(--pdl-text-1);
+.pdl-nav-item:is([aria-current="page"], .is-active) svg {
+  color: var(--pdl-accent);
+}
+
+@media (forced-colors: active) {
+  .pdl-nav-item[aria-current="page"] {
+    outline: 2px solid Highlight;
+  }
 }
 
 .pdl-shell-main {
   min-height: 100vh;
   margin-inline-start: var(--pdl-sidebar-width);
+  /* An app speaks in the interface register: loose text is sm, like the
+     components around it (md stays for reading pages). */
+  font-size: var(--pdl-text-sm);
+}
+
+/* In the app shell the topbar stays with the work, and the page starts a
+   block below it instead of touching its line. */
+.pdl-shell-main > :is(.pdl-topbar) {
+  position: sticky;
+  top: 0;
+}
+
+.pdl-shell-main > main {
+  padding-block: var(--pdl-rhythm-block);
+}
+
+/* Brand slot: as tall as the topbar, so both lines meet. */
+.pdl-sidebar__brand {
+  display: flex;
+  min-height: var(--pdl-topbar-height);
+  flex: none;
+  align-items: center;
+  gap: var(--pdl-space-3);
+  padding-inline: var(--pdl-space-6);
+  color: var(--pdl-text-1);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-bold);
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+/* The brand's mark: a filled tile in the hero color. */
+.pdl-sidebar__mark {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  place-items: center;
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-hero);
+  box-shadow: var(--pdl-shadow-xs), inset 0 -2px 0 rgba(0, 0, 0, .12);
+  color: var(--pdl-hero-ink);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-bold);
+}
+
+.pdl-sidebar__brand-meta {
+  display: block;
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-regular);
+}
+
+/* initSidebar opens the off-canvas sidebar with [data-pdl-sidebar-toggle]
+   and closes it from [data-pdl-sidebar-backdrop]. */
+.pdl-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--pdl-z-sidebar) - 1);
+  background: var(--pdl-layer-scrim);
 }
 
 .pdl-nav-item svg {
@@ -107,10 +237,13 @@
 
 @layer pdl.responsive {
 
-@media (max-width: 980px) {
+@media (max-width: 991.98px) {
 
   .pdl-sidebar {
     z-index: var(--pdl-z-sidebar);
+    width: calc(var(--pdl-sidebar-width) + var(--pdl-space-8));
+    max-width: 86vw;
+    box-shadow: var(--pdl-shadow-lg);
     transform: translateX(-100%);
     transition: transform var(--pdl-motion-medium) var(--pdl-ease-standard);
   }
@@ -128,23 +261,56 @@
   }
 }
 
-/* Touch tablets in landscape keep a persistent icon rail. Below 981px the
-   sidebar is off-canvas (see above), so the rail must not reserve a gutter
-   there: starting at 769px left an empty 76px strip on portrait tablets. */
+/* With a persistent sidebar there is nothing to toggle. */
+@media (min-width: 992px) {
 
-@media (min-width: 981px) and (max-width: 1100px) and (pointer: coarse) {
+  [data-pdl-sidebar-toggle],
+  .pdl-sidebar-backdrop {
+    display: none;
+  }
+}
+
+/* Tablets in landscape and small laptops (lg) keep a persistent icon rail,
+   the rail width of the side scale. Below lg the sidebar is off-canvas (see
+   above), so the rail never reserves a gutter there. */
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
 
   .pdl-sidebar {
-    width: 76px;
+    width: var(--pdl-width-rail);
+    align-items: center;
   }
 
   .pdl-shell-main {
-    margin-inline-start: 76px; /* geometry */
+    margin-inline-start: var(--pdl-width-rail);
+  }
+
+  .pdl-sidebar__brand {
+    padding-inline: 0;
+    justify-content: center;
+  }
+
+  .pdl-sidebar__nav {
+    padding-inline: var(--pdl-space-2);
+  }
+
+  .pdl-sidebar__footer {
+    margin-inline: var(--pdl-space-2);
+    padding-inline: 0;
+    justify-content: center;
+  }
+
+  :is(.pdl-sidebar__brand, .pdl-sidebar__footer) > :not(.pdl-sidebar__mark, .pdl-avatar),
+  .pdl-sidebar__label,
+  .pdl-nav-item__count {
+    display: none;
   }
 
   .pdl-nav-item {
-    min-height: var(--pdl-touch-target);
+    width: 48px;
+    min-height: var(--pdl-control-md);
     justify-content: center;
+    padding: 0;
   }
 
   .pdl-nav-item__label {

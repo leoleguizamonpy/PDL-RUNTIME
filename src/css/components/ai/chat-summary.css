@@ -102,7 +102,7 @@
   overflow-wrap: anywhere;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 575.98px) {
 
   .pdl-chat-summary__row {
     grid-template-columns: 1fr;

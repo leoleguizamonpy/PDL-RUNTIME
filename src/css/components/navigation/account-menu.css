@@ -36,13 +36,43 @@
   flex: 0 0 32px;
   place-items: center;
   overflow: hidden;
-  border: 1px solid var(--pdl-border-2);
+  border: 0;
   border-radius: 50%;
-  background: var(--pdl-surface-2);
+  background: var(--pdl-surface-3);
+  box-shadow: inset 0 0 0 1px rgba(16, 24, 40, .06);
   color: var(--pdl-text-2);
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-strong);
+  font-weight: var(--pdl-weight-bold);
+}
+
+.pdl-avatar--accent {
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
+}
+
+.pdl-avatar--lg {
+  width: 48px;
+  height: 48px;
+  flex-basis: 48px;
+  font-size: var(--pdl-text-sm);
+}
+
+.pdl-avatar--xl {
+  width: 64px;
+  height: 64px;
+  flex-basis: 64px;
+  box-shadow: 0 0 0 4px var(--pdl-surface-1), var(--pdl-shadow-lg);
+  font-size: var(--pdl-text-md);
+}
+
+@media (max-width: 575.98px) {
+  .pdl-avatar--xl {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+    font-size: var(--pdl-text-sm);
+  }
 }
 
 .pdl-avatar img {
@@ -66,7 +96,7 @@
 
 .pdl-user-state__name {
   color: var(--pdl-text-2);
-  font-size: var(--pdl-text-xs);
+  font-size: var(--pdl-text-sm);
   font-weight: var(--pdl-weight-strong);
   line-height: var(--pdl-line-heading);
 }
@@ -94,7 +124,7 @@
   background: var(--pdl-danger);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 575.98px) {
 
   .pdl-user-state__copy {
     max-width: min(52vw, 240px);

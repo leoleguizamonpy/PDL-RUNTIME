@@ -21,6 +21,17 @@
   padding: var(--pdl-space-3) var(--pdl-space-4);
 }
 
+/* Inside a card the card is already the frame: the list drops its own. */
+.pdl-card > .pdl-list {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.pdl-card > .pdl-list > .pdl-list-item {
+  padding-inline: 0;
+}
+
 .pdl-list-item + .pdl-list-item {
   border-top: 1px solid var(--pdl-border-1);
 }
@@ -113,7 +124,7 @@
   color: var(--pdl-text-subtle);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575.98px) {
 
   .pdl-list-item {
     grid-template-columns: 1fr;

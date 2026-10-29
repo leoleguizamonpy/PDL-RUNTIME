@@ -56,7 +56,7 @@
   flex: none;
   place-items: center;
   border-radius: 50%;
-  background: var(--pdl-text-1);
+  background: var(--pdl-accent);
   box-shadow: 0 6px 20px rgb(0 0 0 / 24%);
   color: var(--pdl-surface-1);
   pointer-events: auto;

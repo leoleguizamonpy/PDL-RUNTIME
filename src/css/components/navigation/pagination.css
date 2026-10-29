@@ -26,26 +26,31 @@
 
 .pdl-page {
   display: grid;
-  min-width: 36px;
-  min-height: 36px;
+  min-width: var(--pdl-control-sm);
+  min-height: var(--pdl-control-sm);
   place-items: center;
   border: 1px solid transparent;
   border-radius: var(--pdl-radius-control);
   background: transparent;
   color: var(--pdl-text-muted);
   cursor: pointer;
-  font-size: var(--pdl-text-xs);
+  /* Page numbers are controls: interface type, tabular digits. */
+  font: inherit;
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
 }
 
 .pdl-page:hover {
-  background: var(--pdl-surface-1);
+  background: var(--pdl-surface-3);
   color: var(--pdl-text-1);
 }
 
 .pdl-page[aria-current="page"] {
-  border-color: var(--pdl-border-2);
-  background: var(--pdl-surface-2);
-  color: var(--pdl-text-1);
+  border-color: var(--pdl-accent-line);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
 }
 
 .pdl-page:disabled {

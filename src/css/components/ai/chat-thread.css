@@ -102,8 +102,8 @@
   padding: var(--pdl-space-3) var(--pdl-space-4);
   border: 1px solid color-mix(in srgb, var(--pdl-text-1) 18%, transparent);
   border-radius: var(--pdl-radius-surface) 2px var(--pdl-radius-surface) var(--pdl-radius-surface);
-  background: var(--pdl-text-1);
-  color: var(--pdl-black);
+  background: var(--pdl-accent);
+  color: var(--pdl-on-accent);
   line-height: 1.5;
 }
 
@@ -196,7 +196,7 @@
   max-width: min(76%, 680px);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
 
   .pdl-chat--workspace .pdl-chat__thread {
     padding: var(--pdl-space-4) 0;
@@ -221,7 +221,7 @@
 
 @layer pdl.responsive {
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
 
   .pdl-chat__thread {
     max-height: none;
@@ -237,7 +237,7 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 575.98px) {
 
   .pdl-chat__composer {
     padding: var(--pdl-space-3);
