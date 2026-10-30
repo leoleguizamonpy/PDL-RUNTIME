@@ -34,12 +34,20 @@
   border-radius: 0;
 }
 
+.pdl-card > .pdl-kv {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
 .pdl-card > .pdl-kv > :is(dt, dd) {
   padding-inline: 0;
 }
 
 .pdl-card > .pdl-kv > dt {
   padding-inline-end: var(--pdl-space-4);
+}
+
+.pdl-card > .pdl-kv > :is(dt, dd):nth-child(-n + 2) {
+  padding-top: 0;
 }
 
 .pdl-card > .pdl-kv > :is(dt, dd):nth-last-child(-n + 2) {
@@ -57,26 +65,29 @@
 
 @media (max-width: 575.98px) {
 
-  .pdl-kv {
+  /* A framed list stacks on phones; inside a card the key column is only
+     as wide as its words, so pairs stay on one line. */
+  .pdl-kv:not(.pdl-card > .pdl-kv) {
     grid-template-columns: 1fr;
   }
 
-  .pdl-kv dt {
+  .pdl-kv:not(.pdl-card > .pdl-kv) dt {
     padding-bottom: var(--pdl-space-1);
     border-bottom: 0;
   }
 
-  .pdl-kv dd {
+  .pdl-kv:not(.pdl-card > .pdl-kv) dd {
     padding-top: 0;
   }
 }
 
 
-/* Ledger lines: label at the start, figure at the end, dashed between;
+/* Ledger lines: label at the start, figure at the end, a hairline between;
    a .pdl-kv-lines__total row closes the sum. */
 .pdl-kv-lines {
   display: grid;
   margin: 0;
+  font-size: var(--pdl-text-sm);
 }
 
 .pdl-kv-lines > div {
@@ -84,7 +95,7 @@
   justify-content: space-between;
   gap: var(--pdl-space-3);
   padding: var(--pdl-space-3) 0;
-  border-bottom: 1px dashed var(--pdl-border-1);
+  border-bottom: 1px solid var(--pdl-border-1);
 }
 
 .pdl-kv-lines > div:last-child {
@@ -93,6 +104,7 @@
 }
 
 .pdl-kv-lines dt {
+  min-width: 0;
   color: var(--pdl-text-muted);
 }
 
@@ -124,8 +136,11 @@
 /* Facts: an icon, a small label, the value in ink. */
 .pdl-facts {
   display: grid;
+  /* One column in a narrow card; side by side when the card is wide. */
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
   gap: var(--pdl-space-4);
   margin: 0;
+  font-size: var(--pdl-text-sm);
 }
 
 .pdl-facts > div {

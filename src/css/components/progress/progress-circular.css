@@ -4,23 +4,59 @@
 
 @layer pdl.components {
 
+/* An accent arc over a soft track. The ring is masked, not painted over a
+   surface color, so it sits on any background. */
+
 .pdl-progress-ring {
   --pdl-ring-size: 68px;
-  --pdl-ring-width: 5px;
+  --pdl-ring-width: 6px;
+  position: relative;
   display: grid;
+  flex: none;
   width: var(--pdl-ring-size);
   height: var(--pdl-ring-size);
   place-items: center;
   border-radius: 50%;
-  background:
-    radial-gradient(circle, var(--pdl-surface-1) calc(50% - var(--pdl-ring-width)), transparent calc(50% - var(--pdl-ring-width) + 1px)),
-    conic-gradient(var(--pdl-text-2) var(--pdl-progress, 0%), var(--pdl-border-1) 0);
+}
+
+.pdl-progress-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(var(--pdl-accent) var(--pdl-progress, 0%), var(--pdl-surface-3) 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--pdl-ring-width)), #000 calc(100% - var(--pdl-ring-width) + 1px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - var(--pdl-ring-width)), #000 calc(100% - var(--pdl-ring-width) + 1px));
 }
 
 .pdl-progress-ring__value {
-  color: var(--pdl-text-2);
+  position: relative;
+  color: var(--pdl-text-1);
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
   font-variant-numeric: tabular-nums;
+}
+
+.pdl-progress-ring--sm {
+  --pdl-ring-size: 40px;
+  --pdl-ring-width: 4px;
+}
+
+.pdl-progress-ring--lg {
+  --pdl-ring-size: 96px;
+  --pdl-ring-width: 8px;
+}
+
+.pdl-progress-ring--lg .pdl-progress-ring__value {
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-bold);
+}
+
+@media (forced-colors: active) {
+
+  .pdl-progress-ring::before {
+    background: conic-gradient(CanvasText var(--pdl-progress, 0%), GrayText 0);
+  }
 }
 
 }

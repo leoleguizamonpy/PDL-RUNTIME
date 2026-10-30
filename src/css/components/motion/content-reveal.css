@@ -4,6 +4,9 @@
 
 @layer pdl.interaction {
 
+/* Entrances: a short fade, or a fade that rises 8px. Content is never
+   hidden without them: with reduced motion it is simply there. */
+
 .pdl-fade-enter {
   animation: pdl-fade-enter var(--pdl-motion-medium) var(--pdl-ease-enter) both;
 }
@@ -15,7 +18,11 @@
 @media (prefers-reduced-motion: reduce) {
 
   .pdl-fade-enter,
-  .pdl-slide-enter { animation: none; }
+  .pdl-slide-enter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @keyframes pdl-fade-enter {

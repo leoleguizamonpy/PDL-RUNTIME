@@ -22,16 +22,6 @@
     visibility var(--pdl-motion-long) var(--pdl-ease-exit);
 }
 
-.pdl-splash::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: .025;
-  pointer-events: none;
-  background-image: radial-gradient(circle at 25% 25%, var(--pdl-text-1) .5px, transparent .6px);
-  background-size: 7px 7px;
-}
-
 .pdl-splash.is-leaving {
   opacity: 0;
   visibility: hidden;
@@ -50,21 +40,24 @@
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-md);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: -.02em;
+  font-weight: var(--pdl-weight-bold);
+  letter-spacing: -.01em;
 }
 
 .pdl-splash__status {
   color: var(--pdl-text-subtle);
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
   line-height: var(--pdl-line-compact);
 }
 
+/* An accent bar sweeping a soft accent track. */
 .pdl-splash__line {
   width: min(180px, 55vw);
-  height: 1px;
+  height: 3px;
   overflow: hidden;
-  background: var(--pdl-border-1);
+  border-radius: var(--pdl-radius-pill);
+  background: color-mix(in srgb, var(--pdl-accent) 16%, transparent);
 }
 
 .pdl-splash__line::after {
@@ -72,7 +65,8 @@
   display: block;
   width: 42%;
   height: 100%;
-  background: var(--pdl-text-2);
+  border-radius: inherit;
+  background: var(--pdl-accent);
   animation: pdl-load-line 1.25s var(--pdl-ease-standard) infinite;
 }
 
@@ -84,6 +78,17 @@
 
   .pdl-splash__line::after {
     width: 64%;
+  }
+}
+
+@media (forced-colors: active) {
+
+  .pdl-splash__line {
+    border: 1px solid CanvasText;
+  }
+
+  .pdl-splash__line::after {
+    background: CanvasText;
   }
 }
 

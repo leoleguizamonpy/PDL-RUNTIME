@@ -10,7 +10,7 @@
 .pdl-release {
   display: grid;
   justify-items: center;
-  gap: var(--pdl-space-3);
+  gap: var(--pdl-space-4);
 }
 
 .pdl-release > .pdl-link-list {
@@ -22,9 +22,10 @@
   width: min(100%, 13rem);
   aspect-ratio: 1;
   overflow: hidden;
+  border: 1px solid var(--pdl-border-1);
   border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
-  background: color-mix(in srgb, currentColor 8%, transparent);
-  box-shadow: var(--pdl-button-elevation, none);
+  background: var(--pdl-surface-2);
+  box-shadow: var(--pdl-button-elevation, var(--pdl-shadow-lg));
 }
 
 .pdl-release__cover > img {

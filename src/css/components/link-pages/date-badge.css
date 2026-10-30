@@ -4,40 +4,55 @@
 
 @layer pdl.components {
 
-/* A date as a mark: the month on a band over the day. In the colors of
-   what holds it (a card takes the button's fill and ink). */
+/* A date as a mark: the month on a band in the hero color over the day,
+   a small white tile that reads on any button or card fill. */
 
 .pdl-date-badge {
   display: inline-grid;
   flex: none;
   width: 2.75rem;
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, currentColor 28%, transparent);
-  border-radius: .55rem;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  color: var(--pdl-text-1);
   line-height: 1;
   text-align: center;
 }
 
 .pdl-date-badge__month {
   padding: var(--pdl-space-1) 0 var(--pdl-space-1);
-  background: currentColor;
+  background: var(--pdl-hero);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-strong);
-  letter-spacing: .08em;
+  font-weight: var(--pdl-weight-bold);
+  letter-spacing: var(--pdl-letter-label);
+  text-transform: uppercase;
 }
 
-/* The band's letters in the color behind the badge. */
+/* The band's letters in the hero's own ink. */
 
 .pdl-date-badge__month > span {
-  color: var(--pdl-button-fill, var(--pdl-surface-1));
+  color: var(--pdl-hero-ink);
 }
 
 .pdl-date-badge__day {
   padding: var(--pdl-space-1) 0 var(--pdl-space-1);
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-lg);
-  font-weight: var(--pdl-weight-strong);
+  font-weight: var(--pdl-weight-bold);
   font-variant-numeric: tabular-nums;
+}
+
+}
+
+@layer pdl.responsive {
+
+@media (forced-colors: active) {
+
+  .pdl-date-badge__month {
+    border-block-end: 1px solid CanvasText;
+  }
 }
 
 }

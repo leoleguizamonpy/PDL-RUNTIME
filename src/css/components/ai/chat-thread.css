@@ -5,6 +5,8 @@
 @layer pdl.components {
 
 .pdl-chat {
+  /* Messages and composer follow the chat's own width. */
+  container: pdl-chat / inline-size;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--pdl-border-1) 72%, transparent);
   border-radius: var(--pdl-radius-surface);
@@ -87,9 +89,9 @@
 }
 
 .pdl-message__bubble {
-  padding: .35rem 0 var(--pdl-space-4);
+  /* The assistant speaks as open text on the page: no bubble, no rule. */
+  padding: .35rem 0 var(--pdl-space-2);
   border: 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--pdl-border-1) 68%, transparent);
   border-radius: 0;
   background: transparent;
   color: var(--pdl-text-2);
@@ -100,10 +102,10 @@
 
 .pdl-message--user .pdl-message__bubble {
   padding: var(--pdl-space-3) var(--pdl-space-4);
-  border: 1px solid color-mix(in srgb, var(--pdl-text-1) 18%, transparent);
-  border-radius: var(--pdl-radius-surface) 2px var(--pdl-radius-surface) var(--pdl-radius-surface);
-  background: var(--pdl-accent);
-  color: var(--pdl-on-accent);
+  border: 1px solid var(--pdl-accent-line);
+  border-radius: var(--pdl-radius-surface) var(--pdl-space-1) var(--pdl-radius-surface) var(--pdl-radius-surface);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-text-1);
   line-height: 1.5;
 }
 
@@ -217,6 +219,36 @@
   min-width: 0;
 }
 
+/* A narrow chat (a column, a side panel, a phone): messages take the
+   whole line and the thread tightens its inset. */
+@container pdl-chat (max-width: 36rem) {
+
+  .pdl-chat__thread {
+    gap: var(--pdl-space-4);
+    padding: var(--pdl-space-4);
+  }
+
+  .pdl-chat--workspace .pdl-chat__thread {
+    padding-inline: 0;
+  }
+
+  .pdl-message,
+  .pdl-message--user,
+  .pdl-chat--workspace .pdl-message,
+  .pdl-chat--workspace .pdl-message--user {
+    max-width: 100%;
+  }
+
+  .pdl-chat__composer {
+    gap: var(--pdl-space-2);
+    padding-inline: var(--pdl-space-3);
+  }
+
+  .pdl-chat--workspace .pdl-chat__composer {
+    padding-inline: 0;
+  }
+}
+
 }
 
 @layer pdl.responsive {
@@ -230,10 +262,6 @@
 
   .pdl-message {
     max-width: 100%;
-  }
-
-  .pdl-chat__composer {
-    grid-template-columns: minmax(0, 1fr) auto;
   }
 }
 

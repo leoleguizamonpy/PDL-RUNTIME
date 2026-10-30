@@ -4,6 +4,9 @@
 
 @layer pdl.components {
 
+/* A dialog that answers an action: the head band takes the state's tint
+   and line, the tinted symbol (.pdl-feedback-symbol) leads the copy. */
+
 .pdl-response-dialog__body {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -13,7 +16,8 @@
 
 .pdl-response-dialog__copy {
   display: grid;
-  gap: var(--pdl-space-2);
+  gap: var(--pdl-space-1);
+  padding-top: var(--pdl-space-1);
 }
 
 .pdl-response-dialog__copy > h2 {
@@ -21,7 +25,7 @@
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-md);
-  font-weight: var(--pdl-weight-medium);
+  font-weight: var(--pdl-weight-bold);
   line-height: var(--pdl-line-heading);
 }
 
@@ -32,10 +36,23 @@
   line-height: var(--pdl-line-body);
 }
 
-.pdl-response-dialog[data-state="success"] { border-color: color-mix(in srgb, var(--pdl-success) 30%, var(--pdl-border-1)); }
+.pdl-response-dialog[data-state] > .pdl-dialog__header {
+  padding-block: var(--pdl-space-3);
+  border-bottom-color: var(--pdl-response-line, var(--pdl-border-1));
+  background: var(--pdl-response-bg, var(--pdl-surface-2));
+  color: var(--pdl-response-tone, var(--pdl-text-2));
+}
 
-.pdl-response-dialog[data-state="warning"] { border-color: color-mix(in srgb, var(--pdl-warning) 30%, var(--pdl-border-1)); }
+.pdl-response-dialog[data-state] > .pdl-dialog__header .pdl-eyebrow {
+  color: inherit;
+}
 
-.pdl-response-dialog[data-state="danger"] { border-color: color-mix(in srgb, var(--pdl-danger) 30%, var(--pdl-border-1)); }
+.pdl-response-dialog[data-state="success"] { --pdl-response-tone: var(--pdl-success); --pdl-response-bg: var(--pdl-success-bg); --pdl-response-line: var(--pdl-success-line); }
+
+.pdl-response-dialog[data-state="warning"] { --pdl-response-tone: var(--pdl-warning); --pdl-response-bg: var(--pdl-warning-bg); --pdl-response-line: var(--pdl-warning-line); }
+
+.pdl-response-dialog[data-state="danger"] { --pdl-response-tone: var(--pdl-danger); --pdl-response-bg: var(--pdl-danger-bg); --pdl-response-line: var(--pdl-danger-line); }
+
+.pdl-response-dialog[data-state="info"] { --pdl-response-tone: var(--pdl-accent-strong); --pdl-response-bg: var(--pdl-accent-soft); --pdl-response-line: var(--pdl-accent-line); }
 
 }

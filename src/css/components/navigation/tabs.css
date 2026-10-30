@@ -53,6 +53,30 @@
   background: var(--pdl-accent);
 }
 
+/* A row longer than its space scrolls inside itself; while there is more
+   to see, its far end fades, so the cut reads as "more". */
+@supports (animation-timeline: scroll()) {
+
+  .pdl-tabs {
+    animation: pdl-tabs-more linear both;
+    animation-timeline: scroll(self inline);
+  }
+
+  .pdl-tabs:dir(rtl) {
+    animation-name: pdl-tabs-more-rtl;
+  }
+}
+
+@keyframes pdl-tabs-more {
+  0%, 96% { mask-image: linear-gradient(to right, #000 calc(100% - var(--pdl-space-12)), transparent); }
+  100% { mask-image: none; }
+}
+
+@keyframes pdl-tabs-more-rtl {
+  0%, 96% { mask-image: linear-gradient(to left, #000 calc(100% - var(--pdl-space-12)), transparent); }
+  100% { mask-image: none; }
+}
+
 /* Count pill beside the label. */
 .pdl-tabs__count {
   padding-inline: var(--pdl-space-2);

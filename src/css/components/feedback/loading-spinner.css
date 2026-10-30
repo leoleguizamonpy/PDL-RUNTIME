@@ -4,14 +4,22 @@
 
 @layer pdl.components {
 
+/* An accent arc on a soft accent track. */
+
 .pdl-spinner {
   display: inline-block;
+  flex: none;
   width: var(--pdl-spinner-size, 18px);
   height: var(--pdl-spinner-size, 18px);
-  border: 1px solid var(--pdl-border-3);
-  border-top-color: var(--pdl-text-1);
+  border: 2px solid color-mix(in srgb, var(--pdl-accent) 18%, transparent);
+  border-top-color: var(--pdl-accent);
   border-radius: 50%;
   animation: pdl-spin .8s linear infinite;
+}
+
+.pdl-spinner--lg {
+  --pdl-spinner-size: 28px;
+  border-width: 3px;
 }
 
 .pdl-processing {
@@ -19,7 +27,8 @@
   align-items: center;
   gap: var(--pdl-space-2);
   color: var(--pdl-text-muted);
-  font-size: var(--pdl-text-xs);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -29,7 +38,16 @@
   }
 
   .pdl-spinner {
-    border-top-color: var(--pdl-text-muted);
+    border-color: var(--pdl-accent);
+    border-inline-end-color: color-mix(in srgb, var(--pdl-accent) 18%, transparent);
+  }
+}
+
+@media (forced-colors: active) {
+
+  .pdl-spinner {
+    border-color: GrayText;
+    border-top-color: CanvasText;
   }
 }
 
@@ -42,6 +60,12 @@
 
 .pdl-button[aria-busy="true"] > :not(.pdl-spinner) {
   opacity: .58;
+}
+
+/* On an accent fill the spinner takes the text color. */
+.pdl-button--primary > .pdl-spinner {
+  border-color: color-mix(in srgb, currentColor 28%, transparent);
+  border-top-color: currentColor;
 }
 
 }

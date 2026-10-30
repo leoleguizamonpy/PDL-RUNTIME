@@ -9,24 +9,30 @@
    with a live result (page builders, email or card designers) can use it. */
 
 .pdl-preview-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--pdl-width-panel);
+  /* The editor and its preview share the layout's own width: side by side
+     while the editor keeps 30rem beside the panel-wide preview
+     (minmax(0, 1fr) var(--pdl-width-panel) in grid terms), then the
+     preview wraps under the editor at the full width. */
+  container: pdl-preview / inline-size;
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--pdl-rhythm-region);
-  align-items: start;
+  align-items: flex-start;
 }
 
 /* A product may hide the aside when the editor would get too narrow (a wide
    sidebar on a small laptop) and show the preview elsewhere; the editor then
    takes the whole width. */
 
-.pdl-preview-layout:has(> .pdl-preview-layout__aside[hidden]) {
-  grid-template-columns: minmax(0, 1fr);
-}
-
 .pdl-preview-layout__main {
   display: grid;
+  flex: 999 1 30rem;
   min-width: 0;
   gap: var(--pdl-rhythm-content);
+}
+
+.pdl-preview-layout:has(> .pdl-preview-layout__aside[hidden]) > .pdl-preview-layout__main {
+  flex-basis: 100%;
 }
 
 /* Stays in view below the topbar while the editor scrolls. */
@@ -35,15 +41,13 @@
   position: sticky;
   top: calc(var(--pdl-topbar-height) + var(--pdl-space-4));
   display: grid;
+  flex: 1 1 var(--pdl-width-panel);
   min-width: 0;
   gap: var(--pdl-space-3);
 }
 
-@media (max-width: 767.98px) {
-
-  .pdl-preview-layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
+/* Under the editor the preview no longer follows the scroll. */
+@container pdl-preview (max-width: 51.98rem) {
 
   .pdl-preview-layout__aside {
     position: static;

@@ -68,6 +68,11 @@
   border-top: 1px solid var(--pdl-border-1);
 }
 
+/* A footer that holds a link (settings, help) keeps the links' edges. */
+.pdl-sidebar__footer:has(> .pdl-nav-item) {
+  padding-inline: 0;
+}
+
 .pdl-sidebar__footer > :not(.pdl-avatar, button, .pdl-icon-button) {
   min-width: 0;
   flex: 1;
@@ -196,6 +201,32 @@
   font-weight: var(--pdl-weight-regular);
 }
 
+/* In place: a sidebar inside a frame (an embedded app preview, a settings
+   screen in a card) instead of pinned to the viewport. It follows the width
+   of the card that holds it, not the screen: the full sidebar, an icon rail
+   when the card is under 60rem, and nothing under 40rem, where the frame's
+   bottom navigation (.pdl-bottom-nav--inline) takes over. The column beside
+   it (.pdl-shell-main) reserves no gutter and scrolls with the page. */
+.pdl-sidebar--inline {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+  flex: none;
+  overflow: visible;
+}
+
+.pdl-sidebar--inline ~ .pdl-shell-main {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+}
+
+.pdl-sidebar--inline ~ .pdl-shell-main > :is(.pdl-topbar) {
+  position: relative;
+}
+
 /* initSidebar opens the off-canvas sidebar with [data-pdl-sidebar-toggle]
    and closes it from [data-pdl-sidebar-backdrop]. */
 .pdl-sidebar-backdrop {
@@ -239,7 +270,7 @@
 
 @media (max-width: 991.98px) {
 
-  .pdl-sidebar {
+  .pdl-sidebar:not(.pdl-sidebar--inline) {
     z-index: var(--pdl-z-sidebar);
     width: calc(var(--pdl-sidebar-width) + var(--pdl-space-8));
     max-width: 86vw;
@@ -250,6 +281,10 @@
 
   .pdl-sidebar:dir(rtl) {
     transform: translateX(100%);
+  }
+
+  .pdl-sidebar--inline:dir(rtl) {
+    transform: none;
   }
 
   .pdl-sidebar.is-open {
@@ -276,7 +311,7 @@
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
 
-  .pdl-sidebar {
+  .pdl-sidebar:not(.pdl-sidebar--inline) {
     width: var(--pdl-width-rail);
     align-items: center;
   }
@@ -285,35 +320,34 @@
     margin-inline-start: var(--pdl-width-rail);
   }
 
-  .pdl-sidebar__brand {
+  .pdl-sidebar:not(.pdl-sidebar--inline) .pdl-sidebar__brand {
     padding-inline: 0;
     justify-content: center;
   }
 
-  .pdl-sidebar__nav {
+  .pdl-sidebar:not(.pdl-sidebar--inline) .pdl-sidebar__nav {
     padding-inline: var(--pdl-space-2);
   }
 
-  .pdl-sidebar__footer {
+  .pdl-sidebar:not(.pdl-sidebar--inline) .pdl-sidebar__footer {
     margin-inline: var(--pdl-space-2);
     padding-inline: 0;
     justify-content: center;
   }
 
-  :is(.pdl-sidebar__brand, .pdl-sidebar__footer) > :not(.pdl-sidebar__mark, .pdl-avatar),
-  .pdl-sidebar__label,
-  .pdl-nav-item__count {
+  .pdl-sidebar:not(.pdl-sidebar--inline) :is(.pdl-sidebar__brand, .pdl-sidebar__footer) > :not(.pdl-sidebar__mark, .pdl-avatar, .pdl-nav-item),
+  .pdl-sidebar:not(.pdl-sidebar--inline) :is(.pdl-sidebar__label, .pdl-nav-item__count) {
     display: none;
   }
 
-  .pdl-nav-item {
+  .pdl-sidebar:not(.pdl-sidebar--inline) .pdl-nav-item {
     width: 48px;
     min-height: var(--pdl-control-md);
     justify-content: center;
     padding: 0;
   }
 
-  .pdl-nav-item__label {
+  .pdl-sidebar:not(.pdl-sidebar--inline) .pdl-nav-item__label {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -325,6 +359,63 @@
 }
 
 /* Visually hidden, not display:none, so icon-only links keep a name. */
+
+/* The in-place sidebar reads its card, not the screen. Declared after the
+   page ranges above so the frame never inherits their gutter. */
+.pdl-sidebar--inline ~ .pdl-shell-main {
+  margin-inline-start: 0;
+}
+
+@container pdl-card (max-width: 60rem) {
+
+  .pdl-sidebar--inline {
+    width: var(--pdl-width-rail);
+    align-items: center;
+  }
+
+  .pdl-sidebar--inline .pdl-sidebar__brand {
+    padding-inline: 0;
+    justify-content: center;
+  }
+
+  .pdl-sidebar--inline .pdl-sidebar__nav {
+    padding-inline: var(--pdl-space-2);
+  }
+
+  .pdl-sidebar--inline .pdl-sidebar__footer {
+    margin-inline: var(--pdl-space-2);
+    padding-inline: 0;
+    justify-content: center;
+  }
+
+  .pdl-sidebar--inline :is(.pdl-sidebar__brand, .pdl-sidebar__footer) > :not(.pdl-sidebar__mark, .pdl-avatar, .pdl-nav-item),
+  .pdl-sidebar--inline :is(.pdl-sidebar__label, .pdl-nav-item__count) {
+    display: none;
+  }
+
+  .pdl-sidebar--inline .pdl-nav-item {
+    width: 48px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .pdl-sidebar--inline .pdl-nav-item__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+}
+
+@container pdl-card (max-width: 40rem) {
+
+  .pdl-sidebar--inline {
+    display: none;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
 

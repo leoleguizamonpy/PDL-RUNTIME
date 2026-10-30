@@ -14,6 +14,7 @@
    - plain: the figures alone, larger. */
 
 .pdl-countdown {
+  container: pdl-countdown / inline-size;
   display: grid;
   justify-items: center;
   gap: var(--pdl-space-3);
@@ -108,6 +109,18 @@
 }
 
 .pdl-countdown--boxes .pdl-countdown__sep,
+/* A narrow countdown tightens its tiles instead of running past its card. */
+@container pdl-countdown (max-width: 360px) {
+  .pdl-countdown__units {
+    gap: var(--pdl-space-1);
+  }
+
+  .pdl-countdown--flip .pdl-countdown__value {
+    min-width: 0;
+    padding-inline: .3em;
+  }
+}
+
 .pdl-countdown--flip .pdl-countdown__sep {
   display: none;
 }

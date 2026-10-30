@@ -4,19 +4,23 @@
 
 @layer pdl.components {
 
-/* "+18": a button or a card that leads to adult content says so. */
+/* "+18": a button or a card that leads to adult content says so, in a
+   pill tinted with the danger pair (it reads on any button fill). */
 
 .pdl-age-mark {
   display: inline-flex;
   flex: none;
   align-items: center;
-  padding: .16rem var(--pdl-space-2);
-  border: 1.5px solid currentColor;
+  height: 22px; /* geometry */
+  padding: 0 var(--pdl-space-2);
+  border: 1px solid var(--pdl-danger-line);
   border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-danger-bg);
+  color: var(--pdl-danger);
+  font-family: var(--pdl-font-body);
   font-size: var(--pdl-text-xs);
   font-variant-numeric: tabular-nums;
-  font-weight: var(--pdl-weight-strong);
-  letter-spacing: .02em;
+  font-weight: var(--pdl-weight-bold);
   line-height: 1;
   white-space: nowrap;
 }

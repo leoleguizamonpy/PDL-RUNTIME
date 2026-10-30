@@ -20,13 +20,14 @@
   border-radius: var(--pdl-radius-control);
   padding: var(--pdl-space-1) var(--pdl-space-2);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
 .pdl-tag-input:focus-within {
-  border-color: var(--pdl-focus);
+  border-color: var(--pdl-accent-line);
   outline: 2px solid transparent;
   background: var(--pdl-surface-1);
-  box-shadow: 0 0 0 1px var(--pdl-focus);
+  box-shadow: var(--pdl-shadow-xs), 0 0 0 4px var(--pdl-ring);
 }
 
 .pdl-tag {
@@ -34,11 +35,13 @@
   min-height: 28px;
   align-items: center;
   gap: var(--pdl-space-1);
-  border: 1px solid var(--pdl-border-2);
+  border: 1px solid var(--pdl-accent-line);
   border-radius: var(--pdl-radius-pill);
-  padding: var(--pdl-space-1) var(--pdl-space-2);
-  color: var(--pdl-text-2);
+  padding: var(--pdl-space-1) var(--pdl-space-1) var(--pdl-space-1) var(--pdl-space-2);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
 }
 
 .pdl-tag__remove {
@@ -50,7 +53,7 @@
   border-radius: 50%;
   padding: 0;
   background: transparent;
-  color: var(--pdl-text-subtle);
+  color: currentColor;
   cursor: pointer;
 }
 

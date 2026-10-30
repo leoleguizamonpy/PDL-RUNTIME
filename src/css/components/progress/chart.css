@@ -5,6 +5,8 @@
 @layer pdl.components {
 
 .pdl-chart {
+  /* The plot follows the chart's own width: see the container rules. */
+  container: pdl-chart / inline-size;
   display: grid;
   gap: var(--pdl-space-4);
   min-width: 0;
@@ -94,6 +96,32 @@
   transform: translateY(calc(100% + var(--pdl-space-2)));
   color: var(--pdl-text-subtle);
   font-size: var(--pdl-text-xs);
+}
+
+/* Category names under the plot. Under bars it repeats the bar grid, so
+   each name sits under its bar; --edges spreads them from edge to edge
+   (the points of a line chart). Long names truncate, never overlap. */
+.pdl-chart__axis {
+  display: grid;
+  grid-template-columns: repeat(var(--pdl-bars, 6), minmax(0, 1fr));
+  gap: var(--pdl-space-3);
+  margin-top: calc(-1 * var(--pdl-space-2));
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.pdl-chart__axis > * {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-chart__axis--edges {
+  display: flex;
+  justify-content: space-between;
 }
 
 .pdl-chart__legend {
@@ -190,10 +218,24 @@
   .pdl-chart {
     padding: var(--pdl-space-4);
   }
+}
+
+/* A narrow chart (a phone, a third of a row) keeps its proportions: a
+   lower plot, closer bars and their names still under them. */
+@container pdl-chart (max-width: 26rem) {
+
+  .pdl-chart__plot {
+    min-height: 160px;
+  }
 
   .pdl-bar-chart,
   .pdl-line-chart {
-    height: 180px;
+    height: 160px;
+  }
+
+  .pdl-bar-chart,
+  .pdl-chart__axis {
+    gap: var(--pdl-space-2);
   }
 }
 

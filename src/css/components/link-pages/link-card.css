@@ -11,24 +11,28 @@
 .pdl-link-card {
   display: grid;
   overflow: hidden;
-  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-1));
   border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
   background: var(--pdl-button-fill, var(--pdl-surface-1));
   color: var(--pdl-button-ink, var(--pdl-text-1));
-  box-shadow: var(--pdl-button-elevation, none);
+  box-shadow: var(--pdl-button-elevation, var(--pdl-shadow-xs));
   text-align: center;
   transition:
     transform var(--pdl-motion-short) var(--pdl-ease-standard),
     box-shadow var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
+/* Clickable: it lifts on hover, as the app's interactive cards do. */
+
 .pdl-link-card:hover {
-  border-color: var(--pdl-button-line, var(--pdl-border-3));
+  border-color: var(--pdl-button-line, var(--pdl-border-2));
+  box-shadow: var(--pdl-button-elevation, var(--pdl-shadow-sm));
+  transform: translateY(-1px);
 }
 
 .pdl-link-card:focus-visible {
-  outline: 2px solid var(--pdl-focus);
-  outline-offset: 3px;
+  outline: none;
+  box-shadow: var(--pdl-button-elevation, var(--pdl-shadow-xs)), 0 0 0 4px var(--pdl-ring);
 }
 
 .pdl-link-card__media {
@@ -37,7 +41,8 @@
   /* Without it a tall picture would stretch the box past 2:1. */
   overflow: hidden;
   place-items: center;
-  background: color-mix(in srgb, currentColor 8%, transparent);
+  background: color-mix(in srgb, var(--pdl-accent) 8%, var(--pdl-button-fill, var(--pdl-surface-2)));
+  color: var(--pdl-button-ink, var(--pdl-accent-strong));
 }
 
 .pdl-link-card__media > img {
@@ -56,7 +61,7 @@
   padding: var(--pdl-space-3) var(--pdl-space-4);
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-button-font-size, var(--pdl-text-sm));
-  font-weight: var(--pdl-weight-strong);
+  font-weight: var(--pdl-weight-bold);
   line-height: var(--pdl-line-compact);
   overflow-wrap: anywhere;
 }
@@ -121,7 +126,7 @@
   overflow: hidden;
   font-size: var(--pdl-text-xs);
   line-height: 1.45;
-  opacity: .72;
+  opacity: .68;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -147,6 +152,25 @@
 
 .pdl-link-card:not(.pdl-link-card--row) .pdl-link-card__media > .pdl-date-badge .pdl-date-badge__day {
   font-size: var(--pdl-text-xl);
+}
+
+}
+
+@layer pdl.responsive {
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-link-card:hover {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+
+  .pdl-link-card:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 3px;
+  }
 }
 
 }

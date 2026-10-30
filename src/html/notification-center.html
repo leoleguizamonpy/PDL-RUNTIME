@@ -1,15 +1,21 @@
 <section class="pdl-notification-center" data-pdl-notification-center aria-label="Notificaciones">
   <header class="pdl-notification-center__head">
-    <strong class="pdl-notification__title">Notificaciones</strong>
-    <button class="pdl-button pdl-button--ghost" type="button" data-pdl-mark-all-read>Marcar leídas</button>
+    <strong class="pdl-notification-center__title">Notificaciones</strong>
+    <span class="pdl-notification-center__count" aria-label="2 sin leer">2</span>
+    <button class="pdl-button pdl-button--ghost pdl-button--sm" type="button" data-pdl-mark-all-read>Marcar todo</button>
   </header>
   <div class="pdl-notification-center__list">
-    <article class="pdl-notification" data-read="false">
-      <div>
-        <strong class="pdl-notification__title">Decisión pendiente</strong>
-        <p class="pdl-notification__copy">Se requiere una validación antes de continuar.</p>
-        <span class="pdl-notification__meta">Ahora</span>
-      </div>
+    <article class="pdl-notification" data-state="warning" data-read="false">
+      <span class="pdl-feedback-symbol" aria-hidden="true">!</span>
+      <div class="pdl-notification__content"><strong class="pdl-notification__title">Decisión pendiente</strong><p class="pdl-notification__copy">Se requiere una validación antes de continuar.</p><span class="pdl-notification__meta">Ahora</span></div>
+    </article>
+    <article class="pdl-notification" data-state="success" data-read="false">
+      <span class="pdl-feedback-symbol" aria-hidden="true">✓</span>
+      <div class="pdl-notification__content"><strong class="pdl-notification__title">Pedido confirmado</strong><p class="pdl-notification__copy">El taller aceptó el encargo #1042.</p><span class="pdl-notification__meta">Hace 12 min</span></div>
+    </article>
+    <article class="pdl-notification" data-state="info" data-read="true">
+      <span class="pdl-feedback-symbol" aria-hidden="true">i</span>
+      <div class="pdl-notification__content"><strong class="pdl-notification__title">Nuevo comentario</strong><p class="pdl-notification__copy">Ana dejó una nota en el presupuesto.</p><span class="pdl-notification__meta">Ayer</span></div>
     </article>
   </div>
 </section>

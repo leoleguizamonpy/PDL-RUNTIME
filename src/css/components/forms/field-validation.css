@@ -18,10 +18,23 @@
   gap: var(--pdl-space-2);
 }
 
+/* Labels: sentence case, xs, strong; a required mark in the danger color. */
 .pdl-label {
   color: var(--pdl-text-2);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-label__required {
+  margin-inline-start: 2px;
+  color: var(--pdl-danger);
+}
+
+.pdl-label__optional {
+  margin-inline-start: var(--pdl-space-1);
+  color: var(--pdl-text-subtle);
+  font-weight: var(--pdl-weight-regular);
 }
 
 .pdl-helper {
@@ -35,6 +48,27 @@
 .pdl-field:has(:is(.pdl-input, .pdl-textarea, .pdl-select):disabled) .pdl-label {
   color: var(--pdl-text-subtle);
 }
+
+/* A message with a state leads with a small mark: a dot in the state's
+   color, ringed in its tint, so the state does not ride on text color
+   alone. */
+.pdl-helper[data-state]::before,
+.pdl-field:has([aria-invalid="true"]) .pdl-helper:not([data-state])::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-inline: 2px var(--pdl-space-2);
+  vertical-align: .1em;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.pdl-helper[data-state] { font-weight: var(--pdl-weight-medium); }
+
+/* An invalid field's label follows its control into the state. */
+.pdl-field:has([aria-invalid="true"]) .pdl-label { color: var(--pdl-danger); }
 
 .pdl-helper[data-state="danger"] { color: var(--pdl-danger); }
 
@@ -53,6 +87,33 @@
 
 .pdl-field:has(> .pdl-segmented--grid) {
   container: pdl-choices / inline-size;
+}
+
+}
+
+@layer pdl.interaction {
+
+@media (forced-colors: active) {
+
+  .pdl-helper[data-state]::before {
+    background: CanvasText;
+    box-shadow: none;
+  }
+}
+
+/* A group of choices is a field too: a fieldset loses its frame and its
+   legend lines up as the label. */
+fieldset.pdl-field {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+fieldset.pdl-field > legend.pdl-label {
+  float: inline-start;
+  width: 100%;
+  padding: 0;
 }
 
 }

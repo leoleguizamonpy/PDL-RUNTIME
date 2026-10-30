@@ -5,11 +5,15 @@
 @layer pdl.runtime {
 
 .pdl-collection__top {
+  /* Title and actions share a line while both fit, then the actions wrap
+     under the title (no screen breakpoint). */
   display: flex;
+  flex-wrap: wrap;
   min-height: var(--pdl-control-md);
   align-items: flex-end;
   justify-content: space-between;
   gap: var(--pdl-rhythm-region);
+  row-gap: var(--pdl-space-5);
   padding-bottom: var(--pdl-rhythm-content);
   border-bottom: 1px solid var(--pdl-border-1);
 }
@@ -26,6 +30,8 @@
 }
 
 .pdl-collection__header {
+  flex: 1 1 24rem;
+  min-width: 0;
   display: grid;
   max-width: var(--pdl-width-prose);
   gap: var(--pdl-rhythm-content);
@@ -36,8 +42,8 @@
 }
 
 .pdl-collection__actions {
-  flex: 0 0 auto;
-  justify-content: flex-end;
+  flex: 0 1 auto;
+  justify-content: flex-start;
 }
 
 .pdl-collection__search {
@@ -72,25 +78,51 @@
   gap: var(--pdl-rhythm-control);
 }
 
+/* Each entry is a card: title and a line of detail, its state and
+   actions on the end. A clickable entry lifts on hover (card--interactive). */
 .pdl-collection-item {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--pdl-space-6);
+  /* Title and side share a line while both fit; in a narrow item the side
+     wraps under the title instead of running into it. */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--pdl-space-3) var(--pdl-space-6);
   align-items: center;
   padding: var(--pdl-space-5) var(--pdl-space-6);
 }
 
+.pdl-collection-item:not(.pdl-card) {
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+}
+
+.pdl-collection-item:is(a, button) {
+  color: inherit;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pdl-collection-item:is(a, button):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--pdl-ring);
+}
+
 .pdl-collection-item__copy {
+  flex: 1 1 14rem;
   display: grid;
   min-width: 0;
-  gap: var(--pdl-space-2);
+  gap: var(--pdl-space-1);
 }
 
 .pdl-collection-item__title {
+  overflow-wrap: anywhere;
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-md);
-  font-weight: var(--pdl-weight-medium);
+  font-weight: var(--pdl-weight-bold);
   line-height: var(--pdl-line-heading);
 }
 
@@ -104,6 +136,7 @@
 
 .pdl-collection-item__side {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
   gap: var(--pdl-space-3);
@@ -114,46 +147,43 @@
   min-height: 150px;
   align-content: center;
   gap: var(--pdl-space-2);
+  justify-items: center;
   padding: var(--pdl-space-8);
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
-  background: color-mix(in srgb, var(--pdl-surface-1) 64%, transparent);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  text-align: center;
 }
 
 .pdl-collection__empty strong {
-  color: var(--pdl-text-2);
+  color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-sm);
-  font-weight: var(--pdl-weight-medium);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-bold);
 }
 
 .pdl-collection__empty p {
-  max-width: var(--pdl-width-prose);
+  max-width: 48ch;
   margin: 0;
   color: var(--pdl-text-muted);
   font-size: var(--pdl-text-sm);
   line-height: var(--pdl-line-body);
 }
 
-@media (max-width: 767.98px) {
+/* A collection follows its own width (a page, a panel), not the screen. */
+.pdl-collection {
+  container: pdl-collection / inline-size;
+}
 
-  .pdl-collection__top,
+@container pdl-collection (max-width: 30rem) {
+
   .pdl-collection-item {
-    grid-template-columns: 1fr;
+    padding: var(--pdl-space-4);
   }
 
-  .pdl-collection__top {
-    display: grid;
-    align-items: start;
-  }
-
-  .pdl-collection__actions,
   .pdl-collection-item__side {
     justify-content: flex-start;
-  }
-
-  .pdl-collection__search {
-    max-width: none;
   }
 }
 

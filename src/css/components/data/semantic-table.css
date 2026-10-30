@@ -5,6 +5,7 @@
 @layer pdl.components {
 
 .pdl-table-wrap {
+  container: pdl-table / inline-size;
   width: 100%;
   overflow-x: auto;
   border: 1px solid var(--pdl-border-1);
@@ -31,6 +32,9 @@
 
 .pdl-table th,
 .pdl-table td {
+  /* One line per cell: a narrow table scrolls (or stacks), it never breaks
+     a date or a figure in two. */
+  white-space: nowrap;
   padding: var(--pdl-space-3);
   border-bottom: 1px solid var(--pdl-border-1);
   text-align: start;
@@ -63,6 +67,170 @@
 .pdl-table tbody th {
   color: var(--pdl-text-1);
   font-weight: var(--pdl-weight-strong);
+}
+
+/* The actions column keeps the header band. */
+.pdl-table thead .pdl-table__actions {
+  background: var(--pdl-surface-2);
+}
+
+/* In a card head, search keeps a field's width beside the filters. */
+.pdl-card__tools > .pdl-search {
+  flex: 1 1 180px;
+  max-width: 280px;
+  width: auto;
+}
+
+.pdl-card__tools > .pdl-filter-bar {
+  width: auto;
+  flex-wrap: nowrap;
+}
+
+/* The tools ask for their real width (search + filters + action): when the
+   title and the tools don't fit side by side, the tools take their own line
+   under the title instead of running over it. */
+.pdl-card__tools:has(> .pdl-search) {
+  flex: 1 1 auto;
+  flex-wrap: nowrap;
+  align-items: center;
+  /* Never pushed back over the title, even when they don't fit. */
+  justify-content: safe flex-end;
+}
+
+.pdl-card__tools > .pdl-search {
+  min-width: 10rem;
+}
+
+/* Below 60rem a full toolbar (search, filters, action) no longer fits
+   beside a title: it takes the line under it, at full width. */
+@container pdl-card (max-width: 59.98rem) {
+  .pdl-card__tools:has(> .pdl-search) {
+    flex-basis: 100%;
+    margin-inline-start: 0;
+    justify-content: flex-start;
+  }
+
+  .pdl-card__tools:has(> .pdl-search) > .pdl-search {
+    max-width: none;
+  }
+}
+
+@container pdl-card (max-width: 560px) {
+  .pdl-card__tools:has(> .pdl-search) {
+    flex-wrap: wrap;
+  }
+
+  .pdl-card__tools > .pdl-search {
+    max-width: none;
+    flex-basis: 100%;
+  }
+
+  .pdl-card__tools > .pdl-filter-bar {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+  }
+
+  .pdl-card__tools > .pdl-filter-bar > * {
+    flex: 1 1 0;
+  }
+}
+
+/* In a very narrow card the foot keeps the count over the pages, and the
+   pages keep only previous, current and next. */
+@container pdl-card (max-width: 400px) {
+  .pdl-table__foot {
+    justify-content: center;
+    padding-inline: var(--pdl-space-4);
+  }
+
+  .pdl-table__foot .pdl-page:not([aria-current], :first-child, :last-child) {
+    display: none;
+  }
+}
+
+/* Between narrow and wide the search shrinks first, then the row wraps. */
+@container pdl-card (max-width: 760px) {
+  .pdl-card__tools:has(> .pdl-search) {
+    flex-wrap: wrap;
+  }
+}
+
+/* A rich first cell: a mark (icon tile or avatar), the name and a small
+   line under it. */
+.pdl-table__cell {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-table__cell-icon {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  place-items: center;
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-3);
+  color: var(--pdl-text-2);
+}
+
+.pdl-table__cell-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pdl-table__cell-title {
+  display: block;
+  color: var(--pdl-text-1);
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-table__cell-sub {
+  display: block;
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+/* On a selected (tinted) row the small line steps up one tone to keep its
+   contrast. */
+[data-selected="true"] .pdl-table__cell-sub,
+[aria-selected="true"] .pdl-table__cell-sub {
+  color: var(--pdl-text-muted);
+}
+
+/* A unit or currency before a figure, quieter than the figure. */
+.pdl-table__unit {
+  margin-inline-end: 2px;
+  color: var(--pdl-text-subtle);
+  font-weight: var(--pdl-weight-regular);
+}
+
+/* A progress bar in a cell keeps a short, fixed length. */
+.pdl-table td > .pdl-progress {
+  width: 96px;
+}
+
+/* Under the table: a count and the pages, inside the card. */
+.pdl-table__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-3) var(--pdl-space-6);
+  border-top: 1px solid var(--pdl-border-1);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+.pdl-table__foot > .pdl-pagination {
+  padding-top: 0;
 }
 
 /* Totals row. */
@@ -140,7 +308,8 @@
 
 .pdl-table__sort[aria-sort="descending"]::after { content: "↓"; }
 
-.pdl-table-empty {
+.pdl-table .pdl-table-empty {
+  white-space: normal;
   padding: var(--pdl-space-8);
   color: var(--pdl-text-muted);
   text-align: center;
@@ -212,6 +381,17 @@
 }
 
 @media (max-width: 767.98px) {
+
+  .pdl-table__foot {
+    padding-inline: var(--pdl-space-4);
+  }
+}
+
+/* Stacked rows follow the space the table has, not the screen: a table in
+   a narrow column (an aside, a half-width card, a phone) turns its rows
+   into cards; a wide one keeps its columns. */
+@container pdl-table (max-width: 640px) {
+
 
   .pdl-table[data-pdl-table-mode="stack"] thead {
     position: absolute;

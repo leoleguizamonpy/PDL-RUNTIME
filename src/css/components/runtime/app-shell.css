@@ -209,6 +209,10 @@
 }
 
 .pdl-app-topbar__context {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: var(--pdl-text-2);
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-xs);

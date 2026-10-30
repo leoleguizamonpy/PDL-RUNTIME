@@ -7,13 +7,18 @@
 /* Asset workspace --------------------------------------------------------- */
 
 .pdl-asset-workspace {
+  /* The panes follow the workspace's own width: library | stage |
+     inspector, then the inspector on a band below, then one column with
+     the stage first. Side floors never pass a quarter of the width. */
+  container: pdl-asset-workspace / inline-size;
   display: grid;
-  grid-template-columns: minmax(12rem, var(--pdl-width-sidebar)) minmax(0, 1fr) minmax(12rem, var(--pdl-width-panel));
+  grid-template-columns: minmax(min(12rem, 25%), var(--pdl-width-sidebar)) minmax(0, 1fr) minmax(min(12rem, 25%), var(--pdl-width-panel));
   min-height: 560px;
   overflow: hidden;
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
-  background: var(--pdl-black);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
 .pdl-asset-workspace__library,
@@ -33,15 +38,18 @@
 
 .pdl-asset-workspace__stage {
   min-width: 0;
+  min-height: 18rem;
   overflow: auto;
   display: grid;
   place-items: center;
   padding: var(--pdl-rhythm-region, 24px);
+  /* The stage is the page backdrop: what is selected sits on it as a card. */
   background: var(--pdl-black);
 }
 
 .pdl-asset-workspace__selection {
   width: min(100%, 720px);
+  min-width: 0;
   display: grid;
   gap: var(--pdl-rhythm-content, 16px);
 }
@@ -50,20 +58,82 @@
   display: grid;
   gap: var(--pdl-space-2);
   padding: var(--pdl-space-4);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
 }
 
-@media (max-width: 991.98px) {
+/* The asset in view, in the library: the accent's soft tint. */
+.pdl-asset-workspace__library :is([aria-current="true"], [aria-selected="true"]) {
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
+}
 
-  .pdl-asset-workspace {
-    grid-template-columns: minmax(0, 1fr);
+@container pdl-asset-workspace (max-width: 55.98rem) {
+
+  .pdl-asset-workspace > .pdl-asset-workspace__library {
+    grid-column: 1;
+    grid-row: 1;
   }
 
-  /* Scoped to the workspace: the panes are also .pdl-inspector (workspace
-     family), so the override must not depend on which module loads last. */
+  .pdl-asset-workspace > .pdl-asset-workspace__stage {
+    grid-column: 2 / -1;
+    grid-row: 1;
+  }
 
-  .pdl-asset-workspace > :is(.pdl-asset-workspace__library, .pdl-asset-workspace__inspector) {
-    display: none;
+  /* The inspector on its own band: its sections side by side. */
+  .pdl-asset-workspace > .pdl-asset-workspace__inspector {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--pdl-space-6);
+    border-inline-start: 0;
+    border-block-start: 1px solid var(--pdl-border-1);
+  }
+
+  .pdl-asset-workspace > .pdl-asset-workspace__inspector > :is(strong, .pdl-inspector__title, .pdl-inspector__head) {
+    flex: 1 1 100%;
+  }
+
+  .pdl-asset-workspace > .pdl-asset-workspace__inspector > .pdl-inspector__section {
+    flex: 1 1 13rem;
+    min-width: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
   }
 }
+
+@container pdl-asset-workspace (max-width: 35.98rem) {
+
+  .pdl-asset-workspace > .pdl-asset-workspace__stage {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding: var(--pdl-space-4);
+  }
+
+  .pdl-asset-workspace > .pdl-asset-workspace__inspector {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .pdl-asset-workspace > .pdl-asset-workspace__library {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    border-inline-end: 0;
+    border-block-start: 1px solid var(--pdl-border-1);
+  }
+}
+
+/* Composition with a core primitive (a flush card): the card is the frame. */
+.pdl-card--flush > .pdl-asset-workspace {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 
 }

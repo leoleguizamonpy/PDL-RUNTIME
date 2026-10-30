@@ -5,7 +5,10 @@
 @layer pdl.components {
 
 .pdl-toast {
-  width: min(380px, calc(100vw - 2rem));
+  /* The region sets the width on screen; in place (a card, a preview) the
+     toast fills what holds it, up to its usual width. */
+  width: 100%;
+  max-width: 380px;
   padding: var(--pdl-space-4);
   border: 1px solid var(--pdl-border-1);
   border-radius: calc(var(--pdl-radius-surface) + 4px);

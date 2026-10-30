@@ -18,6 +18,9 @@
 }
 
 .pdl-card {
+  /* Everything inside a card fits the card, whatever its width: the parts
+     below respond to the card (container queries), not to the screen. */
+  container: pdl-card / inline-size;
   padding: var(--pdl-space-6);
 }
 
@@ -60,6 +63,47 @@
 
 .pdl-card__body {
   padding: 0 var(--pdl-space-6) var(--pdl-space-6);
+}
+
+/* A card with a head: head, content and foot sit one rhythm apart. A column
+   so the foot (.pdl-card__actions) rests on the bottom edge when the card
+   is stretched beside a taller one. */
+.pdl-card:has(> .pdl-card__head):not(.pdl-card--flush) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pdl-space-5);
+}
+
+/* Sections split a long card (a form) into named groups: a short title, a
+   line of context, then the fields; each one opens with a hairline. */
+.pdl-card__section {
+  display: grid;
+  gap: var(--pdl-space-4);
+  padding-top: var(--pdl-space-5);
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+.pdl-card__section-head {
+  display: grid;
+  gap: 2px;
+}
+
+.pdl-card__section-title {
+  margin: 0;
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-bold);
+}
+
+.pdl-card__section-desc {
+  margin: 0;
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+}
+
+/* In a flush card the head sits on its own band above the content. */
+.pdl-card--flush > .pdl-card__head {
+  border-bottom: 1px solid var(--pdl-border-1);
 }
 
 /* Narrow columns (an aside on the page grid): the frame gives the
@@ -202,6 +246,21 @@
   padding-top: var(--pdl-space-2);
 }
 
+/* One wide action (or a pair sharing the width) at the foot of a narrow
+   card. */
+.pdl-card__actions--fill > * { flex: 1 1 0; }
+
+/* Closing actions of a form card: on their own band, at the end. */
+.pdl-card__actions--end {
+  justify-content: flex-end;
+  padding-top: var(--pdl-space-5);
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+@container pdl-card (max-width: 400px) {
+  .pdl-card__actions--end > * { flex: 1 1 0; }
+}
+
 .pdl-card--horizontal {
   grid-template-columns: minmax(180px, .75fr) minmax(0, 1.25fr);
   align-items: stretch;
@@ -324,6 +383,40 @@
 
 /* Phones: surfaces keep the same air relative to the screen. */
 
+/* A very narrow card (an aside on a tablet, a phone) tightens its inset. */
+@container pdl-card (max-width: 400px) {
+
+  .pdl-card--flush > .pdl-card__head,
+  .pdl-card__body {
+    padding-inline: var(--pdl-space-4);
+  }
+}
+
+/* In a narrow card (a phone, an aside, a third of a row) the tools take
+   their own full row under the title and share it in equal parts, so
+   nothing hangs alone at one edge or runs past the frame. */
+@container pdl-card (max-width: 560px) {
+
+  .pdl-card__tools {
+    width: 100%;
+    margin-inline-start: 0;
+    flex-wrap: wrap;
+  }
+
+  /* Equal parts, but never narrower than a label: what does not fit
+     wraps to the next line instead of running under its neighbour. */
+  .pdl-card__tools > * {
+    flex: 1 1 0;
+  }
+
+  /* Icon-only tools keep their square and a status keeps its pill; the
+     labelled controls share the rest. */
+  .pdl-card__tools > :is(.pdl-icon-button, .pdl-status) {
+    flex: none;
+  }
+
+}
+
 @media (max-width: 575.98px) {
 
   .pdl-panel {
@@ -343,6 +436,7 @@
   .pdl-card__body {
     padding: 0 var(--pdl-space-4) var(--pdl-space-4);
   }
+
 }
 
 }

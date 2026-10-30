@@ -4,17 +4,97 @@
 
 @layer pdl.components {
 
+/* A source the answer leans on: a small pill, its index in a round
+   badge, then the source's name. */
+
 .pdl-citation {
   display: inline-flex;
-  min-height: 28px;
+  max-width: 100%;
+  min-height: 26px;
   align-items: center;
-  gap: var(--pdl-space-1);
-  border: 1px solid var(--pdl-border-2);
+  gap: var(--pdl-space-2);
+  border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-pill);
-  padding: var(--pdl-space-1) var(--pdl-space-2);
-  background: transparent;
-  color: var(--pdl-text-muted);
+  padding: 2px var(--pdl-space-2) 2px 3px;
+  background: var(--pdl-surface-1);
+  color: var(--pdl-text-2);
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    border-color var(--pdl-motion-short) var(--pdl-ease-standard),
+    background var(--pdl-motion-short) var(--pdl-ease-standard),
+    color var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+/* Without an index the pill pads evenly. */
+.pdl-citation:not(:has(> .pdl-citation__index)) {
+  padding-inline: var(--pdl-space-2);
+}
+
+.pdl-citation__index {
+  display: inline-grid;
+  min-width: 18px;
+  height: 18px;
+  flex: none;
+  place-items: center;
+  padding-inline: var(--pdl-space-1);
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-bold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.pdl-citation__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:is(a, button).pdl-citation {
+  cursor: pointer;
+}
+
+:is(a, button).pdl-citation:hover {
+  border-color: var(--pdl-border-2);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+}
+
+:is(a, button).pdl-citation:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--pdl-ring);
+}
+
+@media (forced-colors: active) {
+
+  .pdl-citation__index {
+    border: 1px solid CanvasText;
+  }
+
+  :is(a, button).pdl-citation:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}
+
+/* Coarse pointers: a chip that opens something reaches the touch target. */
+@media (pointer: coarse) {
+
+  :is(a, button).pdl-citation {
+    min-height: var(--pdl-touch-target);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-citation {
+    transition-duration: .001ms;
+  }
 }
 
 }

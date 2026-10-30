@@ -56,12 +56,63 @@
   padding-inline-end: calc(var(--pdl-control-sm) + var(--pdl-space-4));
 }
 
+.pdl-input-control__unit {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: var(--pdl-space-4);
+  transform: translateY(-50%);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  pointer-events: none;
+}
+
+.pdl-input-control:has(> .pdl-input-control__unit) > .pdl-input {
+  font-variant-numeric: tabular-nums;
+}
+
 .pdl-input-control__action {
   position: absolute;
   top: 50%;
   inset-inline-end: var(--pdl-space-2);
   z-index: 1;
   transform: translateY(-50%);
+  /* Part of the field, not a button on top of it: just the icon, no fill,
+     no frame, no press motion. Only its color answers the pointer. */
+  display: inline-grid;
+  width: var(--pdl-control-sm);
+  height: var(--pdl-control-sm);
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--pdl-radius-control);
+  background: none;
+  color: var(--pdl-text-subtle);
+  cursor: pointer;
+}
+
+.pdl-input-control__action:hover,
+.pdl-input-control__action[aria-pressed="true"] {
+  color: var(--pdl-text-1);
+}
+
+.pdl-input-control__action:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 4px var(--pdl-ring);
+}
+
+.pdl-input-control__action > svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 767.98px), (pointer: coarse) {
+
+  .pdl-input-control__action {
+    width: var(--pdl-touch-target);
+    height: var(--pdl-touch-target);
+    inset-inline-end: var(--pdl-space-1);
+  }
 }
 
 /* Fields show focus as a 2px edge in the focus color (border + 1px ring):
@@ -100,6 +151,13 @@
 
 .pdl-select:focus {
   --pdl-select-chevron: var(--pdl-text-1);
+}
+
+/* In a card head, fields are toolbar fields: the small control height,
+   like the small buttons and the filter chips beside them. */
+.pdl-card__tools :is(.pdl-input, .pdl-select) {
+  height: var(--pdl-control-sm);
+  min-height: var(--pdl-control-sm);
 }
 
 /* Field validation: products mark the control with aria-invalid and the
@@ -141,9 +199,16 @@
 
 .pdl-date-group {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Side by side while each field keeps a usable width; stacked when the
+     group is narrow, whatever the screen. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
   /* Stacked on phones, the two fields keep the stack's distance. */
   gap: var(--pdl-stack-gap, var(--pdl-rhythm-region)) var(--pdl-space-3);
+}
+
+/* In a fit row the pair lines up with the columns around it. */
+.pdl-date-group:is(.pdl-row--fit > *) {
+  gap: var(--pdl-space-5) var(--pdl-gutter);
 }
 
 .pdl-input[type="date"],
@@ -169,11 +234,37 @@
 
 @layer pdl.responsive {
 
+/* In a narrow card an inline field takes the tools' full row and its
+   control gives way, so the label and the field never run past the card. */
+@container pdl-card (max-width: 560px) {
+  .pdl-card__tools > .pdl-field--inline {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+
+  .pdl-card__tools > .pdl-field--inline > :is(.pdl-select, .pdl-input) {
+    min-width: 0;
+  }
+}
+
+/* Below md every button is touch-sized; compact fields follow, so a field
+   and the button beside it are always the same height. */
+@media (max-width: 767.98px) {
+
+  .pdl-input--sm,
+  .pdl-select--sm,
+  .pdl-card__tools :is(.pdl-input, .pdl-select) {
+    height: var(--pdl-touch-target);
+    min-height: var(--pdl-touch-target);
+  }
+}
+
 /* Compact fields keep the touch target on coarse pointers. */
 @media (pointer: coarse) {
 
   .pdl-input--sm,
-  .pdl-select--sm {
+  .pdl-select--sm,
+  .pdl-card__tools :is(.pdl-input, .pdl-select) {
     height: var(--pdl-touch-target);
     min-height: var(--pdl-touch-target);
   }

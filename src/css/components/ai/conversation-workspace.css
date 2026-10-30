@@ -4,9 +4,13 @@
 
 @layer pdl.layout {
 
-/* Immersive conversation workspace */
+/* Immersive conversation workspace: the chat column centred on the page
+   background, its head pinned under the topbar. */
 
 .pdl-conversation-workspace {
+  /* Its parts follow the workspace's own width (a page, a column beside
+     a summary, a phone), not the screen's. */
+  container: pdl-conversation / inline-size;
   width: 100%;
   min-height: calc(100dvh - var(--pdl-topbar-height));
   overflow: visible;
@@ -18,7 +22,7 @@
   width: 100%;
   max-width: var(--pdl-width-chat);
   min-height: calc(100dvh - var(--pdl-topbar-height));
-  grid-template-rows: auto auto auto;
+  grid-template-rows: auto 1fr auto;
   gap: var(--pdl-space-5);
   margin-inline: auto;
   overflow: visible;
@@ -43,35 +47,59 @@
 .pdl-conversation-workspace__heading {
   display: grid;
   min-width: 0;
-  gap: var(--pdl-space-1);
+  gap: 2px;
 }
 
 .pdl-conversation-workspace__eyebrow {
-  font-family: var(--pdl-font-label);
   color: var(--pdl-text-subtle);
+  font-family: var(--pdl-font-body);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: var(--pdl-letter-label);
-  text-transform: uppercase;
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
 }
 
 .pdl-conversation-workspace__title {
+  overflow: hidden;
   margin: 0;
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-md);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: -.025em;
-  line-height: 1.2;
+  font-weight: var(--pdl-weight-bold);
+  letter-spacing: -.01em;
+  line-height: var(--pdl-line-heading);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .pdl-conversation-workspace__body {
   display: grid;
+  align-content: start;
   min-height: 0;
+}
+
+/* A status line under the thread (errors, reconnecting): quiet meta. */
+.pdl-conversation-workspace__message {
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  text-align: center;
 }
 
 .pdl-conversation-workspace__message:empty {
   display: none;
+}
+
+@container pdl-conversation (max-width: 40rem) {
+
+  .pdl-conversation-workspace__inner {
+    gap: var(--pdl-space-4);
+    padding: var(--pdl-space-4);
+  }
+
+  .pdl-conversation-workspace__head {
+    flex-wrap: wrap;
+    gap: var(--pdl-space-2);
+  }
 }
 
 @media (max-width: 767.98px) {

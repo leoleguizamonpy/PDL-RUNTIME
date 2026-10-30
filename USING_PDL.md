@@ -60,19 +60,21 @@ Los contratos de cada componente están en `src/html/*.html`. Usá exactamente e
 
 - **Gutter**: 16 px entre columnas (`--pdl-gutter`) y 32 px entre filas (`--pdl-gutter-y`).
 - **Columnas**: 12 por defecto; 8 si el proyecto lo declara (sección 2).
-- **Breakpoints**: sm 576 · md 768 · lg 992 · xl 1200 · xxl 1400. Son los únicos. Si tu CSS necesita un `@media`, usá esos valores (`max-width` con `.98`).
+- **Breakpoints de pantalla**: sm 576 · md 768 · lg 992 · xl 1200 · xxl 1400. Son los únicos `@media` permitidos (`max-width` con `.98`), y solo para lo que de verdad depende de la pantalla: shell fuera de pantalla, capas fijas, puntero táctil.
+- **Cortes de la grilla**: los lee cada fila en su propio ancho, no la pantalla: sm 30 rem · md 40 rem · lg 56 rem · xl 68 rem · xxl 80 rem (los breakpoints de Bootstrap menos los márgenes de la página). A pantalla completa coinciden con Bootstrap; dentro de una card o de una columna angosta la fila baja de paso sola.
 - **Contenedores**: página 1140 · chat 960 · prosa 720 · angosto 540.
-- **Filas y columnas**: `.pdl-row` + `.pdl-col--N` (en todos los anchos) o `.pdl-col--md-6` (desde md hacia arriba, mobile first). En una fila de 8, los spans de 9 a 12 ocupan la fila entera. Las filas se pueden anidar: una fila dentro de una card tiene sus propias líneas.
+- **Filas y columnas**: `.pdl-row` + `.pdl-col--N` (en todos los anchos) o `.pdl-col--md-6` (desde que la fila mide md, mobile first). En una fila de 8, los spans de 9 a 12 ocupan la fila entera. Las filas se pueden anidar: una fila dentro de una card tiene sus propias líneas y sus propios cortes.
+- **Campos en una card**: `.pdl-row--fit` reparte columnas iguales según el ancho de la card (máximo 2 por defecto, `--pdl-fit-cols` para cambiarlo); `.pdl-col--12` mantiene una línea completa.
 
 Repartos por defecto en 12 columnas (en 8, entre paréntesis):
 
 | Composición | Reparto | Contrato |
 |---|---|---|
 | Fila de 4 métricas | 3 + 3 + 3 + 3 (2 × 4) | `.pdl-stat-grid` |
-| Contenido + columna lateral | 9 + 3 (6 + 2); la lateral pasa abajo antes de xl | `.pdl-split--aside`, `.pdl-detail-page__body` |
+| Contenido + columna lateral | 9 + 3 (6 + 2); la lateral pasa abajo cuando el bloque mide menos de 60 rem | `.pdl-split--aside`, `.pdl-detail-page__body` |
 | Barra de herramientas sobre ese contenido | buscador 3 · filtros 6 · orden 3 | `.pdl-table-toolbar--columns` |
-| Campos de formulario | pares `md-6`; textos largos a fila completa | `.pdl-row` + `.pdl-col--md-6` |
-| Colección de cards | `.pdl-grid--3` o `--4` (dos columnas en tablet, una en teléfono) | `.pdl-grid` |
+| Campos de formulario | pares que siguen a la card; textos largos a fila completa | `.pdl-row--fit` + `.pdl-col--12` |
+| Colección de cards | `.pdl-grid--4` (4 → 2 → 1) o `--3` (3 → 1), según su propio ancho, sin cards huérfanas | `.pdl-grid` |
 
 Columna lateral: lleva datos cortos (propiedades, saldo, próximas fechas). Lo que crece —tablas, actividad, historial— va en la columna principal, así las dos columnas terminan a una altura parecida y no queda un hueco bajo la principal.
 

@@ -4,14 +4,74 @@
 
 @layer pdl.components {
 
+/* A human-in-the-loop checkpoint: a white card with a head (title and a
+   tinted state pill), a line of context and its two answers, the primary
+   one first. The legacy anatomy (a bare <strong>, a copy, a cluster)
+   reads the same. */
+
 .pdl-approval {
   display: grid;
   gap: var(--pdl-space-3);
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   padding: var(--pdl-space-5);
-  background: var(--pdl-surface-elevated);
-  box-shadow: inset 0 1px 0 var(--pdl-highlight);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  color: var(--pdl-text-2);
+}
+
+.pdl-approval__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-2) var(--pdl-space-3);
+}
+
+.pdl-approval__title,
+.pdl-approval > strong {
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-approval__copy,
+.pdl-approval > p {
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  line-height: var(--pdl-line-body);
+}
+
+/* The answers sit on their own band, separated from the question. */
+.pdl-approval__actions,
+.pdl-approval > .pdl-cluster:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pdl-space-2);
+  margin-top: var(--pdl-space-1);
+  padding-top: var(--pdl-space-4);
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+/* Resolved: the card steps back; its pill carries the answer. */
+.pdl-approval[data-state="approved"],
+.pdl-approval[data-state="rejected"] {
+  background: var(--pdl-surface-2);
+  box-shadow: none;
+}
+
+@media (max-width: 575.98px) {
+
+  .pdl-approval {
+    padding: var(--pdl-space-4);
+  }
+
+  .pdl-approval__actions > .pdl-button,
+  .pdl-approval > .pdl-cluster:last-child > .pdl-button {
+    flex: 1 1 auto;
+  }
 }
 
 }

@@ -4,21 +4,35 @@
 
 @layer pdl.components {
 
-/* An event's entry: who it is for and its QR, black on white so it scans
-   in any light, with its code to read aloud or type. Compact inside the
-   event's card (a link to the entry's own page). */
+/* An event's entry: a card with its QR (black on white so it scans in any
+   light), then a perforation (a line with a round notch at each side)
+   and the stub: who it is for and the code to read aloud or type. Compact
+   inside the event's card (a link to the entry's own page). */
 
 .pdl-ticket {
+  --pdl-ticket-pad: var(--pdl-space-6);
+  --pdl-ticket-notch: .75rem; /* geometry */
+  position: relative;
+  display: grid;
   justify-items: center;
+  gap: var(--pdl-space-3);
+  overflow: hidden;
+  padding: var(--pdl-ticket-pad);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-sm);
+  color: var(--pdl-text-1);
   text-align: center;
 }
 
 .pdl-ticket__qr {
   display: inline-grid;
   padding: var(--pdl-space-3);
+  border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   background: #fff;
-  box-shadow: 0 1px 0 color-mix(in srgb, var(--pdl-text-1) 8%, transparent);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
 .pdl-ticket__qr > svg {
@@ -27,32 +41,85 @@
   height: auto;
 }
 
+/* The perforation, drawn above the name across the whole card: a hairline
+   between two half circles in the page's color, ringed by the card's own
+   line, so they read as notches cut from its sides. */
+
+.pdl-ticket__qr + .pdl-ticket__name {
+  position: relative;
+  justify-self: stretch;
+  margin-block-start: var(--pdl-space-3);
+  padding-block-start: var(--pdl-space-5);
+}
+
+.pdl-ticket__qr + .pdl-ticket__name::before {
+  position: absolute;
+  inset-block-start: calc(-1 * var(--pdl-ticket-notch));
+  inset-inline: calc(-1 * var(--pdl-ticket-pad) - var(--pdl-ticket-notch) - 1px);
+  height: calc(2 * var(--pdl-ticket-notch));
+  background:
+    radial-gradient(circle closest-side, var(--pdl-black) calc(100% - 1px), var(--pdl-border-1) calc(100% - 1px) 100%, transparent 100%) 0 0 / calc(2 * var(--pdl-ticket-notch)) 100% no-repeat,
+    radial-gradient(circle closest-side, var(--pdl-black) calc(100% - 1px), var(--pdl-border-1) calc(100% - 1px) 100%, transparent 100%) 100% 0 / calc(2 * var(--pdl-ticket-notch)) 100% no-repeat,
+    linear-gradient(var(--pdl-border-1), var(--pdl-border-1)) 50% 50% / calc(100% - 4 * var(--pdl-ticket-notch) - var(--pdl-space-4)) 1px no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
 .pdl-ticket__name {
   margin: 0;
+  font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-lg);
-  font-weight: var(--pdl-weight-strong);
+  font-weight: var(--pdl-weight-bold);
+  line-height: var(--pdl-line-heading);
 }
+
+/* The code: what is read aloud or typed at the door, in the code face. */
 
 .pdl-ticket__code {
   margin: 0;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color: var(--pdl-accent-strong);
+  font-family: var(--pdl-font-mono);
   font-size: var(--pdl-text-lg);
-  font-weight: var(--pdl-weight-strong);
+  font-weight: var(--pdl-weight-bold);
   letter-spacing: .12em;
 }
 
 .pdl-ticket--compact {
-  display: grid;
+  --pdl-ticket-pad: var(--pdl-space-4);
+  --pdl-ticket-notch: .5rem; /* geometry */
   gap: var(--pdl-space-2);
-  padding: var(--pdl-space-3);
-  border: 1.5px dashed color-mix(in srgb, currentColor 30%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
   border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
-  color: inherit;
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  color: var(--pdl-text-1);
   text-decoration: none;
+  transition:
+    box-shadow var(--pdl-motion-short) var(--pdl-ease-standard),
+    transform var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-ticket--compact:hover {
+  box-shadow: var(--pdl-shadow-sm);
+  transform: translateY(-1px);
+}
+
+.pdl-ticket--compact .pdl-ticket__qr {
+  padding: var(--pdl-space-2);
+  box-shadow: none;
 }
 
 .pdl-ticket--compact .pdl-ticket__qr > svg {
   width: 132px;
+}
+
+.pdl-ticket--compact .pdl-ticket__qr + .pdl-ticket__name {
+  margin-block-start: var(--pdl-space-2);
+  padding-block-start: var(--pdl-space-4);
+}
+
+.pdl-ticket--compact .pdl-ticket__name {
+  font-size: var(--pdl-text-md);
 }
 
 .pdl-ticket--compact .pdl-ticket__code {
@@ -60,8 +127,34 @@
 }
 
 .pdl-ticket--compact:focus-visible {
-  outline: 2px solid var(--pdl-focus);
-  outline-offset: 3px;
+  outline: none;
+  box-shadow: var(--pdl-shadow-xs), 0 0 0 4px var(--pdl-ring);
+}
+
+}
+
+@layer pdl.responsive {
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-ticket--compact:hover {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+
+  .pdl-ticket__qr + .pdl-ticket__name::before {
+    background: none;
+    border-block-start: 1px solid CanvasText;
+    height: 0;
+    inset-block-start: 0;
+  }
+
+  .pdl-ticket--compact:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 3px;
+  }
 }
 
 }

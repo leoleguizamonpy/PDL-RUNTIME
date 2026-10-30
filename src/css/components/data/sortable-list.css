@@ -11,6 +11,11 @@
 .pdl-drag-handle {
   cursor: grab;
   touch-action: none;
+  color: var(--pdl-text-subtle);
+}
+
+.pdl-drag-handle:hover {
+  color: var(--pdl-text-1);
 }
 
 [data-pdl-sortable-active] {
@@ -30,15 +35,30 @@
 [data-pdl-sortable-active] > [data-pdl-sortable-item][data-pdl-sortable-dragging] {
   position: relative;
   z-index: 2;
-  border-color: var(--pdl-border-3);
-  box-shadow: var(--pdl-shadow-soft);
+  border-color: var(--pdl-accent-line);
+  box-shadow: var(--pdl-shadow-lg), 0 0 0 1px var(--pdl-accent-line);
   transition: none;
+}
+
+[data-pdl-sortable-active] > [data-pdl-sortable-item][data-pdl-sortable-dragging] .pdl-drag-handle {
+  color: var(--pdl-accent-strong);
 }
 
 @media (prefers-reduced-motion: reduce) {
 
   [data-pdl-sortable-active] > [data-pdl-sortable-item] {
     transition: none;
+  }
+}
+
+}
+
+@layer pdl.interaction {
+
+@media (forced-colors: active) {
+
+  [data-pdl-sortable-active] > [data-pdl-sortable-item][data-pdl-sortable-dragging] {
+    outline: 2px solid Highlight;
   }
 }
 

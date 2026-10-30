@@ -6,8 +6,8 @@
 
 /* Editing a page in place, in an editor's preview. .pdl-edit-surface holds
    the page (a device frame's screen); each part that can be chosen
-   ([data-pdl-edit-target]) shows a dashed outline under the pointer and a
-   solid one once chosen ([data-pdl-selected="true"]). .pdl-edit-toolbar
+   ([data-pdl-edit-target]) shows a soft accent line under the pointer and
+   the accent ring once chosen ([data-pdl-selected="true"]). .pdl-edit-toolbar
    floats over the chosen part with its actions; the editor places it with
    --pdl-edit-toolbar-x and --pdl-edit-toolbar-y, and it scrolls with the
    page. It keeps the editor's own look whatever the page's colors. */
@@ -21,17 +21,19 @@
 }
 
 .pdl-edit-surface [data-pdl-edit-target]:hover {
-  outline: 1px dashed var(--pdl-focus);
+  outline: 1px solid var(--pdl-accent-line);
   outline-offset: 3px;
 }
 
 .pdl-edit-surface [data-pdl-edit-target][data-pdl-selected="true"] {
   outline: 2px solid var(--pdl-focus);
   outline-offset: 3px;
+  /* A surface halo under the ring keeps it visible on any artwork. */
+  box-shadow: 0 0 0 3px var(--pdl-surface-1);
 }
 
 /* Its texts are written in place (contenteditable): a text cursor, a
-   dashed line around the one being written, and its placeholder
+   ring around the one being written, and its placeholder
    (data-pdl-placeholder) while it is empty, so it never collapses. */
 
 .pdl-edit-surface [contenteditable] {
@@ -39,8 +41,8 @@
 }
 
 .pdl-edit-surface [contenteditable]:focus {
-  outline: 1px dashed currentColor;
-  outline-offset: 2px;
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 3px;
 }
 
 .pdl-edit-surface [contenteditable][data-pdl-placeholder]:empty::before {
@@ -66,11 +68,11 @@
      them in one row. */
   gap: 0;
   padding: 2px;
-  border: 1px solid var(--pdl-border-2);
+  border: 1px solid var(--pdl-layer-line);
   /* Round ends on one row; softer corners when it wraps on a phone. */
   border-radius: 1.4rem;
-  background: var(--pdl-surface-elevated);
-  box-shadow: var(--pdl-shadow-soft);
+  background: var(--pdl-layer-surface);
+  box-shadow: var(--pdl-shadow-lg);
   color: var(--pdl-text-1);
 }
 
@@ -86,6 +88,17 @@
   border-radius: var(--pdl-radius-pill);
   color: var(--pdl-danger);
   white-space: nowrap;
+}
+
+.pdl-edit-toolbar__remove:hover {
+  background: var(--pdl-danger-bg);
+}
+
+@media (forced-colors: active) {
+
+  .pdl-edit-surface [data-pdl-edit-target]:hover {
+    outline-color: Highlight;
+  }
 }
 
 }

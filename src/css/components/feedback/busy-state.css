@@ -12,14 +12,35 @@
   cursor: progress;
 }
 
+/* The content stays in view, veiled; the accent spinner sits on top. */
 .pdl-busy-overlay {
+  --pdl-spinner-size: 28px;
   position: absolute;
   inset: 0;
   z-index: 20;
   display: grid;
-  place-items: center;
+  place-content: center;
+  justify-items: center;
+  gap: var(--pdl-space-2);
   border-radius: inherit;
   background: var(--pdl-plate);
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+}
+
+/* A visible label sits on its own chip, readable over the veiled text. */
+.pdl-busy-overlay > :not(.pdl-spinner, .pdl-sr-only) {
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-pill);
+  padding: var(--pdl-space-1) var(--pdl-space-3);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  color: var(--pdl-text-2);
+}
+
+.pdl-busy-overlay > .pdl-spinner {
+  border-width: 3px;
 }
 
 }

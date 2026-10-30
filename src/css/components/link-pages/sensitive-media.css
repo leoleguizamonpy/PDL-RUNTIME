@@ -39,20 +39,27 @@
   justify-items: center;
   gap: var(--pdl-space-2);
   padding: var(--pdl-space-4);
-  background: rgb(0 0 0 / 38%);
+  background: var(--pdl-layer-scrim);
   color: #fff;
   cursor: pointer;
   text-align: center;
 }
 
 .pdl-sensitive__title {
-  font-weight: var(--pdl-weight-strong);
+  font-family: var(--pdl-font-display);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-bold);
 }
 
+/* "See": a white pill over the veil, whatever the theme. */
+
 .pdl-sensitive__action {
-  border: 1.5px solid currentColor;
+  margin-block-start: var(--pdl-space-1);
+  padding: var(--pdl-space-2) var(--pdl-space-5);
   border-radius: var(--pdl-radius-pill);
-  padding: var(--pdl-space-2) var(--pdl-space-4);
+  background: #fff;
+  box-shadow: var(--pdl-shadow-sm);
+  color: #101828;
   font-size: var(--pdl-text-sm);
   font-weight: var(--pdl-weight-strong);
 }
@@ -60,6 +67,7 @@
 .pdl-sensitive__toggle:focus-visible ~ .pdl-sensitive__cover .pdl-sensitive__action {
   outline: 2px solid var(--pdl-focus);
   outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--pdl-ring);
 }
 
 .pdl-sensitive__toggle:checked ~ .pdl-sensitive__content {

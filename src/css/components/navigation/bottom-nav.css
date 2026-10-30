@@ -4,8 +4,69 @@
 
 @layer pdl.components {
 
+/* A phone's main navigation: up to five destinations, an icon over a short
+   label, in a solid bar at the bottom edge. Hidden until something shows
+   it: a page shell with data-pdl-navigation="bottom" on a phone, or a
+   frame's own bar (--inline) when the card that holds it is under 40rem. */
 .pdl-bottom-nav {
   display: none;
+  grid-template-columns: repeat(var(--pdl-bottom-nav-count, 4), minmax(0, 1fr));
+  gap: var(--pdl-space-1);
+  padding: var(--pdl-space-2) max(var(--pdl-space-2), env(safe-area-inset-right))
+    max(var(--pdl-space-2), env(safe-area-inset-bottom))
+    max(var(--pdl-space-2), env(safe-area-inset-left));
+  border-top: 1px solid var(--pdl-border-1);
+  background: var(--pdl-surface-1);
+  box-shadow: 0 -1px 0 var(--pdl-border-1), var(--pdl-shadow-sm);
+}
+
+.pdl-bottom-nav__item {
+  display: grid;
+  min-width: 0;
+  min-height: var(--pdl-touch-target);
+  place-items: center;
+  align-content: center;
+  gap: 2px;
+  padding: var(--pdl-space-1);
+  border-radius: var(--pdl-radius-control);
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-compact);
+  text-decoration: none;
+}
+
+.pdl-bottom-nav__item > span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-bottom-nav__item svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.pdl-bottom-nav__item svg:not([fill]) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Current page: the navigation's 2px edge, here on the top side. */
+.pdl-bottom-nav__item[aria-current="page"] {
+  background: var(--pdl-accent-soft);
+  box-shadow: inset 0 2px 0 var(--pdl-accent);
+  color: var(--pdl-accent-strong);
+}
+
+.pdl-bottom-nav__item:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--pdl-ring);
 }
 
 @media (max-width: 767.98px) {
@@ -15,30 +76,16 @@
     bottom: 0;
     z-index: var(--pdl-z-bottom-nav);
     display: grid;
-    grid-template-columns: repeat(var(--pdl-bottom-nav-count, 4), minmax(0, 1fr));
-    padding: var(--pdl-space-2) max(var(--pdl-space-2), env(safe-area-inset-right))
-      max(var(--pdl-space-2), env(safe-area-inset-bottom))
-      max(var(--pdl-space-2), env(safe-area-inset-left));
-    border-top: 1px solid var(--pdl-border-1);
-    background: var(--pdl-surface-1);
-    box-shadow: 0 -1px 0 var(--pdl-border-1), var(--pdl-shadow-sm);
   }
+}
 
-  .pdl-bottom-nav__item {
+/* A frame's own bar sits in its flow, at the frame's foot. */
+@container pdl-card (max-width: 40rem) {
+
+  .pdl-bottom-nav--inline {
     display: grid;
-    min-height: var(--pdl-touch-target);
-    place-items: center;
     padding: var(--pdl-space-2);
-    border-radius: var(--pdl-radius-control);
-    color: var(--pdl-text-muted);
-    font-size: var(--pdl-text-xs);
-  }
-
-  /* Current page: the navigation's 2px edge, here on the top side. */
-  .pdl-bottom-nav__item[aria-current="page"] {
-    background: var(--pdl-accent-soft);
-    box-shadow: inset 0 2px 0 var(--pdl-accent);
-    color: var(--pdl-accent-strong);
+    box-shadow: none;
   }
 }
 

@@ -12,10 +12,10 @@
 }
 
 .pdl-loading-dots > span {
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: var(--pdl-text-muted);
+  background: var(--pdl-accent);
   animation: pdl-loading-dot 1.05s var(--pdl-ease-standard) infinite;
 }
 
@@ -35,11 +35,18 @@
   }
 }
 
+@media (forced-colors: active) {
+
+  .pdl-loading-dots > span {
+    background: CanvasText;
+  }
+}
+
 @keyframes pdl-loading-dot {
 
-  0%, 70%, 100% { opacity: .28; transform: translateY(0); }
+  0%, 70%, 100% { opacity: .3; transform: translateY(0); }
 
-  35% { opacity: 1; transform: translateY(-2px); }
+  35% { opacity: 1; transform: translateY(-3px); }
 }
 
 }

@@ -5,28 +5,40 @@
 @layer pdl.components {
 
 .pdl-form-flow {
-  display: grid;
-  /* The step list is a sidebar of the side scale. */
-  grid-template-columns: var(--pdl-width-sidebar) minmax(0, 1fr);
+  /* The step list is a sidebar of the side scale beside the form while both
+     fit; in a narrow flow (a phone, a half-width card) the form wraps under
+     it and the list folds into the current step. */
+  container: pdl-form-flow / inline-size;
+  display: flex;
+  flex-wrap: wrap;
   overflow: hidden;
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
 .pdl-form-flow__nav {
+  flex: 1 1 var(--pdl-width-sidebar);
   display: grid;
   align-content: start;
   gap: var(--pdl-space-2);
-  padding: var(--pdl-space-4);
+  padding: var(--pdl-space-5) var(--pdl-space-4);
   border-inline-end: 1px solid var(--pdl-border-1);
-  background: var(--pdl-black);
+  background: var(--pdl-surface-2);
 }
 
 .pdl-form-flow__nav-head {
   display: grid;
-  gap: var(--pdl-space-1);
+  gap: 2px;
   margin-bottom: var(--pdl-space-3);
+  padding-inline: var(--pdl-space-2);
+}
+
+.pdl-form-flow__nav-head strong {
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-bold);
 }
 
 .pdl-form-flow__steps {
@@ -36,10 +48,10 @@
 
 .pdl-form-step {
   display: grid;
-  grid-template-columns: 24px minmax(0, 1fr) auto;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--pdl-space-2);
-  min-height: 44px;
+  gap: var(--pdl-space-3);
+  min-height: 52px;
   width: 100%;
   border: 1px solid transparent;
   border-radius: var(--pdl-radius-control);
@@ -55,8 +67,13 @@
 }
 
 .pdl-form-step:hover {
-  background: var(--pdl-surface-1);
+  background: var(--pdl-surface-3);
   color: var(--pdl-text-1);
+}
+
+.pdl-form-step:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 4px var(--pdl-ring);
 }
 
 .pdl-form-step[aria-current="step"] {
@@ -72,24 +89,28 @@
 }
 
 .pdl-form-step[data-state="complete"] .pdl-form-step__index {
-  border-color: var(--pdl-success);
+  border-color: var(--pdl-success-line);
+  background: var(--pdl-success-bg);
   color: var(--pdl-success);
 }
 
 .pdl-form-step[data-state="attention"] .pdl-form-step__index {
-  border-color: var(--pdl-warning);
+  border-color: var(--pdl-warning-line);
+  background: var(--pdl-warning-bg);
   color: var(--pdl-warning);
 }
 
 .pdl-form-step__index {
   display: grid;
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
   place-items: center;
   border: 1px solid var(--pdl-border-2);
   border-radius: 50%;
+  background: var(--pdl-surface-1);
   color: var(--pdl-text-subtle);
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-bold);
   font-variant-numeric: tabular-nums;
 }
 
@@ -101,7 +122,7 @@
 
 .pdl-form-step__title {
   overflow: hidden;
-  font-size: var(--pdl-text-xs);
+  font-size: var(--pdl-text-sm);
   font-weight: var(--pdl-weight-strong);
   line-height: var(--pdl-line-heading);
   text-overflow: ellipsis;
@@ -120,6 +141,7 @@
 }
 
 .pdl-form-flow__main {
+  flex: 999 1 24rem;
   min-width: 0;
   padding: var(--pdl-space-6);
   background: var(--pdl-surface-1);
@@ -144,17 +166,19 @@
 
 .pdl-form-flow__head h3 {
   margin: 0;
+  color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-lg);
-  font-weight: var(--pdl-weight-strong);
-  letter-spacing: -.025em;
+  font-weight: var(--pdl-weight-bold);
+  letter-spacing: -.01em;
 }
 
 .pdl-form-flow__footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--pdl-space-3);
-  padding-top: var(--pdl-space-4);
+  padding-top: var(--pdl-space-5);
   border-top: 1px solid var(--pdl-border-1);
 }
 
@@ -162,11 +186,7 @@
   display: none;
 }
 
-@media (max-width: 767.98px) {
-
-  .pdl-form-flow {
-    grid-template-columns: 1fr;
-  }
+@container pdl-form-flow (max-width: 640px) {
 
   .pdl-form-flow__nav {
     border-inline-end: 0;

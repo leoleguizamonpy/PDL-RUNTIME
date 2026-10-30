@@ -11,16 +11,18 @@
 .pdl-combobox__list {
   position: absolute;
   z-index: var(--pdl-z-popover);
-  top: calc(100% + var(--pdl-space-1));
+  top: calc(100% + var(--pdl-space-2));
   inset-inline: 0;
   display: grid;
-  max-height: 240px;
+  gap: 2px;
+  max-height: 264px;
   overflow-y: auto;
   border: 1px solid var(--pdl-layer-line);
   border-radius: var(--pdl-radius-surface);
   padding: var(--pdl-space-1);
   background: var(--pdl-layer-surface);
   box-shadow: var(--pdl-layer-shadow);
+  overscroll-behavior: contain;
 }
 
 .pdl-combobox__list[hidden] {
@@ -34,21 +36,80 @@
   align-content: center;
   border-radius: var(--pdl-radius-control);
   padding: var(--pdl-space-2) var(--pdl-space-3);
-  color: var(--pdl-text-muted);
+  color: var(--pdl-text-2);
   cursor: pointer;
   font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  transition: background var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
-.pdl-combobox__option:hover,
-.pdl-combobox__option[aria-selected="true"],
-.pdl-combobox__option.is-active {
+.pdl-combobox__option:hover {
   background: var(--pdl-surface-2);
   color: var(--pdl-text-1);
+}
+
+/* The active option (keyboard) and the chosen one take the brand's soft
+   fill; the chosen one also a check at the end. */
+.pdl-combobox__option.is-active,
+.pdl-combobox__option[aria-selected="true"] {
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
+}
+
+.pdl-combobox__option[aria-selected="true"] {
+  position: relative;
+  padding-inline-end: var(--pdl-space-8);
+  font-weight: var(--pdl-weight-strong);
+}
+
+.pdl-combobox__option[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  inset-inline-end: var(--pdl-space-3);
+  width: 10px;
+  height: 6px;
+  border-inline-start: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-70%) rotate(-45deg);
+}
+
+.pdl-combobox__option[aria-disabled="true"] {
+  opacity: .5;
+  cursor: not-allowed;
 }
 
 .pdl-combobox__meta {
   color: var(--pdl-text-subtle);
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-regular);
+}
+
+.pdl-combobox__empty {
+  padding: var(--pdl-space-3);
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+}
+
+}
+
+@layer pdl.interaction {
+
+@media (forced-colors: active) {
+
+  .pdl-combobox__option.is-active,
+  .pdl-combobox__option[aria-selected="true"] {
+    background: Highlight;
+    color: HighlightText;
+    forced-color-adjust: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-combobox__option {
+    transition-duration: .001ms;
+  }
 }
 
 }

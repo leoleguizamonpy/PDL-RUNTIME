@@ -24,14 +24,14 @@
 .pdl-workspace-item__copy {
   display: grid;
   min-width: 0;
-  gap: var(--pdl-space-2);
+  gap: var(--pdl-space-1);
 }
 
 .pdl-workspace-item__title {
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-sm);
-  font-weight: var(--pdl-weight-medium);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-bold);
   line-height: var(--pdl-line-heading);
 }
 
@@ -45,27 +45,38 @@
 }
 
 .pdl-workspace-item__meta {
-  border-radius: calc(var(--pdl-radius-surface) - 3px);
+  border-radius: var(--pdl-radius-control);
 }
 
 .pdl-workspace-item__actions {
   padding-top: var(--pdl-space-2);
 }
 
+/* Files attached to the item: a framed list on the subtle fill. */
 .pdl-workspace-artifacts {
   display: grid;
   overflow: hidden;
   border: 1px solid var(--pdl-border-1);
-  border-radius: calc(var(--pdl-radius-surface) - 3px);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-2);
 }
 
 .pdl-workspace-artifact {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
   gap: var(--pdl-space-3);
-  padding: .7rem var(--pdl-space-4);
-  color: var(--pdl-text-2);
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+  color: var(--pdl-text-1);
   font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+}
+
+.pdl-workspace-artifact > :first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .pdl-workspace-artifact + .pdl-workspace-artifact {
@@ -74,6 +85,8 @@
 
 .pdl-workspace-artifact small {
   color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
 }
 
 .pdl-workspace-form {
@@ -84,7 +97,9 @@
 .pdl-workspace-form__title {
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-sm);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-bold);
+  line-height: var(--pdl-line-heading);
 }
 
 .pdl-workspace-form__fields {
@@ -95,20 +110,25 @@
 
 .pdl-workspace-form__footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
+  gap: var(--pdl-space-2);
 }
 
 .pdl-workspace-history__controls {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(180px, .32fr);
+  /* Search and filter share a line while both fit, then stack. */
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--pdl-space-3);
 }
 
-@media (max-width: 991.98px) {
+.pdl-workspace-history__controls > * {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
 
-  .pdl-workspace-history__controls {
-    grid-template-columns: 1fr;
-  }
+.pdl-workspace-history__controls > :first-child {
+  flex: 999 1 16rem;
 }
 
 }

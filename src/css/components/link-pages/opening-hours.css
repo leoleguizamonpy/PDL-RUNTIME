@@ -4,18 +4,19 @@
 
 @layer pdl.components {
 
-/* Opening hours: whether it is open now, then the week (days with the
-   same hours together, today's stronger), in the buttons' look. */
+/* Opening hours: whether it is open now (a pill tinted by its state), then
+   the week (days with the same hours together, today on the accent's soft
+   fill), on a card in the buttons' look. */
 
 .pdl-hours {
   display: grid;
   justify-items: center;
   gap: var(--pdl-space-3);
-  padding: var(--pdl-space-4);
-  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  padding: var(--pdl-space-5);
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-1));
   border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
   background: var(--pdl-button-fill, var(--pdl-surface-1));
-  box-shadow: var(--pdl-button-elevation, none);
+  box-shadow: var(--pdl-button-elevation, var(--pdl-shadow-xs));
   color: var(--pdl-button-ink, var(--pdl-text-1));
   text-align: start;
 }
@@ -24,20 +25,22 @@
   text-align: center;
 }
 
-/* The open or closed mark in the card's own ink. */
+/* The open or closed mark keeps its state's tint (success, danger…); a
+   long line wraps inside the pill. */
 
 .pdl-hours__status.pdl-status-label {
-  border-color: color-mix(in srgb, currentColor 22%, transparent);
-  background: transparent;
-  color: inherit;
+  height: auto;
+  min-height: 22px; /* geometry */
+  padding-block: var(--pdl-space-1);
   font-size: var(--pdl-text-xs);
+  line-height: var(--pdl-line-compact);
   white-space: normal;
 }
 
 .pdl-hours__list {
   display: grid;
   width: 100%;
-  gap: var(--pdl-space-2);
+  gap: 2px; /* geometry */
   margin: 0;
 }
 
@@ -45,21 +48,26 @@
   display: flex;
   justify-content: space-between;
   gap: var(--pdl-space-3);
+  padding: var(--pdl-space-2) var(--pdl-space-3);
+  border-radius: var(--pdl-radius-control);
   font-size: var(--pdl-text-sm);
   line-height: 1.4;
 }
 
 .pdl-hours__row > dt {
-  opacity: .78;
+  opacity: .72;
 }
 
 .pdl-hours__row > dd {
   margin: 0;
   font-variant-numeric: tabular-nums;
+  font-weight: var(--pdl-weight-medium);
   text-align: end;
 }
 
 .pdl-hours__row--today {
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
   font-weight: var(--pdl-weight-strong);
 }
 
@@ -67,12 +75,27 @@
   opacity: 1;
 }
 
+.pdl-hours__row--today > dd {
+  font-weight: var(--pdl-weight-bold);
+}
+
 .pdl-hours__note {
   margin: 0;
   font-size: var(--pdl-text-xs);
   line-height: 1.45;
-  opacity: .72;
+  opacity: .68;
   text-align: center;
+}
+
+}
+
+@layer pdl.responsive {
+
+@media (forced-colors: active) {
+
+  .pdl-hours__row--today {
+    outline: 1px solid CanvasText;
+  }
 }
 
 }

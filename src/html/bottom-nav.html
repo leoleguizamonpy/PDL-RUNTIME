@@ -1,9 +1,12 @@
-<!-- Shown on phones (<= 768px) inside a [data-pdl-navigation="bottom"] shell. -->
+<!-- Shown on phones (<= 768px) inside a [data-pdl-navigation="bottom"] shell.
+     Each destination: an icon over a short label. A frame's own bar
+     (.pdl-bottom-nav--inline, beside a .pdl-sidebar--inline) shows instead
+     when the card that holds it is under 40rem. -->
 <div data-pdl-navigation="bottom">
 <nav class="pdl-bottom-nav" aria-label="Navegación principal" style="--pdl-bottom-nav-count: 4">
-  <a class="pdl-bottom-nav__item" href="#" aria-current="page">Inicio</a>
-  <a class="pdl-bottom-nav__item" href="#">Actividad</a>
-  <a class="pdl-bottom-nav__item" href="#">Archivos</a>
-  <a class="pdl-bottom-nav__item" href="#">Más</a>
+  <a class="pdl-bottom-nav__item" href="#" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5 10v10h14V10"/></svg><span>Inicio</span></a>
+  <a class="pdl-bottom-nav__item" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5zM4 7.5l8 4.5 8-4.5M12 12v9"/></svg><span>Entregas</span></a>
+  <a class="pdl-bottom-nav__item" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18v12H3zM3 7l3-4h12l3 4M16 13h2"/></svg><span>Pagos</span></a>
+  <a class="pdl-bottom-nav__item" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"/></svg><span>Más</span></a>
 </nav>
 </div>

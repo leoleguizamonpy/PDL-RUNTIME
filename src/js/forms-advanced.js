@@ -205,10 +205,26 @@ export function initTagInputs(root = document) {
   return { destroy() { cleanups.forEach(fn => fn()); } };
 }
 
+// Color field: the code beside the swatch follows the chosen color.
+export function initColorFields(root = document) {
+  const cleanups = [];
+  for (const field of root.querySelectorAll(".pdl-color-input__field")) {
+    const input = field.querySelector(".pdl-color-input");
+    const value = field.querySelector(".pdl-color-input__value");
+    if (!input || !value) continue;
+    const sync = () => { value.textContent = input.value.toUpperCase(); };
+    sync();
+    input.addEventListener("input", sync);
+    cleanups.push(() => input.removeEventListener("input", sync));
+  }
+  return { destroy() { cleanups.forEach(fn => fn()); } };
+}
+
 export function initAdvancedForms(root = document) {
   const instances = [
     initSegmented(root),
     initRanges(root),
+    initColorFields(root),
     initComboboxes(root),
     initTagInputs(root)
   ];

@@ -4,12 +4,32 @@
 
 @layer pdl.components {
 
+/* One notice, in the alert/toast anatomy: a tinted state symbol
+   (.pdl-feedback-symbol, toast.css) leading, a strong title over muted
+   copy and a meta line. Unread ones carry an accent dot. */
+
 .pdl-notification {
+  position: relative;
   display: grid;
-  gap: var(--pdl-space-2);
-  border: 1px solid var(--pdl-border-2);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: var(--pdl-space-3);
+  row-gap: var(--pdl-space-1);
+  border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
+  padding: var(--pdl-space-4);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+}
+
+.pdl-notification:has(> .pdl-feedback-symbol) {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.pdl-notification > :is(.pdl-notification__content, div:not([class])) {
+  display: grid;
+  min-width: 0;
+  gap: var(--pdl-space-1);
 }
 
 .pdl-notification__title {
@@ -26,26 +46,59 @@
   line-height: var(--pdl-line-body);
 }
 
-.pdl-notification {
-  grid-template-columns: minmax(0, 1fr) auto;
-  padding: var(--pdl-space-4);
-}
-
 .pdl-notification__meta {
   color: var(--pdl-text-subtle);
   font-size: var(--pdl-text-xs);
   line-height: var(--pdl-line-heading);
 }
 
+.pdl-notification__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pdl-space-2);
+  margin-top: var(--pdl-space-2);
+}
+
+/* Unread: an accent dot at the inline end, level with the title. */
+.pdl-notification[data-read="false"] {
+  padding-inline-end: var(--pdl-space-8);
+}
+
+.pdl-notification[data-read="false"]::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--pdl-space-4) + 4px); /* geometry: centred on the title line */
+  inset-inline-end: var(--pdl-space-4);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pdl-accent);
+  box-shadow: 0 0 0 3px var(--pdl-accent-soft);
+}
+
+/* Read: the title steps down a weight; the copy stays readable. */
+.pdl-notification[data-read="true"] .pdl-notification__title {
+  color: var(--pdl-text-2);
+  font-weight: var(--pdl-weight-medium);
+}
+
 @media (max-width: 575.98px) {
 
   .pdl-notification {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pdl-notification:has(> .pdl-feedback-symbol) {
+    grid-template-columns: auto minmax(0, 1fr);
   }
 }
 
-.pdl-notification[data-read="true"] {
-  opacity: .62;
+@media (forced-colors: active) {
+
+  .pdl-notification[data-read="false"]::after {
+    background: CanvasText;
+    box-shadow: none;
+  }
 }
 
 }

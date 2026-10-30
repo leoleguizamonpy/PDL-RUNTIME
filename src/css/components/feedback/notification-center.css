@@ -4,42 +4,142 @@
 
 @layer pdl.components {
 
+/* A floating panel: the layer anatomy, a head (title, count pill, "mark
+   all" action) and notifications as rows that light up under the pointer. */
+
 .pdl-notification-center {
   display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   width: min(var(--pdl-width-drawer), calc(100vw - 2rem));
+  max-width: 100%;
   max-height: min(70vh, 680px);
   overflow: hidden;
-  border: 1px solid var(--pdl-border-2);
+  border: 1px solid var(--pdl-layer-line);
   border-radius: var(--pdl-radius-surface);
-  background: var(--pdl-surface-1);
+  background: var(--pdl-layer-surface);
+  box-shadow: var(--pdl-layer-shadow);
+}
+
+/* Inline: placed on the page (a column of the grid) instead of floating,
+   the panel takes its column's width and the row's height. */
+.pdl-notification-center--inline {
+  width: auto;
+  max-height: none;
 }
 
 .pdl-notification-center__head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--pdl-space-3);
-  padding: var(--pdl-space-4);
+  gap: var(--pdl-space-2);
+  padding: var(--pdl-space-3) var(--pdl-space-3) var(--pdl-space-3) var(--pdl-space-5);
   border-bottom: 1px solid var(--pdl-border-1);
 }
 
+.pdl-notification-center__head > :is(.pdl-notification-center__title, .pdl-notification__title) {
+  margin: 0;
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-bold);
+  line-height: var(--pdl-line-heading);
+}
+
+/* Unread count, the tabs' count pill. */
+.pdl-notification-center__count {
+  display: inline-grid;
+  min-width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: var(--pdl-radius-pill);
+  padding-inline: var(--pdl-space-2);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.pdl-notification-center__head > :is(.pdl-button, .pdl-notification-center__action) {
+  flex: none;
+  margin-inline-start: auto;
+  white-space: nowrap;
+}
+
 .pdl-notification-center__list {
+  min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .pdl-notification-center .pdl-notification {
   border: 0;
   border-radius: 0;
+  padding-inline-start: var(--pdl-space-5);
+  background: transparent;
+  box-shadow: none;
+  transition: background-color var(--pdl-motion-fast) var(--pdl-ease-standard);
+}
+
+.pdl-notification-center .pdl-notification[data-read="false"] {
+  padding-inline-end: var(--pdl-space-10);
+}
+
+.pdl-notification-center .pdl-notification[data-read="false"]::after {
+  inset-inline-end: var(--pdl-space-5);
 }
 
 .pdl-notification-center .pdl-notification + .pdl-notification {
   border-top: 1px solid var(--pdl-border-1);
 }
 
+.pdl-notification-center .pdl-notification:hover,
+.pdl-notification-center .pdl-notification:focus-within {
+  background: var(--pdl-surface-2);
+}
+
+.pdl-notification-center__empty {
+  margin: 0;
+  padding: var(--pdl-space-8) var(--pdl-space-5);
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
+  text-align: center;
+}
+
+.pdl-notification-center__foot {
+  display: flex;
+  justify-content: center;
+  padding: var(--pdl-space-2);
+  border-top: 1px solid var(--pdl-border-1);
+  background: var(--pdl-surface-2);
+}
+
 @media (max-width: 575.98px) {
 
   .pdl-notification-center {
     width: 100%;
+  }
+
+  .pdl-notification-center__head {
+    padding-inline-start: var(--pdl-space-4);
+  }
+
+  .pdl-notification-center .pdl-notification {
+    padding-inline-start: var(--pdl-space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-notification-center .pdl-notification {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+
+  .pdl-notification-center .pdl-notification:hover {
+    outline: 1px solid Highlight;
+    outline-offset: -1px;
   }
 }
 

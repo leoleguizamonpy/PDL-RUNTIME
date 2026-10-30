@@ -4,6 +4,12 @@
 
 @layer pdl.components {
 
+/* A link page's buttons carry labels people write: they wrap instead of
+   pushing the column wider. */
+.pdl-link-page .pdl-button {
+  white-space: normal;
+}
+
 /* The list of a link page: everything at the same distance; more room
    between two elements is the page's own (.pdl-spacer). */
 
@@ -24,11 +30,12 @@
 
 .pdl-spacer--xl { height: var(--pdl-space-20); }
 
-/* In an editor's preview the room shows as a faint dashed box. */
+/* In an editor's preview the room shows as a faint tinted band. */
 
 .pdl-spacer--guide {
-  border: 1px dashed color-mix(in srgb, currentColor 22%, transparent);
+  border: 1px solid color-mix(in srgb, var(--pdl-accent) 18%, transparent);
   border-radius: var(--pdl-radius-control);
+  background: color-mix(in srgb, var(--pdl-accent) 6%, transparent);
 }
 
 /* Square cards side by side: always two columns, even on phones. */

@@ -6,7 +6,7 @@
 
 .pdl-section {
   width: 100%;
-  border-top: 1px solid color-mix(in srgb, var(--pdl-border-1) 72%, transparent);
+  border-top: 1px solid var(--pdl-border-1);
 }
 
 .pdl-section__inner {
@@ -30,7 +30,9 @@
 
 .pdl-section--surface-2 { background: var(--pdl-surface-2); }
 
-.pdl-section--contrast { background: var(--pdl-black); }
+/* Contrast: a band set apart from the page on the pressed neutral. */
+
+.pdl-section--contrast { background: var(--pdl-surface-3); }
 
 .pdl-page-header {
   display: grid;

@@ -5,6 +5,8 @@ function reducedMotion() {
 export function initPageMotion(root = document) {
   const html = document.documentElement;
   const cleanups = [];
+  // Reveals hide only from here on (see base.css): no script, no hiding.
+  html.dataset.pdlMotion = "";
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {

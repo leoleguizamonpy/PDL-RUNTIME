@@ -4,20 +4,65 @@
 
 @layer pdl.components {
 
+/* The layer anatomy at radius 12. Menu items sit on the inner padding
+   like a menu group; a title and copy make it an explainer. */
+
 .pdl-popover {
   position: fixed;
   z-index: var(--pdl-z-popover);
+  display: grid;
   width: min(var(--pdl-width-panel), calc(100vw - 2rem));
+  gap: var(--pdl-space-1);
   border: 1px solid var(--pdl-layer-line);
   border-radius: var(--pdl-radius-surface);
-  padding: var(--pdl-space-3);
+  padding: var(--pdl-space-2);
   background: var(--pdl-layer-surface);
   color: var(--pdl-text-2);
   box-shadow: var(--pdl-layer-shadow);
+  font-size: var(--pdl-text-sm);
 }
 
 .pdl-popover[hidden] {
   display: none;
+}
+
+.pdl-popover__title {
+  margin: 0;
+  padding: var(--pdl-space-2) var(--pdl-space-2) 0;
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
+}
+
+.pdl-popover__copy {
+  margin: 0;
+  padding: 0 var(--pdl-space-2) var(--pdl-space-2);
+  color: var(--pdl-text-muted);
+  line-height: var(--pdl-line-body);
+}
+
+.pdl-popover__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--pdl-space-2);
+  margin: var(--pdl-space-1) calc(-1 * var(--pdl-space-2)) calc(-1 * var(--pdl-space-2));
+  padding: var(--pdl-space-2);
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .pdl-popover:not([hidden]) {
+    animation: pdl-popover-in var(--pdl-motion-short) var(--pdl-ease-enter) both;
+  }
+}
+
+@keyframes pdl-popover-in {
+
+  from { opacity: 0; transform: translateY(-4px); }
+
+  to { opacity: 1; transform: none; }
 }
 
 }

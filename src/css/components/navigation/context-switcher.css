@@ -5,7 +5,8 @@
 @layer pdl.components {
 
 /* What is being edited, as a pill that opens a menu to switch: a photo,
-   a name over a detail line, and a chevron. */
+   a name over a detail line, and a chevron. A white control like a
+   field; open, it takes the accent edge and ring. */
 
 .pdl-switcher {
   display: inline-flex;
@@ -19,27 +20,43 @@
   padding-block: var(--pdl-space-1);
   padding-inline: var(--pdl-space-1) var(--pdl-space-3);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
   color: var(--pdl-text-1);
+  font: inherit;
   cursor: pointer;
   text-align: start;
+  transition:
+    border-color var(--pdl-motion-short) var(--pdl-ease-standard),
+    background var(--pdl-motion-short) var(--pdl-ease-standard),
+    box-shadow var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
 .pdl-switcher:hover {
   border-color: var(--pdl-border-3);
+  background: var(--pdl-surface-2);
 }
 
 .pdl-switcher[aria-expanded="true"] {
-  border-color: var(--pdl-text-1);
+  border-color: var(--pdl-accent);
+  background: var(--pdl-surface-1);
+  box-shadow: 0 0 0 4px var(--pdl-ring);
 }
 
 .pdl-switcher > svg {
   flex: none;
-  color: var(--pdl-text-muted);
+  color: var(--pdl-text-subtle);
+  transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-switcher[aria-expanded="true"] > svg:last-child {
+  color: var(--pdl-accent-strong);
+  transform: rotate(180deg);
 }
 
 .pdl-switcher:focus-visible {
-  outline: 2px solid var(--pdl-focus);
-  outline-offset: 2px;
+  outline: none;
+  border-color: var(--pdl-accent);
+  box-shadow: 0 0 0 4px var(--pdl-ring);
 }
 
 .pdl-switcher__text {
@@ -61,9 +78,26 @@
 }
 
 .pdl-switcher__meta {
-  color: var(--pdl-text-muted);
+  color: var(--pdl-text-subtle);
   font-size: var(--pdl-text-xs);
   line-height: var(--pdl-line-heading);
+}
+
+@media (forced-colors: active) {
+
+  .pdl-switcher:focus-visible,
+  .pdl-switcher[aria-expanded="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-switcher,
+  .pdl-switcher > svg {
+    transition-duration: .001ms;
+  }
 }
 
 }

@@ -58,9 +58,17 @@
    and --pdl-gutter-y between rows. A child spans every column until a
    .pdl-col--N (all widths) or .pdl-col--{sm|md|lg|xl|xxl}-N (from that
    breakpoint up, mobile first) says otherwise. In an 8-column row, spans
-   above 8 take the whole row. */
+   above 8 take the whole row.
+
+   The breakpoints are read on the row, not on the screen: a row is "md"
+   when it is as wide as a page at Bootstrap's md (768px less the page's
+   side margins), whatever holds it. So the same markup lays out a full
+   page, a half-width card or a narrow panel correctly, and a row inside a
+   sidebar layout drops a step when the sidebar takes the room.
+   sm 30rem · md 40rem · lg 56rem · xl 68rem · xxl 80rem */
 
 .pdl-row {
+  container: pdl-row / inline-size;
   display: grid;
   grid-template-columns: repeat(var(--pdl-columns), minmax(0, 1fr));
   column-gap: var(--pdl-gutter);
@@ -68,6 +76,24 @@
 }
 
 .pdl-row--8 { --pdl-columns: 8; }
+
+/* Dense rows back-fill holes: on a tablet, two half-width cards from
+   different desktop rows pair up instead of each leaving half a row empty. */
+.pdl-row--dense { grid-auto-flow: row dense; }
+
+/* Fit rows follow the space they are in, not the screen: equal columns at a
+   usable width (a form inside a card), at most --pdl-fit-cols (2 by default,
+   so fields pair up symmetrically), down to one. .pdl-col--12 keeps a full
+   line (a long text, a note). */
+.pdl-row--fit {
+  --pdl-fit-cols: 2;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, max(var(--pdl-fit-min, 14rem), (100% - (var(--pdl-fit-cols) - 1) * var(--pdl-gutter)) / var(--pdl-fit-cols))), 1fr));
+  row-gap: var(--pdl-space-5);
+}
+
+.pdl-row.pdl-row--fit > * { grid-column: auto; }
+
+.pdl-row.pdl-row--fit > .pdl-col--12 { grid-column: 1 / -1; }
 
 .pdl-row--12 { --pdl-columns: 12; }
 
@@ -92,7 +118,7 @@
 .pdl-row--8 > :is(.pdl-col--9, .pdl-col--10, .pdl-col--11, .pdl-col--12),
 [data-pdl-columns="8"] .pdl-row:not(.pdl-row--12) > :is(.pdl-col--9, .pdl-col--10, .pdl-col--11, .pdl-col--12) { grid-column: 1 / -1; }
 
-@media (min-width: 576px) {
+@container pdl-row (min-width: 30rem) {
 
   .pdl-col--sm-1 { grid-column: span 1; }
   .pdl-col--sm-2 { grid-column: span 2; }
@@ -111,7 +137,7 @@
   [data-pdl-columns="8"] .pdl-row:not(.pdl-row--12) > :is(.pdl-col--sm-9, .pdl-col--sm-10, .pdl-col--sm-11, .pdl-col--sm-12) { grid-column: 1 / -1; }
 }
 
-@media (min-width: 768px) {
+@container pdl-row (min-width: 40rem) {
 
   .pdl-col--md-1 { grid-column: span 1; }
   .pdl-col--md-2 { grid-column: span 2; }
@@ -130,7 +156,7 @@
   [data-pdl-columns="8"] .pdl-row:not(.pdl-row--12) > :is(.pdl-col--md-9, .pdl-col--md-10, .pdl-col--md-11, .pdl-col--md-12) { grid-column: 1 / -1; }
 }
 
-@media (min-width: 992px) {
+@container pdl-row (min-width: 56rem) {
 
   .pdl-col--lg-1 { grid-column: span 1; }
   .pdl-col--lg-2 { grid-column: span 2; }
@@ -149,7 +175,7 @@
   [data-pdl-columns="8"] .pdl-row:not(.pdl-row--12) > :is(.pdl-col--lg-9, .pdl-col--lg-10, .pdl-col--lg-11, .pdl-col--lg-12) { grid-column: 1 / -1; }
 }
 
-@media (min-width: 1200px) {
+@container pdl-row (min-width: 68rem) {
 
   .pdl-col--xl-1 { grid-column: span 1; }
   .pdl-col--xl-2 { grid-column: span 2; }
@@ -168,7 +194,7 @@
   [data-pdl-columns="8"] .pdl-row:not(.pdl-row--12) > :is(.pdl-col--xl-9, .pdl-col--xl-10, .pdl-col--xl-11, .pdl-col--xl-12) { grid-column: 1 / -1; }
 }
 
-@media (min-width: 1400px) {
+@container pdl-row (min-width: 80rem) {
 
   .pdl-col--xxl-1 { grid-column: span 1; }
   .pdl-col--xxl-2 { grid-column: span 2; }
@@ -188,6 +214,7 @@
 }
 
 .pdl-layout-grid {
+  container: pdl-layout / inline-size;
   display: grid;
   width: 100%;
   max-width: var(--pdl-layout-max);
@@ -216,12 +243,19 @@
 .pdl-layout-span--3 { grid-column: span 3; }
 
 .pdl-grid {
+  /* Equal columns that follow the grid's own width: 4 → 2 → 1, 3 → 1,
+     2 → 1 (each column keeps about 13rem), never an orphan column. */
+  container: pdl-grid / inline-size;
   display: grid;
   /* Equal columns on the grid system's gutters, so they line up with
      .pdl-row spans (4 equal columns = 4 spans of 3). */
   column-gap: var(--pdl-gutter);
   row-gap: var(--pdl-gutter-y);
 }
+
+/* Text in a column wraps inside it instead of widening the column. */
+.pdl-grid > *,
+.pdl-split > * { min-width: 0; }
 
 .pdl-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
@@ -230,6 +264,7 @@
 .pdl-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
 .pdl-split {
+  container: pdl-split / inline-size;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   /* Text beside media: three gutters apart. */
@@ -240,8 +275,10 @@
 /* Main content with a side column (summary, activity) on the grid system:
    the main column spans 9 of 12 (6 of 8), the aside 3 (2). Its edges fall
    on the same lines as a four-up metric row or .pdl-grid--4. Both start at
-   the top; below xxl the aside goes under the main column. */
+   the top; when the split is narrower than 60rem the aside goes under
+   the main column (two-up on a tablet-wide split). */
 .pdl-split--aside {
+  container: pdl-split / inline-size;
   grid-template-columns: repeat(var(--pdl-columns), minmax(0, 1fr));
   column-gap: var(--pdl-gutter);
   row-gap: var(--pdl-gutter-y);
@@ -256,47 +293,48 @@
 
 [data-pdl-columns="8"] .pdl-split--aside > :last-child:not(:first-child) { grid-column: span 2; }
 
-@media (max-width: 1199.98px) {
-
-  .pdl-split--aside {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: var(--pdl-rhythm-block);
-  }
+@container pdl-split (max-width: 59.98rem) {
 
   /* Matches the span rules' specificity (8 columns included). */
   .pdl-split--aside > :first-child,
   .pdl-split--aside > :last-child:not(:first-child),
   [data-pdl-columns="8"] .pdl-split--aside > :first-child,
   [data-pdl-columns="8"] .pdl-split--aside > :last-child:not(:first-child) {
-    grid-column: auto;
+    grid-column: 1 / -1;
   }
 }
 
-@media (min-width: 768px) and (max-width: 1199.98px) {
+@container pdl-split (min-width: 40rem) and (max-width: 59.98rem) {
 
+  /* Side by side, the aside's cards share one height (aligned edges). */
   .pdl-split--aside > .pdl-stack:last-child:not(:first-child) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
+    align-items: stretch;
   }
 }
 
-@media (max-width: 991.98px) {
+@container pdl-grid (max-width: 55.98rem) {
 
-  .pdl-grid--3,
-  .pdl-grid--4 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .pdl-split {
-    grid-template-columns: 1fr;
-  }
+  .pdl-grid--4 > * { grid-column: span 2; }
 }
 
-@media (max-width: 767.98px) {
+@container pdl-grid (max-width: 39.98rem) {
 
-  .pdl-layout-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
+  .pdl-grid--3 > * { grid-column: 1 / -1; }
+}
+
+@container pdl-grid (max-width: 29.98rem) {
+
+  .pdl-grid--2 > *,
+  .pdl-grid--4 > * { grid-column: 1 / -1; }
+}
+
+@container pdl-split (max-width: 39.98rem) {
+
+  .pdl-split:not(.pdl-split--aside) > * { grid-column: 1 / -1; }
+}
+
+@container pdl-layout (max-width: 39.98rem) {
 
   .pdl-layout-span--12,
   .pdl-layout-span--9,
@@ -308,14 +346,6 @@
   }
 }
 
-@media (max-width: 575.98px) {
-
-  .pdl-grid--2,
-  .pdl-grid--3,
-  .pdl-grid--4 {
-    grid-template-columns: 1fr;
-  }
-}
 
 }
 

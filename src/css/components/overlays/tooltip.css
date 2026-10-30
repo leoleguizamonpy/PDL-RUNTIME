@@ -4,22 +4,51 @@
 
 @layer pdl.components {
 
+/* A small dark layer: ink on light themes, the raised surface on dark ones
+   (light-dark() follows the color-scheme each theme sets). Radius 8. */
+
 .pdl-tooltip {
   position: fixed;
   z-index: var(--pdl-z-tooltip);
   max-width: 240px;
-  padding: var(--pdl-space-2) var(--pdl-space-2);
+  padding: var(--pdl-space-2) var(--pdl-space-3);
   border: 1px solid var(--pdl-layer-line);
   border-radius: var(--pdl-radius-control);
-  background: var(--pdl-surface-2);
-  color: var(--pdl-text-2);
+  background: var(--pdl-surface-3);
+  background: light-dark(var(--pdl-text-heading), var(--pdl-surface-3));
+  border-color: light-dark(transparent, var(--pdl-border-2));
+  color: var(--pdl-text-1);
+  color: light-dark(var(--pdl-surface-1), var(--pdl-text-1));
+  box-shadow: var(--pdl-shadow-lg);
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
   line-height: var(--pdl-line-compact);
   pointer-events: none;
 }
 
 .pdl-tooltip[hidden] {
   display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .pdl-tooltip:not([hidden]) {
+    animation: pdl-tooltip-in var(--pdl-motion-fast) var(--pdl-ease-enter) both;
+  }
+}
+
+@media (forced-colors: active) {
+
+  .pdl-tooltip {
+    border-color: CanvasText;
+  }
+}
+
+@keyframes pdl-tooltip-in {
+
+  from { opacity: 0; }
+
+  to { opacity: 1; }
 }
 
 }

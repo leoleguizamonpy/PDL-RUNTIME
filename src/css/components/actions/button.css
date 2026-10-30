@@ -30,6 +30,8 @@
   font-weight: var(--pdl-weight-strong);
   letter-spacing: 0;
   line-height: 1;
+  /* A label is one line; long, person-written labels opt in with --wrap. */
+  white-space: nowrap;
   box-shadow: var(--pdl-button-elevation, var(--pdl-shadow-xs));
   transition:
     color var(--pdl-motion-short) var(--pdl-ease-standard),
@@ -59,6 +61,7 @@
    fixed control height. Keeps the size's minimum height. */
 
 .pdl-button--wrap {
+  white-space: normal;
   height: auto;
   padding-block: var(--pdl-space-3);
   line-height: var(--pdl-line-compact);
@@ -181,12 +184,6 @@
 
 .pdl-button--bold {
   border-width: max(2px, var(--pdl-button-border-width, 1px));
-}
-
-/* In a row of actions a label never breaks; a lone button in a narrow
-   column (link pages) may, with .pdl-button--wrap. */
-.pdl-button:where(.pdl-cluster > *) {
-  white-space: nowrap;
 }
 
 /* Disabled: the same control, quieter and inert. */

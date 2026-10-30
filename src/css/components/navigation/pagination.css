@@ -20,6 +20,7 @@
 
 .pdl-pagination__pages {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--pdl-space-1);
 }
@@ -51,6 +52,12 @@
   border-color: var(--pdl-accent-line);
   background: var(--pdl-accent-soft);
   color: var(--pdl-accent-strong);
+}
+
+/* A gap in the run of numbers (…): not a control. */
+.pdl-page--gap {
+  min-width: var(--pdl-space-4);
+  pointer-events: none;
 }
 
 .pdl-page:disabled {

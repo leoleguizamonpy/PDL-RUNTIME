@@ -54,6 +54,20 @@
   border-radius: 50%;
 }
 
+/* A placeholder row (a person, a record): avatar beside a title and a
+   line, the shape of the list item it stands for. */
+.pdl-skeleton__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--pdl-space-3);
+  row-gap: var(--pdl-space-2);
+}
+
+.pdl-skeleton__item > .pdl-skeleton--avatar {
+  grid-row: 1 / span 2;
+}
+
 .pdl-skeleton--card {
   min-height: 180px;
   border-radius: var(--pdl-radius-surface);

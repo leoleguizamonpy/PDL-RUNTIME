@@ -4,26 +4,36 @@
 
 @layer pdl.components {
 
-/* A discount code: what it gives, the code in a dashed box and a button to
-   copy it, in the buttons' look of the page. */
+/* A discount code: what it gives, the code on a tinted plate and a button
+   to copy it, on a card in the buttons' look of the page. Two round
+   cut-outs halfway down its sides make it read as a coupon. */
 
 .pdl-coupon {
+  --pdl-coupon-cut: .625rem; /* geometry */
   display: grid;
   justify-items: center;
   gap: var(--pdl-space-3);
-  padding: var(--pdl-space-4);
-  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  padding: var(--pdl-space-5) var(--pdl-space-6);
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-1));
   border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
   background: var(--pdl-button-fill, var(--pdl-surface-1));
-  box-shadow: var(--pdl-button-elevation, none);
+  box-shadow: var(--pdl-button-elevation, var(--pdl-shadow-xs));
   color: var(--pdl-button-ink, var(--pdl-text-1));
   text-align: center;
+  /* The perforation: a half circle cut from each side (true holes, the
+     page shows through them, whatever its fill). */
+  -webkit-mask:
+    radial-gradient(circle at 0 50%, transparent var(--pdl-coupon-cut), #000 calc(var(--pdl-coupon-cut) + .5px)) 0 0 / 51% 100% no-repeat,
+    radial-gradient(circle at 100% 50%, transparent var(--pdl-coupon-cut), #000 calc(var(--pdl-coupon-cut) + .5px)) 100% 0 / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle at 0 50%, transparent var(--pdl-coupon-cut), #000 calc(var(--pdl-coupon-cut) + .5px)) 0 0 / 51% 100% no-repeat,
+    radial-gradient(circle at 100% 50%, transparent var(--pdl-coupon-cut), #000 calc(var(--pdl-coupon-cut) + .5px)) 100% 0 / 51% 100% no-repeat;
 }
 
 .pdl-coupon__note {
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-button-font-size, var(--pdl-text-sm));
-  font-weight: var(--pdl-weight-strong);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-bold);
   line-height: var(--pdl-line-compact);
 }
 
@@ -35,15 +45,36 @@
   gap: var(--pdl-space-2);
 }
 
+/* The code: what is typed at the checkout, in the code face on a tinted
+   plate in the accent. */
+
 .pdl-coupon__code {
   padding: var(--pdl-space-2) var(--pdl-space-4);
-  border: 1.5px dashed currentColor;
-  border-radius: .5rem;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  border: 1px solid var(--pdl-accent-line);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
+  font-family: var(--pdl-font-mono);
   font-size: var(--pdl-text-md);
-  font-weight: var(--pdl-weight-strong);
+  font-weight: var(--pdl-weight-bold);
   letter-spacing: .08em;
   overflow-wrap: anywhere;
+}
+
+}
+
+@layer pdl.responsive {
+
+@media (forced-colors: active) {
+
+  .pdl-coupon {
+    -webkit-mask: none;
+    mask: none;
+  }
+
+  .pdl-coupon__code {
+    border-color: CanvasText;
+  }
 }
 
 }

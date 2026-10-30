@@ -26,6 +26,7 @@
   margin-inline-start: auto;
   border-radius: 50%;
   background: var(--pdl-warning);
+  box-shadow: 0 0 0 3px var(--pdl-warning-bg); /* geometry */
 }
 
 .pdl-project-view {
@@ -36,15 +37,20 @@
 }
 
 .pdl-project-view__header {
+  /* Title and actions share a line while both fit; in a narrow view the
+     actions wrap under the title (no screen breakpoint). */
   display: flex;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  align-items: flex-end;
   justify-content: space-between;
-  gap: var(--pdl-space-8);
+  gap: var(--pdl-space-5) var(--pdl-space-8);
   padding-bottom: var(--pdl-space-5);
   border-bottom: 1px solid var(--pdl-border-1);
 }
 
 .pdl-project-view__header-copy {
+  flex: 1 1 24rem;
+  min-width: 0;
   display: grid;
   max-width: var(--pdl-width-prose);
   gap: var(--pdl-space-3);
@@ -55,30 +61,44 @@
 }
 
 .pdl-project-view__actions {
-  flex: 0 0 auto;
-  justify-content: flex-end;
+  flex: 0 1 auto;
+  justify-content: flex-start;
 }
 
+/* Progress and objective are cards on the page (product markup adds
+   .pdl-card; without it they still get the frame). */
 .pdl-project-progress,
 .pdl-project-objective {
   display: grid;
-  gap: var(--pdl-space-4);
-  padding: var(--pdl-space-6) var(--pdl-space-8);
+  gap: var(--pdl-space-3);
+  padding: var(--pdl-space-6);
+}
+
+:is(.pdl-project-progress, .pdl-project-objective):not(.pdl-card) {
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
 .pdl-project-progress__heading {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: var(--pdl-space-4);
-  color: var(--pdl-text-2);
-  font-size: var(--pdl-text-sm);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
 }
 
+/* The figure: the progress value reads as a KPI. */
 .pdl-project-progress__heading strong {
+  color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-md);
-  font-weight: var(--pdl-weight-medium);
+  font-size: var(--pdl-text-lg);
+  font-weight: var(--pdl-weight-bold);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--pdl-line-data);
 }
 
 .pdl-project-progress small {
@@ -87,16 +107,18 @@
 }
 
 .pdl-project-objective p {
+  max-width: var(--pdl-width-prose);
   margin: 0;
-  color: var(--pdl-text-2);
+  color: var(--pdl-text-1);
   font-size: var(--pdl-text-md);
   font-weight: var(--pdl-weight-regular);
   line-height: var(--pdl-line-relaxed);
 }
 
 .pdl-project-summary-grid {
+  /* Stage cards follow the view's width: as many columns of 18rem as fit. */
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
   column-gap: var(--pdl-gutter);
   row-gap: var(--pdl-gutter);
 }
@@ -105,18 +127,19 @@
   background: var(--pdl-surface-1);
 }
 
-@media (max-width: 991.98px) {
+@media (forced-colors: active) {
 
-  .pdl-project-summary-grid {
-    grid-template-columns: 1fr;
+  .pdl-project-nav-item__notice {
+    forced-color-adjust: none;
+    background: Highlight;
   }
+}
 
-  .pdl-project-view__header {
-    display: grid;
-  }
+@media (max-width: 575.98px) {
 
-  .pdl-project-view__actions {
-    justify-content: flex-start;
+  .pdl-project-progress,
+  .pdl-project-objective {
+    padding: var(--pdl-space-5);
   }
 }
 

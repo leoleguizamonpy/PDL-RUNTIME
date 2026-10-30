@@ -9,17 +9,55 @@
   gap: var(--pdl-space-3);
 }
 
+/* The frame is the semantic table's: a white surface with a 1px line and a
+   soft shadow; the header band and row rhythm come from .pdl-table. */
 .pdl-data-grid__frame {
+  container: pdl-grid / inline-size;
   position: relative;
   width: 100%;
   overflow: auto;
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+}
+
+/* In a flush card the card is the frame: toolbar and bulk bar take the
+   card's inset, the table runs edge to edge. */
+.pdl-card--flush > .pdl-data-grid {
+  gap: 0;
+}
+
+.pdl-card--flush > .pdl-data-grid > :is(.pdl-table-toolbar, .pdl-data-grid__bulk) {
+  margin: 0;
+  padding: var(--pdl-space-3) var(--pdl-space-6);
+}
+
+.pdl-card--flush > .pdl-data-grid > .pdl-data-grid__bulk {
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+
+.pdl-card--flush > .pdl-data-grid > .pdl-table-toolbar {
+  min-height: 52px;
+  align-items: center;
+  border-bottom: 1px solid var(--pdl-border-1);
+}
+
+.pdl-card--flush > .pdl-data-grid > .pdl-data-grid__frame {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .pdl-data-grid table {
   min-width: 720px;
+}
+
+/* The selection column is as narrow as its checkbox. */
+.pdl-data-grid :is(th, td):has(> .pdl-data-grid__hit) {
+  width: 1%;
+  padding-inline-end: var(--pdl-space-2);
 }
 
 .pdl-data-grid th[data-sticky="true"],
@@ -31,39 +69,56 @@
   box-shadow: 1px 0 0 var(--pdl-border-1);
 }
 
+/* Header band: stays on top while the grid scrolls, in the table's tint. */
 .pdl-data-grid thead th {
   position: sticky;
   top: 0;
   z-index: 3;
-  background: var(--pdl-surface-1);
-}
-
-.pdl-data-grid tbody tr[data-selected="true"] {
   background: var(--pdl-surface-2);
 }
 
-.pdl-data-grid tbody tr:focus-within {
-  outline: 1px solid var(--pdl-border-3);
-  outline-offset: -1px;
+/* Selected rows: the brand's soft fill. Sticky cells layer it over white,
+   so scrolled content never shows through a translucent tint. */
+.pdl-data-grid tbody tr[data-selected="true"],
+.pdl-data-grid tbody tr[data-selected="true"]:hover {
+  background: var(--pdl-accent-soft);
+}
+
+.pdl-data-grid tbody tr[data-selected="true"] td[data-sticky="true"] {
+  background: linear-gradient(var(--pdl-accent-soft), var(--pdl-accent-soft)), var(--pdl-surface-1);
+}
+
+.pdl-data-grid tbody tr[data-selected="true"] :is(td, th) {
+  color: var(--pdl-text-1);
+}
+
+/* Keyboard focus inside a row marks the whole row. */
+.pdl-data-grid tbody tr:has(:focus-visible) {
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: -2px;
 }
 
 .pdl-grid-select {
   width: 18px;
   height: 18px;
   margin: 0;
-  accent-color: var(--pdl-text-1);
+  accent-color: var(--pdl-accent);
+  cursor: pointer;
 }
 
+/* Bulk bar: appears with a selection, in the selected rows' tint, so the
+   count and its actions read as belonging to them. */
 .pdl-data-grid__bulk {
   display: none;
   align-items: center;
   justify-content: space-between;
   gap: var(--pdl-space-3);
-  min-height: 44px;
-  padding: var(--pdl-space-2) var(--pdl-space-3);
-  border: 1px solid var(--pdl-border-2);
-  border-radius: var(--pdl-radius-control);
-  background: var(--pdl-surface-2);
+  min-height: 52px;
+  padding: var(--pdl-space-2) var(--pdl-space-2) var(--pdl-space-2) var(--pdl-space-4);
+  border: 1px solid var(--pdl-accent-line);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
 }
 
 .pdl-data-grid[data-has-selection="true"] .pdl-data-grid__bulk {
@@ -71,8 +126,9 @@
 }
 
 .pdl-data-grid__count {
-  color: var(--pdl-text-muted);
-  font-size: var(--pdl-text-xs);
+  color: var(--pdl-accent-strong);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
   font-variant-numeric: tabular-nums;
 }
 
@@ -81,8 +137,15 @@
   align-items: center;
   gap: var(--pdl-space-2);
   min-height: var(--pdl-control-sm);
-  color: var(--pdl-text-muted);
+  color: var(--pdl-text-2);
   font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  cursor: pointer;
+}
+
+.pdl-column-toggle input {
+  margin: 0;
+  accent-color: var(--pdl-accent);
 }
 
 .pdl-data-grid [data-pdl-column][hidden] {
@@ -99,6 +162,10 @@
   touch-action: none;
 }
 
+.pdl-data-grid__resize:hover {
+  background: linear-gradient(var(--pdl-accent-line), var(--pdl-accent-line)) center / 2px 60% no-repeat;
+}
+
 .pdl-data-grid th {
   position: relative;
 }
@@ -106,14 +173,14 @@
 .pdl-data-grid__empty {
   padding: var(--pdl-space-10) var(--pdl-space-4);
   color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-sm);
   text-align: center;
 }
 
 @media (max-width: 767.98px) {
 
   .pdl-data-grid__bulk {
-    align-items: stretch;
-    flex-direction: column;
+    padding-inline-start: var(--pdl-space-3);
   }
 }
 
@@ -129,6 +196,76 @@
   cursor: pointer;
 }
 
+
+/* In a narrow frame (a phone, a half-width card) each row becomes a card:
+   the checkbox and the name on the first line with the status at the end,
+   the other cells below with their labels. */
+@container pdl-grid (max-width: 640px) {
+
+  .pdl-data-grid__frame table,
+  .pdl-data-grid__frame tbody {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* The column heads have nothing to head: the bulk bar keeps the
+     selection controls. */
+  .pdl-data-grid__frame thead {
+    display: none;
+  }
+
+  .pdl-data-grid__frame tbody tr {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--pdl-space-2) var(--pdl-space-3);
+    padding: var(--pdl-space-3) var(--pdl-space-4);
+    border-bottom: 1px solid var(--pdl-border-1);
+  }
+
+  .pdl-data-grid__frame .pdl-table tbody td {
+    display: block;
+    height: auto;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    white-space: normal;
+  }
+
+  .pdl-data-grid__frame tbody td:first-child { grid-row: 1; grid-column: 1; }
+
+  .pdl-data-grid__frame tbody td:nth-child(2) { grid-row: 1; grid-column: 2; }
+
+  .pdl-data-grid__frame tbody td:has(> .pdl-status-label, > .pdl-status) {
+    grid-row: 1;
+    grid-column: 3;
+  }
+
+  .pdl-data-grid__frame tbody td:nth-child(n + 3):not(:has(> .pdl-status-label, > .pdl-status)) {
+    display: flex;
+    grid-column: 2 / -1;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--pdl-space-3);
+    color: var(--pdl-text-2);
+  }
+
+  .pdl-data-grid__frame tbody td[data-label]:nth-child(n + 3)::before {
+    content: attr(data-label);
+    color: var(--pdl-text-subtle);
+    font-size: var(--pdl-text-xs);
+    font-weight: var(--pdl-weight-strong);
+  }
+
+  .pdl-data-grid__frame tbody td[data-label]:nth-child(n + 3):has(> .pdl-status-label, > .pdl-status)::before {
+    content: none;
+  }
+
+  .pdl-data-grid__frame td > .pdl-progress {
+    flex: 0 1 120px;
+  }
+}
 }
 
 @layer pdl.responsive {
@@ -141,6 +278,22 @@
 
   .pdl-column-toggle {
     min-height: var(--pdl-touch-target);
+  }
+}
+
+}
+
+@layer pdl.interaction {
+
+@media (forced-colors: active) {
+
+  .pdl-data-grid tbody tr[data-selected="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .pdl-data-grid__bulk {
+    border-color: CanvasText;
   }
 }
 

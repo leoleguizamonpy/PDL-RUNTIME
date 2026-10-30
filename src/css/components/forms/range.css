@@ -10,47 +10,47 @@
   margin: 0;
   appearance: none;
   background: transparent;
-  accent-color: var(--pdl-text-1);
+  accent-color: var(--pdl-accent);
   cursor: pointer;
 }
 
 .pdl-range::-webkit-slider-runnable-track {
-  height: 2px;
+  height: 6px;
   border-radius: var(--pdl-radius-pill);
-  background: var(--pdl-border-2);
+  background: var(--pdl-surface-3);
 }
 
 .pdl-range::-moz-range-track {
-  height: 2px;
+  height: 6px;
   border-radius: var(--pdl-radius-pill);
-  background: var(--pdl-border-2);
+  background: var(--pdl-surface-3);
 }
 
 .pdl-range::-moz-range-progress {
-  height: 2px;
+  height: 6px;
   border-radius: var(--pdl-radius-pill);
   background: var(--pdl-accent);
 }
 
 .pdl-range::-webkit-slider-thumb {
-  width: 14px;
-  height: 14px;
-  margin-top: -6px;
+  width: 20px;
+  height: 20px;
+  margin-top: -7px;
   appearance: none;
-  border: 2px solid var(--pdl-black);
+  border: 2px solid var(--pdl-accent);
   border-radius: 50%;
-  background: var(--pdl-accent);
-  box-shadow: 0 0 0 1px var(--pdl-border-3);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-sm);
   transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
 .pdl-range::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border: 2px solid var(--pdl-black);
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--pdl-accent);
   border-radius: 50%;
-  background: var(--pdl-accent);
-  box-shadow: 0 0 0 1px var(--pdl-border-3);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-sm);
   transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
@@ -79,16 +79,34 @@
 .pdl-range-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--pdl-space-3);
+  gap: var(--pdl-space-4);
   align-items: center;
+  /* As tall as the field beside it, so a range and an input share a line. */
+  min-height: var(--pdl-control-md);
 }
 
+/* The value reads like a small field: same height, its unit after it. */
 .pdl-range-value {
-  min-width: 3ch;
-  color: var(--pdl-text-muted);
-  font-size: var(--pdl-text-xs);
+  display: inline-flex;
+  min-width: 4.5rem;
+  min-height: var(--pdl-control-md);
+  align-items: center;
+  justify-content: center;
+  gap: var(--pdl-space-1);
+  padding-inline: var(--pdl-space-3);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
   font-variant-numeric: tabular-nums;
-  text-align: end;
+}
+
+.pdl-range-value[data-unit]::after {
+  content: attr(data-unit);
+  color: var(--pdl-text-subtle);
+  font-weight: var(--pdl-weight-medium);
 }
 
 /* Forced colors drop backgrounds: the track becomes a line, the chosen

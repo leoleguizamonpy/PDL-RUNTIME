@@ -50,6 +50,8 @@
 
 .pdl-filter-chip {
   display: inline-flex;
+  justify-content: center;
+  white-space: nowrap;
   /* A chip is a small control: the small buttons' height, radius and
      interface type, so it sits in a row with fields and buttons. */
   min-height: var(--pdl-control-sm);
@@ -97,6 +99,16 @@
 }
 
 @layer pdl.responsive {
+
+/* Below md, chips and toolbar fields are touch-sized, like the buttons. */
+@media (max-width: 767.98px) {
+
+  .pdl-filter-chip,
+  .pdl-table-toolbar :is(.pdl-input, .pdl-select) {
+    min-height: var(--pdl-touch-target);
+    height: var(--pdl-touch-target);
+  }
+}
 
 /* Coarse pointers: every interactive target reaches the canonical 44px,
    measured by scripts/visual/audit-components.mjs. Small glyph buttons

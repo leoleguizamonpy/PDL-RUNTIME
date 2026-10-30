@@ -7,7 +7,8 @@
 .pdl-switch {
   position: relative;
   display: inline-flex;
-  min-height: var(--pdl-touch-target);
+  /* Pointer density by default; a full touch target on touch (below). */
+  min-height: var(--pdl-control-sm);
   align-items: center;
   gap: var(--pdl-space-3);
   color: var(--pdl-text-2);
@@ -23,9 +24,9 @@
 
 .pdl-switch__track {
   position: relative;
-  width: 42px;
-  height: 24px;
-  flex: 0 0 42px;
+  width: 32px;
+  height: 18px;
+  flex: 0 0 32px;
   border: 1px solid var(--pdl-border-3);
   border-radius: var(--pdl-radius-pill);
   background: var(--pdl-surface-soft);
@@ -37,10 +38,10 @@
 .pdl-switch__track::after {
   content: "";
   position: absolute;
-  inset-block-start: 3px;
-  inset-inline-start: 3px;
-  width: 16px;
-  height: 16px;
+  inset-block-start: 2px;
+  inset-inline-start: 2px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: var(--pdl-text-muted);
   transition:
@@ -55,11 +56,11 @@
 
 .pdl-switch input:checked + .pdl-switch__track::after {
   background: var(--pdl-on-accent);
-  transform: translateX(18px);
+  transform: translateX(14px);
 }
 
 .pdl-switch:dir(rtl) input:checked + .pdl-switch__track::after {
-  transform: translateX(-18px);
+  transform: translateX(-14px);
 }
 
 .pdl-switch:has(input:disabled) {
@@ -76,7 +77,7 @@
 @media (forced-colors: active) {
 
   .pdl-switch__track::after {
-    border: 8px solid CanvasText;
+    border: 6px solid CanvasText;
   }
 
   .pdl-switch input:checked + .pdl-switch__track {
@@ -96,7 +97,7 @@
 .pdl-theme-switch {
   display: inline-flex;
   width: fit-content;
-  min-height: var(--pdl-touch-target);
+  min-height: var(--pdl-control-sm);
   align-items: center;
   justify-content: center;
   gap: var(--pdl-space-1);
@@ -110,7 +111,16 @@
 }
 
 .pdl-theme-switch .pdl-switch {
-  min-height: var(--pdl-touch-target);
+  min-height: var(--pdl-control-sm);
+}
+
+@media (max-width: 767.98px), (pointer: coarse) {
+
+  .pdl-switch,
+  .pdl-theme-switch,
+  .pdl-theme-switch .pdl-switch {
+    min-height: var(--pdl-touch-target);
+  }
 }
 
 /* Theme toggle: initThemeToggles swaps the sun and the moon. */

@@ -4,19 +4,24 @@
 
 @layer pdl.components {
 
+/* The layer anatomy around a media stage: the stage is the subtle fill,
+   the bar below is the layer surface. */
+
 .pdl-lightbox {
   width: min(1100px, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
-  border: 1px solid var(--pdl-border-2);
+  overflow: hidden;
+  border: 1px solid var(--pdl-layer-line);
   border-radius: var(--pdl-radius-surface);
   padding: 0;
-  background: var(--pdl-black);
+  background: var(--pdl-layer-surface);
   color: var(--pdl-text-1);
+  box-shadow: var(--pdl-layer-shadow);
 }
 
 .pdl-lightbox::backdrop {
-  /* Media wants a darker room than a dialog. */
-  background: color-mix(in srgb, var(--pdl-ink) 88%, transparent);
+  /* Media wants a darker room than a dialog: the scrim's ink, deeper. */
+  background: rgb(12 17 29 / 82%);
 }
 
 .pdl-lightbox__stage {
@@ -24,6 +29,12 @@
   min-height: min(72vh, 760px);
   place-items: center;
   overflow: hidden;
+  padding: var(--pdl-space-4);
+  background: var(--pdl-surface-2);
+}
+
+.pdl-lightbox__stage :is(img, video) {
+  border-radius: var(--pdl-radius-control);
 }
 
 .pdl-lightbox__stage img,
@@ -40,13 +51,17 @@
   gap: var(--pdl-space-3);
   padding: var(--pdl-space-3) var(--pdl-space-4);
   border-top: 1px solid var(--pdl-border-1);
-  background: var(--pdl-surface-1);
+  background: var(--pdl-layer-surface);
 }
 
 .pdl-lightbox__meta {
   min-width: 0;
+  overflow: hidden;
   color: var(--pdl-text-muted);
-  font-size: var(--pdl-text-xs);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @media (max-width: 575.98px) {
@@ -79,6 +94,7 @@
   border-radius: 0;
   background: rgb(0 0 0 / 92%);
   color: #fff;
+  box-shadow: none;
 }
 
 .pdl-lightbox--full[open] {
@@ -91,7 +107,8 @@
 .pdl-lightbox--full .pdl-lightbox__stage {
   grid-template: minmax(0, 1fr) / minmax(0, 1fr);
   min-height: 0;
-  padding-inline: var(--pdl-space-4);
+  padding: 0 var(--pdl-space-4);
+  background: none;
 }
 
 .pdl-lightbox--full .pdl-lightbox__stage > img {
@@ -145,6 +162,13 @@
 .pdl-lightbox__button:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 2px;
+}
+
+@media (forced-colors: active) {
+
+  .pdl-lightbox__button {
+    border: 1px solid ButtonText;
+  }
 }
 
 }

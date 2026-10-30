@@ -12,6 +12,9 @@
 .pdl-detail-page,
 .pdl-workspace-page,
 .pdl-form-flow-page {
+  /* Regions follow the page's own width (beside a sidebar, inside a
+     preview), not the screen's. */
+  container: pdl-page-profile / inline-size;
   display: grid;
   width: 100%;
   /* Regions of a page breathe a section apart. */
@@ -106,7 +109,7 @@
 
 [data-pdl-columns="8"] .pdl-detail-page__body > :last-child:not(:first-child) { grid-column: span 2; }
 
-@media (max-width: 1199.98px) {
+@container pdl-page-profile (max-width: 55.98rem) {
 
   /* Same specificity as the span rules above (including 8 columns), so the
      stacked layout always wins below xl. */
@@ -121,17 +124,12 @@
 }
 
 /* Stacked on a tablet, the aside's cards sit side by side. */
-@media (min-width: 768px) and (max-width: 1199.98px) {
+@container pdl-page-profile (min-width: 36rem) and (max-width: 55.98rem) {
 
   .pdl-detail-page__body > .pdl-stack:last-child:not(:first-child) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
   }
-}
-
-@media (max-width: 767.98px) {
-
-  .pdl-detail-page__summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .pdl-detail-page__media,
@@ -189,7 +187,7 @@
   gap: var(--pdl-rhythm-control);
 }
 
-@media (max-width: 767.98px) {
+@container pdl-page-profile (max-width: 39.98rem) {
 
   .pdl-listing-page__head,
   .pdl-detail-page__hero,
@@ -210,6 +208,8 @@
   }
 }
 
+/* The page's own gap is the screen's rhythm (a container cannot restyle
+   itself); its parts follow the page's width. */
 @media (max-width: 575.98px) {
 
   .pdl-listing-page,
@@ -218,6 +218,9 @@
   .pdl-form-flow-page {
     gap: var(--pdl-rhythm-region);
   }
+}
+
+@container pdl-page-profile (max-width: 29.98rem) {
 
   .pdl-listing-page__controls {
     align-items: stretch;

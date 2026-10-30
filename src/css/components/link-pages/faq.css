@@ -4,12 +4,13 @@
 
 @layer pdl.components {
 
-/* Frequently asked questions: each one opens its answer (details and
-   summary, no script), in the buttons' look of the page. */
+/* Frequently asked questions: a disclosure list, each question opening its
+   answer (details and summary, no script). The questions form one card in
+   the buttons' look of the page, a line between them. */
 
 .pdl-faq {
   display: grid;
-  gap: var(--pdl-space-2);
+  gap: var(--pdl-space-3);
   text-align: start;
 }
 
@@ -19,11 +20,28 @@
 
 .pdl-faq__item {
   overflow: hidden;
-  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
-  border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-1));
+  border-radius: 0;
   background: var(--pdl-button-fill, var(--pdl-surface-1));
-  box-shadow: var(--pdl-button-elevation, none);
+  box-shadow: var(--pdl-button-elevation, var(--pdl-shadow-xs));
   color: var(--pdl-button-ink, var(--pdl-text-1));
+}
+
+/* One card: the items close up and share their lines; the first and the
+   last keep the card's corners. */
+
+.pdl-faq__item + .pdl-faq__item {
+  margin-block-start: calc(-1 * var(--pdl-space-3) - var(--pdl-button-border-width, 1px));
+}
+
+.pdl-faq__item:first-of-type {
+  border-start-start-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
+  border-start-end-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
+}
+
+.pdl-faq__item:last-of-type {
+  border-end-start-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
+  border-end-end-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1rem);
 }
 
 .pdl-faq__question {
@@ -31,47 +49,55 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--pdl-space-3);
-  padding: var(--pdl-space-3) var(--pdl-space-4);
+  padding: var(--pdl-space-4) var(--pdl-space-5);
   cursor: pointer;
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-button-font-size, var(--pdl-text-sm));
   font-weight: var(--pdl-weight-strong);
   line-height: var(--pdl-line-compact);
   list-style: none;
+  transition: background var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
 .pdl-faq__question::-webkit-details-marker {
   display: none;
 }
 
+.pdl-faq__question:hover {
+  background: color-mix(in srgb, currentColor 4%, transparent);
+}
+
 /* A chevron that turns when the answer opens. */
 
 .pdl-faq__question::after {
-  width: .5rem;
-  height: .5rem;
+  width: .45rem;
+  height: .45rem;
   flex: none;
+  margin-inline-end: var(--pdl-space-1);
   border-right: 1.5px solid currentColor;
   border-bottom: 1.5px solid currentColor;
   content: "";
+  opacity: .6;
   transform: translateY(-2px) rotate(45deg);
   transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
 .pdl-faq__item[open] > .pdl-faq__question::after {
+  opacity: 1;
   transform: translateY(2px) rotate(-135deg);
 }
 
 .pdl-faq__question:focus-visible {
-  outline: 2px solid var(--pdl-focus);
-  outline-offset: -2px;
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--pdl-focus), inset 0 0 0 6px var(--pdl-ring);
 }
 
 .pdl-faq__answer {
   margin: 0;
-  padding: 0 var(--pdl-space-4) var(--pdl-space-4);
-  opacity: .86;
+  padding: 0 var(--pdl-space-5) var(--pdl-space-5);
+  opacity: .78;
   font-size: var(--pdl-prose-size, var(--pdl-text-sm));
-  line-height: 1.55;
+  line-height: var(--pdl-line-body);
   white-space: pre-line;
 }
 
@@ -87,6 +113,21 @@
 
   .pdl-faq__question {
     min-height: var(--pdl-touch-target);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-faq__question::after {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+
+  .pdl-faq__question:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
   }
 }
 

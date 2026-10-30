@@ -9,9 +9,10 @@
   max-width: var(--pdl-width-panel);
   margin-inline: auto;
   padding: var(--pdl-space-2);
-  border: 1px solid var(--pdl-border-2);
+  border: 1px solid var(--pdl-border-1);
   border-radius: calc(var(--pdl-radius-surface) * 4);
-  background: var(--pdl-surface-2);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-sm);
 }
 
 /* Scrolls on its own so a long page never pushes the frame off screen. A
@@ -25,6 +26,7 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: var(--pdl-space-6) var(--pdl-space-4);
+  border: 1px solid var(--pdl-border-1);
   border-radius: calc(var(--pdl-radius-surface) * 3);
   /* The page backdrop, when the previewed page has one. */
   background: var(--pdl-page-fill, var(--pdl-black));
@@ -44,9 +46,10 @@
 .pdl-browser-frame {
   display: grid;
   overflow: hidden;
-  border: 1px solid var(--pdl-border-2);
+  border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
-  background: var(--pdl-surface-2);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-sm);
 }
 
 .pdl-browser-frame__bar {
@@ -55,8 +58,22 @@
   gap: var(--pdl-space-3);
   padding: var(--pdl-space-2) var(--pdl-space-3);
   border-bottom: 1px solid var(--pdl-border-1);
-  color: var(--pdl-text-muted);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-subtle);
   font-size: var(--pdl-text-xs);
+}
+
+/* The address: a white pill in the bar. */
+.pdl-browser-frame__address,
+.pdl-browser-frame__bar > span {
+  min-width: 0;
+  overflow: hidden;
+  padding: 2px var(--pdl-space-3);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-surface-1);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .pdl-browser-frame__bar::before {
@@ -66,8 +83,8 @@
   flex: none;
   margin-right: 1.75rem; /* geometry */
   border-radius: 50%;
-  background: color-mix(in srgb, currentColor 45%, transparent);
-  box-shadow: .85rem 0 0 color-mix(in srgb, currentColor 45%, transparent), 1.7rem 0 0 color-mix(in srgb, currentColor 45%, transparent);
+  background: var(--pdl-border-2);
+  box-shadow: .85rem 0 0 var(--pdl-border-2), 1.7rem 0 0 var(--pdl-border-2);
 }
 
 .pdl-browser-frame__viewport {

@@ -14,34 +14,29 @@
   background: var(--pdl-black);
 }
 
+/* A centred white card on the page background: the brand's mark and
+   name, the invitation, the mode and the form, closed by the accent
+   button. */
 .pdl-auth-panel {
   position: relative;
   display: grid;
   width: min(100%, 500px);
   gap: var(--pdl-space-6);
   margin: 0;
-  padding: clamp(var(--pdl-space-6), 4vw, var(--pdl-space-8));
-  border: 1px solid color-mix(in srgb, var(--pdl-border-1) 82%, transparent);
+  padding: var(--pdl-space-8);
+  border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
-  background: color-mix(in srgb, var(--pdl-surface-1) 58%, var(--pdl-black));
-}
-
-.pdl-auth-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto auto 0;
-  width: 52px;
-  height: 1px;
-  background: var(--pdl-text-muted);
-  opacity: .56;
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-sm);
 }
 
 .pdl-auth-panel__head {
   display: flex;
   min-width: 0;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--pdl-space-4);
+  gap: var(--pdl-space-3) var(--pdl-space-4);
 }
 
 .pdl-auth-panel__brand {
@@ -51,24 +46,49 @@
   gap: var(--pdl-space-3);
 }
 
+/* The brand's mark: a filled tile in the hero color, as in the sidebar. */
+.pdl-auth-panel__brand > :is(.pdl-brand-mark, .pdl-auth-panel__mark) {
+  display: grid;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+  padding: var(--pdl-space-3);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-hero);
+  box-shadow: var(--pdl-shadow-xs), inset 0 -2px 0 rgba(0, 0, 0, .12);
+  color: var(--pdl-hero-ink);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-bold);
+  opacity: 1;
+}
+
+.pdl-auth-panel__brand > .pdl-brand-mark polygon {
+  fill: currentColor;
+}
+
 .pdl-auth-panel__brand-copy {
   display: grid;
   min-width: 0;
-  gap: .15rem;
+  gap: 2px;
 }
 
 .pdl-auth-panel__brand-title {
+  overflow: hidden;
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: .055em;
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-bold);
+  line-height: var(--pdl-line-heading);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .pdl-auth-panel__brand-meta {
   color: var(--pdl-text-subtle);
   font-size: var(--pdl-text-xs);
-  line-height: 1.25;
+  line-height: var(--pdl-line-heading);
 }
 
 .pdl-auth-panel__status {
@@ -77,12 +97,14 @@
 
 .pdl-auth-panel__copy {
   display: grid;
-  gap: var(--pdl-space-3);
-  padding-block: var(--pdl-space-2);
+  gap: var(--pdl-space-2);
 }
 
 .pdl-auth-panel__copy .pdl-eyebrow {
+  color: var(--pdl-accent-strong);
   font-size: var(--pdl-text-xs);
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .pdl-auth-panel__copy h1 {
@@ -90,9 +112,10 @@
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-xl);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: -.04em;
-  line-height: 1.06;
+  font-weight: var(--pdl-weight-bold);
+  letter-spacing: var(--pdl-display-tracking);
+  line-height: var(--pdl-line-display);
+  text-wrap: balance;
 }
 
 .pdl-auth-panel__copy p {
@@ -101,7 +124,7 @@
   color: var(--pdl-text-muted);
   font-size: var(--pdl-text-sm);
   font-weight: var(--pdl-weight-regular);
-  line-height: 1.65;
+  line-height: var(--pdl-line-body);
 }
 
 .pdl-auth-panel__tabs {
@@ -137,7 +160,7 @@
 
 .pdl-auth-panel__form .pdl-input {
   min-height: 46px;
-  background: color-mix(in srgb, var(--pdl-surface-soft) 84%, var(--pdl-black));
+  background: var(--pdl-surface-1);
 }
 
 .pdl-auth-panel__form .pdl-button[type="submit"] {
@@ -146,8 +169,33 @@
   margin-top: var(--pdl-space-1);
 }
 
+/* Errors and confirmations under the form. */
+.pdl-auth-panel__message {
+  margin: 0;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
+  text-align: center;
+}
+
 .pdl-auth-panel__message:empty {
   display: none;
+}
+
+/* Small print under the card's form (terms, help). */
+.pdl-auth-panel__foot {
+  margin: 0;
+  padding-top: var(--pdl-space-4);
+  border-top: 1px solid var(--pdl-border-1);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  text-align: center;
+}
+
+@media (forced-colors: active) {
+
+  .pdl-auth-panel__brand > :is(.pdl-brand-mark, .pdl-auth-panel__mark) {
+    border: 1px solid CanvasText;
+  }
 }
 
 @media (max-width: 575.98px) {
@@ -162,22 +210,11 @@
   .pdl-auth-panel {
     width: 100%;
     gap: var(--pdl-space-5);
-    border-inline: 0;
-    border-radius: 0;
-    padding: var(--pdl-space-5) 0;
-    background: transparent;
+    padding: var(--pdl-space-5);
   }
 
   .pdl-auth-panel__head {
     align-items: flex-start;
-  }
-
-  .pdl-auth-panel__copy {
-    padding-block: var(--pdl-space-3);
-  }
-
-  .pdl-auth-panel__copy h1 {
-    font-size: var(--pdl-text-xl);
   }
 }
 

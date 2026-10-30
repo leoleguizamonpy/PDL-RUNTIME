@@ -5,26 +5,44 @@
 @layer pdl.components {
 
 .pdl-file-browser {
-  display: grid;
-  grid-template-columns: var(--pdl-width-sidebar) minmax(0, 1fr);
+  /* The sidebar pattern: the rail keeps its width beside the files while
+     both fit; when the browser itself is narrow the files wrap under it. */
+  container: pdl-file-browser / inline-size;
+  display: flex;
+  flex-wrap: wrap;
   min-height: 420px;
   overflow: hidden;
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
+/* Locations: a quiet tinted rail; the current one takes the nav item's
+   accent-soft fill. */
 .pdl-file-browser__sidebar {
+  flex: 1 1 var(--pdl-width-sidebar);
   display: grid;
   align-content: start;
   gap: var(--pdl-space-2);
   padding: var(--pdl-space-3);
   border-inline-end: 1px solid var(--pdl-border-1);
-  background: var(--pdl-black);
+  background: var(--pdl-surface-2);
 }
 
 .pdl-file-browser__main {
+  /* 30rem of files beside the rail; under that the rail goes on top. */
+  flex: 999 1 30rem;
   min-width: 0;
+}
+
+/* In a flush card the card is the frame: the browser runs edge to edge
+   under the card's head band. */
+.pdl-card--flush > .pdl-file-browser {
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .pdl-file-browser__toolbar {
@@ -32,8 +50,9 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--pdl-space-3);
-  min-height: 54px;
-  padding: var(--pdl-space-3) var(--pdl-space-4);
+  flex-wrap: wrap;
+  min-height: 60px;
+  padding: var(--pdl-space-2) var(--pdl-space-3) var(--pdl-space-2) var(--pdl-space-5);
   border-bottom: 1px solid var(--pdl-border-1);
 }
 
@@ -43,19 +62,56 @@
   align-items: center;
   gap: var(--pdl-space-2);
   overflow: hidden;
-  color: var(--pdl-text-muted);
-  font-size: var(--pdl-text-xs);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  white-space: nowrap;
+}
+
+/* The folder you are in reads as the title of the path. */
+.pdl-file-browser__crumbs > :last-child:not(:first-child),
+.pdl-file-browser__crumbs [aria-current] {
+  color: var(--pdl-text-1);
+  font-weight: var(--pdl-weight-strong);
 }
 
 .pdl-file-browser__content {
-  padding: var(--pdl-space-4);
+  /* The files follow the room they have, not the screen. */
+  container: pdl-file-browser-content / inline-size;
+  padding: var(--pdl-space-5);
 }
 
+/* Two even columns, four when there is room: the rows always close
+   (2, 4, 6, 8 files) instead of leaving one card alone. */
 .pdl-file-browser__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  column-gap: var(--pdl-gutter);
-  row-gap: var(--pdl-gutter);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--pdl-space-4);
+  row-gap: var(--pdl-space-4);
+}
+
+@container pdl-file-browser-content (min-width: 34rem) {
+
+  .pdl-file-browser__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* List view (data-view="list", set by the view buttons): one file per
+   line, a small thumbnail, the name and its detail beside it. */
+.pdl-file-browser[data-view="list"] .pdl-file-browser__grid {
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--pdl-space-2);
+}
+
+.pdl-file-browser[data-view="list"] .pdl-file-card {
+  grid-template-columns: 48px minmax(0, 1fr); /* geometry */
+  align-items: center;
+  padding: var(--pdl-space-2);
+}
+
+.pdl-file-browser[data-view="list"] .pdl-file-card__preview {
+  aspect-ratio: 1;
 }
 
 .pdl-file-card {
@@ -64,13 +120,19 @@
   min-width: 0;
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
-  padding: var(--pdl-space-3);
+  padding: var(--pdl-space-2) var(--pdl-space-2) var(--pdl-space-3);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  cursor: pointer;
   text-align: start;
   transition:
     border-color var(--pdl-motion-short) var(--pdl-ease-standard),
     background var(--pdl-motion-short) var(--pdl-ease-standard),
-    transform var(--pdl-motion-short) var(--pdl-ease-standard);
+    box-shadow var(--pdl-motion-short) var(--pdl-ease-standard);
+}
+
+.pdl-file-card > :not(.pdl-file-card__preview) {
+  padding-inline: var(--pdl-space-1);
 }
 
 /* Long names truncate inside the card instead of widening it. */
@@ -78,15 +140,33 @@
   min-width: 0;
 }
 
-.pdl-file-card:hover,
-.pdl-file-card:focus-within {
-  border-color: var(--pdl-border-3);
-  background: var(--pdl-surface-2);
+/* Clickable: lifts on hover like a clickable card. */
+.pdl-file-card:hover {
+  border-color: var(--pdl-border-2);
+  box-shadow: var(--pdl-shadow-sm);
 }
 
+.pdl-file-card:focus-visible,
+.pdl-file-card:has(:focus-visible) {
+  outline: 2px solid transparent;
+  border-color: var(--pdl-accent-line);
+  box-shadow: var(--pdl-shadow-xs), 0 0 0 4px var(--pdl-ring);
+}
+
+/* Selected: the brand's soft fill and line. */
 .pdl-file-card[data-selected="true"] {
-  border-color: var(--pdl-text-muted);
-  background: var(--pdl-surface-2);
+  border-color: var(--pdl-accent-line);
+  background: var(--pdl-accent-soft);
+  box-shadow: var(--pdl-shadow-xs), 0 0 0 1px var(--pdl-accent-line);
+}
+
+/* A selected card still shows the focus ring when it has focus. */
+.pdl-file-card[data-selected="true"]:is(:focus-visible, :has(:focus-visible)) {
+  box-shadow: var(--pdl-shadow-xs), 0 0 0 1px var(--pdl-accent-line), 0 0 0 5px var(--pdl-ring);
+}
+
+.pdl-file-card[data-selected="true"] .pdl-file-card__preview {
+  background: var(--pdl-surface-1);
 }
 
 .pdl-file-card__preview {
@@ -95,13 +175,13 @@
   aspect-ratio: 4 / 3;
   place-items: center;
   overflow: hidden;
-  border-radius: calc(var(--pdl-radius-surface) - 4px);
-  background: var(--pdl-black);
-  color: var(--pdl-text-subtle);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-muted);
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-bold);
   overflow-wrap: anywhere;
   text-align: center;
-  text-transform: uppercase;
 }
 
 .pdl-file-card__preview > * {
@@ -109,24 +189,6 @@
   z-index: 1;
 }
 
-.pdl-file-card__preview::before {
-  content: "";
-  position: absolute;
-  inset-inline-end: var(--pdl-space-3);
-  bottom: var(--pdl-space-3);
-  width: 20%;
-  max-width: 22px;
-  aspect-ratio: 1;
-  background-color: var(--pdl-text-subtle);
-  opacity: .4;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 682.13 682.13'%3E%3Cpolygon points='341.06 266.13 266.13 266.13 266.13 682.13 0 682.13 0 0 341.06 0 341.06 266.13' fill='%23fff'/%3E%3Cpolygon points='682.13 0 682.13 682.13 341.06 682.13 341.06 416 416 416 416 0 682.13 0' fill='%23fff'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 682.13 682.13'%3E%3Cpolygon points='341.06 266.13 266.13 266.13 266.13 682.13 0 682.13 0 0 341.06 0 341.06 266.13' fill='%23fff'/%3E%3Cpolygon points='682.13 0 682.13 682.13 341.06 682.13 341.06 416 416 416 416 0 682.13 0' fill='%23fff'/%3E%3C/svg%3E");
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  pointer-events: none;
-}
 
 .pdl-file-card__preview img,
 .pdl-file-card__preview video {
@@ -137,17 +199,18 @@
 
 .pdl-file-card__name {
   overflow: hidden;
-  color: var(--pdl-text-2);
+  color: var(--pdl-text-1);
   font-size: var(--pdl-text-sm);
-  font-weight: var(--pdl-weight-medium);
+  font-weight: var(--pdl-weight-strong);
   line-height: var(--pdl-line-heading);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .pdl-file-card__meta {
+  margin-top: 2px;
   overflow-wrap: anywhere;
-  color: var(--pdl-text-subtle);
+  color: var(--pdl-text-muted);
   font-size: var(--pdl-text-xs);
 }
 
@@ -159,31 +222,15 @@
 .pdl-file-preview__stage {
   position: relative;
   display: grid;
-  min-height: 320px;
+  min-height: 200px;
   place-items: center;
   overflow: hidden;
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
-  background: var(--pdl-black);
+  background: var(--pdl-surface-2);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
-.pdl-file-preview__stage::before {
-  content: "";
-  position: absolute;
-  inset-inline-end: var(--pdl-space-5);
-  bottom: var(--pdl-space-5);
-  width: 56px;
-  height: 56px;
-  background-color: var(--pdl-text-subtle);
-  opacity: .28;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 682.13 682.13'%3E%3Cpolygon points='341.06 266.13 266.13 266.13 266.13 682.13 0 682.13 0 0 341.06 0 341.06 266.13' fill='%23fff'/%3E%3Cpolygon points='682.13 0 682.13 682.13 341.06 682.13 341.06 416 416 416 416 0 682.13 0' fill='%23fff'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 682.13 682.13'%3E%3Cpolygon points='341.06 266.13 266.13 266.13 266.13 682.13 0 682.13 0 0 341.06 0 341.06 266.13' fill='%23fff'/%3E%3Cpolygon points='682.13 0 682.13 682.13 341.06 682.13 341.06 416 416 416 416 0 682.13 0' fill='%23fff'/%3E%3C/svg%3E");
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  pointer-events: none;
-}
 
 .pdl-file-preview__stage > * {
   position: relative;
@@ -197,29 +244,50 @@
   object-fit: contain;
 }
 
-@media (max-width: 767.98px) {
-
-  .pdl-file-browser {
-    grid-template-columns: 1fr;
-  }
+/* When the rail goes on top (the sidebar pattern above wraps at
+   16rem + 30rem) its folders line up and wrap as chips. */
+@container pdl-file-browser (max-width: 45.98rem) {
 
   .pdl-file-browser__sidebar {
-    grid-auto-flow: column;
-    overflow-x: auto;
+    display: flex;
+    flex-wrap: wrap;
     border-inline-end: 0;
     border-bottom: 1px solid var(--pdl-border-1);
   }
+
+  .pdl-file-browser__sidebar > * {
+    flex: 1 1 auto;
+    width: auto;
+  }
 }
 
-@media (max-width: 575.98px) {
-
-  .pdl-file-browser__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+@container pdl-file-browser (max-width: 30rem) {
 
   .pdl-file-browser__toolbar {
-    align-items: stretch;
-    flex-direction: column;
+    padding-inline-start: var(--pdl-space-4);
+  }
+
+  .pdl-file-browser__content {
+    padding: var(--pdl-space-4);
+  }
+}
+
+}
+
+@layer pdl.interaction {
+
+@media (forced-colors: active) {
+
+  .pdl-file-card[data-selected="true"] {
+    border-color: Highlight;
+    outline: 2px solid Highlight;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-file-card {
+    transition-duration: .001ms;
   }
 }
 

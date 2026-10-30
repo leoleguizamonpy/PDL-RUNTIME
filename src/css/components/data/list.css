@@ -10,6 +10,7 @@
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
 .pdl-list-item {
@@ -17,8 +18,17 @@
   grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--pdl-space-4);
   align-items: center;
-  min-height: 58px;
-  padding: var(--pdl-space-3) var(--pdl-space-4);
+  min-height: 60px;
+  padding: var(--pdl-space-3) var(--pdl-space-5);
+  color: var(--pdl-text-2);
+  font-size: var(--pdl-text-sm);
+  line-height: var(--pdl-line-compact);
+}
+
+/* A plain row (text only) leads with its name in the title's weight. */
+.pdl-list-item > span:first-child:not([class]) {
+  color: var(--pdl-text-1);
+  font-weight: var(--pdl-weight-medium);
 }
 
 /* Inside a card the card is already the frame: the list drops its own. */
@@ -26,6 +36,7 @@
   border: 0;
   border-radius: 0;
   background: transparent;
+  box-shadow: none;
 }
 
 .pdl-card > .pdl-list > .pdl-list-item {
@@ -37,18 +48,139 @@
 }
 
 .pdl-list-item__title {
-  color: var(--pdl-text-2);
+  color: var(--pdl-text-1);
   font-size: var(--pdl-text-sm);
-  font-weight: var(--pdl-weight-medium);
+  font-weight: var(--pdl-weight-strong);
   line-height: var(--pdl-line-compact);
 }
 
 /* Details wrap to several lines in narrow columns: they get room. */
 
 .pdl-list-item__meta {
-  color: var(--pdl-text-subtle);
+  margin-top: 2px;
+  color: var(--pdl-text-muted);
   font-size: var(--pdl-text-xs);
   line-height: 1.45;
+}
+
+/* In a flush card the rows run edge to edge with the card's own inset. */
+.pdl-card--flush > .pdl-list > .pdl-list-item {
+  padding-inline: var(--pdl-space-6);
+}
+
+/* Inside a card the card is the frame: options to open become flat rows
+   divided by a line, like the card's other lists. */
+.pdl-card .pdl-nav-list {
+  gap: 0;
+}
+
+.pdl-card .pdl-nav-list__item {
+  min-height: 52px;
+  border: 0;
+  border-radius: 0;
+  padding-inline: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.pdl-card .pdl-nav-list__item + .pdl-nav-list__item,
+.pdl-card * + .pdl-nav-list > .pdl-nav-list__item:first-child {
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+/* A rich row: a leading mark (icon tile, avatar or date tile), the title
+   over its meta, and a trailing figure with its own small line. */
+.pdl-list-item:has(> .pdl-list-item__lead) {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--pdl-space-3);
+}
+
+.pdl-list-item__lead {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  place-items: center;
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-3);
+  color: var(--pdl-text-2);
+}
+
+.pdl-list-item__lead svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pdl-list-item__lead--accent {
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
+}
+
+.pdl-list-item__body {
+  display: grid;
+  min-width: 0;
+}
+
+.pdl-list-item__end {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  color: var(--pdl-text-1);
+  font-weight: var(--pdl-weight-strong);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.pdl-list-item__end > :not(:first-child) {
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-regular);
+}
+
+/* In a narrow card the trailing figure moves under the title, so the two
+   never meet. */
+@container pdl-card (max-width: 400px) {
+  .pdl-list-item:has(> .pdl-list-item__lead) > .pdl-list-item__end,
+  .pdl-list-item:has(> .pdl-list-item__lead) > :is(.pdl-status, .pdl-status-label) {
+    grid-column: 2 / -1;
+    justify-items: start;
+    display: flex;
+    flex-wrap: wrap;
+    justify-self: start;
+    align-items: baseline;
+    gap: 0 var(--pdl-space-2);
+    white-space: normal;
+  }
+
+  .pdl-card--flush > .pdl-list > .pdl-list-item {
+    padding-inline: var(--pdl-space-4);
+  }
+}
+
+/* Rows that open something take a hover fill. */
+.pdl-list-item:is(a, button) {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pdl-list-item:is(a, button):hover {
+  background: var(--pdl-surface-2);
+}
+
+.pdl-list-item:is(a, button):focus-visible {
+  outline: 0;
+  box-shadow: inset 0 0 0 2px var(--pdl-ring);
 }
 
 /* A list of sections to open (settings, an editor's categories): each row
@@ -69,23 +201,37 @@
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   padding: var(--pdl-space-3) var(--pdl-space-4);
+  outline: 2px solid transparent;
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
   color: var(--pdl-text-1);
   cursor: pointer;
+  font: inherit;
   text-align: start;
   transition:
     border-color var(--pdl-motion-short) var(--pdl-ease-standard),
-    background var(--pdl-motion-short) var(--pdl-ease-standard);
+    box-shadow var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
+/* A row that opens something lifts like a clickable card. */
 .pdl-nav-list__item:hover {
-  border-color: var(--pdl-border-3);
-  background: var(--pdl-surface-2);
+  border-color: var(--pdl-border-2);
+  box-shadow: var(--pdl-shadow-sm);
+}
+
+.pdl-nav-list__item:hover .pdl-nav-list__chevron {
+  color: var(--pdl-text-1);
 }
 
 .pdl-nav-list__item:focus-visible {
-  outline: 2px solid var(--pdl-focus);
-  outline-offset: 2px;
+  border-color: var(--pdl-accent-line);
+  box-shadow: var(--pdl-shadow-xs), 0 0 0 4px var(--pdl-ring);
+}
+
+.pdl-nav-list__item[aria-current="page"],
+.pdl-nav-list__item[aria-expanded="true"] {
+  border-color: var(--pdl-accent-line);
+  background: var(--pdl-accent-soft);
 }
 
 .pdl-nav-list__icon {
@@ -94,8 +240,8 @@
   height: 2.25rem;
   place-items: center;
   border-radius: var(--pdl-radius-control);
-  background: var(--pdl-surface-3);
-  color: var(--pdl-text-1);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
 }
 
 .pdl-nav-list__text {
@@ -105,6 +251,7 @@
 }
 
 .pdl-nav-list__label {
+  color: var(--pdl-text-1);
   font-size: var(--pdl-text-sm);
   font-weight: var(--pdl-weight-strong);
   line-height: var(--pdl-line-heading);
@@ -112,7 +259,7 @@
 
 .pdl-nav-list__value {
   overflow: hidden;
-  color: var(--pdl-text-muted);
+  color: var(--pdl-text-subtle);
   font-size: var(--pdl-text-xs);
   line-height: var(--pdl-line-heading);
   text-overflow: ellipsis;
@@ -122,6 +269,7 @@
 .pdl-nav-list__chevron {
   display: grid;
   color: var(--pdl-text-subtle);
+  transition: color var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
 @media (max-width: 575.98px) {
@@ -149,9 +297,35 @@
 
 /* The row of what is chosen in the preview, in the editor's list. */
 
+/* The editor's selection speaks its language: the focus color, like the
+   chosen part of the page (.pdl-edit-surface). */
 .pdl-list[data-pdl-selected="true"] {
   border-color: var(--pdl-focus);
-  box-shadow: 0 0 0 1px var(--pdl-focus);
+  box-shadow: var(--pdl-shadow-xs), 0 0 0 1px var(--pdl-focus);
+}
+
+}
+
+@layer pdl.interaction {
+
+@media (forced-colors: active) {
+
+  .pdl-nav-list__item:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pdl-list[data-pdl-selected="true"],
+  .pdl-nav-list__item[aria-current="page"] {
+    border-color: Highlight;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-nav-list__item,
+  .pdl-nav-list__chevron {
+    transition-duration: .001ms;
+  }
 }
 
 }

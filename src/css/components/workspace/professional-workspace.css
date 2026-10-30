@@ -5,18 +5,24 @@
 @layer pdl.components {
 
 .pdl-workspace {
+  /* The panes follow the workspace's own width (a card, a page region),
+     not the screen: three panes, then two with the inspector on its own
+     band below, then one column with the canvas first. */
+  container: pdl-workspace / inline-size;
   display: grid;
   min-height: 520px;
   overflow: hidden;
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
-  background: var(--pdl-black);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
 .pdl-workspace--three {
   /* Panes start at the side scale (sidebar left, panel right); resizing
-     keeps them at 12rem or more. */
-  grid-template-columns: minmax(12rem, var(--pdl-left-pane, var(--pdl-width-sidebar))) 6px minmax(0, 1fr) 6px minmax(12rem, var(--pdl-right-pane, var(--pdl-width-panel)));
+     keeps them at 12rem or more. Their floor never passes a quarter of the
+     workspace, so a narrow one stacks its panes instead of overflowing. */
+  grid-template-columns: minmax(min(12rem, 25%), var(--pdl-left-pane, var(--pdl-width-sidebar))) 6px minmax(0, 1fr) 6px minmax(min(12rem, 25%), var(--pdl-right-pane, var(--pdl-width-panel)));
 }
 
 .pdl-workspace__pane {
@@ -25,38 +31,225 @@
   background: var(--pdl-surface-1);
 }
 
+/* Two panes: the inspector leaves its column for a band under the canvas
+   and lays its sections side by side, like a drawer opened in place. */
+@container pdl-workspace (max-width: 59.98rem) {
+
+  .pdl-workspace--three > .pdl-workspace__resizer[data-pdl-resizer="right"] {
+    display: none;
+  }
+
+  .pdl-workspace--three > .pdl-workspace__canvas {
+    grid-column: 3 / -1;
+    grid-row: 1;
+  }
+
+  .pdl-workspace--three > .pdl-workspace__pane[data-pdl-pane="left"] {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .pdl-workspace--three > .pdl-workspace__resizer[data-pdl-resizer="left"] {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .pdl-workspace--three > .pdl-workspace__pane[data-pdl-pane="right"] {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--pdl-space-6);
+    border-block-start: 1px solid var(--pdl-border-1);
+  }
+
+  .pdl-workspace--three > .pdl-workspace__pane[data-pdl-pane="right"] > :is(strong, .pdl-inspector__title, .pdl-inspector__head) {
+    flex: 1 1 100%;
+  }
+
+  .pdl-workspace--three > .pdl-workspace__pane[data-pdl-pane="right"] > .pdl-inspector__section {
+    flex: 1 1 13rem;
+    min-width: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+}
+
+/* One column: the canvas first, then the inspector, then the layers. */
+@container pdl-workspace (max-width: 35.98rem) {
+
+  .pdl-workspace--three > .pdl-workspace__resizer {
+    display: none;
+  }
+
+  .pdl-workspace--three > .pdl-workspace__canvas {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    min-height: 20rem;
+  }
+
+  .pdl-workspace--three > .pdl-workspace__pane[data-pdl-pane="right"] {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .pdl-workspace--three > .pdl-workspace__pane[data-pdl-pane="left"] {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    border-block-start: 1px solid var(--pdl-border-1);
+  }
+}
+
 .pdl-workspace__canvas {
   position: relative;
   min-width: 0;
   overflow: hidden;
+  /* The page backdrop with a quiet dot grid. */
   background:
-    radial-gradient(circle, var(--pdl-border-2) 1px, transparent 1px),
+    radial-gradient(circle, var(--pdl-border-2) 1px, transparent 1.5px),
     var(--pdl-black);
   background-size: 20px 20px;
 }
 
+/* Objects on the canvas: a soft line under the pointer, the accent ring
+   once chosen (data-pdl-selected="true" or aria-selected="true"). The ring
+   sits on a surface-colored halo, so it reads on any artwork, even one in
+   the accent's own color. */
+.pdl-workspace__canvas [data-pdl-object]:hover {
+  outline: 1px solid var(--pdl-accent-line);
+  outline-offset: 2px;
+}
+
+.pdl-workspace__canvas :is([data-pdl-selected="true"], [aria-selected="true"]) {
+  outline: 2px solid var(--pdl-accent);
+  outline-offset: 2px;
+  box-shadow: var(--pdl-shadow-sm), 0 0 0 2px var(--pdl-surface-1);
+}
+
+/* A 6px handle that draws a single hairline; it takes the accent while it
+   is dragged, hovered or focused. */
 .pdl-workspace__resizer {
   position: relative;
   z-index: 5;
-  background: var(--pdl-border-1);
+  background:
+    linear-gradient(var(--pdl-border-1), var(--pdl-border-1)) center / 1px 100% no-repeat,
+    var(--pdl-surface-1);
   cursor: col-resize;
   touch-action: none;
 }
 
 .pdl-workspace__resizer:hover,
-.pdl-workspace__resizer:focus-visible {
-  background: var(--pdl-border-3);
+.pdl-workspace__resizer:focus-visible,
+.pdl-workspace__resizer[aria-grabbed="true"] {
+  outline: none;
+  background:
+    linear-gradient(var(--pdl-accent), var(--pdl-accent)) center / 2px 100% no-repeat,
+    var(--pdl-surface-1);
 }
 
 .pdl-toolbar {
+  /* Its groups wrap as a whole; a narrow toolbar keeps the icons and hides
+     the labels (.pdl-toolbar__label) instead of overflowing. */
+  container: pdl-toolbar / inline-size;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--pdl-space-1);
   min-height: 44px;
   padding: var(--pdl-space-1);
   border: 1px solid var(--pdl-border-1);
-  border-radius: var(--pdl-radius-control);
+  border-radius: var(--pdl-radius-surface);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+}
+
+/* The current tool: the accent's soft tint, as any current item. */
+.pdl-toolbar :is(.pdl-button, .pdl-icon-button):is([aria-pressed="true"], [aria-current="true"]) {
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
+}
+
+/* A set of tools that stays together on one line; the end group (the
+   piece's own actions) sits on the far side. */
+.pdl-toolbar__group {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--pdl-space-1);
+  min-width: 0;
+}
+
+.pdl-toolbar__group + .pdl-toolbar__group {
+  padding-inline-start: var(--pdl-space-1);
+  border-inline-start: 1px solid var(--pdl-border-1);
+}
+
+.pdl-toolbar__group--end {
+  margin-inline-start: auto;
+}
+
+.pdl-toolbar__group--end,
+.pdl-toolbar__group + .pdl-toolbar__group--end {
+  padding-inline-start: 0;
+  border-inline-start: 0;
+}
+
+.pdl-toolbar :is(.pdl-button, .pdl-icon-button) {
+  flex: none;
+  white-space: nowrap;
+}
+
+@container pdl-toolbar (max-width: 55.98rem) {
+
+  .pdl-toolbar__group:not(.pdl-toolbar__group--end) .pdl-toolbar__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@container pdl-toolbar (max-width: 55.98rem) {
+
+  .pdl-toolbar__group:not(.pdl-toolbar__group--end) .pdl-button:has(.pdl-toolbar__label) {
+    padding-inline: var(--pdl-space-2);
+  }
+}
+
+/* An icon left alone still makes a full touch target. */
+@media (max-width: 767.98px), (pointer: coarse) {
+
+  .pdl-toolbar .pdl-button:has(.pdl-toolbar__label) {
+    min-width: var(--pdl-touch-target);
+  }
+}
+
+@container pdl-toolbar (max-width: 29.98rem) {
+
+  /* Wrapped groups: no hairline left hanging at a line start. */
+  .pdl-toolbar__group + .pdl-toolbar__group {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+
+  .pdl-toolbar__group--end .pdl-toolbar__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+.pdl-toolbar__separator {
+  width: 1px;
+  align-self: stretch;
+  margin-block: var(--pdl-space-1);
+  background: var(--pdl-border-1);
 }
 
 /* Workspace toolbar fields take the small controls' height. */
@@ -73,6 +266,37 @@
   padding: var(--pdl-space-4);
 }
 
+.pdl-inspector > strong,
+.pdl-inspector__title {
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-bold);
+}
+
+/* The pane's head: its title and a count or a small tool on the end. */
+.pdl-inspector__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-2);
+  min-width: 0;
+}
+
+.pdl-inspector__section-title {
+  margin: 0;
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
+}
+
+/* Paired values (X / Y, width / height): two equal columns that stack in a
+   pane narrower than two fields. */
+.pdl-inspector__pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 6rem), 1fr));
+  gap: var(--pdl-space-3);
+}
+
 .pdl-inspector__section {
   display: grid;
   gap: var(--pdl-space-3);
@@ -80,17 +304,42 @@
   border-bottom: 1px solid var(--pdl-border-1);
 }
 
-@media (max-width: 991.98px) {
+.pdl-inspector__section:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
 
-  .pdl-workspace--three {
-    grid-template-columns: minmax(0, 1fr);
+@media (forced-colors: active) {
+
+  .pdl-workspace__resizer {
+    forced-color-adjust: none;
+    background: CanvasText;
   }
 
-  .pdl-workspace__resizer,
-  .pdl-workspace__pane[data-pdl-pane="left"],
-  .pdl-workspace__pane[data-pdl-pane="right"] {
-    display: none;
+  .pdl-workspace__resizer:is(:hover, :focus-visible) {
+    background: Highlight;
   }
+}
+
+
+}
+
+/* Composition with a core primitive (a flush card): the card is the frame,
+   the toolbar a band under its head and the workspace runs edge to edge. */
+@layer pdl.components {
+
+.pdl-card--flush > .pdl-toolbar {
+  border: 0;
+  border-block-end: 1px solid var(--pdl-border-1);
+  border-radius: 0;
+  background: var(--pdl-surface-1);
+  box-shadow: none;
+}
+
+.pdl-card--flush > .pdl-workspace {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 }

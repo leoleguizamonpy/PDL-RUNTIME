@@ -5,12 +5,35 @@
 @layer pdl.components {
 
 .pdl-stat-grid {
+  /* The row follows its own width (a page, a card, a panel), not the
+     screen: 4 figures go 4 → 2 + 2 → 1, 3 go 3 → hero + 2 → 1, so a row
+     never breaks 3 + 1. Spans are read on the grid system's 12 columns. */
+  --pdl-stat-span: 3;
+  container: pdl-stat-grid / inline-size;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   /* The grid system's gutters, so metric edges line up with the rows and
      splits around them. */
   column-gap: var(--pdl-gutter);
   row-gap: var(--pdl-gutter-y);
+}
+
+.pdl-stat-grid:has(> :nth-child(3):last-child),
+.pdl-stat-grid:has(> :nth-child(5)) {
+  --pdl-stat-span: 4;
+}
+
+.pdl-stat-grid:has(> :nth-child(2):last-child) {
+  --pdl-stat-span: 6;
+}
+
+.pdl-stat-grid:has(> :only-child) {
+  --pdl-stat-span: 12;
+}
+
+.pdl-stat-grid > * {
+  grid-column: span var(--pdl-stat-span);
+  min-width: 0;
 }
 
 .pdl-stat {
@@ -191,39 +214,83 @@ a.pdl-stat:hover,
 
 .pdl-stat__delta[data-tone="neutral"] { color: var(--pdl-text-muted); }
 
-@media (max-width: 575.98px) {
+/* Medium rows: figures in pairs; three keep their thirds. */
+@container pdl-stat-grid (max-width: 55.98rem) {
 
-  /* Two columns on a phone instead of four screen-tall cards. */
-  .pdl-stat-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .pdl-stat-grid > * {
+    --pdl-stat-span: 6;
+  }
+
+  .pdl-stat-grid:has(> :nth-child(3):last-child) > * {
+    --pdl-stat-span: 4;
+  }
+}
+
+/* Narrow rows: pairs. With an odd count the hero leads on its own line
+   (or, without a hero, the last one closes the row), never a half-empty
+   row. */
+@container pdl-stat-grid (max-width: 39.98rem) {
+
+  .pdl-stat-grid:has(> :nth-child(3):last-child) > * {
+    --pdl-stat-span: 6;
+  }
+
+  .pdl-stat-grid:has(> :last-child:nth-child(odd)):has(> .pdl-stat--hero) > .pdl-stat--hero {
+    --pdl-stat-span: 12;
+    order: -1;
+  }
+
+  .pdl-stat-grid:has(> :last-child:nth-child(odd)):not(:has(> .pdl-stat--hero)) > :last-child {
+    --pdl-stat-span: 12;
   }
 
   .pdl-stat-grid .pdl-stat {
     gap: var(--pdl-space-3);
-    padding: var(--pdl-space-4);
+    padding: var(--pdl-space-4) var(--pdl-space-5);
   }
 
-  /* The hero leads, full width; icons and sparklines step aside. */
-  /* Also in a detail page's summary (two columns on a phone). */
-  :is(.pdl-stat-grid, .pdl-detail-page__summary) > .pdl-stat--hero {
-    grid-column: 1 / -1;
-    order: -1;
-  }
-
-  /* An odd one out at the end takes the full row instead of half of it. */
-  :is(.pdl-stat-grid, .pdl-detail-page__summary):has(> .pdl-stat--hero) > .pdl-stat:last-child:nth-child(even):not(.pdl-stat--hero),
-  :is(.pdl-stat-grid, .pdl-detail-page__summary):not(:has(> .pdl-stat--hero)) > .pdl-stat:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-  }
-
-  .pdl-stat-grid :is(.pdl-stat__icon, .pdl-stat__spark) {
+  .pdl-stat-grid .pdl-stat__icon {
     display: none;
   }
 }
 
+/* A phone-wide row: one figure per line, the hero first. */
+@container pdl-stat-grid (max-width: 29.98rem) {
+
+  :is(.pdl-stat-grid:has(> :nth-child(3):last-child), .pdl-stat-grid) > * {
+    --pdl-stat-span: 12;
+  }
+
+  .pdl-stat-grid > .pdl-stat--hero {
+    order: -1;
+  }
+
+  .pdl-stat-grid .pdl-stat__icon {
+    display: grid;
+  }
+}
+
+/* A detail page's summary (two columns on a phone): the hero leads, full
+   width, and an odd one out at the end takes the full row. */
+@media (max-width: 575.98px) {
+
+  .pdl-detail-page__summary > .pdl-stat--hero {
+    grid-column: 1 / -1;
+    order: -1;
+  }
+
+  .pdl-stat:last-child:nth-child(even):not(.pdl-stat--hero):is(.pdl-detail-page__summary:has(> .pdl-stat--hero) > *),
+  .pdl-stat:last-child:nth-child(odd):is(.pdl-detail-page__summary:not(:has(> .pdl-stat--hero)) > *) {
+    grid-column: 1 / -1;
+  }
+}
+
 .pdl-stat-strip {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  /* All figures on one line while each keeps about 9rem; under that they
+     pair up (2 + 2), never 3 + 1. Hairlines between them are drawn by each
+     figure on its start and top edges and clipped at the frame. */
+  display: flex;
+  flex-wrap: wrap;
   overflow: hidden;
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
@@ -231,25 +298,23 @@ a.pdl-stat:hover,
 }
 
 .pdl-stat-strip .pdl-stat {
+  flex: 1 1 calc((36rem - 100%) * 999);
+  max-width: 50%;
   border: 0;
   border-radius: 0;
   background: transparent;
+  box-shadow: -1px 0 0 var(--pdl-border-1), 0 -1px 0 var(--pdl-border-1);
 }
 
-.pdl-stat-strip .pdl-stat + .pdl-stat {
-  border-inline-start: 1px solid var(--pdl-border-1);
+.pdl-stat-strip .pdl-stat:only-child {
+  max-width: none;
 }
 
-@media (max-width: 575.98px) {
-
-  .pdl-stat-strip {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .pdl-stat-strip .pdl-stat + .pdl-stat {
-    border-inline-start: 0;
-    border-top: 1px solid var(--pdl-border-1);
-  }
+/* In a flush card the strip is a band under the head. */
+.pdl-card--flush > .pdl-stat-strip {
+  border: 0;
+  border-bottom: 1px solid var(--pdl-border-1);
+  border-radius: 0;
 }
 
 }

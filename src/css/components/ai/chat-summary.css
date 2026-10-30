@@ -4,39 +4,66 @@
 
 @layer pdl.components {
 
+/* What the conversation gathered, to check before acting: a white card
+   with a head, then groups of key/value rows. */
+
 .pdl-chat-summary {
   display: grid;
   width: 100%;
   max-width: 72ch;
   gap: var(--pdl-space-5);
   margin-top: var(--pdl-space-3);
-  border-top: 1px solid color-mix(in srgb, var(--pdl-border-2) 72%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--pdl-border-1) 72%, transparent);
-  padding-block: var(--pdl-space-5);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  padding: var(--pdl-space-6);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+}
+
+/* Panel: the summary as a column of its own on the page grid, level with
+   its neighbours, its actions resting on the foot. */
+.pdl-chat-summary--panel {
+  display: flex;
+  max-width: none;
+  flex-direction: column;
+  margin-top: 0;
+}
+
+/* What to do with the summary, on its own band at the foot. */
+.pdl-chat-summary__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pdl-space-2);
+  margin-top: auto;
+  padding-top: var(--pdl-space-5);
+  border-top: 1px solid var(--pdl-border-1);
+}
+
+.pdl-chat-summary__actions > .pdl-button {
+  flex: 1 1 0;
 }
 
 .pdl-chat-summary__head {
   display: grid;
-  gap: var(--pdl-space-2);
+  gap: var(--pdl-space-1);
 }
 
 .pdl-chat-summary__eyebrow {
-  font-family: var(--pdl-font-label);
-  color: var(--pdl-text-subtle);
+  color: var(--pdl-accent-strong);
+  font-family: var(--pdl-font-body);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: var(--pdl-letter-label);
-  text-transform: uppercase;
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
 }
 
 .pdl-chat-summary__title {
   margin: 0;
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-sm);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: -.018em;
-  line-height: 1.35;
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-bold);
+  letter-spacing: -.01em;
+  line-height: var(--pdl-line-heading);
 }
 
 .pdl-chat-summary__copy {
@@ -45,37 +72,38 @@
   color: var(--pdl-text-muted);
   font-size: var(--pdl-text-sm);
   font-weight: var(--pdl-weight-regular);
-  line-height: 1.62;
+  line-height: var(--pdl-line-body);
 }
 
 .pdl-chat-summary__group {
   display: grid;
-  gap: var(--pdl-space-3);
-  border-top: 1px solid color-mix(in srgb, var(--pdl-border-1) 72%, transparent);
-  padding-top: var(--pdl-space-4);
+  gap: var(--pdl-space-2);
 }
 
 .pdl-chat-summary__group-title {
-  font-family: var(--pdl-font-label);
   margin: 0;
-  color: var(--pdl-text-2);
+  color: var(--pdl-text-subtle);
+  font-family: var(--pdl-font-body);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-heading);
 }
 
+/* The rows sit in a framed list, like a key/value table. */
 .pdl-chat-summary__list {
   display: grid;
   margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-control);
 }
 
 .pdl-chat-summary__row {
   display: grid;
   grid-template-columns: minmax(7.5rem, .72fr) minmax(0, 1.6fr);
   gap: var(--pdl-space-4);
-  padding: var(--pdl-space-3) 0;
-  border-top: 1px solid color-mix(in srgb, var(--pdl-border-1) 58%, transparent);
+  padding: var(--pdl-space-3) var(--pdl-space-4);
+  border-top: 1px solid var(--pdl-border-1);
 }
 
 .pdl-chat-summary__row:first-child {
@@ -83,26 +111,28 @@
 }
 
 .pdl-chat-summary__row dt {
-  font-family: var(--pdl-font-label);
   color: var(--pdl-text-subtle);
+  font-family: var(--pdl-font-body);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: .04em;
-  line-height: 1.45;
-  text-transform: uppercase;
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-body);
 }
 
 .pdl-chat-summary__row dd {
   min-width: 0;
   margin: 0;
-  color: var(--pdl-text-2);
+  color: var(--pdl-text-1);
   font-size: var(--pdl-text-sm);
   font-weight: var(--pdl-weight-regular);
-  line-height: 1.55;
+  line-height: var(--pdl-line-body);
   overflow-wrap: anywhere;
 }
 
 @media (max-width: 575.98px) {
+
+  .pdl-chat-summary {
+    padding: var(--pdl-space-5);
+  }
 
   .pdl-chat-summary__row {
     grid-template-columns: 1fr;

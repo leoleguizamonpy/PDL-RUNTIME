@@ -56,6 +56,23 @@
   grid-column: 2;
 }
 
+/* Tile: alerts side by side (a grid of states) lead with the icon above
+   the title, so the text keeps the tile's whole width. */
+.pdl-alert--tile:has(> .pdl-alert__icon) {
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+}
+
+.pdl-alert--tile:has(> .pdl-alert__icon) > *,
+.pdl-alert--tile:has(> .pdl-alert__icon) > :not(.pdl-alert__icon) {
+  grid-column: 1;
+}
+
+.pdl-alert--tile > .pdl-alert__icon {
+  grid-row: auto;
+  margin: var(--pdl-space-1) 0 var(--pdl-space-3) var(--pdl-space-1); /* geometry: clears the 6px ring */
+}
+
 .pdl-alert__icon {
   display: grid;
   grid-row: 1 / span 3;
@@ -92,17 +109,45 @@
   text-decoration: underline;
 }
 
+@media (max-width: 767.98px), (pointer: coarse) {
+
+  .pdl-alert__action {
+    display: inline-flex;
+    min-height: var(--pdl-touch-target);
+    align-items: center;
+  }
+}
+
+/* Text and action side by side while the banner has room; the action
+   drops under the text when it does not (its own width, not the screen). */
 .pdl-banner {
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
+  gap: var(--pdl-space-3) var(--pdl-space-4);
   padding: var(--pdl-space-4);
 }
 
-@media (max-width: 575.98px) {
-
-  .pdl-banner {
-    grid-template-columns: 1fr;
-  }
+.pdl-banner > :first-child {
+  display: grid;
+  flex: 1 1 16rem;
+  min-width: 0;
+  gap: var(--pdl-space-1);
 }
+
+.pdl-banner > :is(.pdl-button, .pdl-banner__actions) {
+  flex: none;
+}
+
+.pdl-banner[data-state="info"] { border-color: var(--pdl-accent-line); background: var(--pdl-accent-soft); }
+
+.pdl-banner[data-state="success"] { border-color: var(--pdl-success-line); background: var(--pdl-success-bg); }
+
+.pdl-banner[data-state="warning"] { border-color: var(--pdl-warning-line); background: var(--pdl-warning-bg); }
+
+.pdl-banner[data-state="danger"] { border-color: var(--pdl-danger-line); background: var(--pdl-danger-bg); }
+
+.pdl-banner[data-state] .pdl-banner__copy { color: var(--pdl-text-2); }
 
 }

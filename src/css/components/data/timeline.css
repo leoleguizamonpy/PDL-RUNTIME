@@ -98,4 +98,26 @@
   font-size: var(--pdl-text-xs);
 }
 
+
+/* A feed that mixes avatars and dots: every mark sits on the avatar's
+   axis, so the rail is one straight line. */
+.pdl-timeline:has(.pdl-avatar) > .pdl-timeline-item {
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: var(--pdl-space-3);
+  min-height: 0;
+}
+
+.pdl-timeline:has(.pdl-avatar) > .pdl-timeline-item::before {
+  top: 44px;
+  bottom: 4px;
+  inset-inline-start: 17px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--pdl-border-1);
+}
+
+.pdl-timeline:has(.pdl-avatar) > .pdl-timeline-item > .pdl-timeline__dot {
+  margin-top: var(--pdl-space-2);
+}
+
 }

@@ -10,11 +10,24 @@
 
 .pdl-text-center { text-align: center; }
 
+/* Wide media leaves the reading column for the width of the region that
+   holds it (the nearest size container: a card, a row, a split; the screen
+   when there is none), less the page margins, up to a page. It grows with
+   negative margins instead of a fixed width, so it never widens the column
+   or the grid track it sits in, and it is never narrower than the column. */
+
 .pdl-wide-media {
-  width: min(var(--pdl-width-page), calc(100vw - (2 * var(--pdl-page-pad))));
+  --pdl-wide-media-width: min(var(--pdl-width-page), 100cqi - 2 * var(--pdl-page-pad));
+  display: block;
+  width: auto;
   max-width: none;
-  margin-inline: 50%;
-  transform: translateX(-50%);
+  margin-inline: min(0px, (100% - var(--pdl-wide-media-width)) / 2); /* geometry */
+}
+
+.pdl-wide-media > :where(img, video, picture) {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 }

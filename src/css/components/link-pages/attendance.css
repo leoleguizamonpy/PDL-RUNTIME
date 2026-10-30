@@ -11,11 +11,11 @@
   display: grid;
   justify-items: center;
   gap: var(--pdl-space-3);
-  padding: var(--pdl-space-5) var(--pdl-space-4);
-  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-2));
+  padding: var(--pdl-space-6) var(--pdl-space-5);
+  border: var(--pdl-button-border-width, 1px) solid var(--pdl-button-line, var(--pdl-border-1));
   border-radius: min(var(--pdl-button-radius, var(--pdl-radius-surface)), 1.5rem);
   background: var(--pdl-button-fill, var(--pdl-surface-1));
-  box-shadow: var(--pdl-button-elevation, none);
+  box-shadow: var(--pdl-button-elevation, var(--pdl-shadow-xs));
   color: var(--pdl-button-ink, var(--pdl-text-1));
   text-align: center;
 }
@@ -37,7 +37,8 @@
   font-family: var(--pdl-font-display);
   font-size: var(--pdl-text-xl);
   font-variant-numeric: tabular-nums;
-  font-weight: var(--pdl-weight-strong);
+  font-weight: var(--pdl-weight-bold);
+  letter-spacing: var(--pdl-display-tracking);
   line-height: 1;
 }
 
@@ -60,9 +61,10 @@
   place-items: center;
   border: 2px solid var(--pdl-button-fill, var(--pdl-surface-1));
   border-radius: 50%;
-  background: color-mix(in srgb, currentColor 14%, var(--pdl-button-fill, var(--pdl-surface-1)));
+  background: color-mix(in srgb, var(--pdl-accent) 14%, var(--pdl-button-fill, var(--pdl-surface-1)));
+  color: var(--pdl-button-ink, var(--pdl-accent-strong));
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-strong);
+  font-weight: var(--pdl-weight-bold);
 }
 
 .pdl-attendance__people {
@@ -70,7 +72,8 @@
   width: 100%;
   gap: var(--pdl-space-2);
   margin: 0;
-  padding: 0;
+  padding: var(--pdl-space-3) 0 0;
+  border-top: 1px solid color-mix(in srgb, currentColor 10%, transparent);
   list-style: none;
   text-align: start;
 }
@@ -85,7 +88,7 @@
 
 .pdl-attendance__name {
   min-width: 0;
-  font-weight: var(--pdl-weight-medium);
+  font-weight: var(--pdl-weight-strong);
   overflow-wrap: anywhere;
 }
 
@@ -121,7 +124,15 @@
   font-size: var(--pdl-text-sm);
 }
 
+.pdl-attendance__notice:empty {
+  display: none;
+}
+
 .pdl-attendance__notice[data-state="danger"] {
+  padding: var(--pdl-space-2) var(--pdl-space-3);
+  border: 1px solid var(--pdl-danger-line);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-danger-bg);
   color: var(--pdl-danger);
 }
 

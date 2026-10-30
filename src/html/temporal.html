@@ -8,18 +8,24 @@
   </header>
   <div class="pdl-calendar__grid">
     <div class="pdl-calendar__weekday">Lun</div><div class="pdl-calendar__weekday">Mar</div><div class="pdl-calendar__weekday">Mié</div><div class="pdl-calendar__weekday">Jue</div><div class="pdl-calendar__weekday">Vie</div><div class="pdl-calendar__weekday">Sáb</div><div class="pdl-calendar__weekday">Dom</div>
+    <!-- Days: --outside for the neighbouring months, aria-current="date" for today,
+         .pdl-calendar__day--selected (or aria-selected="true" on a gridcell) for the chosen one; events take data-state. -->
+    <div class="pdl-calendar__day pdl-calendar__day--outside"><span class="pdl-calendar__date">31</span></div>
+    <div class="pdl-calendar__day" aria-current="date"><span class="pdl-calendar__date">1</span><span class="pdl-calendar__event">Kickoff</span></div>
+    <div class="pdl-calendar__day pdl-calendar__day--selected"><span class="pdl-calendar__date">2</span><span class="pdl-calendar__event" data-state="success">Entrega</span></div>
+    <div class="pdl-calendar__day"><span class="pdl-calendar__date">3</span></div><div class="pdl-calendar__day"><span class="pdl-calendar__date">4</span></div><div class="pdl-calendar__day"><span class="pdl-calendar__date">5</span></div><div class="pdl-calendar__day"><span class="pdl-calendar__date">6</span></div>
   </div>
 </section>
 
 <section class="pdl-kanban" data-pdl-kanban>
   <div class="pdl-kanban__column" data-pdl-kanban-column data-column-id="todo">
-    <header class="pdl-kanban__head"><span>Pendiente</span><span>1</span></header>
-    <article class="pdl-kanban__card" data-pdl-kanban-card data-card-id="task-1">Tarea</article>
+    <header class="pdl-kanban__head"><span>Pendiente</span><span class="pdl-kanban__count">1</span></header>
+    <article class="pdl-kanban__card" data-pdl-kanban-card data-card-id="task-1" tabindex="0"><span>Tarea</span><span class="pdl-kanban__meta">12 sep</span></article>
   </div>
   <div class="pdl-kanban__column" data-pdl-kanban-column data-column-id="done">
-    <header class="pdl-kanban__head"><span>Hecho</span><span>0</span></header>
+    <header class="pdl-kanban__head"><span>Hecho</span><span class="pdl-kanban__count">0</span></header>
   </div>
 </section>
 
 <!-- gantt -->
-<div class="pdl-gantt"><div class="pdl-gantt__labels"><div class="pdl-gantt__label">Foundation</div><div class="pdl-gantt__label">UI/UX</div><div class="pdl-gantt__label">Validación</div></div><div class="pdl-gantt__timeline"><div class="pdl-gantt__row"><span class="pdl-gantt__bar" style="--pdl-gantt-start:4%;--pdl-gantt-width:28%"></span></div><div class="pdl-gantt__row"><span class="pdl-gantt__bar" style="--pdl-gantt-start:30%;--pdl-gantt-width:42%"></span></div><div class="pdl-gantt__row"><span class="pdl-gantt__bar" style="--pdl-gantt-start:70%;--pdl-gantt-width:20%"></span></div></div></div>
+<div class="pdl-gantt"><div class="pdl-gantt__labels"><div class="pdl-gantt__label">Foundation</div><div class="pdl-gantt__label">UI/UX</div><div class="pdl-gantt__label">Validación</div></div><div class="pdl-gantt__timeline"><div class="pdl-gantt__row"><span class="pdl-gantt__bar" style="--pdl-gantt-start:4%;--pdl-gantt-width:28%"></span></div><div class="pdl-gantt__row"><span class="pdl-gantt__bar" style="--pdl-gantt-start:30%;--pdl-gantt-width:42%"></span></div><div class="pdl-gantt__row"><span class="pdl-gantt__bar" style="--pdl-gantt-start:70%;--pdl-gantt-width:20%"></span></div><span class="pdl-gantt__today" style="--pdl-gantt-today:52%" role="img" aria-label="Hoy"></span></div></div>

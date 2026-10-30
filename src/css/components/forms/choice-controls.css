@@ -6,7 +6,9 @@
 
 .pdl-check {
   display: inline-flex;
-  min-height: var(--pdl-touch-target);
+  /* A list of options reads as a list with a pointer; on touch each line
+     grows to a full touch target (below). */
+  min-height: var(--pdl-control-sm);
   align-items: center;
   gap: var(--pdl-space-3);
   color: var(--pdl-text-2);
@@ -124,14 +126,27 @@
   column-gap: var(--pdl-space-6);
 }
 
+/* One option per line: in a narrow column, a settings card. */
+.pdl-radio-group--stack {
+  flex-direction: column;
+}
+
 .pdl-radio {
   display: inline-flex;
-  min-height: var(--pdl-touch-target);
+  min-height: var(--pdl-control-sm);
   align-items: center;
   gap: var(--pdl-space-3);
   color: var(--pdl-text-2);
   font-size: var(--pdl-text-sm);
   cursor: pointer;
+}
+
+@media (max-width: 767.98px), (pointer: coarse) {
+
+  .pdl-check,
+  .pdl-radio {
+    min-height: var(--pdl-touch-target);
+  }
 }
 
 }

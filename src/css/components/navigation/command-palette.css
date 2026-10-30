@@ -25,6 +25,11 @@ dialog.pdl-command-palette {
   margin-block: min(12vh, 6rem) auto;
 }
 
+/* In place (a preview in a card or a page), it takes the width it is given. */
+.pdl-command-palette:not(dialog) {
+  width: 100%;
+}
+
 /* Open as a dialog, or rendered in place when it is not a <dialog> (a
    preview in documentation). */
 .pdl-command-palette[open],
@@ -140,6 +145,17 @@ dialog.pdl-command-palette {
   flex: 1;
   min-width: 0;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* A line of context after the label (a socio's colonia, a remito's date). */
+.pdl-command-palette__meta {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--pdl-text-muted);
+  font-size: var(--pdl-text-xs);
   text-overflow: ellipsis;
   white-space: nowrap;
 }

@@ -15,18 +15,29 @@
   padding: 3px;
   border: 1px solid var(--pdl-border-2);
   border-radius: var(--pdl-radius-control);
+  outline: 2px solid transparent;
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
   cursor: pointer;
   appearance: none;
+  transition:
+    border-color var(--pdl-motion-short) var(--pdl-ease-standard),
+    box-shadow var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
 .pdl-color-input:hover {
   border-color: var(--pdl-border-3);
 }
 
+/* Focus: the fields' accent line and 4px ring. */
 .pdl-color-input:focus-visible {
-  outline: 2px solid var(--pdl-focus);
-  outline-offset: 2px;
+  border-color: var(--pdl-accent-line);
+  box-shadow: var(--pdl-shadow-xs), 0 0 0 4px var(--pdl-ring);
+}
+
+.pdl-color-input:disabled {
+  opacity: .5;
+  cursor: not-allowed;
 }
 
 .pdl-color-input::-webkit-color-swatch-wrapper {
@@ -35,12 +46,90 @@
 
 .pdl-color-input::-webkit-color-swatch {
   border: 0;
-  border-radius: calc(var(--pdl-radius-control) - 2px);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / .08);
+  border-radius: calc(var(--pdl-radius-control) - 3px);
 }
 
 .pdl-color-input::-moz-color-swatch {
   border: 0;
-  border-radius: calc(var(--pdl-radius-control) - 2px);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / .08);
+  border-radius: calc(var(--pdl-radius-control) - 3px);
+}
+
+/* Color field: a field like the others (same height, frame and focus)
+   holding the swatch and the color's code, so it lines up in a form row. */
+.pdl-color-input__field {
+  display: flex;
+  min-height: var(--pdl-control-md);
+  align-items: center;
+  gap: var(--pdl-space-3);
+  padding-inline: var(--pdl-space-1) var(--pdl-space-4);
+  border: 1px solid var(--pdl-border-2);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  cursor: pointer;
+}
+
+.pdl-color-input__field:hover {
+  border-color: var(--pdl-border-3);
+}
+
+.pdl-color-input__field:focus-within {
+  border-color: var(--pdl-accent-line);
+  box-shadow: var(--pdl-shadow-xs), 0 0 0 4px var(--pdl-ring);
+}
+
+.pdl-color-input__field > .pdl-color-input {
+  width: calc(var(--pdl-control-md) - 10px);
+  height: calc(var(--pdl-control-md) - 10px);
+  flex: none;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+.pdl-color-input__field > .pdl-color-input:focus-visible {
+  box-shadow: none;
+}
+
+.pdl-color-input__value {
+  min-width: 0;
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .02em;
+}
+
+@media (max-width: 767.98px), (pointer: coarse) {
+
+  .pdl-color-input__field {
+    min-height: var(--pdl-touch-target);
+  }
+
+  .pdl-color-input__field > .pdl-color-input {
+    width: var(--pdl-touch-target);
+    height: var(--pdl-touch-target);
+  }
+}
+
+}
+
+@layer pdl.interaction {
+
+@media (forced-colors: active) {
+
+  .pdl-color-input:focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-color-input {
+    transition-duration: .001ms;
+  }
 }
 
 }

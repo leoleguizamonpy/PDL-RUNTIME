@@ -39,7 +39,7 @@
 }
 
 /* In an editor stickers are moved by hand: they take the pointer, and the
-   chosen one (aria-pressed) shows a dashed outline. */
+   chosen one (aria-pressed) shows the focus line and its ring. */
 
 .pdl-sticker--editable {
   cursor: grab;
@@ -53,7 +53,14 @@
 
 .pdl-sticker--editable[aria-pressed="true"] {
   border-radius: var(--pdl-radius-control);
-  outline: 2px dashed var(--pdl-focus);
+  outline: 2px solid var(--pdl-focus);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 4px var(--pdl-surface-1), 0 0 0 8px var(--pdl-ring);
+}
+
+.pdl-sticker--editable:focus-visible {
+  border-radius: var(--pdl-radius-control);
+  outline: 2px solid var(--pdl-focus);
   outline-offset: 4px;
 }
 

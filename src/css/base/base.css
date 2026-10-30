@@ -128,7 +128,9 @@ html[data-pdl-motion-ready] [data-pdl-page-enter] {
   transform: none;
 }
 
-[data-pdl-reveal] {
+/* Hidden only once the motion script has claimed the page: without it
+   (no JS, a static export, a review page) the content simply shows. */
+html[data-pdl-motion] [data-pdl-reveal] {
   opacity: 0;
   transform: translateY(8px);
   transition:
@@ -137,7 +139,7 @@ html[data-pdl-motion-ready] [data-pdl-page-enter] {
   transition-delay: var(--pdl-reveal-delay, 0ms);
 }
 
-[data-pdl-reveal].is-visible {
+html[data-pdl-motion] [data-pdl-reveal].is-visible {
   opacity: 1;
   transform: none;
 }
@@ -147,8 +149,8 @@ html[data-pdl-motion-ready] [data-pdl-page-enter] {
   html { scroll-behavior: auto; }
 
   [data-pdl-page-enter],
-  [data-pdl-reveal],
-  [data-pdl-reveal].is-visible {
+  html[data-pdl-motion] [data-pdl-reveal],
+  html[data-pdl-motion] [data-pdl-reveal].is-visible {
     opacity: 1;
     transform: none;
     transition: none;

@@ -22,9 +22,9 @@
 .pdl-stories__list {
   display: flex;
   justify-content: flex-start;
-  gap: var(--pdl-space-3);
+  gap: var(--pdl-space-4);
   margin: 0;
-  padding: var(--pdl-space-1);
+  padding: var(--pdl-space-2) var(--pdl-space-1);
   list-style: none;
 }
 
@@ -42,6 +42,7 @@
 .pdl-story-ring:focus-visible {
   outline: 2px solid var(--pdl-focus);
   outline-offset: 3px;
+  box-shadow: 0 0 0 7px var(--pdl-ring);
 }
 
 .pdl-stories__ring {
@@ -49,17 +50,23 @@
   width: 4.25rem;
   height: 4.25rem;
   grid-template: minmax(0, 1fr) / minmax(0, 1fr);
-  padding: 2px;
+  padding: 2px; /* geometry */
   border-radius: 50%;
   background: color-mix(in srgb, currentColor 24%, transparent);
+  transition: transform var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
-/* A new story is a solid ink ring; seen ones fade to the quiet ring above.
-   Products can set --pdl-story-ring (a brand accent), never a gradient. */
+.pdl-stories__item:hover .pdl-stories__ring {
+  transform: scale(1.04);
+}
+
+/* A new story is a solid ring in the accent; seen ones fade to the quiet
+   ring above. Products can set --pdl-story-ring (their own color), never a
+   gradient. */
 
 .pdl-stories__ring--new,
 .pdl-story-ring {
-  background: var(--pdl-story-ring, var(--pdl-text-1));
+  background: var(--pdl-story-ring, var(--pdl-accent));
 }
 
 .pdl-stories__item[data-seen] .pdl-stories__ring--new,
@@ -74,7 +81,7 @@
   min-height: 0;
   border: 2px solid var(--pdl-surface-1);
   border-radius: 50%;
-  background: var(--pdl-surface-1);
+  background: var(--pdl-surface-2);
   object-fit: cover;
 }
 
@@ -82,6 +89,7 @@
   max-width: 100%;
   overflow: hidden;
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-medium);
   line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -387,6 +395,13 @@
 
   .pdl-story__link {
     min-height: var(--pdl-touch-target);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-stories__item:hover .pdl-stories__ring {
+    transform: none;
   }
 }
 

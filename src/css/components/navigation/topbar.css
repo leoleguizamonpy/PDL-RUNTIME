@@ -4,7 +4,10 @@
 
 @layer pdl.components {
 
+/* The bar reads its own width (a container), so it folds the same way on a
+   phone and inside a narrow frame or panel. */
 .pdl-topbar {
+  container: pdl-topbar / inline-size;
   position: relative;
   z-index: var(--pdl-z-topbar);
   display: flex;
@@ -61,7 +64,7 @@
 .pdl-topbar__search {
   display: flex;
   width: 320px;
-  max-width: 40vw;
+  max-width: 100%;
   min-width: 0;
   flex: 0 1 auto;
   height: var(--pdl-control-md);
@@ -82,6 +85,10 @@
 .pdl-topbar__inner > .pdl-cluster:has(> .pdl-topbar__search) {
   min-width: 0;
   flex-wrap: nowrap;
+}
+
+.pdl-topbar__inner > .pdl-cluster:has(> .pdl-topbar__search) > :not(.pdl-topbar__search) {
+  flex: none;
 }
 
 .pdl-topbar__search:hover {
@@ -135,10 +142,19 @@
   transform: translateX(-50%);
 }
 
-@media (max-width: 575.98px) {
+/* Under 48rem (a tablet, a frame beside a rail) the account keeps its
+   avatar and the shortcut hint goes. */
+@container pdl-topbar (max-width: 48rem) {
 
-  /* On a phone the bar keeps one row: secondary text and shortcut hints go,
-     the controls stay. */
+  .pdl-topbar :is(.pdl-user-state__copy, [data-pdl-command-key], .pdl-topbar__search kbd) {
+    display: none;
+  }
+}
+
+/* Under 36rem (a phone, a narrow panel) the bar keeps one row: secondary
+   text goes, the controls stay. */
+@container pdl-topbar (max-width: 36rem) {
+
   .pdl-topbar :is(.pdl-user-state__copy, .pdl-switcher__meta, [data-pdl-command-key], .pdl-breadcrumbs li:not(:last-child)) {
     display: none;
   }
@@ -150,6 +166,7 @@
   /* The search field folds to its icon. */
   .pdl-topbar__search {
     width: var(--pdl-control-md);
+    flex: none;
     justify-content: center;
     padding: 0;
   }
@@ -165,7 +182,7 @@
   }
 }
 
-@media (max-width: 575.98px) {
+@container pdl-topbar (max-width: 28rem) {
 
   /* The context keeps its avatar and chevron; its name is in the page. */
   .pdl-topbar .pdl-switcher__text {

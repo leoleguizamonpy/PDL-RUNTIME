@@ -4,6 +4,9 @@
 
 @layer pdl.base {
 
+/* The brand's signature: its mark and its name as written, in the
+   interface's strong weight. */
+
 .pdl-brand-signature {
   display: inline-flex;
   align-items: center;
@@ -15,57 +18,80 @@
   width: 16px;
   height: 16px;
   flex: 0 0 16px;
-  opacity: .78;
 }
 
 .pdl-brand-wordmark {
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: .065em;
-  line-height: 1;
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-bold);
+  line-height: var(--pdl-line-heading);
 }
 
 .pdl-brand-signature--muted {
   color: var(--pdl-text-muted);
 }
 
-.pdl-brand-signature--muted .pdl-brand-mark {
-  opacity: .58;
+.pdl-brand-signature--muted .pdl-brand-wordmark {
+  font-weight: var(--pdl-weight-strong);
 }
 
 .pdl-brand-signature svg polygon {
   fill: currentColor;
 }
 
+/* A larger signature, closing an editorial page or a cover. */
 .pdl-brand-signature--editorial {
   gap: var(--pdl-space-3);
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
-  letter-spacing: var(--pdl-letter-label);
-  text-transform: uppercase;
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-bold);
+  letter-spacing: -.01em;
+  line-height: var(--pdl-line-heading);
 }
 
+.pdl-brand-signature--editorial .pdl-brand-mark {
+  width: 20px;
+  height: 20px;
+  flex-basis: 20px;
+}
+
+/* A short code for the brand (an index): uppercase, tracked. */
 .pdl-brand-code {
-  font-family: var(--pdl-font-label);
   color: var(--pdl-text-subtle);
+  font-family: var(--pdl-font-label);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
+  font-weight: var(--pdl-weight-strong);
   letter-spacing: var(--pdl-letter-label);
   text-transform: uppercase;
 }
 
 .pdl-brand-signature[href] {
+  border-radius: var(--pdl-radius-control);
   text-decoration: none;
-  transition:
-    color var(--pdl-motion-short) var(--pdl-ease-standard),
-    opacity var(--pdl-motion-short) var(--pdl-ease-standard);
+  transition: color var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
-.pdl-brand-signature[href]:hover,
+.pdl-brand-signature[href]:hover {
+  color: var(--pdl-accent-strong);
+}
+
 .pdl-brand-signature[href]:focus-visible {
-  color: var(--pdl-text-1);
+  outline: none;
+  box-shadow: 0 0 0 4px var(--pdl-ring);
+}
+
+@media (forced-colors: active) {
+
+  .pdl-brand-signature[href]:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-brand-signature[href] {
+    transition-duration: .001ms;
+  }
 }
 
 }

@@ -258,7 +258,7 @@
   --pdl-text-1: #f5f5f6;
   --pdl-text-2: #cecfd2;
   --pdl-text-muted: #94969c;
-  --pdl-text-subtle: #85888e;
+  --pdl-text-subtle: #8e9198;
 
   --pdl-success: #47cd89; --pdl-success-bg: rgba(71, 205, 137, .1);  --pdl-success-line: rgba(71, 205, 137, .3);
   --pdl-warning: #fdb022; --pdl-warning-bg: rgba(253, 176, 34, .1);  --pdl-warning-line: rgba(253, 176, 34, .3);
@@ -301,7 +301,7 @@
     --pdl-text-1: #f5f5f6;
     --pdl-text-2: #cecfd2;
     --pdl-text-muted: #94969c;
-    --pdl-text-subtle: #85888e;
+    --pdl-text-subtle: #8e9198;
     --pdl-success: #47cd89; --pdl-success-bg: rgba(71, 205, 137, .1);  --pdl-success-line: rgba(71, 205, 137, .3);
     --pdl-warning: #fdb022; --pdl-warning-bg: rgba(253, 176, 34, .1);  --pdl-warning-line: rgba(253, 176, 34, .3);
     --pdl-danger: #f97066;  --pdl-danger-bg: rgba(249, 112, 102, .1);  --pdl-danger-line: rgba(249, 112, 102, .3);
@@ -397,7 +397,7 @@
   --pdl-text-1: #f0f0eb;
   --pdl-text-2: #d4d4cf;
   --pdl-text-muted: #a3a39e;
-  --pdl-text-subtle: #8a8a85;
+  --pdl-text-subtle: #93938e;
   --pdl-accent: #e8ff47;
   --pdl-accent-strong: #e8ff47;
   --pdl-accent-hover: #f1ff86;
@@ -445,7 +445,7 @@
     --pdl-text-1: #f0f0eb;
     --pdl-text-2: #d4d4cf;
     --pdl-text-muted: #a3a39e;
-    --pdl-text-subtle: #8a8a85;
+    --pdl-text-subtle: #93938e;
     --pdl-accent: #e8ff47;
     --pdl-accent-strong: #e8ff47;
     --pdl-accent-hover: #f1ff86;

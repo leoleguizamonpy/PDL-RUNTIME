@@ -4,42 +4,168 @@
 
 @layer pdl.components {
 
+/* Task names on the start, a timeline on the end. Bars take the chart
+   series in turn (row 1 series-1, row 2 series-2…) or the color the product
+   gives with --pdl-gantt-color, with round ends. .pdl-gantt__today marks
+   today in the accent at --pdl-gantt-today across the timeline. */
+
 .pdl-gantt {
   display: grid;
-  grid-template-columns: minmax(180px, .7fr) minmax(520px, 2fr);
+  /* The names keep a readable column on any width; the timeline keeps a
+     usable minimum and scrolls inside the frame (the names stay put). */
+  container: pdl-gantt / inline-size;
+  grid-template-columns: minmax(clamp(128px, 30%, 200px), .7fr) minmax(480px, 2fr);
   overflow: auto;
+  overscroll-behavior-x: contain;
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
 .pdl-gantt__labels,
 .pdl-gantt__timeline {
   display: grid;
-  grid-auto-rows: 44px;
+  grid-auto-rows: 48px;
+}
+
+.pdl-gantt__labels {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 2;
+  border-inline-end: 1px solid var(--pdl-border-1);
+  background: var(--pdl-surface-1);
+}
+
+.pdl-gantt__timeline {
+  position: relative;
 }
 
 .pdl-gantt__label,
 .pdl-gantt__row {
   display: flex;
   align-items: center;
+  min-width: 0;
   border-bottom: 1px solid var(--pdl-border-1);
-  padding-inline: var(--pdl-space-3);
+  padding-inline: var(--pdl-space-4);
+}
+
+.pdl-gantt__label:last-child,
+.pdl-gantt__row:last-of-type {
+  border-bottom: 0;
+}
+
+.pdl-gantt__label {
+  overflow: hidden;
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* In a flush card the card is the frame: the chart runs edge to edge
+   under the card's head band. */
+.pdl-card--flush > .pdl-gantt {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* The heading row of each side (task / months) is a band like a table's. */
+.pdl-gantt__label--head,
+.pdl-gantt__row--head {
+  background: var(--pdl-surface-2);
+  color: var(--pdl-text-subtle);
+  font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
 }
 
 .pdl-gantt__row {
+  --pdl-gantt-color: var(--pdl-series-1);
   position: relative;
   background-image: linear-gradient(to right, var(--pdl-border-1) 1px, transparent 1px);
   background-size: calc(100% / 12) 100%;
 }
 
+.pdl-gantt__row--head {
+  padding-inline: 0;
+}
+
+/* Period names in the heading row, one per grid column (12 by default). */
+.pdl-gantt__tick {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  padding-inline: var(--pdl-space-2);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdl-gantt__row:nth-of-type(4n + 2) { --pdl-gantt-color: var(--pdl-series-2); }
+.pdl-gantt__row:nth-of-type(4n + 3) { --pdl-gantt-color: var(--pdl-series-3); }
+.pdl-gantt__row:nth-of-type(4n + 4) { --pdl-gantt-color: var(--pdl-series-4); }
+
 .pdl-gantt__bar {
   position: absolute;
   inset-inline-start: var(--pdl-gantt-start, 0%);
   width: var(--pdl-gantt-width, 25%);
-  height: 18px;
-  border-radius: var(--pdl-radius-control);
-  background: var(--pdl-text-2);
+  height: 20px; /* geometry */
+  border-radius: var(--pdl-radius-pill);
+  background: var(--pdl-gantt-color);
+}
+
+.pdl-gantt__today {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: var(--pdl-gantt-today, 50%);
+  z-index: 1;
+  width: 2px;
+  margin-inline-start: -1px;
+  background: var(--pdl-accent);
+  pointer-events: none;
+}
+
+.pdl-gantt__today::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline-start: 50%;
+  width: 8px; /* geometry */
+  height: 8px; /* geometry */
+  margin-inline-start: -4px;
+  border-radius: 50%;
+  background: var(--pdl-accent);
+}
+
+/* A narrow chart (a phone, a side panel): tighter insets and names that
+   wrap on two lines instead of being cut. */
+@container pdl-gantt (max-width: 30rem) {
+
+  .pdl-gantt__label,
+  .pdl-gantt__row:not(.pdl-gantt__row--head) {
+    padding-inline: var(--pdl-space-3);
+  }
+
+  .pdl-gantt__label {
+    line-height: var(--pdl-line-compact);
+    white-space: normal;
+  }
+}
+
+@media (forced-colors: active) {
+
+  .pdl-gantt__bar {
+    border: 1px solid CanvasText;
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+
+  .pdl-gantt__today,
+  .pdl-gantt__today::before {
+    forced-color-adjust: none;
+    background: Highlight;
+  }
 }
 
 }

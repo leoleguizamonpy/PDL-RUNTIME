@@ -4,36 +4,72 @@
 
 @layer pdl.components {
 
+/* A change, line by line: a white code surface; added and removed lines
+   carry the state's tint and a 2px edge in its line color, and the sign
+   column says which (the state never rides on color alone). */
+
 .pdl-diff {
   display: grid;
-  overflow: hidden;
+  align-self: start;
+  align-content: start;
+  overflow: auto;
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  padding-block: var(--pdl-space-2);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  color: var(--pdl-text-2);
+  font-family: var(--pdl-font-mono);
   font-size: var(--pdl-text-xs);
-  line-height: 1.55;
+  line-height: var(--pdl-line-body);
 }
 
 .pdl-diff__line {
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
+  grid-template-columns: 40px minmax(0, 1fr);
   gap: var(--pdl-space-3);
-  padding: .4rem var(--pdl-space-3);
-  color: var(--pdl-text-muted);
+  padding: var(--pdl-space-1) var(--pdl-space-4) var(--pdl-space-1) var(--pdl-space-2);
+  color: var(--pdl-text-2);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .pdl-diff__line[data-change="add"] {
-  background: color-mix(in srgb, var(--pdl-success) 10%, transparent);
+  background: var(--pdl-success-bg);
+  box-shadow: inset 2px 0 0 var(--pdl-success-line);
+  color: var(--pdl-text-1);
 }
 
 .pdl-diff__line[data-change="remove"] {
-  background: color-mix(in srgb, var(--pdl-danger) 10%, transparent);
+  background: var(--pdl-danger-bg);
+  box-shadow: inset 2px 0 0 var(--pdl-danger-line);
+  color: var(--pdl-text-1);
 }
+
+.pdl-diff__line[data-change="add"]:dir(rtl) { box-shadow: inset -2px 0 0 var(--pdl-success-line); }
+
+.pdl-diff__line[data-change="remove"]:dir(rtl) { box-shadow: inset -2px 0 0 var(--pdl-danger-line); }
 
 .pdl-diff__number {
   color: var(--pdl-text-subtle);
   text-align: end;
+  font-variant-numeric: tabular-nums;
   user-select: none;
+}
+
+.pdl-diff__line[data-change="add"] .pdl-diff__number { color: var(--pdl-success); }
+
+.pdl-diff__line[data-change="remove"] .pdl-diff__number { color: var(--pdl-danger); }
+
+}
+
+@layer pdl.interaction {
+
+@media (forced-colors: active) {
+
+  .pdl-diff__line[data-change] {
+    border-inline-start: 2px solid CanvasText;
+  }
 }
 
 }

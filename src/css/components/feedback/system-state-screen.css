@@ -4,89 +4,129 @@
 
 @layer pdl.components {
 
+/* Empty, error and offline screens share one anatomy, centred: an icon in
+   a soft ringed circle (the alert's, larger), a bold title, a muted line
+   and one primary action. data-state tints the icon. */
+
+.pdl-state-screen,
 .pdl-empty {
+  --pdl-state-tone: var(--pdl-text-muted);
   display: grid;
-  min-height: 180px;
   place-content: center;
+  justify-items: center;
   gap: var(--pdl-space-2);
-  padding: var(--pdl-space-8);
   text-align: center;
-}
-
-.pdl-empty > strong {
-  font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-lg);
-}
-
-.pdl-empty > p {
-  max-width: 54ch;
-  margin: 0;
-  color: var(--pdl-text-muted);
-  font-size: var(--pdl-text-sm);
 }
 
 .pdl-state-screen {
-  display: grid;
   min-height: min(62vh, 560px);
-  place-content: center;
-  justify-items: center;
-  gap: var(--pdl-space-3);
   padding: var(--pdl-space-10) var(--pdl-space-5);
-  text-align: center;
 }
 
+/* In place of missing content, inside a page or a card. */
+.pdl-empty {
+  min-height: 180px;
+  padding: var(--pdl-space-8) var(--pdl-space-5);
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-surface);
+  background: var(--pdl-surface-1);
+}
+
+:is(.pdl-state-screen, .pdl-empty)[data-state="danger"] { --pdl-state-tone: var(--pdl-danger); }
+
+:is(.pdl-state-screen, .pdl-empty)[data-state="warning"] { --pdl-state-tone: var(--pdl-warning); }
+
+:is(.pdl-state-screen, .pdl-empty)[data-state="success"] { --pdl-state-tone: var(--pdl-success); }
+
+:is(.pdl-state-screen, .pdl-empty)[data-state="info"] { --pdl-state-tone: var(--pdl-accent-strong); }
+
+.pdl-state-screen__icon,
+.pdl-empty__icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  margin-bottom: var(--pdl-space-4);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--pdl-state-tone) 14%, transparent);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--pdl-state-tone) 6%, transparent);
+  color: var(--pdl-state-tone);
+}
+
+.pdl-state-screen__icon svg,
+.pdl-empty__icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* A status code (404, offline): an index, so it is the one eyebrow here. */
 .pdl-state-screen__code {
-  font-family: var(--pdl-font-label);
   color: var(--pdl-text-subtle);
+  font-family: var(--pdl-font-label);
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
   letter-spacing: var(--pdl-letter-label);
   text-transform: uppercase;
 }
 
-.pdl-state-screen__title {
+.pdl-state-screen__title,
+.pdl-empty > strong,
+.pdl-empty__title {
+  max-width: 28ch;
   margin: 0;
-  max-width: 18ch;
   color: var(--pdl-text-1);
   font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-xl);
-  font-weight: var(--pdl-weight-strong);
+  font-size: var(--pdl-text-lg);
+  font-weight: var(--pdl-weight-bold);
   line-height: var(--pdl-line-heading);
-  letter-spacing: -.035em;
+  letter-spacing: -.01em;
 }
 
-.pdl-state-screen__copy {
-  max-width: 52ch;
-  margin: 0;
-  color: var(--pdl-text-muted);
-  font-size: var(--pdl-text-sm);
-  line-height: var(--pdl-line-relaxed);
-}
-
-.pdl-empty {
-  display: grid;
-  min-height: 148px;
-  place-content: center;
-  gap: var(--pdl-space-2);
-  padding: var(--pdl-space-8);
-  border: 1px solid var(--pdl-border-1);
-  border-radius: var(--pdl-radius-surface);
-  background: color-mix(in srgb, var(--pdl-surface-1) 72%, transparent);
-  text-align: start;
-}
-
-.pdl-empty > strong {
-  color: var(--pdl-text-2);
-  font-family: var(--pdl-font-display);
-  font-size: var(--pdl-text-sm);
-  font-weight: var(--pdl-weight-medium);
-}
-
+.pdl-state-screen__copy,
 .pdl-empty > p {
-  max-width: var(--pdl-width-prose);
+  max-width: 44ch;
   margin: 0;
   color: var(--pdl-text-muted);
   font-size: var(--pdl-text-sm);
   line-height: var(--pdl-line-body);
+}
+
+.pdl-state-screen > :is(.pdl-button, .pdl-state-screen__actions),
+.pdl-empty > :is(.pdl-button, .pdl-empty__actions) {
+  margin-top: var(--pdl-space-4);
+}
+
+.pdl-state-screen__actions,
+.pdl-empty__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--pdl-space-2);
+}
+
+/* Composition with a core primitive (the card): an empty or error state
+   in place of a card's content takes the card's frame and fills the rest
+   of it, centred, so cards side by side stay level. */
+.pdl-card > :is(.pdl-empty, .pdl-state-screen) {
+  flex: 1 1 auto;
+  min-height: 0;
+  border: 0;
+  padding: var(--pdl-space-6) 0;
+  background: transparent;
+}
+
+@media (forced-colors: active) {
+
+  .pdl-state-screen__icon,
+  .pdl-empty__icon {
+    border: 1px solid CanvasText;
+    box-shadow: none;
+  }
 }
 
 }

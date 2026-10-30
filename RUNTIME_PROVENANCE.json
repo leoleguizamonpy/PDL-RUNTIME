@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "package": "@leoleguizamon/pdl",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "source": "leoleguizamonpy/PDL",
-  "sourceRevision": "9faa71358a08be5a15a17f99d0352552316be409",
-  "sourceRef": "main",
+  "sourceRevision": "9472be1aa0212fd326c7a574388c598b43740ede",
+  "sourceRef": "master",
   "sourceRefType": "branch",
   "authority": "private-source",
   "distribution": "leoleguizamonpy/PDL-RUNTIME",

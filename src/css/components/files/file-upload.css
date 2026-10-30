@@ -5,36 +5,67 @@
 @layer pdl.components {
 
 .pdl-upload {
+  /* Drop zone and list follow the upload's own width (a page, a card, a
+     side panel), not the screen. */
+  container: pdl-upload / inline-size;
   display: grid;
   gap: var(--pdl-space-4);
 }
 
+/* Drop zone: a soft tinted area with a 1px solid line (no dashes). It
+   takes the brand's soft fill and line when a file is over it, on hover
+   and on focus. */
 .pdl-dropzone {
+  position: relative;
   display: grid;
-  min-height: 150px;
+  min-height: 160px;
   place-content: center;
-  gap: var(--pdl-space-2);
-  border: 1px dashed var(--pdl-border-3);
+  justify-items: center;
+  gap: var(--pdl-space-1);
+  padding: var(--pdl-space-6);
+  border: 1px solid var(--pdl-border-2);
   border-radius: var(--pdl-radius-surface);
-  background: color-mix(in srgb, var(--pdl-surface-1) 70%, transparent);
+  outline: 2px solid transparent;
+  background: var(--pdl-surface-2);
   color: var(--pdl-text-muted);
   cursor: pointer;
   text-align: center;
   transition:
     border-color var(--pdl-motion-short) var(--pdl-ease-standard),
-    background var(--pdl-motion-short) var(--pdl-ease-standard);
+    background var(--pdl-motion-short) var(--pdl-ease-standard),
+    box-shadow var(--pdl-motion-short) var(--pdl-ease-standard);
 }
 
 .pdl-dropzone:hover,
 .pdl-dropzone.is-dragging,
-.pdl-dropzone:focus-within {
-  border-color: var(--pdl-text-muted);
-  background: var(--pdl-surface-1);
+.pdl-dropzone[data-dragging="true"] {
+  border-color: var(--pdl-accent-line);
+  background: var(--pdl-accent-soft);
 }
 
+.pdl-dropzone:focus-visible,
 .pdl-dropzone:has(input:focus-visible) {
-  outline: 2px solid var(--pdl-focus);
-  outline-offset: 3px;
+  border-color: var(--pdl-accent-line);
+  box-shadow: 0 0 0 4px var(--pdl-ring);
+}
+
+/* An optional mark above the title: an upload glyph in a white tile. */
+.pdl-dropzone__icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--pdl-space-2);
+  place-items: center;
+  border: 1px solid var(--pdl-border-1);
+  border-radius: var(--pdl-radius-control);
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
+  color: var(--pdl-text-2);
+}
+
+.pdl-dropzone:is(:hover, .is-dragging, [data-dragging="true"]) .pdl-dropzone__icon {
+  border-color: var(--pdl-accent-line);
+  color: var(--pdl-accent-strong);
 }
 
 .pdl-dropzone input[type="file"] {
@@ -47,11 +78,14 @@
 }
 
 .pdl-dropzone__title {
-  color: var(--pdl-text-2);
-  font-family: var(--pdl-font-display);
+  color: var(--pdl-text-1);
   font-size: var(--pdl-text-sm);
   font-weight: var(--pdl-weight-strong);
   line-height: var(--pdl-line-heading);
+}
+
+.pdl-dropzone:is(:hover, .is-dragging, [data-dragging="true"]) .pdl-dropzone__title {
+  color: var(--pdl-accent-strong);
 }
 
 .pdl-dropzone__meta {
@@ -65,6 +99,8 @@
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   overflow: hidden;
+  background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
 .pdl-file-item {
@@ -72,8 +108,8 @@
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: var(--pdl-space-3);
   align-items: center;
-  min-height: 58px;
-  padding: .75rem var(--pdl-space-4);
+  min-height: 60px;
+  padding: var(--pdl-space-3) var(--pdl-space-3) var(--pdl-space-3) var(--pdl-space-4);
   background: var(--pdl-surface-1);
 }
 
@@ -83,15 +119,14 @@
 
 .pdl-file-item__icon {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   place-items: center;
-  border: 1px solid var(--pdl-border-2);
   border-radius: var(--pdl-radius-control);
-  color: var(--pdl-text-muted);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-accent-strong);
   font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-strong);
-  text-transform: uppercase;
+  font-weight: var(--pdl-weight-bold);
 }
 
 /* A picture in place of the format mark (a gallery's pictures). */
@@ -120,9 +155,9 @@
 }
 
 .pdl-file-item__name {
-  color: var(--pdl-text-2);
-  font-size: var(--pdl-text-xs);
-  font-weight: var(--pdl-weight-medium);
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-sm);
+  font-weight: var(--pdl-weight-strong);
   line-height: var(--pdl-line-compact);
 }
 
@@ -132,18 +167,56 @@
   line-height: 1.45;
 }
 
-@media (max-width: 575.98px) {
+/* A failed upload says so in the state's tint, not only its color. */
+.pdl-file-item[data-state="danger"] .pdl-file-item__icon {
+  background: var(--pdl-danger-bg);
+  box-shadow: inset 0 0 0 1px var(--pdl-danger-line);
+  color: var(--pdl-danger);
+}
+
+.pdl-file-item[data-state="danger"] .pdl-file-item__meta {
+  color: var(--pdl-danger);
+}
+
+.pdl-file-item[data-state="success"] .pdl-file-item__icon {
+  background: var(--pdl-success-bg);
+  box-shadow: inset 0 0 0 1px var(--pdl-success-line);
+  color: var(--pdl-success);
+}
+
+@container pdl-upload (max-width: 30rem) {
 
   .pdl-dropzone {
-    min-height: 120px;
+    min-height: 136px;
+    padding: var(--pdl-space-5) var(--pdl-space-4);
   }
 
-  .pdl-file-item {
+  /* Text actions (Cancel, Retry) go under the name; a single icon button
+     keeps its place at the end. */
+  .pdl-file-item:has(.pdl-file-item__actions .pdl-button) {
     grid-template-columns: auto minmax(0, 1fr);
   }
 
-  .pdl-file-item__actions {
+  .pdl-file-item:has(.pdl-file-item__actions .pdl-button) .pdl-file-item__actions {
     grid-column: 2;
+  }
+}
+
+}
+
+@layer pdl.interaction {
+
+@media (forced-colors: active) {
+
+  .pdl-dropzone:is(:hover, .is-dragging, [data-dragging="true"], :focus-visible) {
+    border-color: Highlight;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pdl-dropzone {
+    transition-duration: .001ms;
   }
 }
 

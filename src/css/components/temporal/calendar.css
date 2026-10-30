@@ -4,9 +4,27 @@
 
 @layer pdl.components {
 
+/* A month as a white card: a weekday band, a grid of days with hairlines,
+   today as an accent-filled circle (aria-current="date"), the chosen day
+   in the accent's soft tint (aria-selected="true") and the events as small
+   tinted chips (data-state for success, warning, danger or info). Days of
+   the neighbouring months take .pdl-calendar__day--outside. */
+
 .pdl-calendar {
+  /* The month follows its own width (a full page, a card, a side panel),
+     not the screen: see the container rules at the end. */
+  container: pdl-calendar / inline-size;
   display: grid;
-  gap: var(--pdl-space-3);
+  gap: var(--pdl-space-4);
+  min-width: 0;
+}
+
+/* In a flush card the card is the frame: the month runs edge to edge
+   under the card's head band. */
+.pdl-card--flush > .pdl-calendar .pdl-calendar__grid {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .pdl-calendar__toolbar {
@@ -15,6 +33,9 @@
   justify-content: space-between;
   gap: var(--pdl-space-3);
   flex-wrap: wrap;
+  color: var(--pdl-text-1);
+  font-size: var(--pdl-text-md);
+  font-weight: var(--pdl-weight-bold);
 }
 
 .pdl-calendar__grid {
@@ -24,55 +45,188 @@
   border: 1px solid var(--pdl-border-1);
   border-radius: var(--pdl-radius-surface);
   background: var(--pdl-surface-1);
+  box-shadow: var(--pdl-shadow-xs);
 }
 
 .pdl-calendar__weekday {
-  padding: var(--pdl-space-2) var(--pdl-space-3);
+  padding: var(--pdl-space-3);
   border-bottom: 1px solid var(--pdl-border-1);
+  background: var(--pdl-surface-2);
   color: var(--pdl-text-subtle);
   font-size: var(--pdl-text-xs);
   font-weight: var(--pdl-weight-strong);
-  text-align: center;
+  text-align: start;
 }
 
 .pdl-calendar__day {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--pdl-space-1);
+  min-width: 0;
   min-height: 112px;
   padding: var(--pdl-space-2);
   border-inline-end: 1px solid var(--pdl-border-1);
   border-bottom: 1px solid var(--pdl-border-1);
   background: transparent;
+  color: var(--pdl-text-2);
 }
 
 .pdl-calendar__day:nth-child(7n) { border-inline-end: 0; }
 
-.pdl-calendar__date {
+/* The last week has no rule under it: the frame closes the grid. */
+.pdl-calendar__day:nth-last-child(-n + 7) { border-bottom: 0; }
+
+.pdl-calendar__day--outside {
+  background: var(--pdl-surface-2);
+}
+
+.pdl-calendar__day--outside .pdl-calendar__date {
   color: var(--pdl-text-subtle);
+}
+
+.pdl-calendar__date {
+  display: inline-grid;
+  width: 28px; /* geometry */
+  height: 28px; /* geometry */
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--pdl-text-2);
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
   font-variant-numeric: tabular-nums;
 }
 
-.pdl-calendar__event {
-  display: block;
-  margin-top: var(--pdl-space-1);
-  overflow: hidden;
-  border-inline-start: 2px solid var(--pdl-text-muted);
-  border-radius: 2px;
-  padding: var(--pdl-space-1) var(--pdl-space-2);
+.pdl-calendar__day:is([aria-selected="true"], .pdl-calendar__day--selected) {
+  background: var(--pdl-accent-soft);
+}
+
+.pdl-calendar__day:is([aria-selected="true"], .pdl-calendar__day--selected) .pdl-calendar__date {
+  color: var(--pdl-accent-strong);
+}
+
+.pdl-calendar__day:is([aria-current="date"], .pdl-calendar__day--today) .pdl-calendar__date {
+  background: var(--pdl-accent);
+  color: var(--pdl-on-accent);
+  font-weight: var(--pdl-weight-bold);
+}
+
+/* Days that are buttons or links: a soft hover and the focus ring. */
+:is(a, button).pdl-calendar__day {
+  border-top: 0;
+  border-inline-start: 0;
+  font: inherit;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+:is(a, button).pdl-calendar__day:hover:not([aria-selected="true"]) {
   background: var(--pdl-surface-2);
-  color: var(--pdl-text-2);
+}
+
+:is(a, button).pdl-calendar__day:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--pdl-accent);
+}
+
+.pdl-calendar__event {
+  --pdl-calendar-event-ink: var(--pdl-accent-strong);
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--pdl-accent-line);
+  border-radius: 6px; /* geometry */
+  padding: 2px var(--pdl-space-2);
+  background: var(--pdl-accent-soft);
+  color: var(--pdl-calendar-event-ink);
   font-size: var(--pdl-text-xs);
+  font-weight: var(--pdl-weight-strong);
+  line-height: var(--pdl-line-data);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-@media (max-width: 767.98px) {
+.pdl-calendar__event[data-state="success"] {
+  --pdl-calendar-event-ink: var(--pdl-success);
+  border-color: var(--pdl-success-line);
+  background: var(--pdl-success-bg);
+}
 
-  .pdl-calendar__grid {
-    min-width: 720px;
+.pdl-calendar__event[data-state="warning"] {
+  --pdl-calendar-event-ink: var(--pdl-warning);
+  border-color: var(--pdl-warning-line);
+  background: var(--pdl-warning-bg);
+}
+
+.pdl-calendar__event[data-state="danger"] {
+  --pdl-calendar-event-ink: var(--pdl-danger);
+  border-color: var(--pdl-danger-line);
+  background: var(--pdl-danger-bg);
+}
+
+.pdl-calendar__event[data-state="info"] {
+  --pdl-calendar-event-ink: var(--pdl-info);
+  border-color: var(--pdl-info-line);
+  background: var(--pdl-info-bg);
+}
+
+/* A medium month (a tablet, half a page): shorter days, the chips stay. */
+@container pdl-calendar (max-width: 48rem) {
+
+  .pdl-calendar__day {
+    min-height: 88px;
   }
 
-  .pdl-calendar {
-    overflow-x: auto;
+  .pdl-calendar__event {
+    padding-inline: var(--pdl-space-1);
+  }
+}
+
+/* A narrow month (a phone, a side panel) fits its frame: shorter days, the
+   number centred and each event as a dot in its color (the label stays for
+   assistive technology). */
+@container pdl-calendar (max-width: 34rem) {
+
+  .pdl-calendar__weekday {
+    padding: var(--pdl-space-2) var(--pdl-space-1);
+    text-align: center;
+  }
+
+  .pdl-calendar__day {
+    align-items: center;
+    gap: 3px; /* geometry */
+    min-height: 56px;
+    padding: var(--pdl-space-1);
+  }
+
+  .pdl-calendar__event,
+  .pdl-calendar__event[data-state] {
+    width: 6px; /* geometry */
+    height: 6px; /* geometry */
+    flex: none;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--pdl-calendar-event-ink);
+    text-indent: 100%;
+  }
+}
+
+@media (forced-colors: active) {
+
+  .pdl-calendar__day:is([aria-current="date"], .pdl-calendar__day--today) .pdl-calendar__date {
+    outline: 2px solid CanvasText;
+  }
+
+  .pdl-calendar__day:is([aria-selected="true"], .pdl-calendar__day--selected) {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .pdl-calendar__event {
+    border: 1px solid CanvasText;
   }
 }
 
