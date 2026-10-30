@@ -21,8 +21,8 @@ This repository is generated from an explicit allowlist. It is not a mirror of t
 
 - Runtime version: `2.0.0-alpha.3`
 - Source repository: `leoleguizamonpy/PDL`
-- Source revision: `9472be1aa0212fd326c7a574388c598b43740ede`
-- Distribution revision: `2dcaeceb5fe776797201deb47a92c47d276a6923`
+- Source revision: `9b92acc15cda1eb29fd1e36866bca365cf67b70b`
+- Distribution revision: `5e512e109d8953c91856e980ffeda89a98bc8b54`
 - Export policy: allowlist
 
 The machine-readable authority remains `RUNTIME_PROVENANCE.json`.
